@@ -17,7 +17,7 @@ For migration and upgrade docs, use this structure: state when the guide applies
 A bullet list of outcomes, not topics. Each bullet starts with an action verb: Choose, Make, Set up, Prevent, Debug, Configure. Bullets must map to content that exists in the doc. Do not use noun phrases such as "SSR vs CSR" or "SDK behavior."
 
 **Quick Decision Guide**
-A table that appears before Prerequisites so developers orient themselves before reading requirements. Minimum columns: Approach, Key configuration value, Reason. Recommended addition: Framework examples column mapping each approach to known kickstarters or framework patterns. Use this section whenever the doc covers two or more paths that require different setup.
+A table that appears before Prerequisites so developers orient themselves before reading requirements. Minimum columns: Approach, Key configuration value, Reason. Recommended addition: Framework examples column mapping each approach to known kickstarters or framework patterns. Use this section whenever the doc covers two or more paths that require different setup. When the doc has a dedicated section for an approach, link that approach's name to the section's anchor, the same way a Quick Reference table links to its sections (see C2).
 
 **Quick Reference**
 A navigation table with three columns: Use Case, Section, and Key Call. Each row maps one developer intent to the section that addresses it and the primary API call involved. The Section column links to the corresponding section using the relative doc URL and section anchor. Place Quick Reference directly after the Overview with a one-line lead-in sentence. Use Quick Reference instead of What You'll Learn when the doc has many distinct sections and developers are likely to arrive with a specific task rather than reading top to bottom. Do not use both sections in the same doc. See C6 for the completeness requirement that governs which sections a Quick Reference table must cover.
@@ -128,6 +128,12 @@ Every rule follows this format:
 
 ---
 
+**Rule:** When a Main Content subsection walks the reader through a UI-driven procedure, write it as a numbered list of literal actions in imperative voice (Click X, Select Y), not as narrative prose describing the flow.
+**Why:** Narrative prose forces the reader to extract the actual click-by-click sequence themselves. A numbered list of actions can be followed one step at a time without re-reading the paragraph.
+**Exception:** A single-action step can stay as one sentence rather than a one-item numbered list, if introducing a list around it would be more overhead than the content warrants.
+
+---
+
 **Rule:** Prerequisites must link to the resource that fulfills each requirement.
 **Why:** A prerequisite that names a dependency without linking to it forces the developer to search before they can start.
 **Exception:** Prerequisites that are environment facts ("you have Node installed") do not require links.
@@ -184,6 +190,12 @@ Every rule follows this format:
 
 ---
 
+**Rule:** When a Quick Decision Guide's Approach corresponds to a dedicated section in the doc, link the Approach name to that section's anchor.
+**Why:** The same reasoning as Quick Reference applies. A developer who has just decided which approach fits them should not have to scroll to find where that approach is documented.
+**Exception:** If no dedicated section exists yet for that approach (the doc only distinguishes the paths inside a single Main Content section), a plain-text Approach name is acceptable.
+
+---
+
 **Rule:** Callouts (ATTENTION, Required, Note) are reserved for high-stakes warnings, content that causes data loss, broken preview, or security issues if ignored. Do not use callouts for general information.
 **Why:** Overused callouts lose their signal value. When everything is a callout, nothing is.
 **Exception:** A single informational Note callout per section is acceptable if the information would otherwise be missed in a long prose block. In migration guides, a Note callout is also acceptable in the Overview when a single change requires significantly more effort than all others and that effort gap affects planning.
@@ -196,7 +208,25 @@ Every rule follows this format:
 
 ---
 
+**Rule:** Use exactly one blank line between blocks (paragraphs, headings, list items, tables). Never use two or more consecutive blank lines.
+**Why:** Inconsistent blank-line counts are a visible formatting defect in rendered markdown and signal an unreviewed or partially-edited doc.
+**Exception:** None.
+
+---
+
+**Rule:** An internal note meant for reviewers, not readers (a fact that needs verification before publishing, an open question) is written as an HTML comment (`<!-- TODO(verify): ... -->`), never as visible text. Place it after a list block, not between two items of the same list.
+**Why:** HTML comments are stripped by markdown renderers, so the note stays out of the published page while remaining visible to anyone editing the source. A comment placed between list items risks breaking numbered-list continuity in stricter parsers.
+**Exception:** None.
+
+---
+
 ### C3: Language and Tone
+
+**Rule:** The banned words and phrases listed throughout C3 and C8 are representative examples, not an exhaustive list. Apply the underlying principle (no casual, conversational, or unmeasurable marketing language) to any word or phrase that fits the pattern, even if it is not explicitly named here.
+**Why:** A review that only checks the literal listed words passes casual or marketing language written with a different word for the same effect (for example "by hand" instead of "just", or a slightly too-familiar verb choice like "discovers" where "identifies" reads more precisely).
+**Exception:** None.
+
+---
 
 **Rule:** No casual language in prose. Remove phrases such as "right away", "on its own", "you'll find", "pretty straightforward", "just".
 **Why:** Casual language is inconsistent with professional documentation standards and undermines credibility.
@@ -234,8 +264,14 @@ Every rule follows this format:
 
 ---
 
-**Rule:** Define each key term once at first use using the full form ("server-side rendering (SSR)"). Use the abbreviation consistently thereafter.
-**Why:** Inconsistent terminology forces the reader to re-map terms mentally throughout the doc. AI retrieval agents may treat the same concept as two different entities.
+**Rule:** Do not use the arrow character (→) to represent a UI navigation path such as a menu or settings path. Use `>` instead (for example `Settings > Connectors > Add custom connector`).
+**Why:** The arrow character is a non-ASCII symbol that renders inconsistently across fonts, terminals, and copy-paste targets. `>` conveys the same navigation-path convention without the encoding risk.
+**Exception:** None.
+
+---
+
+**Rule:** Define each key term once at first use using the full form ("server-side rendering (SSR)"). Use the abbreviation consistently thereafter. This applies beyond acronyms: pick one term for a single concept (for example "predefined profile," not alternating with "ready-made profile") and use that same term every time the concept recurs.
+**Why:** Inconsistent terminology forces the reader to re-map terms mentally throughout the doc, and makes them wonder whether two different words mean two different things. AI retrieval agents may treat the same concept as two different entities.
 **Exception:** If the doc is very long and sections are intended to be read independently, redefine the term once per major section.
 
 ---
@@ -269,6 +305,12 @@ Every rule follows this format:
 **Rule:** State the consequence before the implementation rule. ("Without X, Y breaks" before "Pass X as Z".)
 **Why:** A developer who understands what breaks can diagnose failures. A developer who only knows the rule cannot.
 **Exception:** When the consequence is obvious from context ("omitting the API key will prevent authentication"), a brief rule-first statement is acceptable.
+
+---
+
+**Rule:** Every fenced code block in Main Content is preceded by an explicit instruction stating what to do with it (for example "Add this block to `config.json`:"), not just prose that mentions the target file or tool without an imperative lead-in.
+**Why:** A code block that appears after only descriptive prose leaves the reader to infer whether to run it, paste it, or just read it for reference.
+**Exception:** None.
 
 ---
 
@@ -354,6 +396,12 @@ Every rule follows this format:
 
 ---
 
+**Rule:** Do not use a doc-standards section-type name (Theory Sections, Main Content, Quick Decision Guide) verbatim as a published heading. These are authoring categories, not reader-facing topics. Rename the heading to describe the section's actual subject matter.
+**Why:** A reader has no context for what a heading like "Theory Sections" means. It describes the section's role in the authoring template, not what the section is actually about.
+**Exception:** None.
+
+---
+
 **Rule:** Items grouped in the same section must belong to the same category of thing.
 **Why:** A developer scanning a section assumes its items are equivalent. Grouping unlike items (installation methods with rendering strategies) creates false equivalence and cognitive confusion.
 **Exception:** None. Unlike items belong in their own sections, with orientation text explaining why they are separate.
@@ -391,6 +439,12 @@ Every rule follows this format:
 ---
 
 ### C7: Duplication
+
+**Rule:** Two adjacent sentences within the same section must not restate the same fact in different words. State the fact once. If a following sentence adds a caveat or consequence, it should add only that, not repeat the first sentence's claim.
+**Why:** Restating the same point back to back reads as padding, slows the reader down, and adds no information.
+**Exception:** None.
+
+---
 
 **Rule:** When two sections are near-identical, the second section references the first and adds only what is genuinely different.
 **Why:** Verbatim duplication creates maintenance debt. When one section changes, the other becomes stale silently and the developer receives contradictory information.
@@ -529,3 +583,33 @@ These rules apply to any API backed by shared state, network I/O, or a versioned
 **Rule:** A Theory or Advanced section documents observable behavior and the public API, not private symbols. Any internal name that must remain in the section carries a scoped disclaimer stating it is an implementation detail, subject to change, and not part of the public API contract, while naming the supported public API alongside it.
 **Why:** Readers treat anything in the doc as supported unless told otherwise. An unscoped disclaimer either warns readers off genuinely public APIs or fails to warn them off internal ones.
 **Exception:** Dedicated internals or contributor-reference docs.
+
+---
+
+### C10: Screenshots and Visual Assets
+
+These rules apply to any doc that includes screenshots, diagrams, or other images.
+
+---
+
+**Rule:** Store screenshot and diagram files in an `assets/` folder alongside the doc, named in descriptive kebab-case (for example `browse-tools-panel.png`), not the source tool's default filename (`Screenshot 2026-01-01.png`, `1.png`).
+**Why:** Descriptive names make an asset's purpose clear from a file listing alone and prevent silent collisions when multiple screenshots land in the same folder with generic names.
+**Exception:** None.
+
+---
+
+**Rule:** Alt text describes what the image actually shows (the specific UI elements, labels, and states visible), not the file name and not a bare restatement of the surrounding prose.
+**Why:** Alt text is the only description available to screen readers and to any system that cannot render the image. Generic alt text ("screenshot of the app") gives no information.
+**Exception:** None.
+
+---
+
+**Rule:** An unresolved screenshot is marked with a plain-text `TODO(screenshot): <name>. It should show <specific elements>.` line, not an admonition callout.
+**Why:** This keeps the placeholder visible to writers scanning the raw markdown while avoiding the callout-overuse problem covered in C2. A missing screenshot is a production gap for the writer, not a reader-facing warning.
+**Exception:** None.
+
+---
+
+**Rule:** Once a screenshot is inserted, re-check that surrounding prose claims match what the image actually shows. If prose says a state is expandable or visible, the image must show that state, not a collapsed or different one.
+**Why:** A screenshot that does not match its caption teaches the reader the wrong thing to expect and undermines trust in every other image in the doc.
+**Exception:** None.
