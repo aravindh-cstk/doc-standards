@@ -1,0 +1,11 @@
+{
+  "ruleId": "C3-01",
+  "category": "casual",
+  "phrases": [
+    { "phrase": "right away", "fix": "state the actual timing or drop the phrase" },
+    { "phrase": "on its own", "fix": "state what actually happens automatically, or drop the phrase" },
+    { "phrase": "you'll find", "fix": "state the fact directly" },
+    { "phrase": "pretty straightforward", "fix": "drop the qualifier and state the steps" },
+    { "phrase": "just", "fix": "drop the minimizer" }
+  ]
+}

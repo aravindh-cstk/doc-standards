@@ -1,0 +1,139 @@
+{
+  "docTypes": [
+    "Get Started Guide",
+    "Conceptual Guide",
+    "Feature Doc",
+    "How-To Guide",
+    "Setup Guide",
+    "Kickstarter",
+    "Migration Guide"
+  ],
+  "matrix": {
+    "SEO front matter": {
+      "Get Started Guide": "Required",
+      "Conceptual Guide": "Required",
+      "Feature Doc": "Required",
+      "How-To Guide": "Required",
+      "Setup Guide": "Required",
+      "Kickstarter": "Required",
+      "Migration Guide": "Required (include version field)"
+    },
+    "Overview": {
+      "Get Started Guide": "Required (2-3 sentences only)",
+      "Conceptual Guide": "Required",
+      "Feature Doc": "Required",
+      "How-To Guide": "Required",
+      "Setup Guide": "Required",
+      "Kickstarter": "Required",
+      "Migration Guide": "Required (use migration pattern)"
+    },
+    "Role-Based Routing Table": {
+      "Get Started Guide": "Required",
+      "Conceptual Guide": "Not used",
+      "Feature Doc": "Not used",
+      "How-To Guide": "Not used",
+      "Setup Guide": "Not used",
+      "Kickstarter": "Not used",
+      "Migration Guide": "Not used"
+    },
+    "Quick Decision Guide": {
+      "Get Started Guide": "Not used",
+      "Conceptual Guide": "If multiple paths",
+      "Feature Doc": "If multiple approaches",
+      "How-To Guide": "Rarely",
+      "Setup Guide": "If multiple environments",
+      "Kickstarter": "Rarely",
+      "Migration Guide": "If multiple migration paths exist"
+    },
+    "Prerequisites": {
+      "Get Started Guide": "Required (Quick Start path only)",
+      "Conceptual Guide": "If setup involved",
+      "Feature Doc": "If setup involved",
+      "How-To Guide": "Required",
+      "Setup Guide": "Required",
+      "Kickstarter": "Required",
+      "Migration Guide": "Required"
+    },
+    "Quick Start": {
+      "Get Started Guide": "Required",
+      "Conceptual Guide": "Not used",
+      "Feature Doc": "Not used",
+      "How-To Guide": "Not used",
+      "Setup Guide": "Not used",
+      "Kickstarter": "Not used",
+      "Migration Guide": "Not used"
+    },
+    "Documentation Map": {
+      "Get Started Guide": "Required",
+      "Conceptual Guide": "Not used",
+      "Feature Doc": "Not used",
+      "How-To Guide": "Not used",
+      "Setup Guide": "Not used",
+      "Kickstarter": "Not used",
+      "Migration Guide": "Not used"
+    },
+    "Type Mapping Reference": {
+      "Get Started Guide": "Not used",
+      "Conceptual Guide": "Not used",
+      "Feature Doc": "Not used",
+      "How-To Guide": "Not used",
+      "Setup Guide": "Not used",
+      "Kickstarter": "Not used",
+      "Migration Guide": "Required if API surface changes"
+    },
+    "Main Content": {
+      "Get Started Guide": "Not used",
+      "Conceptual Guide": "Required",
+      "Feature Doc": "Required",
+      "How-To Guide": "Required",
+      "Setup Guide": "Required",
+      "Kickstarter": "Required",
+      "Migration Guide": "Required (Before/After per subsection)"
+    },
+    "Theory Sections": {
+      "Get Started Guide": "Not used",
+      "Conceptual Guide": "Common",
+      "Feature Doc": "Common",
+      "How-To Guide": "Rare",
+      "Setup Guide": "Rare",
+      "Kickstarter": "Not used",
+      "Migration Guide": "Not used"
+    },
+    "Gradual Migration": {
+      "Get Started Guide": "Not used",
+      "Conceptual Guide": "Not used",
+      "Feature Doc": "Not used",
+      "How-To Guide": "Not used",
+      "Setup Guide": "Not used",
+      "Kickstarter": "Not used",
+      "Migration Guide": "Required if partial path exists"
+    },
+    "Troubleshooting": {
+      "Get Started Guide": "Not used",
+      "Conceptual Guide": "Recommended",
+      "Feature Doc": "Required",
+      "How-To Guide": "Optional",
+      "Setup Guide": "Required",
+      "Kickstarter": "Optional",
+      "Migration Guide": "Required"
+    },
+    "Pre-Upgrade Checklist": {
+      "Get Started Guide": "Not used",
+      "Conceptual Guide": "Not used",
+      "Feature Doc": "Not used",
+      "How-To Guide": "Not used",
+      "Setup Guide": "Not used",
+      "Kickstarter": "Not used",
+      "Migration Guide": "Required"
+    },
+    "Next Steps": {
+      "Get Started Guide": "Required",
+      "Conceptual Guide": "Required",
+      "Feature Doc": "Required",
+      "How-To Guide": "Required",
+      "Setup Guide": "Required",
+      "Kickstarter": "Required",
+      "Migration Guide": "Required"
+    }
+  }
+}

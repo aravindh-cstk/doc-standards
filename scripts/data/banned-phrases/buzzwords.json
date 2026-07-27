@@ -1,0 +1,18 @@
+{
+  "ruleId": "C8-06",
+  "category": "buzzwords",
+  "phrases": [
+    { "phrase": "guardrails", "fix": "name the specific restriction (\"the skill refuses to print tokens\", \"the agent asks for confirmation before any DELETE\")" },
+    { "phrase": "agentic", "fix": "\"running as an agent\" or describe the actual behavior" },
+    { "phrase": "mental model", "fix": "\"how X works\" or \"the concepts behind X\"" },
+    { "phrase": "single source of truth", "fix": "\"the canonical file is X\" or \"edited in one place\"" },
+    { "phrase": "opinionated", "fix": "state the actual default choices" },
+    { "phrase": "zero-downtime", "fix": "describe the mechanism (\"aliases switch with no request interruption\")" },
+    { "phrase": "re-platform", "fix": "\"migrate\", \"move\", or \"switch\"" },
+    { "phrase": "golden path", "fix": "\"the recommended approach\" or describe the specific steps" },
+    { "phrase": "leverage", "fix": "\"use\", \"call\", or \"apply\"" },
+    { "phrase": "onboarding", "fix": "\"setup\", \"first install\", or describe the specific step" },
+    { "phrase": "paradigm", "fix": "name the specific concept" },
+    { "phrase": "end-to-end", "fix": "drop it as filler, or name both ends explicitly (\"from content migration to code rewrite\")" }
+  ]
+}

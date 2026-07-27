@@ -1,0 +1,11 @@
+{
+  "ruleId": "C8-02",
+  "category": "benefit-promises",
+  "phrases": [
+    { "phrase": "saves you time", "fix": "state the measured time difference, or drop the claim" },
+    { "phrase": "eliminates complexity", "fix": "state what specifically is no longer required" },
+    { "phrase": "just works", "fix": "state the actual default behavior" },
+    { "phrase": "in under 5 minutes", "fix": "verify and use the measured time, or drop the claim" },
+    { "phrase": "in minutes", "fix": "verify and use the measured time, or drop the claim" }
+  ]
+}

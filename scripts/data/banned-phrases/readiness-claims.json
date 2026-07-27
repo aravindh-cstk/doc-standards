@@ -1,0 +1,10 @@
+{
+  "ruleId": "C8-04",
+  "category": "readiness-claims",
+  "phrases": [
+    { "phrase": "production-ready", "fix": "state the concrete constraint or behavior (\"enforced by CI\", \"requires explicit confirmation before any destructive operation\")" },
+    { "phrase": "enterprise-grade", "fix": "state the concrete constraint or behavior" },
+    { "phrase": "battle-tested", "fix": "state the concrete constraint or behavior" },
+    { "phrase": "proven", "fix": "state the concrete constraint or behavior" }
+  ]
+}

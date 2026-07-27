@@ -1,0 +1,17 @@
+{
+  "ruleIds": ["C3-06", "C8-07", "B1-06"],
+  "acronyms": [
+    { "acronym": "CDA", "expansion": "Content Delivery API" },
+    { "acronym": "CMA", "expansion": "Content Management API" },
+    { "acronym": "HMAC", "expansion": "Hash-based Message Authentication Code" },
+    { "acronym": "OAuth", "expansion": "Open Authorization" },
+    { "acronym": "SSR", "expansion": "server-side rendering" },
+    { "acronym": "SSG", "expansion": "static site generation" },
+    { "acronym": "CSR", "expansion": "client-side rendering" },
+    { "acronym": "BFF", "expansion": "backend for frontend" },
+    { "acronym": "CDN", "expansion": "content delivery network" },
+    { "acronym": "CI", "expansion": "continuous integration" },
+    { "acronym": "CD", "expansion": "continuous delivery" },
+    { "acronym": "SSO", "expansion": "single sign-on" }
+  ]
+}

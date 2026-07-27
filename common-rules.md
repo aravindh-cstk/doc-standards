@@ -9,23 +9,22 @@ These rules apply to every doc type: conceptual guides, feature docs, how-to gui
 These definitions apply to every doc type. Per-type files specify which sections are required or optional for that type.
 
 **Overview**
-One to three sentences. Lead with the problem or limitation that brings the developer to this page, what breaks, what they cannot do, or what they are trying to avoid. Then state what the feature enables. Do not open with the API name or SDK class. Avoid guide-centric phrasing such as "this guide walks you through" or "this guide covers." Do not repeat the page title verbatim. Do not include setup steps, prerequisites, or background history.
+One to three sentences. State what the developer achieves or gains, not what the guide does. Avoid guide-centric phrasing such as "this guide walks you through" or "this guide covers." Do not repeat the page title verbatim. Do not include setup steps, prerequisites, or background history.
 
 For migration and upgrade docs, use this structure: state when the guide applies, explain what the change breaks, then state what the reader gets. Pattern: "Use this guide when you upgrade [product] from [version] to [version]. The new version [what changes], breaking [what breaks]. This guide shows [what the reader gains]."
 
-**What You'll Learn**
-A bullet list of outcomes, not topics. Each bullet starts with an action verb: Choose, Make, Set up, Prevent, Debug, Configure. Bullets must map to content that exists in the doc. Do not use noun phrases such as "SSR vs CSR" or "SDK behavior."
-
 **Quick Decision Guide**
-A table that appears before Prerequisites so developers orient themselves before reading requirements. Minimum columns: Approach, Key configuration value, Reason. Recommended addition: Framework examples column mapping each approach to known kickstarters or framework patterns. Use this section whenever the doc covers two or more paths that require different setup. When the doc has a dedicated section for an approach, link that approach's name to the section's anchor, the same way a Quick Reference table links to its sections (see C2).
+A table that appears before Prerequisites so developers orient themselves before reading requirements. Minimum columns: Approach, Key configuration value, Reason. Recommended addition: Framework examples column mapping each approach to known kickstarters or framework patterns. Use this section whenever the doc covers two or more paths that require different setup.
 
 **Quick Reference**
-A navigation table with three columns: Use Case, Section, and Key Call. Each row maps one developer intent to the section that addresses it and the primary API call involved. The Section column links to the corresponding section using the relative doc URL and section anchor. Place Quick Reference directly after the Overview with a one-line lead-in sentence. Use Quick Reference instead of What You'll Learn when the doc has many distinct sections and developers are likely to arrive with a specific task rather than reading top to bottom. Do not use both sections in the same doc. See C6 for the completeness requirement that governs which sections a Quick Reference table must cover.
+A navigation table with three columns: Use Case, Section, and Key Call. Each row maps one developer intent to the section that addresses it and the primary API call involved. The Section column links to the corresponding section using the relative doc URL and section anchor. Place Quick Reference directly after the Overview with a one-line lead-in sentence. Use whenever the doc has many distinct sections and developers are likely to arrive with a specific task rather than reading top to bottom.
 
 **Prerequisites**
-Two subsections:
-- **Mandatory:** Items that must be true before the developer can start. Each item links to the resource that fulfills it.
-- **Optional:** Items that improve the experience or unlock additional capability but do not block the core task.
+A list of items that must be true before the developer can start. Each item links to the resource that fulfills it.
+
+Split into two labeled subsections, **Mandatory** and **Optional**, only when the doc actually has items that improve the experience or unlock additional capability without blocking the core task. If there are no such items, do not add an Optional subsection, and do not add a Mandatory heading either. A single flat list is correct when everything in it is required.
+
+Region or locale configuration that is required for some but not all users (for example, non-North-America stacks) is Mandatory, conditionally stated, not Optional. Optional is reserved for items that do not block the core task for any user.
 
 Do not restate mandatory prerequisites elsewhere in the doc. One canonical location per fact.
 
@@ -36,7 +35,10 @@ The primary working section. Contains setup steps, code examples, and configurat
 Sections that explain how something works internally (data flows, event protocols, hash mechanics, SDK internals). These come after the developer has a working setup. They are optional but valuable for debugging and deep understanding.
 
 **Troubleshooting**
-Each entry requires three elements: a symptom (what the developer sees), a root cause (why it happens), and a resolution (what to do). Symptom-only entries are not complete. Each troubleshooting entry should be independently understandable without reading sibling entries.
+Each entry requires three elements: a symptom (what the developer sees), a root cause (why it happens), and a resolution (what to do). Symptom-only entries are not complete. Each troubleshooting entry should be independently understandable without reading sibling entries. Format each entry as the symptom stated as the heading, followed by a bolded `**Root Cause(s)**` label and a bolded `**Resolution**` label, in that order. Write `**Root Cause(s)**` as a single sentence when there is one cause, or as a bullet list when there are several genuinely distinct causes. Write `**Resolution**` as a single sentence or step when there is one fix, or as a numbered list when the fix involves multiple steps.
+
+**Limitations**
+An optional section, placed after Troubleshooting and before Next Steps, listing what the tool does not detect, cover, or restore. Applies to any doc describing a scanning, validation, or detection tool. Omit if the tool has no known coverage gaps.
 
 **Next Steps**
 A bullet list of links to related docs. Each link must include a one-sentence description of what the linked doc covers and why the developer might need it. No bare links.
@@ -53,19 +55,17 @@ An ordered list placed immediately before Next Steps. Each item is a discrete, a
 
 Work through these in order. Stop at the first "No" and fix it before continuing. Each item is a yes-or-no test.
 
-1. **Section order**. Does the doc lead with setup or action before theory? (Do first, understand second)
-2. **Heading accuracy**. Does each heading name accurately describe what the section contains, not what it aspires to contain?
-3. **What You'll Learn**. Are bullets outcome-focused (verbs), not topic-focused (nouns)?
-4. **Cognitive grouping**. Are all items in each section genuinely the same type of thing? (Installation methods are not rendering approaches, and navigation hubs are not technical references)
-5. **Consequence before implementation**. Does every "you must do X" instruction explain what breaks without X before stating the rule?
-6. **Scannability**. Is any prose block that could be a table or bullet list already a table or bullet list?
-7. **Terminology consistency**. Is each key term defined once on first use and abbreviated consistently thereafter?
-8. **Code vs prose**. Are implementation guards, conditional flags, and required configuration values shown as code rather than described in sentences?
-9. **Cross-references**. Has every outbound callout (Additional Resource, See also, Note) been classified as required (inline summary), optional (end of section or Next Steps), or redundant (remove)?
-10. **Duplication**. If two sections are near-identical, does the second reference the first rather than repeating it?
-11. **Tone**. Is there any casual language, Q&A-style headers, or marketing phrasing?
-12. **Consequence coverage**. Does the reader know what happens if they skip or misapply each required step?
-13. **Repeated in-doc links**. Does any single in-doc section anchor get linked more than once across the doc? Count the occurrences of each anchor and collapse duplicates to the one load-bearing occurrence.
+1. **Section order**: Does the doc lead with setup or action before theory? (Do first, understand second)
+2. **Heading accuracy**: Does each heading name accurately describe what the section contains, not what it aspires to contain?
+3. **Cognitive grouping**: Are all items in each section genuinely the same type of thing? (Installation methods are not rendering approaches. Navigation hubs are not technical references.)
+4. **Consequence before implementation**: Does every "you must do X" instruction explain what breaks without X before stating the rule?
+5. **Scannability**: Is any prose block that could be a table or bullet list already a table or bullet list?
+6. **Terminology consistency**: Is each key term defined once on first use and abbreviated consistently thereafter?
+7. **Code vs prose**: Are implementation guards, conditional flags, and required configuration values shown as code rather than described in sentences?
+8. **Cross-references**: Has every outbound callout (Additional Resource, See also, Note) been classified as required (inline summary), optional (end of section or Next Steps), or redundant (remove)?
+9. **Duplication**: If two sections are near-identical, does the second reference the first rather than repeating it?
+10. **Tone**: Is there any casual language, Q&A-style headers, or marketing phrasing?
+11. **Consequence coverage**: Does the reader know what happens if they skip or misapply each required step?
 
 ---
 
@@ -73,11 +73,10 @@ Work through these in order. Stop at the first "No" and fix it before continuing
 
 | Anti-Pattern | Why It Fails | Fix |
 |---|---|---|
-| Understand first, do second (Understand, Understand, Do) | Developer cannot act until they have read everything. Creates drop-off before the setup section. | Move setup and action first. Theory comes after a working setup exists. |
+| Understand first, do second (Understand → Understand → Do) | Developer cannot act until they have read everything. Creates drop-off before the setup section. | Move setup and action first. Theory comes after a working setup exists. |
 | Aspirational heading that does not match content ("Minimal Setup" containing full setup) | Developer expects one thing and finds another. Erodes trust in the doc. | Name the section by what it actually contains, not what you wish it contained. |
 | Implementation rule stated before the consequence ("Pass X as Y, not Z, because...") | Developer follows the rule without understanding why. Cannot diagnose failures. | State what breaks first, then state the rule. |
-| Topic-focused What You'll Learn bullets ("SSR vs CSR", "Hash behavior") | Developer cannot predict whether the doc solves their problem. | Rewrite with outcome verbs: Choose, Make, Prevent, Debug. |
-| Outbound callout mid-flow ("Additional Resource: see X for details") | Interrupts reading. AI retrieval agents split context across doc boundaries unnecessarily. | Classify: required content gets an inline summary, optional content moves to the end or Next Steps, and redundant content is removed. |
+| Outbound callout mid-flow ("Additional Resource: see X for details") | Interrupts reading. AI retrieval agents split context across doc boundaries unnecessarily. | Classify: required content gets an inline summary. Optional content moves to the end or Next Steps. Redundant content is removed. |
 | Unlike things grouped as peers (CDN listed alongside SSR, CSR, SSG) | Creates false equivalence. Developer assumes CDN is a rendering strategy. | Move the unlike item to its own section. Add one sentence orienting the developer to why it is separate. |
 | Near-identical sections with full content duplication | Maintenance debt. When one section changes, the other becomes stale silently. | The second section references the first. It adds only what is genuinely different. |
 | Prose for implementation guards or conditions | Developer may miss a critical condition buried in a sentence. | Show the condition as code. |
@@ -86,19 +85,19 @@ Work through these in order. Stop at the first "No" and fix it before continuing
 
 ---
 
-## Part C. Rules Reference
+## Part C: Rules Reference
 
 Every rule follows this format:
 
 > **Rule:** The rule, stated in one sentence.
-> **Why:** The rationale, what breaks without it, or what it enables.
+> **Why:** The rationale (what breaks without it, or what it enables).
 > **Exception:** When the rule does not apply.
 
 ---
 
 ### C1: Structure and Flow
 
-**Rule:** Order sections as Do, then Understand, then Debug. Setup comes before theory. Troubleshooting comes last.
+**Rule:** Order sections as Do → Understand → Debug. Setup comes before theory. Troubleshooting comes last.
 **Why:** Developers act first. A developer who cannot get a working setup will not read the theory section.
 **Exception:** Conceptual-only docs (no setup steps) where the entire doc is theory. In that case, flow from general to specific.
 
@@ -110,27 +109,15 @@ Every rule follows this format:
 
 ---
 
-**Rule:** When a feature is optional rather than universally required, the Overview must state the condition under which the reader does not need it, not only the condition under which they do.
-**Why:** A reader who cannot tell whether a feature applies to them wastes time reading it in full, or implements it unnecessarily.
-**Exception:** Features that are mandatory for all users of the parent SDK, where no valid skip condition exists.
-
----
-
 **Rule:** Theory sections belong after the working setup, never before it.
 **Why:** Theory without context is harder to retain. A developer who has just completed setup reads theory to understand what they built.
 **Exception:** A one-sentence orientation in the Overview is acceptable before setup if it prevents a common misunderstanding.
 
 ---
 
-**Rule:** Document only the main workflow in the primary flow of the doc. Any sub-workflow (a secondary process the reader only needs occasionally, such as a manual refresh script, cache internals, or a background maintenance task) belongs either in a consolidated section at the end of the doc or in a separate doc, depending on its size and how independently it needs to be discovered.
-**Why:** A doc that interleaves the main workflow with secondary sub-workflows forces every reader to scroll past content most of them don't need, obscuring the primary task and increasing perceived complexity.
-**Exception:** Does not apply to docs whose stated purpose is itself a sub-workflow or internals/architecture reference.
-
----
-
-**Rule:** When a Main Content subsection walks the reader through a UI-driven procedure, write it as a numbered list of literal actions in imperative voice (Click X, Select Y), not as narrative prose describing the flow.
-**Why:** Narrative prose forces the reader to extract the actual click-by-click sequence themselves. A numbered list of actions can be followed one step at a time without re-reading the paragraph.
-**Exception:** A single-action step can stay as one sentence rather than a one-item numbered list, if introducing a list around it would be more overhead than the content warrants.
+**Rule:** When a Theory Section's depth overlaps with what a dedicated Conceptual Guide would cover (engine or algorithm internals, multi-step mechanism walkthroughs, complexity analysis), keep only a short summary inline and link out to a Conceptual Guide for the full explanation.
+**Why:** A Feature Doc or command doc exists to help a developer act. A Theory Section that expands into full conceptual-guide depth buries the actionable reference under content that already has its own doc type, and risks drifting out of sync if the same concept is later documented in a Conceptual Guide too.
+**Exception:** If no Conceptual Guide exists yet for the concept and creating one is disproportionate to the doc's needs, a fuller explanation may stay inline, but should still avoid step-by-step mechanism walkthroughs when a summary is enough.
 
 ---
 
@@ -160,12 +147,6 @@ Every rule follows this format:
 
 ---
 
-**Rule:** Do not use a heading level (H3) for a subsection when it is the only subsection under its parent heading (H2). Demote a lone H3 to a bold inline heading.
-**Why:** A single subheading creates false hierarchy. It implies sibling subsections exist and adds navigation weight without a scannability benefit. Bold inline headings preserve visual separation without the overhead of a heading level.
-**Exception:** If the subsection will be linked to directly from a Quick Reference or cross-reference table, a real heading is required so the anchor target exists.
-
----
-
 **Rule:** Use bullet lists instead of prose for sequences of conditions, requirements, or parallel items.
 **Why:** Numbered or bulleted lists establish visual hierarchy. Prose buries parallel items and makes them harder to scan.
 **Exception:** When items have significant narrative dependency (each item explains the previous one), prose is acceptable.
@@ -178,27 +159,15 @@ Every rule follows this format:
 
 ---
 
-**Rule:** What You'll Learn is always a bullet list. Never prose.
-**Why:** Developers scan this section to decide if the doc is worth reading. A prose paragraph slows that decision.
-**Exception:** None.
-
----
-
 **Rule:** Section names in a Quick Reference table must link to the corresponding section using the relative doc URL and section anchor.
 **Why:** A Quick Reference table without links forces the developer to scroll through the doc to find the referenced section. Links make the table immediately actionable.
 **Exception:** None.
 
 ---
 
-**Rule:** When a Quick Decision Guide's Approach corresponds to a dedicated section in the doc, link the Approach name to that section's anchor.
-**Why:** The same reasoning as Quick Reference applies. A developer who has just decided which approach fits them should not have to scroll to find where that approach is documented.
-**Exception:** If no dedicated section exists yet for that approach (the doc only distinguishes the paths inside a single Main Content section), a plain-text Approach name is acceptable.
-
----
-
-**Rule:** Callouts (ATTENTION, Required, Note) are reserved for high-stakes warnings, content that causes data loss, broken preview, or security issues if ignored. Do not use callouts for general information.
+**Rule:** Callouts (ATTENTION, Required, Note) are reserved for high-stakes warnings: content that causes data loss, broken preview, or security issues if ignored. Do not use callouts for general information.
 **Why:** Overused callouts lose their signal value. When everything is a callout, nothing is.
-**Exception:** A single informational Note callout per section is acceptable if the information would otherwise be missed in a long prose block. In migration guides, a Note callout is also acceptable in the Overview when a single change requires significantly more effort than all others and that effort gap affects planning.
+**Exception:** A single informational Note callout per section is acceptable if the information would otherwise be missed in a long prose block.
 
 ---
 
@@ -208,29 +177,17 @@ Every rule follows this format:
 
 ---
 
-**Rule:** Use exactly one blank line between blocks (paragraphs, headings, list items, tables). Never use two or more consecutive blank lines.
-**Why:** Inconsistent blank-line counts are a visible formatting defect in rendered markdown and signal an unreviewed or partially-edited doc.
-**Exception:** None.
-
----
-
-**Rule:** An internal note meant for reviewers, not readers (a fact that needs verification before publishing, an open question) is written as an HTML comment (`<!-- TODO(verify): ... -->`), never as visible text. Place it after a list block, not between two items of the same list.
-**Why:** HTML comments are stripped by markdown renderers, so the note stays out of the published page while remaining visible to anyone editing the source. A comment placed between list items risks breaking numbered-list continuity in stricter parsers.
-**Exception:** None.
-
----
-
 ### C3: Language and Tone
-
-**Rule:** The banned words and phrases listed throughout C3 and C8 are representative examples, not an exhaustive list. Apply the underlying principle (no casual, conversational, or unmeasurable marketing language) to any word or phrase that fits the pattern, even if it is not explicitly named here.
-**Why:** A review that only checks the literal listed words passes casual or marketing language written with a different word for the same effect (for example "by hand" instead of "just", or a slightly too-familiar verb choice like "discovers" where "identifies" reads more precisely).
-**Exception:** None.
-
----
 
 **Rule:** No casual language in prose. Remove phrases such as "right away", "on its own", "you'll find", "pretty straightforward", "just".
 **Why:** Casual language is inconsistent with professional documentation standards and undermines credibility.
 **Exception:** None. Neutral, precise language applies throughout.
+
+---
+
+**Rule:** Do not narrate the doc or example instead of describing what the reader does. Remove phrases such as "this walks through", "this guide walks you through", "this section covers", "this shows you how". State the action or outcome directly instead.
+**Why:** Narrating the document describes what the doc does rather than what the reader achieves, which is guide-centric phrasing. This rule is stated for the Overview section above, but the same phrasing is just as casual anywhere else in the doc, so it applies document-wide, not only to the Overview.
+**Exception:** None.
 
 ---
 
@@ -246,57 +203,21 @@ Every rule follows this format:
 
 ---
 
-**Rule:** Write for a developer audience. Use precise technical language, state outcomes in terms of system behavior, and assume the reader can read code. Do not explain what a developer is expected to already know, and do not soften technical facts with reassuring language.
-**Why:** Documentation written at the wrong level wastes a developer's time, either by over-explaining basics or by burying technical detail in accessible prose. Developers trust docs that treat them as technical peers.
-**Exception:** Onboarding or getting-started docs that explicitly target developers new to a specific domain may include one-sentence orientation statements for concepts outside that domain. Do not use this exception to justify general simplification.
-
----
-
 **Rule:** Use "for example" in instructional prose when the set shown is illustrative, not exhaustive. Do not use "all of the following" or "these are the only ways" unless the set has been verified as complete.
 **Why:** "All of the following" implies the list is a complete reference, creating maintenance risk when new variants are added and misleading developers who assume nothing is missing.
 **Exception:** When documenting a genuinely exhaustive set that has been verified against an authoritative source (such as an enum or a closed list of error codes), "the following" without a qualifier is acceptable.
 
 ---
 
-**Rule:** No em dashes, en dashes, or semicolons in prose or table cells outside of code blocks. Use a period, a comma, parentheses, or a colon instead.
+**Rule:** No em dashes or semicolons in prose outside of code blocks. Use a period, a comma, or split the sentence instead.
 **Why:** Em dashes and semicolons create grammatical ambiguity in machine-parsed content and are inconsistent in doc style.
 **Exception:** Em dashes and semicolons inside code blocks follow code conventions and are not subject to this rule.
 
 ---
 
-**Rule:** Do not use the arrow character (→) to represent a UI navigation path such as a menu or settings path. Use `>` instead (for example `Settings > Connectors > Add custom connector`).
-**Why:** The arrow character is a non-ASCII symbol that renders inconsistently across fonts, terminals, and copy-paste targets. `>` conveys the same navigation-path convention without the encoding risk.
-**Exception:** None.
-
----
-
-**Rule:** Define each key term once at first use using the full form ("server-side rendering (SSR)"). Use the abbreviation consistently thereafter. This applies beyond acronyms: pick one term for a single concept (for example "predefined profile," not alternating with "ready-made profile") and use that same term every time the concept recurs.
-**Why:** Inconsistent terminology forces the reader to re-map terms mentally throughout the doc, and makes them wonder whether two different words mean two different things. AI retrieval agents may treat the same concept as two different entities.
+**Rule:** Define each key term once at first use using the full form ("server-side rendering (SSR)"). Use the abbreviation consistently thereafter.
+**Why:** Inconsistent terminology forces the reader to re-map terms mentally throughout the doc. AI retrieval agents may treat the same concept as two different entities.
 **Exception:** If the doc is very long and sections are intended to be read independently, redefine the term once per major section.
-
----
-
-**Rule:** A concept used procedurally in an early section (for example, constants and string aliases being interchangeable) must be explained briefly at its first point of use, with a link to the full explanation, not deferred entirely to a later theory section.
-**Why:** A reader following an early code example who hits unexplained interchangeable syntax has no way to know it is intentional until they stumble onto a later section, if they read that far at all.
-**Exception:** If the early usage is a single self-evident example with no visible alternative form, a deferred explanation is acceptable.
-
----
-
-**Rule:** Do not describe an optional feature as "not applicable" to readers who do not strictly need it. State that using the feature is optional, and name the benefit it still offers those readers.
-**Why:** "Not applicable" reads as a hard exclusion and causes readers who could still benefit (for example, avoiding hardcoded values) to skip the section entirely.
-**Exception:** None.
-
----
-
-**Rule:** Write in active voice. Use passive voice only when the actor is genuinely unknown or irrelevant to the point being made.
-**Why:** Active voice states who does what, which is faster to parse and removes ambiguity about what triggers a given behavior.
-**Exception:** Passive voice is acceptable when describing a state with no relevant actor, for example "the file is deleted after 24 hours" when the deleting process is not the point.
-
----
-
-**Rule:** Address the reader directly as "you". Avoid third person phrasing ("the developer", "the user") except in section headings or API behavior descriptions where no address is needed.
-**Why:** Second person keeps instructional prose direct and consistent with how the rest of the corpus is already written.
-**Exception:** Third person is acceptable when describing what the SDK or a third party system does, not what the reader does.
 
 ---
 
@@ -308,12 +229,6 @@ Every rule follows this format:
 
 ---
 
-**Rule:** Every fenced code block in Main Content is preceded by an explicit instruction stating what to do with it (for example "Add this block to `config.json`:"), not just prose that mentions the target file or tool without an imperative lead-in.
-**Why:** A code block that appears after only descriptive prose leaves the reader to infer whether to run it, paste it, or just read it for reference.
-**Exception:** None.
-
----
-
 **Rule:** Show implementation guards as code, not as prose.
 **Why:** A guard buried in a sentence ("make sure you check for window before calling init") may be missed. A code block is unambiguous.
 **Exception:** None. Guards, conditionals, and type checks are always shown as code.
@@ -321,7 +236,7 @@ Every rule follows this format:
 ---
 
 **Rule:** Use parameterized placeholders (`<VARIABLE_NAME>` format) for user-supplied values in instructional code blocks. Reserve specific values for examples where the value itself is the point of the example.
-**Why:** Specific values in instructional code imply either that the value should be copied literally or that it is the recommended default. Placeholders make the substitution requirement unambiguous. Specific values are appropriate only when demonstrating concrete behavior (alias resolution, error output, or region-matching rules), where the specific value is the teaching point.
+**Why:** Specific values in instructional code imply either that the value should be copied literally or that it is the recommended default. Placeholders make the substitution requirement unambiguous. Specific values are appropriate only when demonstrating concrete behavior (alias resolution, error output, or region-matching rules) where the specific value is the teaching point.
 **Exception:** Quick Reference tables and decision guide tables may use specific representative values to keep the table scannable.
 
 ---
@@ -338,21 +253,15 @@ Every rule follows this format:
 
 ---
 
-**Rule:** Do not annotate code block comments with step labels such as `// Step 1`, `// 1.`, or `// Step 2`. If steps need to be communicated, use a numbered list in prose above the code block.
-**Why:** Step labels in code comments imply a sequential reading order and make the block feel like part of a larger sequence. They become stale when code is reordered and add no information a reader cannot infer from the code itself.
-**Exception:** None.
-
----
-
 **Rule:** SDK error messages documented in troubleshooting entries must include three elements: what went wrong (the actual bad value or condition), what to do next (the corrective action), and where to find help (a link to the relevant section or external reference).
 **Why:** A message that only names the error leaves the developer without a path to resolution. Including the bad value prevents confusion with similar errors. The corrective action and reference eliminate the need to context-switch to other docs or support channels.
 **Exception:** Generic system errors (NullPointerException, OutOfMemoryError) that are not specific to the SDK do not require this format.
 
 ---
 
-**Rule:** For each parameter demonstrated in example code, document what happens when it receives null or an empty value, either inline or in Troubleshooting.
-**Why:** Null or empty inputs from upstream config or user data are common in production. Undocumented behavior here is a frequent source of incidents, and the behavior often differs from what a developer would guess.
-**Exception:** Parameters whose type system makes null unrepresentable and where the language's own type-mismatch error is the obvious, unsurprising outcome.
+**Rule:** Each fenced code block must be one copy-pasteable unit. Do not combine multiple independent example commands into a single block, even when inline comments label each one.
+**Why:** A reader who copies the whole block runs every command in it, including ones they did not intend to run. A comment inside the block explains what each line does, it does not stop the extra commands from executing.
+**Exception:** A single logical command that wraps across multiple lines with a line continuation is one unit, not multiple. A cohesive script meant to run as a whole, with sequential steps that depend on each other (for example, generate a file, then open it), is also one unit and may include comments.
 
 ---
 
@@ -376,15 +285,9 @@ Every rule follows this format:
 
 ---
 
-**Rule:** Remove cross-references that duplicate links already present in Prerequisites or Next Steps. When a fact or concept is documented in more than one section, point to exactly one canonical section rather than multiple candidate sections.
-**Why:** A link that appears in three places does not add three times the value. It adds noise, and pointing to several sections for the same concept forces the reader to guess which one is authoritative.
+**Rule:** Remove cross-references that duplicate links already present in Prerequisites or Next Steps.
+**Why:** A link that appears in three places does not add three times the value. It adds noise and suggests the content is fragmented.
 **Exception:** A mandatory link in Prerequisites may be repeated as a reminder in a subsection if the doc is long and developers are likely to arrive directly at that subsection.
-
----
-
-**Rule:** A link to another section of the same doc appears only where the reader cannot proceed without it, at most once per section that needs it. Do not link a section that is adjacent or already visible, and do not repeat the same in-doc link across nearby sections.
-**Why:** Repeated links to the same nearby section add noise, imply the target is farther or more optional than it is, and fragment reading flow. The other C5 rules address cross-doc callouts, not repeated in-doc section links.
-**Exception:** A long doc where readers commonly deep-link into a subsection may repeat one critical in-doc link as a reminder.
 
 ---
 
@@ -393,12 +296,6 @@ Every rule follows this format:
 **Rule:** Heading names describe the actual content of the section, not aspirational or intended content.
 **Why:** A heading that overpromises ("Minimal Setup" for a full setup section) breaks the developer's trust the moment they see the mismatch.
 **Exception:** None. Rename the heading or scope the section to match.
-
----
-
-**Rule:** Do not use a doc-standards section-type name (Theory Sections, Main Content, Quick Decision Guide) verbatim as a published heading. These are authoring categories, not reader-facing topics. Rename the heading to describe the section's actual subject matter.
-**Why:** A reader has no context for what a heading like "Theory Sections" means. It describes the section's role in the authoring template, not what the section is actually about.
-**Exception:** None.
 
 ---
 
@@ -414,37 +311,7 @@ Every rule follows this format:
 
 ---
 
-**Rule:** Every bullet in What You'll Learn must map to content that exists in the doc.
-**Why:** A What You'll Learn bullet that has no corresponding content is a broken promise.
-**Exception:** None. Remove bullets that do not have corresponding content, or add the missing content.
-
----
-
-**Rule:** A Quick Reference table must include a row for every major section in the doc, not only common task sections. If it intentionally covers a subset, name it accordingly (for example "Common Tasks") instead of "Quick Reference." The table may split its rows into labeled groups (for example "Common tasks" and "Advanced or maintenance") to reduce cognitive load, as long as every major section still has a row.
-**Why:** A table titled "Quick Reference" that omits major sections (Troubleshooting, Supported Regions) implies the doc has no more to offer than what is listed, and readers miss content that exists. Grouping the rows keeps the table complete while separating everyday tasks from advanced ones.
-**Exception:** None.
-
----
-
-**Rule:** Claims in the Overview about automatic behavior must match what later sections describe. If a behavior requires a manual action (a refresh call, a restart, a rebuild) to take effect, the Overview must not imply it happens without one.
-**Why:** A reader who trusts the Overview's claim of automatic behavior ships code that silently serves stale data until they discover the manual step buried in a later section.
-**Exception:** None.
-
----
-
-**Rule:** When a Troubleshooting section has enough entries that a reader must scan to find the relevant one, group the entries into labeled subsections by category. Pick whatever grouping best fits the entries present (for example configuration errors, deployment and packaging, cache and staleness). Keep every entry on the page.
-**Why:** A flat list of many unrelated entries forces the reader to read all of them to find their symptom. Category grouping lets a reader jump to the class of problem they see, and keeps environment-specific edge cases from crowding the errors every reader hits.
-**Exception:** A Troubleshooting section with only a few entries does not need subsections.
-
----
-
 ### C7: Duplication
-
-**Rule:** Two adjacent sentences within the same section must not restate the same fact in different words. State the fact once. If a following sentence adds a caveat or consequence, it should add only that, not repeat the first sentence's claim.
-**Why:** Restating the same point back to back reads as padding, slows the reader down, and adds no information.
-**Exception:** None.
-
----
 
 **Rule:** When two sections are near-identical, the second section references the first and adds only what is genuinely different.
 **Why:** Verbatim duplication creates maintenance debt. When one section changes, the other becomes stale silently and the developer receives contradictory information.
@@ -464,6 +331,12 @@ Every rule follows this format:
 
 ---
 
+**Rule:** When a table already documents an item's required-ness, type, and default, a following prose or bullet expansion for that same item must add only what the table cannot show (behavioral nuance, side effects, cross-references), not restate the table's own cells.
+**Why:** A reader who already read the table gains nothing from a bullet that repeats what the table's own columns already said. Restating table content lengthens the doc without adding information and doubles the maintenance surface for facts already established once.
+**Exception:** A one-clause restatement is acceptable when it is needed to introduce the bullet's genuinely new content, avoiding an orphaned bullet with no lead-in.
+
+---
+
 ### C8: Developer Tone
 
 This section applies to all doc types. Its rules are more specific than C3 (Language and Tone) and take precedence where they overlap.
@@ -480,7 +353,7 @@ This section applies to all doc types. Its rules are more specific than C3 (Lang
 
 **Rule:** Do not make benefit promises that cannot be measured: "saves you time," "eliminates complexity," "just works," "in under 5 minutes," "in minutes."
 **Why:** Unverifiable claims erode trust. Developers test claims by using the product and expect docs to be accurate.
-**Exception:** A time claim is acceptable if it is literally measurable and verified (for example, "runs in approximately 30 seconds on a standard laptop").
+**Exception:** A time claim is acceptable if it is literally measurable and verified (e.g., "runs in approximately 30 seconds on a standard laptop").
 
 ---
 
@@ -505,19 +378,19 @@ This section applies to all doc types. Its rules are more specific than C3 (Lang
 **Rule:** Do not use vague AI or enterprise buzzwords: guardrails, agentic, mental model, single source of truth, end-to-end (as a filler qualifier), opinionated, zero-downtime, re-platform, golden path, leverage (meaning "use"), onboarding, paradigm.
 **Why:** Each of these words sounds technical but names no specific behavior. They force the reader to infer meaning and are often wrong.
 **How to fix each:**
-- guardrails: name the specific restriction, for example "the skill refuses to print tokens" or "the agent asks for confirmation before any DELETE"
-- agentic: "running as an agent" or describe the actual behavior
-- mental model: "how X works" or "the concepts behind X"
-- single source of truth: "the canonical file is X" or "edited in one place"
-- end-to-end (filler): drop it, or name both ends, for example "from content migration to code rewrite"
-- opinionated: state the actual default choices
-- zero-downtime: describe the mechanism, for example "aliases switch with no request interruption"
-- re-platform: "migrate," "move," or "switch"
-- golden path: "the recommended approach" or describe the specific steps
-- surface (as a verb): "expose," "show," "return," or "log"
-- leverage: "use," "call," or "apply"
-- onboarding: "setup," "first install," or describe the specific step
-- paradigm: name the specific concept
+- guardrails → name the specific restriction: "the skill refuses to print tokens," "the agent asks for confirmation before any DELETE"
+- agentic → "running as an agent" or describe the actual behavior
+- mental model → "how X works" or "the concepts behind X"
+- single source of truth → "the canonical file is X" or "edited in one place"
+- end-to-end (filler) → drop it, or name both ends: "from content migration to code rewrite"
+- opinionated → state the actual default choices
+- zero-downtime → describe the mechanism: "aliases switch with no request interruption"
+- re-platform → "migrate," "move," or "switch"
+- golden path → "the recommended approach" or describe the specific steps
+- surface (as a verb) → "expose," "show," "return," or "log"
+- leverage → "use," "call," or "apply"
+- onboarding → "setup," "first install," or describe the specific step
+- paradigm → name the specific concept
 **Exception:** None.
 
 ---
@@ -528,88 +401,32 @@ This section applies to all doc types. Its rules are more specific than C3 (Lang
 
 ---
 
-### C9: API Reference Completeness
+### C9: CLI Command Documentation
 
-These rules apply to any API backed by shared state, network I/O, or a versioned release history, most commonly SDK reference sections and their surrounding theory/advanced sections.
-
----
-
-**Rule:** When an API is backed by shared, process-wide, or class-level mutable state (a static cache, a memoized variable, a singleton), the doc must state whether that state is safe under concurrent access in the runtime's normal execution model, naming the mechanism if one exists (a lock, a synchronized method, a mutex) or stating plainly that none does.
-**Why:** Developers running the SDK in multi-threaded or multi-worker environments need to know before a race condition surfaces in production. Developers in single-threaded or per-request runtimes need to know the concern doesn't apply so they don't waste time investigating it.
-**Exception:** Runtimes where the concept does not meaningfully apply (for example, a strict process-per-request execution model with no shared state across requests) may state this in one sentence instead of a full concurrency analysis.
+**Rule:** State whether a CLI command mutates stack data or is read-only, in the Overview or Prerequisites, for any command that connects to a live stack.
+**Why:** Developers using a scoped or shared management token need to know the blast radius before running an unfamiliar command.
+**Exception:** Commands whose name unambiguously states the action (for example, `delete-entry`) may skip a standalone statement if the mutation is already obvious from the command name and flags.
 
 ---
 
-**Rule:** Document any network operation's timeout behavior, proxy support, and the exact host(s) that must be reachable, for firewall or allowlist purposes.
-**Why:** Production and enterprise deployments commonly run behind proxies and restrictive firewalls. Without this, a network failure surfaces as a mysterious runtime error instead of a known, documented constraint.
-**Exception:** None for SDKs that perform network I/O as part of normal operation.
-
----
-
-**Rule:** When documenting an API introduced after a package's initial release, state the minimum package version required in Prerequisites.
-**Why:** A developer on an older, already-installed version has no way to know the API they are reading about does not exist yet in their dependency, and will file a confusing bug report or give up.
-**Exception:** Docs for a package's very first release, where every documented API is available in every supported version.
-
----
-
-**Rule:** When an API's data is backed by a cache that does not auto-refresh, Troubleshooting must include an entry for the stale-data symptom, naming the exact resolution action for that SDK (a refresh call, a restart, a rebuild command).
-**Why:** Stale-cache confusion is the single most common support question for any cached registry. Omitting it from Troubleshooting guarantees it surfaces as a support ticket instead.
-**Exception:** None for any API with cache behavior that lacks automatic invalidation.
-
----
-
-**Rule:** When normal SDK operation reads or writes a local file (a cache, a downloaded registry), the doc must state the behavior in read-only or ephemeral filesystem environments (containers, CI/CD runners, serverless functions) and the recommended mitigation.
-**Why:** A write that succeeds in local development can fail silently or throw in a container with a read-only root filesystem, and the developer has no documented path to a fix.
-**Exception:** SDKs that perform no local file I/O as part of normal operation.
-
----
-
-**Rule:** A how-to or feature doc shows only the parameters a reader needs to complete the task, with a link to the canonical API reference for the full contract. It does not restate the complete parameter table that the API reference already owns.
-**Why:** Two full copies of a parameter contract drift apart. The API reference is the canonical source, and duplicating it in a task doc creates silent staleness.
-**Exception:** A parameter whose behavior is the teaching point of the section (for example `omit_https`, or null and empty handling) is shown in full where it is taught.
-
----
-
-**Rule:** A public-facing doc documents only the public API and the behavior a reader can observe. It must not present a private or internal symbol as a user-facing API or as a recommended action. Treat a symbol as internal if any of these hold: (a) its name starts with an underscore (`_regions_data`), (b) its docstring or a code comment says "internal", "private", "testing only", or "do not use" (`reset_cache()`), (c) it is absent from the package public export list (`__all__`), or (d) it is build or packaging tooling (a `setup.py` command such as `BuildPyWithRegions`).
-**How to apply:**
-- Describe the observable behavior in prose instead of naming the internal symbol.
-- Never instruct a reader to call a testing-only or private symbol as a production step. Route them to the public equivalent (a public refresh function, a process restart, a rebuild).
-- If an internal symbol must be named for debugging accuracy, name it once and mark it inline as "(internal, not part of the public API, subject to change)".
-**Why:** Naming an internal symbol in a public doc invites readers to build against it, and their code breaks when it changes. Presenting a testing-only method as a fix makes readers ship test scaffolding into production.
-**Exception:** Reference docs whose stated purpose is SDK internals or contributor guidance may document internal symbols, clearly scoped as such.
-
----
-
-**Rule:** A Theory or Advanced section documents observable behavior and the public API, not private symbols. Any internal name that must remain in the section carries a scoped disclaimer stating it is an implementation detail, subject to change, and not part of the public API contract, while naming the supported public API alongside it.
-**Why:** Readers treat anything in the doc as supported unless told otherwise. An unscoped disclaimer either warns readers off genuinely public APIs or fails to warn them off internal ones.
-**Exception:** Dedicated internals or contributor-reference docs.
-
----
-
-### C10: Screenshots and Visual Assets
-
-These rules apply to any doc that includes screenshots, diagrams, or other images.
-
----
-
-**Rule:** Store screenshot and diagram files in an `assets/` folder alongside the doc, named in descriptive kebab-case (for example `browse-tools-panel.png`), not the source tool's default filename (`Screenshot 2026-01-01.png`, `1.png`).
-**Why:** Descriptive names make an asset's purpose clear from a file listing alone and prevent silent collisions when multiple screenshots land in the same folder with generic names.
+**Rule:** Every Mandatory prerequisite that names a token must state the minimum required permission or scope inline (for example, "requires `Content Type: Read`"), not only as a Troubleshooting root cause.
+**Why:** Surfacing the required scope only after a failure forces the developer to fail first, then debug, then retry. Stating it up front prevents the failure.
 **Exception:** None.
 
 ---
 
-**Rule:** Alt text describes what the image actually shows (the specific UI elements, labels, and states visible), not the file name and not a bare restatement of the surrounding prose.
-**Why:** Alt text is the only description available to screen readers and to any system that cannot render the image. Generic alt text ("screenshot of the app") gives no information.
-**Exception:** None.
+**Rule:** If a newer version of the documented command or tool exists, state that in one sentence at the top of the Overview with a link to the newer version, in addition to any detailed comparison table elsewhere in the doc.
+**Why:** A developer landing on a legacy version's page by search should not have to read the entire doc to discover that a newer version exists.
+**Exception:** None for docs describing a superseded version. Docs for the current or only version do not need this.
 
 ---
 
-**Rule:** An unresolved screenshot is marked with a plain-text `TODO(screenshot): <name>. It should show <specific elements>.` line, not an admonition callout.
-**Why:** This keeps the placeholder visible to writers scanning the raw markdown while avoiding the callout-overuse problem covered in C2. A missing screenshot is a production gap for the writer, not a reader-facing warning.
-**Exception:** None.
+**Rule:** State known coverage gaps (unverified edge cases, things out of scope) in a Limitations section rather than leaving them implicit.
+**Why:** A developer who assumes complete coverage from silence will not think to double check the gap until something breaks in production.
+**Exception:** Tools with no known coverage gaps can omit the section.
 
 ---
 
-**Rule:** Once a screenshot is inserted, re-check that surrounding prose claims match what the image actually shows. If prose says a state is expandable or visible, the image must show that state, not a collapsed or different one.
-**Why:** A screenshot that does not match its caption teaches the reader the wrong thing to expect and undermines trust in every other image in the doc.
-**Exception:** None.
+**Rule:** A Feature Doc documenting a superseded version must not carry a full old-to-new flag/parameter mapping table when an equivalent mapping already exists in the current version's doc or a dedicated Migration Guide. Keep only a short note plus a link to that mapping.
+**Why:** A complete old-to-new mapping table is the "Type Mapping Reference" pattern reserved for Migration Guide docs (see Section Definitions and `migration-guide.md`). Duplicating it inside a Feature Doc creates two independently maintained copies of the same fact, and a Feature Doc is read by every visitor, not only the subset migrating between versions.
+**Exception:** If no current-version doc or Migration Guide exists yet to link to, a short table may remain inline, positioned after Troubleshooting rather than before it, until that canonical destination exists.
