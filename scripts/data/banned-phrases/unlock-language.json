@@ -1,0 +1,12 @@
+{
+  "ruleId": "C8-03",
+  "category": "unlock-language",
+  "phrases": [
+    { "phrase": "unlock", "fix": "\"enables\" or \"lets you\"" },
+    { "phrase": "empower", "fix": "\"enables\" or \"lets you\"" },
+    { "phrase": "transform", "fix": "describe the specific technical outcome" },
+    { "phrase": "revolutionize", "fix": "describe the specific technical outcome" },
+    { "phrase": "supercharge", "fix": "describe the specific technical outcome" },
+    { "phrase": "elevate", "fix": "describe the specific technical outcome" }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "ruleId": "C8-05",
+  "category": "out-of-box",
+  "phrases": [
+    { "phrase": "out of the box", "fix": "describe what the default actually is" },
+    { "phrase": "zero-config", "fix": "describe what the default actually is" },
+    { "phrase": "plug-and-play", "fix": "describe what the default actually is" }
+  ]
+}

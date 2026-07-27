@@ -5,15 +5,13 @@ Reference table for all doc types. Use this alongside the per-type file to know 
 | Section | Get Started Guide | Conceptual Guide | Feature Doc | How-To Guide | Setup Guide | Kickstarter | Migration Guide |
 |---|---|---|---|---|---|---|---|
 | SEO front matter | Required | Required | Required | Required | Required | Required | Required (include version field) |
-| Overview | Required (2 to 3 sentences only) | Required | Required | Required | Required | Required | Required (use migration pattern) |
+| Overview | Required (2-3 sentences only) | Required | Required | Required | Required | Required | Required (use migration pattern) |
 | Role-Based Routing Table | Required | Not used | Not used | Not used | Not used | Not used | Not used |
-| What You'll Learn | Not used | Required | Required | Required | Required | Optional | Required |
 | Quick Decision Guide | Not used | If multiple paths | If multiple approaches | Rarely | If multiple environments | Rarely | If multiple migration paths exist |
 | Prerequisites | Required (Quick Start path only) | If setup involved | If setup involved | Required | Required | Required | Required |
 | Quick Start | Required | Not used | Not used | Not used | Not used | Not used | Not used |
 | Documentation Map | Required | Not used | Not used | Not used | Not used | Not used | Not used |
 | Type Mapping Reference | Not used | Not used | Not used | Not used | Not used | Not used | Required if API surface changes |
-| Minimal Migration Path | Not used | Not used | Not used | Not used | Not used | Not used | Required |
 | Main Content | Not used | Required | Required | Required | Required | Required | Required (Before/After per subsection) |
 | Theory Sections | Not used | Common | Common | Rare | Rare | Not used | Not used |
 | Gradual Migration | Not used | Not used | Not used | Not used | Not used | Not used | Required if partial path exists |

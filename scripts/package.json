@@ -1,0 +1,13 @@
+{
+  "name": "doc-standards-linter",
+  "version": "1.0.0",
+  "description": "Mechanical rule checker for docs against doc-standards/",
+  "private": true,
+  "bin": {
+    "lint-doc": "./lint-doc.js"
+  },
+  "scripts": {
+    "test": "node --test",
+    "build:section-order": "node build/build-section-order.js"
+  }
+}

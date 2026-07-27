@@ -1,0 +1,10 @@
+{
+  "ruleId": "C3-03",
+  "category": "marketing",
+  "phrases": [
+    { "phrase": "seamless", "fix": "describe the specific mechanism instead" },
+    { "phrase": "powerful", "fix": "state the concrete capability" },
+    { "phrase": "instant feedback", "fix": "state what is returned and how fast, if measured" },
+    { "phrase": "enhanced experience", "fix": "state the specific behavior that changed" }
+  ]
+}

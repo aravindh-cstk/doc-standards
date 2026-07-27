@@ -1,0 +1,16 @@
+{
+  "ruleId": "C8-01",
+  "category": "superlatives",
+  "phrases": [
+    { "phrase": "powerful", "fix": "state the concrete capability" },
+    { "phrase": "robust", "fix": "state the concrete behavior (retries, validation, error handling)" },
+    { "phrase": "comprehensive", "fix": "state what is actually covered" },
+    { "phrase": "seamless", "fix": "describe the specific mechanism instead" },
+    { "phrase": "effortless", "fix": "state the actual steps required" },
+    { "phrase": "best-in-class", "fix": "state the concrete capability or drop the phrase" },
+    { "phrase": "world-class", "fix": "state the concrete capability or drop the phrase" },
+    { "phrase": "industry-leading", "fix": "state the concrete capability or drop the phrase" },
+    { "phrase": "cutting-edge", "fix": "state the concrete capability or drop the phrase" },
+    { "phrase": "next-generation", "fix": "state the concrete capability or drop the phrase" }
+  ]
+}

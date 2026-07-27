@@ -1,0 +1,406 @@
+{
+  "conceptual-guide": [
+    {
+      "order": "1",
+      "section": "SEO front matter (title, description, URL)",
+      "required": "Required",
+      "purpose": "Machine-readable metadata for search and indexing"
+    },
+    {
+      "order": "2",
+      "section": "Page title",
+      "required": "Required",
+      "purpose": "Human-readable entry point"
+    },
+    {
+      "order": "3",
+      "section": "Overview",
+      "required": "Required",
+      "purpose": "1-3 sentences: what the user will learn from this doc and who it is for"
+    },
+    {
+      "order": "4",
+      "section": "Quick Reference",
+      "required": "Optional",
+      "purpose": "Navigation table (Use Case / Section / Key Call) for multi-section docs where orientation and navigation matter"
+    },
+    {
+      "order": "5",
+      "section": "Quick Decision Guide",
+      "required": "If multiple paths",
+      "purpose": "Orients developers before they read requirements"
+    },
+    {
+      "order": "6",
+      "section": "Prerequisites",
+      "required": "If setup is involved",
+      "purpose": "Blocking and non-blocking requirements, separated"
+    },
+    {
+      "order": "7",
+      "section": "Main Content",
+      "required": "Required",
+      "purpose": "Setup, configuration, implementation"
+    },
+    {
+      "order": "8",
+      "section": "Theory Sections",
+      "required": "Optional",
+      "purpose": "Explanatory content, placed after working setup"
+    },
+    {
+      "order": "9",
+      "section": "Troubleshooting",
+      "required": "Recommended",
+      "purpose": "Root cause and resolution for each failure"
+    },
+    {
+      "order": "10",
+      "section": "Next Steps",
+      "required": "Required",
+      "purpose": "Links to what comes after, each with a description"
+    }
+  ],
+  "feature-doc": [
+    {
+      "order": "1",
+      "section": "SEO front matter (title, description, URL)",
+      "required": "Required",
+      "purpose": "Machine-readable metadata for search and indexing"
+    },
+    {
+      "order": "2",
+      "section": "Page title",
+      "required": "Required",
+      "purpose": "Human-readable entry point"
+    },
+    {
+      "order": "3",
+      "section": "Overview",
+      "required": "Required",
+      "purpose": "1-3 sentences: what this feature does and who it is for"
+    },
+    {
+      "order": "4",
+      "section": "Quick Decision Guide",
+      "required": "If multiple approaches",
+      "purpose": "Orients developers before they read requirements"
+    },
+    {
+      "order": "5",
+      "section": "Prerequisites",
+      "required": "If setup is involved",
+      "purpose": "Blocking and non-blocking requirements, separated"
+    },
+    {
+      "order": "6",
+      "section": "Main Content",
+      "required": "Required",
+      "purpose": "Feature setup, configuration, and usage"
+    },
+    {
+      "order": "7",
+      "section": "Theory Sections",
+      "required": "Optional",
+      "purpose": "Explanatory content, placed after working setup"
+    },
+    {
+      "order": "8",
+      "section": "Troubleshooting",
+      "required": "Required",
+      "purpose": "Root cause and resolution for each known failure"
+    },
+    {
+      "order": "9",
+      "section": "Next Steps",
+      "required": "Required",
+      "purpose": "Links to what comes after, each with a description"
+    }
+  ],
+  "how-to-guide": [
+    {
+      "order": "1",
+      "section": "SEO front matter (title, description, URL)",
+      "required": "Required",
+      "purpose": "Machine-readable metadata for search and indexing"
+    },
+    {
+      "order": "2",
+      "section": "Page title",
+      "required": "Required",
+      "purpose": "Human-readable entry point, should be imperative (\"Fetch entries using the Delivery API\")"
+    },
+    {
+      "order": "3",
+      "section": "Overview",
+      "required": "Required",
+      "purpose": "1-3 sentences: what the developer achieves by following this guide"
+    },
+    {
+      "order": "4",
+      "section": "Quick Decision Guide",
+      "required": "Rarely",
+      "purpose": "Only if the task has meaningfully different paths (for example, REST vs GraphQL)"
+    },
+    {
+      "order": "5",
+      "section": "Prerequisites",
+      "required": "Required",
+      "purpose": "Blocking and non-blocking requirements, separated"
+    },
+    {
+      "order": "6",
+      "section": "Main Content",
+      "required": "Required",
+      "purpose": "Step-by-step procedure"
+    },
+    {
+      "order": "7",
+      "section": "Theory Sections",
+      "required": "Rare",
+      "purpose": "Only if a concept is required to complete the task and cannot be linked externally"
+    },
+    {
+      "order": "8",
+      "section": "Troubleshooting",
+      "required": "Optional",
+      "purpose": "Root cause and resolution for failure modes specific to this task"
+    },
+    {
+      "order": "9",
+      "section": "Next Steps",
+      "required": "Required",
+      "purpose": "Links to what comes after, each with a description"
+    }
+  ],
+  "setup-guide": [
+    {
+      "order": "1",
+      "section": "SEO front matter (title, description, URL)",
+      "required": "Required",
+      "purpose": "Machine-readable metadata for search and indexing"
+    },
+    {
+      "order": "2",
+      "section": "Page title",
+      "required": "Required",
+      "purpose": "Human-readable entry point"
+    },
+    {
+      "order": "3",
+      "section": "Overview",
+      "required": "Required",
+      "purpose": "1-3 sentences: what the developer will have configured after following this guide"
+    },
+    {
+      "order": "4",
+      "section": "Quick Decision Guide",
+      "required": "If multiple environments",
+      "purpose": "Required when the setup differs by environment, runtime, or hosting platform"
+    },
+    {
+      "order": "5",
+      "section": "Prerequisites",
+      "required": "Required",
+      "purpose": "Blocking and non-blocking requirements, separated, all items link to the resource that fulfills them"
+    },
+    {
+      "order": "6",
+      "section": "Main Content",
+      "required": "Required",
+      "purpose": "Installation, configuration, and verification steps"
+    },
+    {
+      "order": "7",
+      "section": "Theory Sections",
+      "required": "Rare",
+      "purpose": "Only when understanding a concept is necessary to configure correctly"
+    },
+    {
+      "order": "8",
+      "section": "Troubleshooting",
+      "required": "Required",
+      "purpose": "Root cause and resolution for each known failure mode during setup"
+    },
+    {
+      "order": "9",
+      "section": "Next Steps",
+      "required": "Required",
+      "purpose": "Links to what the developer builds or configures next"
+    }
+  ],
+  "kickstarter": [
+    {
+      "order": "1",
+      "section": "SEO front matter (title, description, URL)",
+      "required": "Required",
+      "purpose": "Machine-readable metadata for search and indexing"
+    },
+    {
+      "order": "2",
+      "section": "Page title",
+      "required": "Required",
+      "purpose": "Human-readable entry point"
+    },
+    {
+      "order": "3",
+      "section": "Overview",
+      "required": "Required",
+      "purpose": "1-3 sentences: what the starter does and what stack it uses"
+    },
+    {
+      "order": "4",
+      "section": "Quick Decision Guide",
+      "required": "Rarely",
+      "purpose": "Only if the repo offers meaningfully different configurations (for example, SSR vs SSG variants)"
+    },
+    {
+      "order": "5",
+      "section": "Prerequisites",
+      "required": "Required",
+      "purpose": "Blocking requirements with links: Node version, package manager, Contentstack stack setup"
+    },
+    {
+      "order": "6",
+      "section": "Main Content",
+      "required": "Required",
+      "purpose": "Clone, install, configure, run steps, each step ends with a verifiable outcome"
+    },
+    {
+      "order": "7",
+      "section": "Theory Sections",
+      "required": "Not used",
+      "purpose": "Conceptual explanation belongs in linked docs, not in the kickstarter"
+    },
+    {
+      "order": "8",
+      "section": "Troubleshooting",
+      "required": "Optional",
+      "purpose": "Root cause and resolution for common local-run failures"
+    },
+    {
+      "order": "9",
+      "section": "Next Steps",
+      "required": "Required",
+      "purpose": "Links to the conceptual guide, feature docs, or how-to guides the developer should read next"
+    }
+  ],
+  "migration-guide": [
+    {
+      "order": "1",
+      "section": "SEO front matter (title, description, URL, version)",
+      "required": "Required",
+      "purpose": "Metadata, version field identifies which upgrade this guide covers"
+    },
+    {
+      "order": "2",
+      "section": "Page title",
+      "required": "Required",
+      "purpose": "States the source and target version explicitly"
+    },
+    {
+      "order": "3",
+      "section": "Overview",
+      "required": "Required",
+      "purpose": "States when the guide applies, what the breaking change is, and what the reader gains"
+    },
+    {
+      "order": "4",
+      "section": "Quick Decision Guide",
+      "required": "If multiple migration paths exist",
+      "purpose": "Orients developers (full migration vs. gradual) before they read requirements"
+    },
+    {
+      "order": "5",
+      "section": "Prerequisites",
+      "required": "Required",
+      "purpose": "Mandatory: target SDK and runtime versions with links. Optional: background knowledge"
+    },
+    {
+      "order": "6",
+      "section": "Type Mapping Reference",
+      "required": "Required if the API surface changes",
+      "purpose": "Before/after table covering every renamed type, method, and attribute"
+    },
+    {
+      "order": "7",
+      "section": "Main Content",
+      "required": "Required",
+      "purpose": "One subsection per changed area, each subsection contains a Before block and an After block"
+    },
+    {
+      "order": "8",
+      "section": "Gradual Migration",
+      "required": "Required if a partial migration path exists",
+      "purpose": "Adapter or compatibility pattern for incremental porting"
+    },
+    {
+      "order": "9",
+      "section": "Troubleshooting",
+      "required": "Required",
+      "purpose": "Root cause and resolution for each known failure introduced by the migration"
+    },
+    {
+      "order": "10",
+      "section": "Pre-Upgrade Checklist",
+      "required": "Required",
+      "purpose": "Ordered checklist of every change the developer must make before removing the old dependency"
+    },
+    {
+      "order": "11",
+      "section": "Next Steps",
+      "required": "Required",
+      "purpose": "Links to SDK changelog, official migration references, and related docs"
+    }
+  ],
+  "getting-started": [
+    {
+      "order": "1",
+      "section": "SEO front matter (title, description, URL)",
+      "required": "Required",
+      "purpose": "Machine-readable metadata for search and indexing"
+    },
+    {
+      "order": "2",
+      "section": "Page title",
+      "required": "Required",
+      "purpose": "Always the form \"Get Started with [Product]\""
+    },
+    {
+      "order": "3",
+      "section": "Overview",
+      "required": "Required",
+      "purpose": "2–3 sentences: what the product does and what the developer will have after following the Quick Start"
+    },
+    {
+      "order": "4",
+      "section": "Role-Based Routing Table",
+      "required": "Required",
+      "purpose": "Routes each developer persona to the correct first doc immediately; placed before Quick Start so developers who know their path can leave fast"
+    },
+    {
+      "order": "5",
+      "section": "Prerequisites",
+      "required": "Required",
+      "purpose": "Only the blocking items for the Quick Start path; each links to the resource that fulfills it"
+    },
+    {
+      "order": "6",
+      "section": "Quick Start",
+      "required": "Required",
+      "purpose": "The single fastest path to a working outcome; time-bounded, one path only, ends with a verifiable outcome"
+    },
+    {
+      "order": "7",
+      "section": "Documentation Map",
+      "required": "Required",
+      "purpose": "Navigation table organized by developer goal; the developer's map of what exists and where to go next"
+    },
+    {
+      "order": "8",
+      "section": "Next Steps",
+      "required": "Required",
+      "purpose": "3–5 links to the most logical reads after Quick Start, each with a one-sentence description"
+    }
+  ]
+}

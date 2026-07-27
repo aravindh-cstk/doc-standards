@@ -1,8 +1,8 @@
-# Get Started Guide: Section Order
+# Get Started Guide — Section Order
 
-A Get Started Guide is the entry point for developers who are new to the product or a major feature area. Its job is to route developers to the right content fast and give them one working outcome quickly. It does not explain or teach. It orients and moves.
+A Get Started Guide is the entry point for developers who are new to the product or a major feature area. Its job is to route developers to the right content fast and give them one working outcome quickly. It does not explain or teach — it orients and moves.
 
-Apply the rules in `common-rules.md` (B1, B2, C1 through C7) alongside this file.
+Apply the rules in `common-rules.md` (B1, B2, C1–C7) alongside this file.
 
 ---
 
@@ -12,12 +12,12 @@ Apply the rules in `common-rules.md` (B1, B2, C1 through C7) alongside this file
 |---|---|---|---|
 | 1 | SEO front matter (title, description, URL) | Required | Machine-readable metadata for search and indexing |
 | 2 | Page title | Required | Always the form "Get Started with [Product]" |
-| 3 | Overview | Required | 2 to 3 sentences: what the product does and what the developer will have after following the Quick Start |
-| 4 | Role-Based Routing Table | Required | Routes each developer persona to the correct first doc immediately. Placed before Quick Start so developers who know their path can leave fast |
-| 5 | Prerequisites | Required | Only the blocking items for the Quick Start path. Each links to the resource that fulfills it |
-| 6 | Quick Start | Required | The single fastest path to a working outcome. Time-bounded, one path only, ends with a verifiable outcome |
-| 7 | Documentation Map | Required | Navigation table organized by developer goal. The developer's map of what exists and where to go next |
-| 8 | Next Steps | Required | 3 to 5 links to the most logical reads after Quick Start, each with a one-sentence description |
+| 3 | Overview | Required | 2–3 sentences: what the product does and what the developer will have after following the Quick Start |
+| 4 | Role-Based Routing Table | Required | Routes each developer persona to the correct first doc immediately; placed before Quick Start so developers who know their path can leave fast |
+| 5 | Prerequisites | Required | Only the blocking items for the Quick Start path; each links to the resource that fulfills it |
+| 6 | Quick Start | Required | The single fastest path to a working outcome; time-bounded, one path only, ends with a verifiable outcome |
+| 7 | Documentation Map | Required | Navigation table organized by developer goal; the developer's map of what exists and where to go next |
+| 8 | Next Steps | Required | 3–5 links to the most logical reads after Quick Start, each with a one-sentence description |
 
 **Governing rule:** A developer who knows what they want must be able to leave this page to the right doc in under 30 seconds. A developer who does not know what they want must have a working outcome within the time stated in the Quick Start.
 
@@ -34,13 +34,13 @@ Apply the rules in `common-rules.md` (B1, B2, C1 through C7) alongside this file
 ---
 
 **Rule:** The Role-Based Routing Table has three columns: "I want to...", "I am...", and "Start here". The "Start here" column links directly to the first doc in that path.
-**Why:** Goal alone is sufficient to route most developers, but pairing it with role disambiguates cases where the same goal maps to different starting points (for example, a developer integrating a new stack versus a developer migrating an existing one).
+**Why:** Goal alone is sufficient to route most developers, but pairing it with role disambiguates cases where the same goal maps to different starting points (for example, a developer integrating a new stack vs. a developer migrating an existing one).
 **Exception:** None.
 
 ---
 
 **Rule:** The Documentation Map is organized by developer goal, not by doc type.
-**Why:** A developer arriving at this page does not know the doc taxonomy. They know what they are trying to build. Organizing by goal ("Fetch content", "Preview live changes", "Migrate entries") matches their mental model. Organizing by doc type ("Setup Guides", "How-To Guides") requires them to already understand the taxonomy.
+**Why:** A developer arriving at this page does not know the doc taxonomy. They know what they are trying to build. Organizing by goal ("Fetch content", "Preview live changes", "Migrate entries") matches their mental model; organizing by doc type ("Setup Guides", "How-To Guides") requires them to already understand the taxonomy.
 **Exception:** None. Do not use doc type as a primary organizing dimension in the Documentation Map.
 
 ---
@@ -53,20 +53,20 @@ Apply the rules in `common-rules.md` (B1, B2, C1 through C7) alongside this file
 
 ### RS2: Quick Start Constraints
 
-**Rule:** The Quick Start covers one path only, the most common one. It does not branch.
+**Rule:** The Quick Start covers one path only — the most common one. It does not branch.
 **Why:** A Quick Start that covers multiple paths requires the developer to read all of it to find the parts that apply. One clear path is faster to follow. Alternate paths belong in the Documentation Map.
 **Exception:** If two paths share identical steps up to a single fork, show the fork as a one-line conditional at that step. Do not split into two full Quick Starts within a Get Started Guide.
 
 ---
 
 **Rule:** State the time estimate in the Quick Start section heading or immediately below it. Format: "Estimated time: X minutes."
-**Why:** Developers decide whether to attempt a Quick Start based on available time. An upfront estimate respects that decision and sets a baseline. A developer who takes longer knows to check their setup, not the guide.
-**Exception:** If time varies significantly by environment, state a range ("5 to 15 minutes depending on your setup") and link to the prerequisite that causes the variance.
+**Why:** Developers decide whether to attempt a Quick Start based on available time. An upfront estimate respects that decision and sets a baseline — a developer who takes longer knows to check their setup, not the guide.
+**Exception:** If time varies significantly by environment, state a range ("5–15 minutes depending on your setup") and link to the prerequisite that causes the variance.
 
 ---
 
 **Rule:** The Quick Start must end with a verifiable, observable outcome. The final step states what success looks like.
-**Why:** A Quick Start without a success state leaves the developer unsure whether they completed it correctly. An observable outcome (a returned API response, a running local server, a rendered page) closes the loop.
+**Why:** A Quick Start without a success state leaves the developer unsure whether they completed it correctly. An observable outcome — a returned API response, a running local server, a rendered page — closes the loop.
 **Exception:** None.
 
 ---
@@ -87,7 +87,7 @@ Apply the rules in `common-rules.md` (B1, B2, C1 through C7) alongside this file
 
 **Rule:** No troubleshooting section. Resolutions for Quick Start failures belong in the linked setup guide or feature doc for the step that fails.
 **Why:** Troubleshooting in a Get Started Guide blurs the "start here" signal with "debug here" content. It also inflates the page length for first-time visitors who are not yet debugging.
-**Exception:** A single inline callout of one sentence, for a known, blocking failure on a specific platform (for example, a known Node version conflict), is acceptable at the step where the failure occurs.
+**Exception:** A single inline callout — one sentence — for a known, blocking failure on a specific platform (for example, a known Node version conflict) is acceptable at the step where the failure occurs.
 
 ---
 
@@ -100,20 +100,20 @@ Apply the rules in `common-rules.md` (B1, B2, C1 through C7) alongside this file
 ## Section Definitions (Get Started Guide Specific)
 
 **Role-Based Routing Table**
-A table with three columns: "I want to...", "I am...", and "Start here". Each row maps one developer intent and role to the first doc they should read. The "Start here" cell links directly to that doc and includes a one-sentence description. Cover the four to six most common entry scenarios. Do not attempt to cover every scenario. The Documentation Map covers the full topology.
+A table with three columns: "I want to...", "I am...", and "Start here". Each row maps one developer intent and role to the first doc they should read. The "Start here" cell links directly to that doc and includes a one-sentence description. Cover the four to six most common entry scenarios. Do not attempt to cover every scenario — the Documentation Map covers the full topology.
 
 Example row structure:
 
 | I want to... | I am... | Start here |
 |---|---|---|
-| Build a new website | Starting from scratch | [Kickstart Next.js](link): a runnable starter that fetches and renders Contentstack content using the Delivery SDK. |
-| Migrate content from another CMS | Already have content to port | [CLI Migration Guide](link): step-by-step instructions for exporting and importing content via the CLI. |
+| Build a new website | Starting from scratch | [Kickstart Next.js](link) — a runnable starter that fetches and renders Contentstack content using the Delivery SDK. |
+| Migrate content from another CMS | Already have content to port | [CLI Migration Guide](link) — step-by-step instructions for exporting and importing content via the CLI. |
 
 **Quick Start**
-A numbered list of steps, each beginning with an imperative verb. Steps are concrete and actionable. No step can be completed without the information provided in that step or a linked prerequisite. The section opens with the time estimate. The final step is always a verification step with an observable success state.
+A numbered list of steps, each beginning with an imperative verb. Steps are concrete and actionable; no step can be completed without the information provided in that step or a linked prerequisite. The section opens with the time estimate. The final step is always a verification step with an observable success state.
 
 **Documentation Map**
-A table with three columns: "Goal", "Doc", and "What you get". Organized by what the developer is trying to accomplish. Each row covers one goal and links to the single best doc for that goal. Do not list multiple docs per row. If multiple docs apply, link to the most common entry point and let that doc link to the others.
+A table with three columns: "Goal", "Doc", and "What you get". Organized by what the developer is trying to accomplish. Each row covers one goal and links to the single best doc for that goal. Do not list multiple docs per row — if multiple docs apply, link to the most common entry point and let that doc link to the others.
 
 ---
 
@@ -121,12 +121,12 @@ A table with three columns: "Goal", "Doc", and "What you get". Organized by what
 
 | Anti-Pattern | Why It Fails | Fix |
 |---|---|---|
-| Quick Start with more than one path | Developer must read all paths to find theirs. The fast-path illusion disappears | Cover one path. Send others to the Role-Based Routing Table |
+| Quick Start with more than one path | Developer must read all paths to find theirs; the fast-path illusion disappears | Cover one path; send others to the Role-Based Routing Table |
 | Documentation Map organized by doc type | Requires the developer to know the taxonomy before they can navigate it | Organize by developer goal |
-| Overview longer than 3 sentences | Developer has to read a paragraph before reaching the routing table | Cut to 2 to 3 sentences |
-| Troubleshooting section included | Signals the Quick Start is unreliable. Inflates page length for first-time visitors | Move resolutions to the relevant setup or feature doc |
-| Theory section included | Delays action. Contradicts the entry-point purpose | Link to the conceptual guide from the Documentation Map |
+| Overview longer than 3 sentences | Developer has to read a paragraph before reaching the routing table | Cut to 2–3 sentences |
+| Troubleshooting section included | Signals the Quick Start is unreliable; inflates page length for first-time visitors | Move resolutions to the relevant setup or feature doc |
+| Theory section included | Delays action; contradicts the entry-point purpose | Link to the conceptual guide from the Documentation Map |
 | Bare links in Routing Table or Documentation Map | Developer cannot judge whether to follow the link without clicking | Every link includes a one-sentence description |
-| Quick Start exceeds 10 steps | No longer a Quick Start. Becomes a full setup guide | Extract excess steps to a linked setup guide |
+| Quick Start exceeds 10 steps | No longer a Quick Start; becomes a full setup guide | Extract excess steps to a linked setup guide |
 | Missing time estimate in Quick Start | Developer cannot decide whether to attempt it now | Add "Estimated time: X minutes" at the top of the section |
 | No verifiable outcome at end of Quick Start | Developer does not know if they succeeded | Add a final verification step with an observable success state |
