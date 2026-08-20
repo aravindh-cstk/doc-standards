@@ -1,0 +1,11 @@
+{
+  "ruleId": "C3-10",
+  "category": "passive voice (irregular participle)",
+  "phrases": [
+    {
+      "pattern": "\\b(?:is|are|was|were|be|been|being)\\b(?:\\s+(?:not|already|still|also|now|currently|automatically|properly|correctly|typically|usually|generally|often|[a-z]+ly))?\\s+(?<!well\\s)(?<!widely\\s)(?:sent|read|set|given|done|seen|written|taken|made|held|kept|found|put|shown|known|thrown|broken|chosen|driven|left|built|bought|brought|caught|taught|sold|told|understood|spent|dealt|led|cut|hit|let|shut|split|run|drawn|grown|hidden|frozen|stolen|cast|spread)\\b(?:\\s+(?:with|by|to|from|in|on|for))?",
+      "label": "passive voice (irregular participle)",
+      "fix": "name who or what performs the action and make it the subject of the sentence"
+    }
+  ]
+}

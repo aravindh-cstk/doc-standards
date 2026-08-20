@@ -139,6 +139,12 @@ Every rule follows this format:
 
 ---
 
+**Rule:** Label the root-cause element `**Root Cause**` (singular) when there is exactly one cause, or `**Root Causes**` (plural) with a bulleted list when there are several genuinely distinct causes.
+**Why:** A plural label over a single sentence implies causes the reader has not been told about. A singular label over a list that actually covers multiple independent triggers hides that there is more than one thing to check.
+**Exception:** None.
+
+---
+
 ### C2: Scannability
 
 **Rule:** Use tables instead of prose for comparisons, decision matrices, and option sets with two or more dimensions.
@@ -174,6 +180,18 @@ Every rule follows this format:
 **Rule:** When a list of values is maintained externally (a live registry, an API response, or a build artifact), include a Note stating the authoritative source and any known constraints (such as a value that applies to one region only).
 **Why:** A list copied from an external source becomes stale without notice. Readers who trust an incomplete or out-of-date list ship broken code. Citing the source gives the reader a path to the current truth. Special-case constraints discovered at read time prevent runtime errors that would otherwise appear only in troubleshooting.
 **Exception:** If the doc already states explicitly that the list is illustrative and not exhaustive, and the authoritative source is linked inline, a separate Note is not required.
+
+---
+
+**Rule:** When a bolded lead-in label (e.g., `**One method, two endpoints.**`) introduces more than one distinct fact, or a condition with multiple branches, format the content as a bullet list under that label, nesting sub-bullets for each branch, rather than one prose paragraph.
+**Why:** A paragraph that bundles a condition together with its outcomes ("with no filter chained it does X, with any filter chained it does Y") forces the reader to reread to map each outcome to its trigger. Nested bullets make each branch and its outcome visible without rereading.
+**Exception:** When the label introduces a single fact with no sub-parts or branches, one prose sentence is correct. Do not force a one-fact note into a list.
+
+---
+
+**Rule:** The only valid callout labels are `Warning`, `Note`, `Tip`, and `Additional Resources`. Do not invent other labels such as `Important`, `Attention`, or `Caution`.
+**Why:** A fixed, small set of labels lets readers learn what each one means and react consistently. Ad hoc labels dilute that signal and read as informal.
+**Exception:** None. Map the intended severity onto the closest existing label instead of adding a new one (a caveat the reader must not miss is `Warning`, not `Important`).
 
 ---
 
@@ -218,6 +236,52 @@ Every rule follows this format:
 **Rule:** Define each key term once at first use using the full form ("server-side rendering (SSR)"). Use the abbreviation consistently thereafter.
 **Why:** Inconsistent terminology forces the reader to re-map terms mentally throughout the doc. AI retrieval agents may treat the same concept as two different entities.
 **Exception:** If the doc is very long and sections are intended to be read independently, redefine the term once per major section.
+
+---
+
+**Rule:** Write one idea per sentence. Cut hedging qualifiers and redundant justification clauses, such as "in practice", "which means", "rather than letting X decide", or stacking two "because/so" clauses in one sentence.
+**Why:** A sentence carrying two justifications forces the reader to hold both in mind before either one lands. Developers scan for the fact, not the reasoning path that produced it.
+**Exception:** A single subordinate clause that states the direct cause of the preceding fact is fine. The rule targets stacked or redundant justification, not all subordinate clauses.
+
+---
+
+**Rule:** No figurative or spatial metaphors for technical mechanisms (tree-walking, family relationships, container-unwrapping, path-crossing language). Remove phrases such as "walks the tree", "grandparent locale", "unwrapped", "pass over". Describe the actual mechanism directly instead.
+**Why:** A metaphor reads smoothly but forces the reader to reverse-engineer what actually happens. Reusing the same metaphor for two different operations (for example "walk" meaning both tree traversal and list pagination) is actively confusing.
+**Exception:** Domain-standard structural vocabulary is not a metaphor and is exempt, for example "ancestor", "descendant", "parent", or "child" when naming an actual data-model relationship (taxonomy terms, entry references). Flag the term only when it stands in for an operation instead of naming a real relationship.
+
+---
+
+**Rule:** Name a concept directly instead of describing what it does in roundabout language, when a concise technical term for it is already established elsewhere in this doc set. Replace phrases such as "read in pages", "returned in pages", or "a long list retrieved across pages" with "paginate" or "for pagination".
+**Why:** A roundabout description reads fine on its own but wastes words restating what a single established term already conveys, and it makes the doc set inconsistent about how it refers to the same concept. A reader searching for "pagination" will not find the page that spells it out longhand.
+**Exception:** A roundabout description is fine if no shorter direct term for the concept exists yet anywhere in this doc set. Introducing the concise term is then the better fix, so define it once and use it from there on.
+
+---
+
+**Rule:** Write a numeric error code or HTTP status code as inline code (`429`), never as bare prose (429).
+**Why:** A bare number reads as a quantity, not an identifier. Inline code marks it as a literal value the reader compares against, matching how the same code appears in a request or response body.
+**Exception:** A written-out description of a status class ("a client error", "a server error") is prose and is not affected.
+
+---
+
+**Rule:** Do not embed a lowercase "how many" or "how much" indirect question mid-sentence, such as "depth limits how many levels the response covers". State the count directly instead, for example "depth limits the number of levels the response covers".
+**Why:** An embedded question turns a declarative technical sentence into something that reads like a spoken aside, and the same fact states directly without it.
+**Exception:** A capitalized "How many"/"How much" starting a standalone phrase, such as a parameter table cell description ("How many levels above the term to traverse."), is a different, accepted convention and is not affected.
+
+---
+
+**Rule:** Bold a spelled-out retry or attempt count stated in prose, for example "retries automatically, up to **five attempts**".
+**Why:** A retry limit is a fact a developer scans the page for. Bold marks it the same way the Default column marks a value, and a spelled-out number carries no other visual signal the way a bare digit does.
+**Exception:** None. This targets the specific retry/attempt-count convention, not every number that appears in prose.
+
+---
+
+**Rule:** No passive-voice constructions (auxiliary plus past participle, modal plus be plus participle, get-passives, or by-agent passives) where naming the actor directly would be clearer. Remove or rewrite phrases such as "is chained", "are stored", "can be tagged with", "gets validated", "is sent by find".
+**Why:** Passive voice hides who or what performs an action, forcing the reader to infer the actor. Active voice states the mechanism directly.
+**Exception:** Predicate adjectives describing a state, not an action, are not passive voice and are exempt, for example "is unchanged", "is unlocalized", "is based on", "is located at". Ambiguous config-state phrasing such as "is enabled" or "is published" is still flagged for a human to judge rather than exempted, since it is genuinely ambiguous whether an actor is implied.
+
+**How to judge a borderline case:** ask whether a specific actor performed the action at a specific moment. If yes, it is passive and needs rewriting, so "conditions are stored in a dictionary" becomes "the SDK stores conditions in a dictionary". If the phrase instead describes what something *is* rather than what happened to it, leave it, so "the legacy path is unchanged" stays. Two rewrites work when the actor is genuinely absent: promote the affected thing to subject ("the match excludes it" rather than "it is excluded from the match"), or name the mechanism ("`find` serializes the condition" rather than "the condition is serialized").
+
+**Who counts as the actor:** reserve "you" for what the caller does and name the library "the SDK" or the bare method for what it does on its own. Writing "you" for library behavior implies the reader controls something they do not. The authoritative exemption list lives in `scripts/data/passive-voice/*.json`, so add a new exemption there rather than only in prose.
 
 ---
 
@@ -291,6 +355,12 @@ Every rule follows this format:
 
 ---
 
+**Rule:** To link out to another doc, hyperlink an existing plain-text keyword directly in the sentence only when that keyword is unformatted prose (no bold, no inline code, no existing link). If the sentence has no such keyword, or the only candidate word is already bolded, inline code, or otherwise special-characterized, add a separate `Additional Resources` callout instead of forcing the link onto formatted text.
+**Why:** Wrapping a link around text that already carries its own formatting (`` `retry_strategy` ``, a bolded label) makes the sentence carry two signals at once and is easy to misread as the formatting itself being the link target. A plain keyword can absorb a link without adding visual noise.
+**Exception:** None. Pick the plain keyword or fall back to the callout, never link formatted text.
+
+---
+
 ### C6: Content Accuracy and Grouping
 
 **Rule:** Heading names describe the actual content of the section, not aspirational or intended content.
@@ -307,6 +377,18 @@ Every rule follows this format:
 
 **Rule:** If a section grows beyond its heading's scope, rename the section or split it.
 **Why:** An overgrown section misleads developers about what they will find in it and makes the doc harder to navigate by heading.
+**Exception:** None.
+
+---
+
+**Rule:** Do not cite internal implementation details as justification for a claim: internal function or variable names, internal PR numbers or repo paths, or process attributions such as "as confirmed by engineering." State only the resulting user-facing behavior and status.
+**Why:** Internal identifiers and process attributions are meaningless to the reader, can leak unreleased or unstable implementation details, and go stale the moment the internal implementation changes, unlike the documented behavior.
+**Exception:** None for externally published docs. Internal-only engineering documentation, explicitly marked as such and never published externally, is not subject to this rule.
+
+---
+
+**Rule:** When a multi-fact paragraph is converted into a bulleted list under a bolded lead-in label, the label must name the specific grouping the bullets share, not a generic placeholder such as "Note," "Important," or "Important Points."
+**Why:** A generic label gives the reader no scan value and no way to judge relevance before reading the list. A specific label lets the reader decide whether the list matters to them.
 **Exception:** None.
 
 ---
@@ -430,3 +512,9 @@ This section applies to all doc types. Its rules are more specific than C3 (Lang
 **Rule:** A Feature Doc documenting a superseded version must not carry a full old-to-new flag/parameter mapping table when an equivalent mapping already exists in the current version's doc or a dedicated Migration Guide. Keep only a short note plus a link to that mapping.
 **Why:** A complete old-to-new mapping table is the "Type Mapping Reference" pattern reserved for Migration Guide docs (see Section Definitions and `migration-guide.md`). Duplicating it inside a Feature Doc creates two independently maintained copies of the same fact, and a Feature Doc is read by every visitor, not only the subset migrating between versions.
 **Exception:** If no current-version doc or Migration Guide exists yet to link to, a short table may remain inline, positioned after Troubleshooting rather than before it, until that canonical destination exists.
+
+---
+
+**Rule:** Flag or parameter reference tables must separate required-ness and caveats into their own columns (Flag, Required, Description, Notes) rather than folding purpose, requiredness, and constraints (exclusivity rules, edge cases, side effects) into a single Description column.
+**Why:** A Description column that mixes what a flag does with when it applies and what it conflicts with becomes too dense to scan. Separate Required and Notes columns let a reader check applicability and caveats without rereading a full paragraph per row.
+**Exception:** A table with only one or two flags and no caveats may use a simpler two-column Flag/Description format.

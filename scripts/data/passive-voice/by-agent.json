@@ -1,0 +1,16 @@
+{
+  "ruleId": "C3-10",
+  "category": "passive voice (explicit by-agent)",
+  "phrases": [
+    {
+      "pattern": "\\b(?:is|are|was|were|been|being)\\b(?:\\s+(?:not|already|still|also|now|currently|[a-z]+ly))?\\s+(?!advanced\\b|aged\\b|based\\b|complicated\\b|concerned\\b|dedicated\\b|detailed\\b|fixed\\b|interested\\b|limited\\b|located\\b|married\\b|qualified\\b|related\\b|supposed\\b|unaffected\\b|unauthenticated\\b|unauthorized\\b|undefined\\b|uninitialized\\b|unlocalized\\b|unrelated\\b|unsupported\\b|unchanged\\b)[a-z]{3,}ed\\s+by\\s+(?!default\\b|design\\b)(?:the\\s+|an?\\s+|this\\s+|that\\s+)?[a-z]+\\b",
+      "label": "passive voice (regular participle with explicit by-agent)",
+      "fix": "the agent is already named, so make it the subject: \"<agent> <verb>s ...\" instead of the by-agent passive"
+    },
+    {
+      "pattern": "\\b(?:is|are|was|were|been|being)\\b(?:\\s+(?:not|already|still|also|now|currently|[a-z]+ly))?\\s+(?<!well\\s)(?<!widely\\s)(?:sent|read|set|given|done|seen|written|taken|made|held|kept|found|put|shown|known|thrown|broken|chosen|driven|left|built|bought|brought|caught|taught|sold|told|understood|spent|dealt|led|cut|hit|let|shut|split|run|drawn|grown|hidden|frozen|stolen|cast|spread)\\s+by\\s+(?!default\\b|design\\b)(?:the\\s+|an?\\s+|this\\s+|that\\s+)?[a-z]+\\b",
+      "label": "passive voice (irregular participle with explicit by-agent)",
+      "fix": "the agent is already named, so make it the subject: \"<agent> <verb>s ...\" instead of the by-agent passive"
+    }
+  ]
+}

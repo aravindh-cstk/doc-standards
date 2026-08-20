@@ -1,0 +1,12 @@
+{
+  "ruleId": "C3-08",
+  "category": "metaphor",
+  "phrases": [
+    { "pattern": "\\bwalks?\\b", "label": "walk (tree/list traversal)", "fix": "name the actual operation (\"traverse\", \"retrieve in pages\") instead of \"walk\"" },
+    { "phrase": "grandparent locale", "fix": "describe the fallback order directly (\"an earlier locale in the hierarchy\") instead of a family relationship" },
+    { "phrase": "ancestor locale", "fix": "describe the fallback order directly (\"an earlier locale in the hierarchy\") instead of a family relationship" },
+    { "phrase": "parent locale", "fix": "describe the fallback order directly (\"the next locale in the hierarchy\") instead of a family relationship" },
+    { "pattern": "\\bunwrap(s|ped|ping)?\\b", "label": "unwrap", "fix": "say what's returned directly instead of the container metaphor" },
+    { "phrase": "pass over", "fix": "state what is skipped or omitted directly" }
+  ]
+}

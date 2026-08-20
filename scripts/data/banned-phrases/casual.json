@@ -6,6 +6,11 @@
     { "phrase": "on its own", "fix": "state what actually happens automatically, or drop the phrase" },
     { "phrase": "you'll find", "fix": "state the fact directly" },
     { "phrase": "pretty straightforward", "fix": "drop the qualifier and state the steps" },
-    { "phrase": "just", "fix": "drop the minimizer" }
+    { "phrase": "just", "fix": "drop the minimizer" },
+    { "phrase": "raise the value", "fix": "increase the value" },
+    { "phrase": "by hand", "fix": "manually" },
+    { "phrase": "reach for", "fix": "use" },
+    { "pattern": "\\b(telling|showing|letting|reminding) you\\b", "fix": "drop the second-person participial clause and state the fact directly" },
+    { "pattern": "\\bgives? you\\b", "fix": "restate impersonally, for example \"returns\" or \"produces\"" }
   ]
 }

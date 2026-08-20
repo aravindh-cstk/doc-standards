@@ -1,0 +1,13 @@
+{
+  "ruleId": "C3-09",
+  "category": "periphrasis",
+  "phrases": [
+    { "pattern": "\\blong list\\b.{0,40}\\bpages?\\b", "label": "roundabout pagination description (long list...pages)", "fix": "name it directly (\"pagination\"/\"paginate\") instead of describing it" },
+    { "pattern": "\\bpages?\\b.{0,40}\\blong list\\b", "label": "roundabout pagination description (pages...long list)", "fix": "name it directly (\"pagination\"/\"paginate\") instead of describing it" },
+    { "phrase": "read in pages", "fix": "say \"paginate\" or \"for pagination\" instead" },
+    { "phrase": "returned in pages", "fix": "say \"paginate\" or \"for pagination\" instead" },
+    { "phrase": "retrieved in pages", "fix": "say \"paginate\" or \"for pagination\" instead" },
+    { "pattern": "\\bretrieve\\b.{0,40}\\bin pages\\b", "label": "roundabout pagination description (retrieve...in pages)", "fix": "say \"paginate\" instead of \"retrieve...in pages\"" },
+    { "pattern": "\\bpage through\\b.{0,25}\\b(manually|by hand|yourself)\\b", "label": "roundabout pagination description (page through manually)", "fix": "say \"paginate manually\" or state that the SDK does not paginate automatically" }
+  ]
+}
