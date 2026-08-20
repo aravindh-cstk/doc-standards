@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const { makeFinding } = require('../lib/report');
 
-const DATA_DIR = path.join(__dirname, '..', 'data', 'banned-phrases');
+const DATA_DIR = path.join(__dirname, '..', 'data', 'metaphors');
 const INLINE_CODE_RE = /`[^`]*`/g;
 
 function escapeRegExp(s) {
@@ -23,19 +23,23 @@ function loadPhraseList() {
 }
 
 /**
- * Each entry is either a literal `phrase` (matched as a whole-word phrase, case
- * insensitive) or a `pattern` (a raw regex string, for catching a family of
- * related casual constructs with one wordlist entry, e.g. "telling you",
- * "showing you", "letting you know"). `label` is what gets reported for a
- * pattern entry, since there is no single literal phrase to quote.
+ * Same literal-`phrase`-or-raw-`pattern` shape as checks/banned-phrases.js. `label`
+ * is what gets reported for a pattern entry, since there is no single literal
+ * phrase to quote (for example the "walk" pattern covers walk/walks).
  */
 function entryRegex(entry) {
   if (entry.pattern) return new RegExp(entry.pattern, 'i');
   return new RegExp(`\\b${escapeRegExp(entry.phrase)}\\b`, 'i');
 }
 
-/** Tier 1: exact banned casual/marketing/superlative/buzzword phrase matches, outside code fences and inline code. */
-function checkBannedPhrases(doc) {
+/**
+ * Tier 2: figurative/spatial metaphor phrases standing in for a technical mechanism,
+ * outside code fences and inline code. Tier 2 (flagged for review, non-blocking)
+ * rather than tier 1, because unlike casual/marketing phrases, a metaphor hit can be
+ * legitimate domain vocabulary elsewhere (see rule C3-08's exception in common-rules.md),
+ * so it needs a human read, not an automatic gate.
+ */
+function checkMetaphors(doc) {
   const findings = [];
   const phraseList = loadPhraseList();
 
@@ -48,14 +52,15 @@ function checkBannedPhrases(doc) {
       const re = entryRegex(entry);
       const match = re.exec(stripped);
       if (match) {
-        const found = entry.phrase || match[0];
+        const found = entry.phrase || entry.label || match[0];
         findings.push(
           makeFinding({
-            tier: 1,
+            tier: 2,
             ruleId: entry.ruleId,
-            checkId: 'banned-phrases',
+            checkId: 'metaphor-phrases',
             line: lineNo,
-            message: `Banned ${entry.category} phrase "${found}" found. Fix: ${entry.fix}`,
+            message: `Figurative ${entry.category} phrase "${found}" found. Fix: ${entry.fix}`,
+            falsePositiveNote: 'Domain-standard structural vocabulary (ancestor/descendant/parent/child naming a real data-model relationship) is exempt. Confirm this hit stands in for an operation before fixing it.',
           })
         );
       }
@@ -64,4 +69,4 @@ function checkBannedPhrases(doc) {
   return findings;
 }
 
-module.exports = { checkBannedPhrases };
+module.exports = { checkMetaphors };

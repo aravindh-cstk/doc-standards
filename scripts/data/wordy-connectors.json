@@ -1,0 +1,15 @@
+{
+  "ruleId": "C3-07",
+  "category": "wordy-connector",
+  "phrases": [
+    { "phrase": "in practice", "fix": "state the fact directly, drop the hedge" },
+    { "phrase": "which means", "fix": "split into two sentences, or state the consequence directly" },
+    { "phrase": "due to the fact that", "fix": "\"because\"" },
+    { "phrase": "for the purpose of", "fix": "\"to\"" },
+    { "phrase": "it should be noted that", "fix": "drop the preamble, state the fact" },
+    { "phrase": "rather than letting", "fix": "state what actually happens, drop the counterfactual" },
+    { "phrase": "the fact that", "fix": "drop it, state the fact directly" },
+    { "phrase": "in the event that", "fix": "\"if\"" },
+    { "phrase": "at this point in time", "fix": "\"now\", or drop it" }
+  ]
+}

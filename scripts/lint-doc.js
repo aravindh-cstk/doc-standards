@@ -17,6 +17,13 @@ const { checkAcronymFirstUse } = require('./checks/acronym-first-use');
 const { checkMigrationSpecific } = require('./checks/migration-specific');
 const { checkGettingStartedSpecific } = require('./checks/getting-started-specific');
 const { checkHeuristics } = require('./checks/heuristic-flags');
+const { checkSentenceConcision } = require('./checks/sentence-concision');
+const { checkMetaphors } = require('./checks/metaphor-phrases');
+const { checkPeriphrasis } = require('./checks/periphrasis-phrases');
+const { checkPassiveVoice } = require('./checks/passive-voice');
+const { checkErrorCodeFormat } = require('./checks/error-code-format');
+const { checkEmbeddedQuestionPhrases } = require('./checks/embedded-question-phrases');
+const { checkRetryAttemptCountBold } = require('./checks/retry-attempt-count-bold');
 
 const VALID_TYPES = [
   'conceptual-guide',
@@ -41,6 +48,13 @@ const CHECKS = [
   checkMigrationSpecific,
   checkGettingStartedSpecific,
   checkHeuristics,
+  checkSentenceConcision,
+  checkMetaphors,
+  checkPeriphrasis,
+  checkPassiveVoice,
+  checkErrorCodeFormat,
+  checkEmbeddedQuestionPhrases,
+  checkRetryAttemptCountBold,
 ];
 
 function parseArgs(argv) {
