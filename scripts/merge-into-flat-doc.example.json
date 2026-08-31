@@ -1,0 +1,82 @@
+{
+  "_comment": "This is the config that produced commit 20e261d on developer-solution-docs PR #87 (Taxonomy/Term/TermQuery into reference.md). Copy it for the next batch and adjust review_root, target_file, classes, and extra_method_inserts.",
+  "review_root": "python-delivery-pr-217",
+  "target_file": "../developer-solution-docs/docs/sdk/content-delivery-sdk/python/reference.md",
+  "class_anchor_overrides": {
+    "Stack": "stack"
+  },
+  "extra_method_inserts": [
+    {
+      "class": "Stack",
+      "method": "taxonomy",
+      "anchor": "stack-taxonomy",
+      "insert_before_heading": "## Asset \\{#asset\\}"
+    }
+  ],
+  "classes": [
+    {
+      "name": "Taxonomy",
+      "anchor": "taxonomy",
+      "anchor_prefix": "",
+      "replace_heading": "## Taxonomy \\{#taxonomy\\}",
+      "methods": [
+        "find",
+        "skip",
+        "limit",
+        "include_count",
+        "param",
+        "in_",
+        "or_",
+        "and_",
+        "exists",
+        "equal_and_below",
+        "below",
+        "equal_and_above",
+        "above",
+        "fetch",
+        "locale",
+        "include_fallback",
+        "include_branch",
+        "term"
+      ]
+    },
+    {
+      "name": "Term",
+      "anchor": "term-class",
+      "anchor_prefix": "term-",
+      "insert_after_heading": "## Taxonomy \\{#taxonomy\\}",
+      "methods": [
+        "fetch",
+        "locales",
+        "ancestors",
+        "descendants",
+        "depth",
+        "locale",
+        "include_fallback",
+        "include_branch",
+        "param"
+      ]
+    },
+    {
+      "name": "TermQuery",
+      "anchor": "termquery",
+      "anchor_prefix": "termquery-",
+      "insert_after_heading": "## Term \\{#term-class\\}",
+      "methods": [
+        "find",
+        "skip",
+        "limit",
+        "depth",
+        "locale",
+        "include_fallback",
+        "include_branch",
+        "include_count",
+        "param"
+      ]
+    }
+  ],
+  "remove_sections": [
+    "## Terms \\{#terms\\}",
+    "## TermsQuery \\{#termsquery\\}"
+  ]
+}
