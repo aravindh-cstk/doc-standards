@@ -427,7 +427,7 @@
     ],
     "rule": "No Q&A-style headers in body sections.",
     "why": "Q&A headers feel like marketing copy or FAQ content.",
-    "exception": "A dedicated FAQ or Common Questions section at the end of the doc may use question-form headers.",
+    "exception": "A dedicated FAQ or Common Questions section at the end of the doc may use question-form headers. The page's H1 is also exempt: a conceptual guide's title stating its subject as a question, for example \"What is MCP Profile Hub?\", names the page rather than opening an FAQ-style body section. H2 and deeper stay in scope.",
     "tier": 1,
     "checkId": "qa-headers"
   },
@@ -1097,9 +1097,9 @@
     "docTypes": [
       "all"
     ],
-    "rule": "Do not embed a lowercase \"how many\"/\"how much\" indirect question mid-sentence. State the count directly (\"the number of X\") instead.",
-    "why": "An embedded question turns a declarative technical sentence into something that reads like a spoken aside, and it is unnecessary since the fact can be stated directly.",
-    "exception": "A capitalized \"How many\"/\"How much\" starting a standalone phrase, such as a parameter table cell description, is a different and accepted convention.",
+    "rule": "Do not embed a lowercase question word (\"how\", \"how many\", \"how much\") mid-sentence as an indirect question. Name the thing directly (\"the number of X\", \"the OAuth sign-in flow\", \"the steps to X\", \"the rules for combining them\") instead.",
+    "why": "An embedded question turns a declarative technical sentence into something that reads like a spoken aside, and it is unnecessary since the fact can be named directly.",
+    "exception": "A capitalized \"How\", \"How many\", or \"How much\" starting a standalone phrase, such as a heading or a parameter table cell description, is a different and accepted convention.",
     "tier": 2,
     "checkId": "embedded-question-phrases"
   },
@@ -1114,5 +1114,17 @@
     "exception": "None. This targets the specific retry/attempt-count convention, not every number in prose.",
     "tier": 2,
     "checkId": "retry-attempt-count-bold"
+  },
+  {
+    "id": "C3-14",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Use a numbered list only for a sequence: instructions the reader performs in order, an event flow, or a ranked list such as precedence. Every other set of parallel items is an unordered list.",
+    "why": "Numbers assert an order. When a set of components or concepts is numbered, the reader looks for a first step and a last step that do not exist, and the numbers become noise that hides the real steps elsewhere on the page.",
+    "exception": "A ranked or ordered set whose intro line names the order, for example \"the highest one wins\", keeps its numbers.",
+    "tier": 2,
+    "checkId": "ordered-list-sequence"
   }
 ]

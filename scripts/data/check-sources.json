@@ -1,0 +1,337 @@
+{
+  "acronym-first-use": {
+    "kind": "wordlist",
+    "module": "checks/acronym-first-use.js",
+    "rules": [
+      "B1-06",
+      "C3-06",
+      "C8-07"
+    ],
+    "dataFiles": [
+      "data/acronyms.json"
+    ],
+    "patterns": [
+      "ACRONYM_RE"
+    ]
+  },
+  "banned-phrases": {
+    "kind": "wordlist",
+    "module": "checks/banned-phrases.js",
+    "rules": [
+      "B1-10",
+      "B2-09",
+      "C3-01",
+      "C3-03",
+      "C8-01",
+      "C8-02",
+      "C8-03",
+      "C8-04",
+      "C8-05",
+      "C8-06"
+    ],
+    "dataFiles": [
+      "data/banned-phrases/*.json"
+    ]
+  },
+  "bare-links": {
+    "kind": "structural",
+    "module": "checks/next-steps-links.js",
+    "rules": [
+      "B2-08",
+      "C1-06",
+      "RS1-04"
+    ],
+    "patterns": [
+      "BARE_LINK_SECTIONS"
+    ]
+  },
+  "callout-frequency": {
+    "kind": "structural",
+    "module": "checks/heuristic-flags.js",
+    "rules": [
+      "B1-08",
+      "B2-04",
+      "C2-05",
+      "C5-01",
+      "C5-03"
+    ]
+  },
+  "cli-mutation-statement-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "C9-01"
+    ]
+  },
+  "duplicate-links": {
+    "kind": "structural",
+    "module": "checks/heuristic-flags.js",
+    "rules": [
+      "C5-04",
+      "C7-02"
+    ]
+  },
+  "duplicate-sections": {
+    "kind": "structural",
+    "module": "checks/heuristic-flags.js",
+    "rules": [
+      "B1-09",
+      "B2-06",
+      "C7-01"
+    ]
+  },
+  "em-dash-semicolon": {
+    "kind": "regex",
+    "module": "checks/em-dash-semicolon.js",
+    "rules": [
+      "C3-05"
+    ],
+    "patterns": [
+      "DASH_SEMI_RE",
+      "INLINE_CODE_RE"
+    ]
+  },
+  "embedded-question-phrases": {
+    "kind": "regex",
+    "module": "checks/embedded-question-phrases.js",
+    "rules": [
+      "C3-12"
+    ],
+    "patterns": [
+      "PHRASE_RE",
+      "REWRITES"
+    ]
+  },
+  "error-code-format": {
+    "kind": "regex",
+    "module": "checks/error-code-format.js",
+    "rules": [
+      "C3-11"
+    ],
+    "patterns": [
+      "CODE_RE"
+    ]
+  },
+  "exhaustive-claim-phrases": {
+    "kind": "wordlist",
+    "module": "checks/banned-phrases.js",
+    "rules": [
+      "C3-04"
+    ],
+    "dataFiles": [
+      "data/banned-phrases/*.json"
+    ]
+  },
+  "front-matter": {
+    "kind": "structural",
+    "module": "checks/front-matter.js",
+    "rules": [
+      "FM-01",
+      "FM-02"
+    ],
+    "patterns": [
+      "BASE_REQUIRED_KEYS"
+    ]
+  },
+  "getting-started-specific": {
+    "kind": "structural",
+    "module": "checks/getting-started-specific.js",
+    "rules": [
+      "RS1-01",
+      "RS1-02",
+      "RS2-02",
+      "RS2-04",
+      "RS3-01",
+      "RS3-02"
+    ]
+  },
+  "legacy-version-callout-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "C9-03"
+    ]
+  },
+  "metaphor-phrases": {
+    "kind": "wordlist",
+    "module": "checks/metaphor-phrases.js",
+    "rules": [
+      "C3-08"
+    ],
+    "dataFiles": [
+      "data/metaphors/*.json"
+    ]
+  },
+  "migration-before-after": {
+    "kind": "structural",
+    "module": "checks/heuristic-flags.js",
+    "rules": [
+      "MIG-03"
+    ]
+  },
+  "migration-specific": {
+    "kind": "structural",
+    "module": "checks/migration-specific.js",
+    "rules": [
+      "MIG-02",
+      "MIG-04",
+      "MIG-06"
+    ]
+  },
+  "ordered-list-sequence": {
+    "kind": "structural",
+    "module": "checks/ordered-list-sequence.js",
+    "rules": [
+      "C3-14"
+    ],
+    "patterns": [
+      "SEQUENCE_SIGNAL_RE",
+      "IMPERATIVE_VERBS"
+    ]
+  },
+  "passive-voice": {
+    "kind": "wordlist",
+    "module": "checks/passive-voice.js",
+    "rules": [
+      "C3-10"
+    ],
+    "dataFiles": [
+      "data/passive-voice/*.json"
+    ]
+  },
+  "periphrasis-phrases": {
+    "kind": "wordlist",
+    "module": "checks/periphrasis-phrases.js",
+    "rules": [
+      "C3-09"
+    ],
+    "dataFiles": [
+      "data/periphrasis/*.json"
+    ]
+  },
+  "placeholder-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "C4-03"
+    ]
+  },
+  "prerequisites-links": {
+    "kind": "structural",
+    "module": "checks/heuristic-flags.js",
+    "rules": [
+      "C1-04"
+    ]
+  },
+  "prose-guard-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "B1-07",
+      "B2-07",
+      "C4-02"
+    ]
+  },
+  "qa-headers": {
+    "kind": "regex",
+    "module": "checks/qa-headers.js",
+    "rules": [
+      "C3-02"
+    ],
+    "patterns": [
+      "QUESTION_RE"
+    ]
+  },
+  "quick-reference-table": {
+    "kind": "structural",
+    "module": "checks/quick-reference-table.js",
+    "rules": [
+      "C2-04"
+    ]
+  },
+  "quick-start-verification": {
+    "kind": "structural",
+    "module": "checks/heuristic-flags.js",
+    "rules": [
+      "RS2-03"
+    ]
+  },
+  "retry-attempt-count-bold": {
+    "kind": "regex",
+    "module": "checks/retry-attempt-count-bold.js",
+    "rules": [
+      "C3-13"
+    ],
+    "patterns": [
+      "COUNT_RE"
+    ]
+  },
+  "section-length-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "C6-03"
+    ]
+  },
+  "section-structure": {
+    "kind": "structural",
+    "module": "checks/section-structure.js",
+    "rules": [
+      "B1-01",
+      "B2-01",
+      "C1-01",
+      "C1-02",
+      "C1-03",
+      "MIG-08"
+    ],
+    "dataFiles": [
+      "data/section-order.json"
+    ]
+  },
+  "sentence-concision": {
+    "kind": "regex",
+    "module": "checks/sentence-concision.js",
+    "rules": [
+      "C3-07"
+    ],
+    "dataFiles": [
+      "data/wordy-connectors.json"
+    ],
+    "patterns": [
+      "WORD_LIMIT",
+      "CAUSAL_RE"
+    ]
+  },
+  "token-scope-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "C9-02"
+    ]
+  },
+  "troubleshooting-format": {
+    "kind": "structural",
+    "module": "checks/troubleshooting-format.js",
+    "rules": [
+      "C1-05"
+    ],
+    "patterns": [
+      "ROOT_CAUSE_RE",
+      "RESOLUTION_RE"
+    ]
+  },
+  "try-catch-heuristic": {
+    "kind": "structural",
+    "module": "checks/heuristic-flags.js",
+    "rules": [
+      "C4-05"
+    ]
+  },
+  "type-mapping-row-grouping": {
+    "kind": "structural",
+    "module": "checks/heuristic-flags.js",
+    "rules": [
+      "MIG-05"
+    ]
+  }
+}

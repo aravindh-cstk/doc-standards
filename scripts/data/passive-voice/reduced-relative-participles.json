@@ -1,0 +1,21 @@
+{
+  "ruleId": "C3-10",
+  "category": "passive voice (reduced relative / postnominal participle)",
+  "phrases": [
+    {
+      "pattern": ",\\s+(?:(?:not|already|newly|each|all|or|and|also)\\s+)?(?!advanced\\b|aged\\b|based\\b|complicated\\b|concerned\\b|dedicated\\b|detailed\\b|fixed\\b|interested\\b|limited\\b|located\\b|married\\b|qualified\\b|related\\b|supposed\\b|unaffected\\b|unauthenticated\\b|unauthorized\\b|undefined\\b|uninitialized\\b|unlocalized\\b|unrelated\\b|unsupported\\b|unchanged\\b|designed\\b|intended\\b|expected\\b|needed\\b|required\\b|focused\\b|prepared\\b|used\\b)(?:[a-z]+-)?[a-z]{3,}ed\\s+(?:by|to|from|for|at|in|on|as|with|per|across|through|under|into)\\b",
+      "label": "passive voice (postnominal participle after a comma)",
+      "fix": "name the actor and make it the subject: \"..., which <actor> <verb>s ...\" or split into a second active sentence"
+    },
+    {
+      "pattern": "\\b(?:the|a|an|its|their|your|our|one|any|anyone|someone|everyone|every|each|those|these|this|that)\\s+(?:[a-z][a-z-]*\\s+){0,3}[a-z][a-z-]*\\s+(?:(?:not|already|newly)\\s+)?(?:grouped|built|exported|offered|capped|listed|scoped|named|derived|installed|attached|captured|expanded|shaped|bounded|configured|exposed|imported|connected|shown|added|made|selected|sent|given|written|held|kept|hidden|split|drawn|bound|thrown|chosen)\\s+(?:by|to|from|for|at|in|on|as|with|per|across|through|after|this way)\\b",
+      "label": "passive voice (reduced relative clause: noun phrase + participle + preposition)",
+      "fix": "restore the relative pronoun and the actor: \"a file <actor> exported from ...\" or \"a directory it names after ...\""
+    },
+    {
+      "pattern": "\\b[a-z]{4,}s\\s+(?:(?:not|already|newly)\\s+)?(?:grouped|built|exported|offered|capped|listed|scoped|named|derived|installed|attached|captured|expanded|shaped|bounded|configured|exposed|imported|connected|added|selected)\\s+(?:by|to|from|for|at|in|on|as|with|per|across|through|this way)\\b",
+      "label": "passive voice (reduced relative on a bare plural noun)",
+      "fix": "restore the actor: \"the tools the browser groups by area\", \"servers you add this way\""
+    }
+  ]
+}

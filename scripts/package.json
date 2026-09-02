@@ -8,6 +8,10 @@
   },
   "scripts": {
     "test": "node --test",
+    "lint": "node lint-doc.js",
+    "sweep": "node sweep-docs.js",
+    "probe": "node probe-corpus.js",
+    "review": "node review-candidates.js",
     "build:section-order": "node build/build-section-order.js"
   }
 }

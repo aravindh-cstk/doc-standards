@@ -2,7 +2,7 @@
 
 const { makeFinding } = require('../lib/report');
 
-const BASE_REQUIRED_KEYS = ['title', 'description', 'url'];
+const BASE_REQUIRED_KEYS = ['seo_title', 'seo_description', 'url'];
 
 /** Tier 1: required front matter keys present, malformed key:value lines, version field for migration guides. */
 function checkFrontMatter(doc, docType) {

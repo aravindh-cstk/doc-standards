@@ -57,10 +57,29 @@ test('broken feature doc: casual and marketing phrases are all caught', () => {
   assert.ok(messages.some((m) => m.includes('powerful')));
 });
 
-test('broken feature doc: Troubleshooting entry missing Root Cause(s) is caught', () => {
+test('broken feature doc: Troubleshooting entry missing a Root Cause label is caught', () => {
   const doc = loadFixture('broken-feature-doc.md');
   const findings = checkTroubleshootingFormat(doc);
-  assert.ok(findings.some((f) => f.message.includes('Root Cause(s)')));
+  assert.ok(findings.some((f) => f.message.includes('missing a bolded **Root Cause** label')));
+  assert.ok(findings.every((f) => f.ruleId === 'C1-05'));
+});
+
+// The **Root Cause(s)** spelling is what the check deliberately rejects, so the
+// clean fixture uses **Root Cause** and this asserts the rejection still holds.
+test('the Root Cause(s) spelling does not satisfy the Root Cause label', () => {
+  const doc = new DocModel('inline.md', [
+    '# T',
+    '',
+    '## Troubleshooting',
+    '',
+    '### "Not found" error',
+    '',
+    '**Root Cause(s)**: The alias does not exist.',
+    '',
+    '**Resolution**: Add the alias.',
+  ].join('\n'));
+  const findings = checkTroubleshootingFormat(doc);
+  assert.ok(findings.some((f) => f.message.includes('missing a bolded **Root Cause** label')));
 });
 
 test('em dash and semicolon detector ignores code fences and inline code', () => {

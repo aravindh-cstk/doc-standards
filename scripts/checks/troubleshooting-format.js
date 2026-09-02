@@ -2,10 +2,12 @@
 
 const { makeFinding } = require('../lib/report');
 
-const ROOT_CAUSE_RE = /\*\*Root Cause\(s\)\*\*/;
+// common-rules.md specifies **Root Cause** for a single cause and **Root Causes**
+// for several. The **Root Cause(s)** spelling is not valid and must not match.
+const ROOT_CAUSE_RE = /\*\*Root Causes?\*\*/;
 const RESOLUTION_RE = /\*\*Resolution\*\*/;
 
-/** Tier 1: each Troubleshooting H3 entry has bolded Root Cause(s) then Resolution labels, in order. */
+/** Tier 1: each Troubleshooting H3 entry has a bolded Root Cause or Root Causes label, then Resolution, in order. */
 function checkTroubleshootingFormat(doc) {
   const findings = [];
   const troubleshooting = doc.findSection(['Troubleshooting']);
@@ -28,7 +30,7 @@ function checkTroubleshootingFormat(doc) {
           checkId: 'troubleshooting-format',
           line: entry.line,
           section: entry.text,
-          message: `Troubleshooting entry "${entry.text}" is missing a bolded **Root Cause(s)** label.`,
+          message: `Troubleshooting entry "${entry.text}" is missing a bolded **Root Cause** label (use **Root Causes** when there are several).`,
         })
       );
     }
@@ -52,7 +54,7 @@ function checkTroubleshootingFormat(doc) {
           checkId: 'troubleshooting-format',
           line: entry.line,
           section: entry.text,
-          message: `Troubleshooting entry "${entry.text}" has Resolution before Root Cause(s), expected order is Root Cause(s) then Resolution.`,
+          message: `Troubleshooting entry "${entry.text}" has Resolution before the root cause, expected order is Root Cause then Resolution.`,
         })
       );
     }

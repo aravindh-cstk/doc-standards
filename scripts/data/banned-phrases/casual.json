@@ -10,6 +10,13 @@
     { "phrase": "raise the value", "fix": "increase the value" },
     { "phrase": "by hand", "fix": "manually" },
     { "phrase": "reach for", "fix": "use" },
+    { "pattern": "\\b(the same|similar|different|these|those|two|all) (kinds?|sorts?) of\\b", "label": "kinds of / sorts of", "fix": "name the category, for example \"cover similar tasks\" instead of \"cover the same kinds of work\"" },
+    { "pattern": "\\bends? up with\\b", "label": "ends up with", "fix": "state the result directly, for example \"the number of tools they expose\"" },
+    { "pattern": "\\bfigure out\\b", "fix": "determine, or name the action the reader takes" },
+    { "pattern": "\\bmake sure\\b", "fix": "confirm, or verify" },
+    { "pattern": "\\bkeep in mind\\b", "fix": "drop the phrase and state the constraint" },
+    { "pattern": "\\b(two|three|four|several|some|these|those|a few) things\\b", "label": "N things", "fix": "name the items, for example \"covers naming the profile and choosing its tools\" instead of \"covers two things\"" },
+    { "pattern": "\\byou might expect\\b", "fix": "state the limit directly rather than guessing at the reader's expectation" },
     { "pattern": "\\b(telling|showing|letting|reminding) you\\b", "fix": "drop the second-person participial clause and state the fact directly" },
     { "pattern": "\\bgives? you\\b", "fix": "restate impersonally, for example \"returns\" or \"produces\"" }
   ]

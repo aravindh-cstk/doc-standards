@@ -3,7 +3,7 @@
 
 const path = require('path');
 const { DocModel } = require('./lib/doc-model');
-const { buildReport, renderText } = require('./lib/report');
+const { buildReport, renderText, makeFinding } = require('./lib/report');
 
 const { checkFrontMatter } = require('./checks/front-matter');
 const { checkSectionStructure } = require('./checks/section-structure');
@@ -24,6 +24,7 @@ const { checkPassiveVoice } = require('./checks/passive-voice');
 const { checkErrorCodeFormat } = require('./checks/error-code-format');
 const { checkEmbeddedQuestionPhrases } = require('./checks/embedded-question-phrases');
 const { checkRetryAttemptCountBold } = require('./checks/retry-attempt-count-bold');
+const { checkOrderedListSequence } = require('./checks/ordered-list-sequence');
 
 const VALID_TYPES = [
   'conceptual-guide',
@@ -55,6 +56,7 @@ const CHECKS = [
   checkErrorCodeFormat,
   checkEmbeddedQuestionPhrases,
   checkRetryAttemptCountBold,
+  checkOrderedListSequence,
 ];
 
 function parseArgs(argv) {
@@ -107,6 +109,41 @@ function detectDocType(doc) {
   return 'conceptual-guide';
 }
 
+/**
+ * Lints one file and returns the report object. Split out of main() so the
+ * corpus sweep and the gap probe can lint many files in one process and read
+ * the findings directly, instead of shelling out per file and parsing stdout.
+ * The label argument keeps the reported path as the caller wrote it, since
+ * main() reports the relative path the user typed while a sweep wants its own.
+ */
+function lintFile(filePath, { type = null, tiers = [1, 2], label = null } = {}) {
+  const doc = DocModel.fromFile(path.resolve(filePath));
+  const docType = type || detectDocType(doc);
+
+  let findings = [];
+  for (const check of CHECKS) {
+    // A check that throws must not take the whole run down and, more
+    // importantly, must not look like a clean file. Surface it as an error, the
+    // way lint-api-ref.js already does with AR-00.
+    try {
+      findings = findings.concat(check(doc, docType));
+    } catch (err) {
+      findings.push(
+        makeFinding({
+          tier: 1,
+          ruleId: 'LD-00',
+          checkId: check.name || 'unknown-check',
+          line: 1,
+          message: `Check "${check.name || 'anonymous'}" threw: ${err.message}`,
+        })
+      );
+    }
+  }
+  findings = findings.filter((f) => tiers.includes(f.tier));
+
+  return buildReport(label || filePath, docType, findings);
+}
+
 function main() {
   const args = parseArgs(process.argv.slice(2));
   if (!args.file) {
@@ -114,22 +151,12 @@ function main() {
     process.exit(2);
   }
 
-  const filePath = path.resolve(args.file);
-  const doc = DocModel.fromFile(filePath);
-
-  const docType = args.type || detectDocType(doc);
-  if (!VALID_TYPES.includes(docType)) {
-    console.error(`Unknown doc type "${docType}". Valid types: ${VALID_TYPES.join(', ')}`);
+  if (args.type && !VALID_TYPES.includes(args.type)) {
+    console.error(`Unknown doc type "${args.type}". Valid types: ${VALID_TYPES.join(', ')}`);
     process.exit(2);
   }
 
-  let findings = [];
-  for (const check of CHECKS) {
-    findings = findings.concat(check(doc, docType));
-  }
-  findings = findings.filter((f) => args.tiers.includes(f.tier));
-
-  const report = buildReport(args.file, docType, findings);
+  const report = lintFile(args.file, { type: args.type, tiers: args.tiers, label: args.file });
 
   if (args.format === 'json') {
     console.log(JSON.stringify(report, null, 2));
@@ -137,7 +164,11 @@ function main() {
     console.log(renderText(report));
   }
 
-  process.exit(report.summary.errors > 0 ? 1 : 0);
+  // Set the code rather than calling process.exit(), which would tear the
+  // process down before a large JSON report finishes draining to a pipe.
+  process.exitCode = report.summary.errors > 0 ? 1 : 0;
 }
 
-main();
+if (require.main === module) main();
+
+module.exports = { lintFile, detectDocType, CHECKS, VALID_TYPES };
