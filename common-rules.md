@@ -35,7 +35,7 @@ The primary working section. Contains setup steps, code examples, and configurat
 Sections that explain how something works internally (data flows, event protocols, hash mechanics, SDK internals). These come after the developer has a working setup. They are optional but valuable for debugging and deep understanding.
 
 **Troubleshooting**
-Each entry requires three elements: a symptom (what the developer sees), a root cause (why it happens), and a resolution (what to do). Symptom-only entries are not complete. Each troubleshooting entry should be independently understandable without reading sibling entries. Format each entry as the symptom stated as the heading, followed by a bolded `**Root Cause(s)**` label and a bolded `**Resolution**` label, in that order. Write `**Root Cause(s)**` as a single sentence when there is one cause, or as a bullet list when there are several genuinely distinct causes. Write `**Resolution**` as a single sentence or step when there is one fix, or as a numbered list when the fix involves multiple steps.
+Each entry requires three elements: a symptom (what the developer sees), a root cause (why it happens), and a resolution (what to do). Symptom-only entries are not complete. Each troubleshooting entry should be independently understandable without reading sibling entries. Format each entry as the symptom stated as the heading, followed by a bolded `**Root Cause**` or `**Root Causes**` label and a bolded `**Resolution**` label, in that order. Use `**Root Cause**` (singular) with a single sentence when there is one cause. Use `**Root Causes**` (plural) with a bullet list when there are several genuinely distinct causes. Write `**Resolution**` as a single sentence or step when there is one fix, or as a numbered list when the fix involves multiple steps.
 
 **Limitations**
 An optional section, placed after Troubleshooting and before Next Steps, listing what the tool does not detect, cover, or restore. Applies to any doc describing a scanning, validation, or detection tool. Omit if the tool has no known coverage gaps.
@@ -133,15 +133,15 @@ Every rule follows this format:
 
 ---
 
-**Rule:** Each link in Next Steps must include a one-sentence description of what the linked doc covers.
-**Why:** Bare links do not help developers decide whether to follow them. Descriptions also give AI retrieval agents signal for context.
-**Exception:** None. No bare links in Next Steps.
-
----
-
 **Rule:** Label the root-cause element `**Root Cause**` (singular) when there is exactly one cause, or `**Root Causes**` (plural) with a bulleted list when there are several genuinely distinct causes.
 **Why:** A plural label over a single sentence implies causes the reader has not been told about. A singular label over a list that actually covers multiple independent triggers hides that there is more than one thing to check.
 **Exception:** None.
+
+---
+
+**Rule:** Each link in Next Steps must include a one-sentence description of what the linked doc covers.
+**Why:** Bare links do not help developers decide whether to follow them. Descriptions also give AI retrieval agents signal for context.
+**Exception:** None. No bare links in Next Steps.
 
 ---
 
@@ -156,6 +156,12 @@ Every rule follows this format:
 **Rule:** Use bullet lists instead of prose for sequences of conditions, requirements, or parallel items.
 **Why:** Numbered or bulleted lists establish visual hierarchy. Prose buries parallel items and makes them harder to scan.
 **Exception:** When items have significant narrative dependency (each item explains the previous one), prose is acceptable.
+
+---
+
+**Rule:** When a bolded lead-in label (e.g., `**One method, two endpoints.**`) introduces more than one distinct fact, or a condition with multiple branches, format the content as a bullet list under that label, nesting sub-bullets for each branch, rather than one prose paragraph.
+**Why:** A paragraph that bundles a condition together with its outcomes ("with no filter chained it does X, with any filter chained it does Y") forces the reader to reread to map each outcome to its trigger. Nested bullets make each branch and its outcome visible without rereading.
+**Exception:** When the label introduces a single fact with no sub-parts or branches, one prose sentence is correct. Do not force a one-fact note into a list.
 
 ---
 
@@ -177,21 +183,35 @@ Every rule follows this format:
 
 ---
 
+**Rule:** The only valid callout labels are `Warning`, `Note`, `Tip`, and `Additional Resources`. Do not invent other labels such as `Important`, `Attention`, or `Caution`.
+**Why:** A fixed, small set of labels lets readers learn what each one means and react consistently. Ad hoc labels dilute that signal and read as informal.
+**Exception:** None. Map the intended severity onto the closest existing label instead of adding a new one (a caveat the reader must not miss is `Warning`, not `Important`).
+
+---
+
 **Rule:** When a list of values is maintained externally (a live registry, an API response, or a build artifact), include a Note stating the authoritative source and any known constraints (such as a value that applies to one region only).
 **Why:** A list copied from an external source becomes stale without notice. Readers who trust an incomplete or out-of-date list ship broken code. Citing the source gives the reader a path to the current truth. Special-case constraints discovered at read time prevent runtime errors that would otherwise appear only in troubleshooting.
 **Exception:** If the doc already states explicitly that the list is illustrative and not exhaustive, and the authoritative source is linked inline, a separate Note is not required.
 
 ---
 
-**Rule:** When a bolded lead-in label (e.g., `**One method, two endpoints.**`) introduces more than one distinct fact, or a condition with multiple branches, format the content as a bullet list under that label, nesting sub-bullets for each branch, rather than one prose paragraph.
-**Why:** A paragraph that bundles a condition together with its outcomes ("with no filter chained it does X, with any filter chained it does Y") forces the reader to reread to map each outcome to its trigger. Nested bullets make each branch and its outcome visible without rereading.
-**Exception:** When the label introduces a single fact with no sub-parts or branches, one prose sentence is correct. Do not force a one-fact note into a list.
+**Rule:** A heading is at most 4 words. Count the words in the heading text, treating an inline-code span as one word and a hyphenated compound as one word.
+**Why:** A reader scans headings to find their place in a page. A heading that runs to a full sentence stops working as a label and becomes prose, so the reader has to read it rather than scan it, and a table of contents built from such headings is unusable.
+**Exception:** A heading that reproduces product output verbatim, so that a reader searching the error text lands on the section that resolves it, may exceed 4 words. This covers only text the product itself emits. A heading that describes a symptom in the author's own words is not product output and is not exempt.
 
 ---
 
-**Rule:** The only valid callout labels are `Warning`, `Note`, `Tip`, and `Additional Resources`. Do not invent other labels such as `Important`, `Attention`, or `Caution`.
-**Why:** A fixed, small set of labels lets readers learn what each one means and react consistently. Ad hoc labels dilute that signal and read as informal.
-**Exception:** None. Map the intended severity onto the closest existing label instead of adding a new one (a caveat the reader must not miss is `Warning`, not `Important`).
+**Rule:** A heading is a complete phrase. Do not open a heading with a lowercase verb or a conjunction that depends on a subject the heading does not name.
+**Why:** A fragment such as "uses a secure HTTP trigger, which is not supported yet" reads as the tail of a sentence whose subject is missing, so a reader arriving from a search result or a table of contents cannot tell what the section covers.
+**Exception:** A heading may open in lowercase when the first word is itself a lowercase identifier, such as a package name or an error code. Otherwise name the subject, or reproduce the product's message in full under the verbatim-product-output exception above.
+
+---
+
+**Rule:** Consecutive body paragraphs under one heading read as one argument or as labelled standalone facts. When the paragraphs build on each other, open each with the subordinating connective that carries the logic ("Because", "When", "Only", "Since", "Unless"). When they cover separate sub-topics, give each a bolded lead-in label. Do not leave a run of three or more paragraphs that each open with a bare subject or a bare demonstrative and signal no relation to the paragraph above, and do not strand a one-sentence paragraph between two longer ones.
+**Why:** A reader treats a section as one answer to one question. Paragraphs that each resolve backward, with nothing pointing forward, force the reader to reconstruct a connection the writer already knew, and a reader who cannot tell whether paragraph three continues paragraph two or starts a new topic rereads both. A one-sentence paragraph stranded between two longer ones reads as an afterthought the writer could not place.
+**Exception:** Two short paragraphs where the second plainly continues the first need neither a label nor a connective. A procedure whose paragraphs are numbered steps carries its own sequence. A single backward demonstrative resolving the paragraph immediately above is correct and is governed by C3-24, not by this rule.
+
+**How to judge a borderline case:** ask whether the paragraphs answer one question or several. Several means bolded lead-ins, because the reader arrives at each fact separately. One means connectives, because the reader needs the logic and a label would freeze the break in the wrong place. The permitted connectives are subordinating conjunctions that carry logic. The conversational discourse markers C3-15 bans ("That said", "either way", "One caveat:", "When in doubt:") are still banned here, and reaching for one is a sign the paragraph order is wrong rather than the opener.
 
 ---
 
@@ -233,15 +253,15 @@ Every rule follows this format:
 
 ---
 
-**Rule:** Define each key term once at first use using the full form ("server-side rendering (SSR)"). Use the abbreviation consistently thereafter.
-**Why:** Inconsistent terminology forces the reader to re-map terms mentally throughout the doc. AI retrieval agents may treat the same concept as two different entities.
-**Exception:** If the doc is very long and sections are intended to be read independently, redefine the term once per major section.
-
----
-
 **Rule:** Write one idea per sentence. Cut hedging qualifiers and redundant justification clauses, such as "in practice", "which means", "rather than letting X decide", or stacking two "because/so" clauses in one sentence.
 **Why:** A sentence carrying two justifications forces the reader to hold both in mind before either one lands. Developers scan for the fact, not the reasoning path that produced it.
 **Exception:** A single subordinate clause that states the direct cause of the preceding fact is fine. The rule targets stacked or redundant justification, not all subordinate clauses.
+
+---
+
+**Rule:** Define each key term once at first use using the full form ("server-side rendering (SSR)"). Use the abbreviation consistently thereafter.
+**Why:** Inconsistent terminology forces the reader to re-map terms mentally throughout the doc. AI retrieval agents may treat the same concept as two different entities.
+**Exception:** If the doc is very long and sections are intended to be read independently, redefine the term once per major section.
 
 ---
 
@@ -285,6 +305,70 @@ Every rule follows this format:
 
 ---
 
+**Rule:** Write in simple present tense. Do not use present continuous as the main verb, so "the client is holding a stale token" becomes "the client holds a stale token" and "confirm calls are landing" becomes "confirm calls reach Contentstack".
+**Why:** Documentation describes what the product does, which is always true, not what it happens to be doing while the reader watches. Continuous tense also adds a word without adding a fact.
+**Exception:** A predicate adjective that happens to end in "-ing" is not a verb and is exempt, for example "is missing", "is confusing", "is misleading". A passive progressive such as "is being created" belongs to the passive-voice rule above, not to this one.
+
+---
+
+**Rule:** Do not use a gerund phrase as the grammatical subject when the sentence names or implies an actor who should hold the verb. Rewrite "clicking Duplicate and leaving does not create a profile" as "Contentstack creates a profile only when you save the duplicate", and "omitting it uses the configured stack" as "if you omit it, the call runs against the configured stack".
+**Why:** A gerund subject attributes the action to the action itself, so nobody performs the verb. The reader then cannot tell whether they, the app, or the runtime is responsible, which is the same defect passive voice creates by a different route.
+**Exception:** A gerund that names a concept rather than hiding an actor is correct and stays, for example "Duplicating copies a profile into a new custom profile you own" or "Deleting a profile immediately breaks every client anyone has connected to its URL". This rule is tier 3, so `checks/tier3-candidates.js` surfaces the sentence and a reviewer decides.
+
+**How to judge a borderline case:** ask whether the sentence, or the one before it, already names who acts. If it does, that actor belongs in the subject position. If the sentence states a property of an operation in the abstract, and no actor is present to promote, the gerund is doing real work and stays.
+
+---
+
+**Rule:** Do not open a paragraph with a conversational discourse marker standing in for a callout, such as "One caveat:", "The catch is", "When in doubt:", "That said", "Heads up", or "Wait.". Do not use conversational connectives such as "either way" or "worth knowing" in prose. Delete the marker and lead with the fact, or carry the fact in a callout.
+**Why:** A marker of this kind announces that something important follows without saying what, so the reader carries the framing instead of the fact. C2 already defines a closed set of callout labels for content that must not be missed, and an ad hoc marker bypasses it while reading as an aside rather than as a rule.
+**Exception:** None. The four callout labels (`Warning`, `Note`, `Tip`, `Additional Resources`) cover every case a marker was reaching for, and plain prose covers the rest.
+
+**How to choose the replacement:** if ignoring the fact breaks a client, loses data, or blocks a task, it is a `Warning`. If the reader only needs it in passing, delete the marker and state it as the first sentence of the paragraph. A three-sentence explanation is prose, not a callout, because C1 reserves callouts for content that is high-stakes and short enough to scan.
+
+---
+
+**Rule:** When a sentence names what the reader can change, create, or configure, the list must be the complete set, or it must open with "for example". Do not write "change its tools or configuration" when the product also edits the name and the description.
+**Why:** A short coordinated list after an edit verb reads as the full set of what the product allows. A reader who wants to rename a profile and sees only "tools or configuration" concludes the product cannot do it, and no other sentence on the page corrects them.
+**Exception:** A list already introduced by "for example" or "such as" is illustrative by construction and needs no change. This rule is tier 3, so `checks/tier3-candidates.js` surfaces the sentence and a reviewer decides whether the set is complete.
+
+---
+
+**Rule:** State product behavior with the figure or the determining condition, not with a vague quantifier or frequency word. Rewrite "most clients list the connected server", "some are destructive", and "the sign-in occasionally opens two tabs".
+**Why:** A vague quantifier gives the reader nothing to act on. "Most clients list the tools" leaves them unable to tell whether their own client is one of them, and "occasionally" gives them no way to know whether what they are seeing is the documented case.
+**Exception:** A quantifier is acceptable when the exact figure is maintained outside the docs and the sentence names the authoritative source, or when the sentence already names the condition that decides the outcome. This rule is tier 3, so a reviewer judges whether a figure or a condition is available.
+
+---
+
+**Rule:** Do not attribute intent, knowledge, perception, or volition to a system component. Name the mechanism instead, so "a disabled profile advertises zero tools" becomes "a disabled profile returns an empty tool list". The same applies to "the runtime decides", "a stack means nothing to them", "the highest one wins", and "the agent run outlasted the timeout".
+**Why:** An intentional verb reads as an explanation while leaving the mechanism unstated. The reader cannot tell whether the component chose, computed, or merely reported the outcome, so the sentence gives them nothing to verify. It differs from C3-08 in kind: a metaphor substitutes a picture for an operation that exists, while an intentional verb invents an actor that does not.
+**Exception:** Protocol and network vocabulary whose intentional-sounding verb is the standard term for the operation is exempt: a server exposes tools, a client discovers them, an OAuth handshake, a PKCE exchange, a token that lacks a scope, a request that cannot reach an endpoint, a locale chain that falls back, an ID that collides, a stack that belongs to a region, an organization that owns a stack, and an LLM that reads or interprets a schema.
+
+**How to judge a borderline case:** ask whether the verb names an operation the reader could look up. `exposes` maps to `tools/list` in the MCP specification, so it survives. `advertises` maps to nothing, so it does not. Where the specification supplies a verb, use the specification's verb. The authoritative entry list lives in `scripts/data/anthropomorphism/*.json` and the protocol veto in `checks/anthropomorphism.js`, so add a new exemption there rather than only in prose.
+
+---
+
+**Rule:** A sentence that points at a code block, table, list, or section on the same page must say where that element is. Write "the URL below", "the table above", or name the section and link it. Do not point forward with a bare demonstrative, so "this URL sets a branch:" becomes "the URL below sets a branch:", and "describes the argument like this:" becomes "describes the argument with the following text:".
+**Why:** "This" tells the reader the element has already appeared. When the element is still below, the reader scrolls up, finds nothing, and re-reads the sentence to work out what it meant. The direction is one word, and the writer already knows it.
+**Exception:** A demonstrative that points backward at the block immediately above is correct and stays, for example "This grants no extra access" after the behavior it summarizes. A bare "the following" introducing a verified-complete set is governed by C3-04, not by this rule, so it is never flagged here.
+
+**How to judge a borderline case:** ask where the referent sits relative to the sentence. Backward and adjacent is correct. Forward, or backward past an intervening block, needs the direction word or the noun. The entry list lives in `scripts/data/vague-reference/*.json` and the forward-lookahead gate in `checks/vague-reference.js`, so add a new phrase there rather than only in prose.
+
+---
+
+**Rule:** Introduce every code block, table, and list with a sentence that names what follows, and resolve a pronoun to the noun when the nearest preceding block is an image, a table, or a code block rather than a sentence. Write "Use the Executions view to confirm..." rather than "Use it to confirm..." after a screenshot.
+**Why:** A block that arrives with no lead-in makes the reader infer what they are looking at from the contents. A pronoun whose nearest antecedent is a block rather than a noun resolves to the wrong thing on a first read, and the reader only discovers the mistake after acting on it.
+**Exception:** A block needs no lead-in when the heading directly above it names it, for example a Troubleshooting subsection whose heading is the error string the block quotes. A pronoun is fine when the noun it replaces is in the same sentence or the sentence immediately before, with no block between them. This rule is tier 3, so a reviewer judges whether the lead-in or the noun is genuinely missing.
+
+---
+
+**Rule:** A lead-in that ends in a colon must name or count what follows, in the clause that touches the colon. Write "The following places can set the same value:" or "The three cases below each return a different reason:", not "Several places can set the same value. The highest one wins:".
+**Why:** The colon promises the reader something specific. When the clause before it names nothing, the reader arrives at the block without knowing what it holds or how much of it there is, and has to read the whole structure before learning what question it answers. C3-24 catches this only when the sentence uses a demonstrative, so a lead-in that names nothing while using no flagged vocabulary passes every wordlist in the corpus.
+**Exception:** A lead-in already carrying a direction word, an element noun, or a link to the target satisfies the rule and is never flagged. A short lead-in whose block is self-evident from the heading directly above it, for example "This app serves:" under a heading naming the app, needs nothing added. This rule is tier 3, so a reviewer or the judge decides whether the reader is genuinely left guessing.
+
+**How to judge a borderline case:** read only the clause that touches the colon, because that is the promise the reader is holding when they reach the block. If it names an element, a direction, or a link, the rule is satisfied. If it names only the subject the sentence is about, it is not, which is why "the same value" does not rescue "Several places can set the same value. The highest one wins:". The generator lives in `checks/tier3-candidates.js` as `unnamedLeadInReferent` and the judge prompt in `judge-tone.js`, so a new exemption belongs in `ELEMENT_NOUN_RE` there rather than only in prose.
+
+---
+
 ### C4: Code vs Prose
 
 **Rule:** State the consequence before the implementation rule. ("Without X, Y breaks" before "Pass X as Z".)
@@ -308,6 +392,12 @@ Every rule follows this format:
 **Rule:** Show required values, conditional flags, and SDK options in code rather than describing them in sentences.
 **Why:** A sentence that says "set the ssr option to false" is less actionable than a code snippet that shows the option in context.
 **Exception:** When introducing an option for the first time, a one-sentence prose definition before the code block is acceptable.
+
+---
+
+**Rule:** Write the name of a user interface element in bold, never as inline code. This covers tabs, buttons, menu items, screens, sections, fields, status badges, and card actions. Reserve inline code for what a reader types, copies, or receives back: identifiers, parameters, file paths, commands, literal values, and error strings.
+**Why:** Inline code tells the reader "this is a literal you type or paste". A tab label is neither, so marking it as code sends the reader looking for it in a config file or a payload instead of on the screen. Keeping the two conventions apart lets a reader tell at a glance what lives in the product and what goes into their code.
+**Exception:** A name that the reader supplies or that the product derives is a value, not a UI element, and stays in code even when it also appears on screen (`CMS` imports as `CMS (imported)`, which derives `cms_imported`).
 
 ---
 
@@ -337,9 +427,21 @@ Every rule follows this format:
 
 ---
 
+**Rule:** To link out to another doc, hyperlink an existing plain-text keyword directly in the sentence only when that keyword is unformatted prose (no bold, no inline code, no existing link). If the sentence has no such keyword, or the only candidate word is already bolded, inline code, or otherwise special-characterized, add a separate `Additional Resources` callout instead of forcing the link onto formatted text.
+**Why:** Wrapping a link around text that already carries its own formatting (`` `retry_strategy` ``, a bolded label) makes the sentence carry two signals at once and is easy to misread as the formatting itself being the link target. A plain keyword can absorb a link without adding visual noise.
+**Exception:** None. Pick the plain keyword or fall back to the callout, never link formatted text.
+
+---
+
 **Rule:** Required cross-references include a brief inline summary of the critical fact so the developer does not have to switch docs to complete the current task.
 **Why:** A link without a summary places a context-switching cost on the developer. The summary eliminates that cost for most readers.
 **Exception:** If the referenced doc is extremely long and the relevant section is not easily summarized, provide the section anchor link and a one-sentence description of what to look for.
+
+---
+
+**Rule:** Phrase an `Additional Resource` callout as "For more information on <topic>, refer to the [Doc Name](url) documentation." When the target carries a procedure, open with "For detailed steps on <task>" instead. Never phrase the callout as a statement about what the target contains ("[X] covers Y", "[X] explains Y", "[X] lists Y").
+**Why:** The fixed opener tells the reader within three words that the callout is optional reading, so they can skip the whole line without parsing it. A sentence that leads with the target's contents reads as body prose and interrupts the flow the callout exists to protect.
+**Exception:** A callout pointing at another section of the same page closes with "refer to the [Section Name](#anchor) section", because "documentation" names a separate document.
 
 ---
 
@@ -352,12 +454,6 @@ Every rule follows this format:
 **Rule:** Remove cross-references that duplicate links already present in Prerequisites or Next Steps.
 **Why:** A link that appears in three places does not add three times the value. It adds noise and suggests the content is fragmented.
 **Exception:** A mandatory link in Prerequisites may be repeated as a reminder in a subsection if the doc is long and developers are likely to arrive directly at that subsection.
-
----
-
-**Rule:** To link out to another doc, hyperlink an existing plain-text keyword directly in the sentence only when that keyword is unformatted prose (no bold, no inline code, no existing link). If the sentence has no such keyword, or the only candidate word is already bolded, inline code, or otherwise special-characterized, add a separate `Additional Resources` callout instead of forcing the link onto formatted text.
-**Why:** Wrapping a link around text that already carries its own formatting (`` `retry_strategy` ``, a bolded label) makes the sentence carry two signals at once and is easy to misread as the formatting itself being the link target. A plain keyword can absorb a link without adding visual noise.
-**Exception:** None. Pick the plain keyword or fall back to the callout, never link formatted text.
 
 ---
 
@@ -381,8 +477,8 @@ Every rule follows this format:
 
 ---
 
-**Rule:** Do not cite internal implementation details as justification for a claim: internal function or variable names, internal PR numbers or repo paths, or process attributions such as "as confirmed by engineering." State only the resulting user-facing behavior and status.
-**Why:** Internal identifiers and process attributions are meaningless to the reader, can leak unreleased or unstable implementation details, and go stale the moment the internal implementation changes, unlike the documented behavior.
+**Rule:** Do not cite internal implementation details as justification for a claim: internal function or variable names, internal PR numbers or repo paths, or process attributions such as "as confirmed by engineering." Do not describe an internal endpoint and the credential it authenticates with, or state that a check fails open when it cannot reach the data it checks against. State only the resulting user-facing behavior and status.
+**Why:** Internal identifiers and process attributions are meaningless to the reader, can leak unreleased or unstable implementation details, and go stale the moment the internal implementation changes, unlike the documented behavior. Fail-open behavior and internal credential models are worse than meaningless to a reader: they tell someone probing the product where a control stops holding, and no reader needs either fact to finish a task.
 **Exception:** None for externally published docs. Internal-only engineering documentation, explicitly marked as such and never published externally, is not subject to this rule.
 
 ---
@@ -413,9 +509,15 @@ Every rule follows this format:
 
 ---
 
-**Rule:** When a table already documents an item's required-ness, type, and default, a following prose or bullet expansion for that same item must add only what the table cannot show (behavioral nuance, side effects, cross-references), not restate the table's own cells.
-**Why:** A reader who already read the table gains nothing from a bullet that repeats what the table's own columns already said. Restating table content lengthens the doc without adding information and doubles the maintenance surface for facts already established once.
-**Exception:** A one-clause restatement is acceptable when it is needed to introduce the bullet's genuinely new content, avoiding an orphaned bullet with no lead-in.
+**Rule:** When a table already documents an item, any callout, bullet, or paragraph within ten lines of that table must add only what the table cannot show (behavioral nuance, side effects, cross-references), not restate the table's own cells.
+**Why:** A reader who already read the table gains nothing from a block that repeats what the table's own columns already said. Restating table content lengthens the doc without adding information and doubles the maintenance surface for facts already established once. A callout that restates one row also mis-signals, because it implies that row matters more than the rows no callout mentions.
+**Exception:** A one-clause restatement is acceptable when it is needed to introduce the block's genuinely new content, avoiding an orphaned bullet or callout with no lead-in.
+
+---
+
+**Rule:** A callout or bolded paragraph placed beside a table must carry a fact the table does not. Restating a row in different words is still restating it.
+**Why:** The previous rule catches a block that repeats a row's wording. A block can also repeat a row's meaning while sharing none of its words, which costs the reader the same second read and leaves the same two copies to maintain. A reader who meets the same fact twice in two voices also cannot tell which one is authoritative.
+**Exception:** A block that states an instruction the table has no column for, such as what the reader should do about the row, adds a genuine fact. Move it into the table only when the table has somewhere to put it.
 
 ---
 
@@ -480,6 +582,18 @@ This section applies to all doc types. Its rules are more specific than C3 (Lang
 **Rule:** Define acronyms on first use in introductory and setup sections. Do not require readers to know CDA, CMA, HMAC, OAuth, SSR, SSG, CSR, BFF, CDN, CI, CD, or SSO on first encounter.
 **Why:** A reader who does not know an acronym must leave the doc to look it up. The first-use expansion eliminates that interruption.
 **Exception:** In deep reference sections and advanced how-to guides written explicitly for senior engineers, acronyms that are industry-standard (OAuth, CI, CDN) may appear without expansion if the doc's stated audience already knows them.
+
+---
+
+**Rule:** Do not editorialize about the product's own defects. State the behavior and what the reader does about it. This covers calling a shipped control dead or pointless, saying a label or a message misleads the reader, and any aside about how the product reads to a customer.
+**Why:** A doc that tells a customer the product lies to them, or that a shipped feature does nothing, damages trust further than the defect itself does. The judgement also never survives the fix: when the defect is repaired the sentence carrying the criticism is left behind, still published and now wrong.
+**Exception:** None. A defect worth naming in a doc is worth filing for engineering. Record it there and document the current behavior neutrally.
+
+---
+
+**Rule:** State a real limit as a neutral fact. Give the boundary, when the reader meets it, and what to do instead. Do not frame the limit as the product failing the reader, and do not add that the product gives no warning, does nothing, or acts silently.
+**Why:** The reader needs the boundary in order to plan. Adverbs such as "silently" and "quietly" add no boundary, and phrasing a cap as a failure invites the reader to distrust every other limit on the page. A neutral limit still enables the reader to work around it.
+**Exception:** When the absence of a signal is itself the fact the reader must act on, state it plainly and once. A filtered view that looks empty but is not needs the reader to know that, because otherwise they draw a false conclusion from it.
 
 ---
 

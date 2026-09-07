@@ -41,6 +41,17 @@ function loadEntryFile(filePath) {
     fix: p.fix,
     category: data.category,
     ruleId: data.ruleId,
+    // A provenance claim, never a matcher flag: `literal` says a human decided
+    // this entry has exactly one correct surface form, so the inflection guard
+    // in test/wordlist-inflection.test.js must not demand siblings for it. No
+    // check reads it, and nothing about matching changes.
+    //
+    // Normalized to a strict boolean so a truthy string cannot become an
+    // accidental exemption. This object is a FIXED field allowlist: a field
+    // added to a data file and not named here is silently dropped, which is
+    // why these two are added here rather than only in the JSON.
+    literal: p.literal === true,
+    literalReason: p.literalReason,
   }));
 }
 
@@ -55,16 +66,39 @@ function loadPhraseList(dir) {
 }
 
 /**
+ * A markdown link target is machinery, not prose.
+ *
+ * `#the-url-decides-which-profile-a-client-can-use` is a slug derived from a
+ * heading, so a wordlist hit inside it double-reports the heading it points at
+ * and, worse, reports it in every file that links there. Masking the target
+ * while keeping the link text means the visible words still get scanned.
+ *
+ * Applied in scanDoc, so every wordlist check gets it. The alternative, each
+ * check masking on its own, is how the three pre-lib checks already drifted.
+ */
+const LINK_TARGET_RE = /\]\([^)\s]*/g;
+
+/** Strips what is not prose from a line: inline code first, then link targets. */
+function stripNonProse(raw) {
+  return String(raw).replace(INLINE_CODE_RE, ' ').replace(LINK_TARGET_RE, '](');
+}
+
+/**
  * Scans a document for entry matches using the discipline every wordlist check
- * follows: body lines only, code fences skipped, inline code masked out. A
- * caller that scans differently would produce hits a real check could never
- * reproduce, which is the failure this function exists to prevent.
+ * follows: body lines only, code fences skipped, inline code and link targets
+ * masked out. A caller that scans differently would produce hits a real check
+ * could never reproduce, which is the failure this function exists to prevent.
+ *
+ * `onMatch` receives `index` and `stripped` alongside the match so a check can
+ * ask where on the line the hit sits. C3-18 needs it: a bare verb opening a
+ * heading or a numbered step is an imperative addressed to the reader, not a
+ * component being given a mind.
  */
 function scanDoc(doc, entries, { onMatch }) {
   for (let lineNo = doc.bodyStartLine; lineNo <= doc.totalLines; lineNo++) {
     if (doc.inFenceMask[lineNo]) continue;
     const raw = doc.lines[lineNo - 1];
-    const stripped = raw.replace(INLINE_CODE_RE, ' ');
+    const stripped = stripNonProse(raw);
 
     for (const entry of entries) {
       let re;
@@ -77,9 +111,27 @@ function scanDoc(doc, entries, { onMatch }) {
         continue;
       }
       const match = re.exec(stripped);
-      if (match) onMatch({ entry, line: lineNo, matched: entry.phrase || match[0], raw });
+      if (match) {
+        onMatch({
+          entry,
+          line: lineNo,
+          matched: entry.phrase || match[0],
+          raw,
+          stripped,
+          index: match.index,
+        });
+      }
     }
   }
 }
 
-module.exports = { escapeRegExp, entryRegex, loadEntryFile, loadPhraseList, scanDoc, INLINE_CODE_RE };
+module.exports = {
+  escapeRegExp,
+  entryRegex,
+  loadEntryFile,
+  loadPhraseList,
+  scanDoc,
+  stripNonProse,
+  INLINE_CODE_RE,
+  LINK_TARGET_RE,
+};

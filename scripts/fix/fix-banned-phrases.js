@@ -20,7 +20,7 @@
 
 const path = require('path');
 const fs = require('fs');
-const { execFileSync } = require('child_process');
+const { askClaude } = require('../lib/claude-runner');
 const { DocModel } = require('../lib/doc-model');
 const { checkBannedPhrases } = require('../checks/banned-phrases');
 const { checkEmDashSemicolon } = require('../checks/em-dash-semicolon');
@@ -92,53 +92,19 @@ function findLineViolation(candidateLine) {
 
 /** Ask the claude CLI, headless, for one rewritten line. Retries once if the reply violates a hard rule. */
 function askForRewrite(fullLine, phrase, suggestedFix) {
-  let priorViolation = null;
-
-  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
-    const prompt = buildPrompt(fullLine, phrase, suggestedFix, priorViolation);
-    let stdout;
-    try {
-      stdout = execFileSync('claude', ['-p', prompt], {
-        timeout: CLAUDE_TIMEOUT_MS,
-        maxBuffer: 1024 * 1024,
-        encoding: 'utf8',
-      });
-    } catch (err) {
-      console.error(`  claude CLI failed: ${err.message}`);
-      return null;
-    }
-
-    let candidate = stdout.trim();
-    const fenceMatch = candidate.match(/^```(?:\w+)?\n([\s\S]*?)\n```$/);
-    if (fenceMatch) candidate = fenceMatch[1].trim();
-    if (
-      (candidate.startsWith('"') && candidate.endsWith('"')) ||
-      (candidate.startsWith("'") && candidate.endsWith("'"))
-    ) {
-      candidate = candidate.slice(1, -1).trim();
-    }
-
-    if (!candidate || candidate.includes('\n')) {
-      priorViolation = 'the reply must be exactly one line of text';
-      continue;
-    }
-    const ratio = candidate.length / Math.max(fullLine.length, 1);
-    if (ratio < 0.4 || ratio > 1.6) {
-      priorViolation = 'the reply length looked wrong (too short or too long for a single-line fix)';
-      continue;
-    }
-
-    const violation = findLineViolation(candidate);
-    if (violation) {
-      priorViolation = violation;
-      continue;
-    }
-
-    return candidate;
-  }
-
-  console.log(`  Skipped after ${MAX_ATTEMPTS} attempts: ${priorViolation}`);
-  return null;
+  return askClaude({
+    attempts: MAX_ATTEMPTS,
+    timeoutMs: CLAUDE_TIMEOUT_MS,
+    buildPrompt: (priorViolation) => buildPrompt(fullLine, phrase, suggestedFix, priorViolation),
+    validate: (candidate) => {
+      if (!candidate || candidate.includes('\n')) return 'the reply must be exactly one line of text';
+      const ratio = candidate.length / Math.max(fullLine.length, 1);
+      if (ratio < 0.4 || ratio > 1.6) {
+        return 'the reply length looked wrong (too short or too long for a single-line fix)';
+      }
+      return findLineViolation(candidate);
+    },
+  });
 }
 
 function main() {

@@ -35,3 +35,34 @@ The response body is None when the server returns no content.
 The helper function is used to normalize whitespace before validation.
 
 This flag is enabled by default and does not require configuration.
+
+### auxiliary-less constructions
+
+The starter profile ships with a fixed tool set, shared across every stack in the organization.
+
+Authenticate by providing a delivery token scoped to your target environment.
+
+Profiles exported from another organization keep their tool selection.
+
+The duplicate opens in the wizard with everything pre-filled.
+
+A profile upgrade needs the tool re-picked.
+
+Once configured, the client reconnects without another sign-in.
+
+| Hosted at the regional endpoint | Selected per profile |
+
+| Sign-in required | Scope not granted | Permission denied on a tool |
+
+The request value is bound to the session scope for the whole call.
+
+Usage is being reviewed by the workspace administrator.
+
+### auxiliary-less non-violations
+
+| Capability | CMA | CDA |
+| Token | Required | Not Required |
+
+The transport is designed for streaming responses rather than polling.
+
+A required field is absent from the payload.

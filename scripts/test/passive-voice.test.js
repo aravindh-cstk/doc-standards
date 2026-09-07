@@ -64,3 +64,34 @@ test('passive-voice fixture: by-agent matches carry a lighter falsePositiveNote 
   assert.match(byAgent.falsePositiveNote, /by-agent/i);
   assert.match(bare.falsePositiveNote, /predicate adjective/i);
 });
+
+test('passive-voice fixture: auxiliary-less constructions are flagged as C3-10 tier 2', () => {
+  const doc = loadFixture('passive-voice-doc.md');
+  const findings = checkPassiveVoice(doc);
+
+  assert.equal(flaggedOn(findings, doc, /tool set, shared across/i), true);
+  assert.equal(flaggedOn(findings, doc, /delivery token scoped to/i), true);
+  assert.equal(flaggedOn(findings, doc, /Profiles exported from/i), true);
+  assert.equal(flaggedOn(findings, doc, /with everything pre-filled/i), true);
+  assert.equal(flaggedOn(findings, doc, /needs the tool re-picked/i), true);
+  assert.equal(flaggedOn(findings, doc, /Once configured/i), true);
+  assert.equal(flaggedOn(findings, doc, /Hosted at the regional endpoint/i), true);
+  assert.equal(flaggedOn(findings, doc, /Sign-in required/i), true);
+  assert.equal(flaggedOn(findings, doc, /is bound to the session scope/i), true);
+  assert.equal(flaggedOn(findings, doc, /is being reviewed by/i), true);
+
+  for (const f of findings) {
+    assert.equal(f.ruleId, 'C3-10');
+    assert.equal(f.tier, 2);
+    assert.equal(f.checkId, 'passive-voice');
+  }
+});
+
+test('passive-voice fixture: status labels and prenominal participles are not flagged', () => {
+  const doc = loadFixture('passive-voice-doc.md');
+  const findings = checkPassiveVoice(doc);
+
+  assert.equal(flaggedOn(findings, doc, /\| Token \| Required \| Not Required \|/i), false);
+  assert.equal(flaggedOn(findings, doc, /is designed for streaming/i), false);
+  assert.equal(flaggedOn(findings, doc, /A required field is absent/i), false);
+});

@@ -30,20 +30,20 @@
 const fs = require('fs');
 const path = require('path');
 
-const { DocModel } = require('../../scripts/lib/doc-model');
+const { DocModel } = require('./lib/doc-model');
 const registry = require('./lib/rules-registry');
 
-const { checkBannedPhrases } = require('../../scripts/checks/banned-phrases');
-const { checkEmDashSemicolon } = require('../../scripts/checks/em-dash-semicolon');
-const { checkQaHeaders } = require('../../scripts/checks/qa-headers');
-const { checkAcronymFirstUse } = require('../../scripts/checks/acronym-first-use');
-const { checkSentenceConcision } = require('../../scripts/checks/sentence-concision');
-const { checkMetaphors } = require('../../scripts/checks/metaphor-phrases');
-const { checkPeriphrasis } = require('../../scripts/checks/periphrasis-phrases');
-const { checkPassiveVoice } = require('../../scripts/checks/passive-voice');
-const { checkErrorCodeFormat } = require('../../scripts/checks/error-code-format');
-const { checkEmbeddedQuestionPhrases } = require('../../scripts/checks/embedded-question-phrases');
-const { checkRetryAttemptCountBold } = require('../../scripts/checks/retry-attempt-count-bold');
+const { checkBannedPhrases } = require('./checks/banned-phrases');
+const { checkEmDashSemicolon } = require('./checks/em-dash-semicolon');
+const { checkQaHeaders } = require('./checks/qa-headers');
+const { checkAcronymFirstUse } = require('./checks/acronym-first-use');
+const { checkSentenceConcision } = require('./checks/sentence-concision');
+const { checkMetaphors } = require('./checks/metaphor-phrases');
+const { checkPeriphrasis } = require('./checks/periphrasis-phrases');
+const { checkPassiveVoice } = require('./checks/passive-voice');
+const { checkErrorCodeFormat } = require('./checks/error-code-format');
+const { checkEmbeddedQuestionPhrases } = require('./checks/embedded-question-phrases');
+const { checkRetryAttemptCountBold } = require('./checks/retry-attempt-count-bold');
 const {
   checkApiRefStructure,
   checkIndexCompleteness,

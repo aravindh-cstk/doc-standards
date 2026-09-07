@@ -3,12 +3,12 @@
   "category": "passive voice (modal + be)",
   "phrases": [
     {
-      "pattern": "\\b(?:can|could|may|might|must|shall|should|will|would)\\s+be\\b(?:\\s+(?:not|already|still|also|now|currently|[a-z]+ly))?\\s+(?!advanced\\b|aged\\b|based\\b|complicated\\b|concerned\\b|dedicated\\b|detailed\\b|fixed\\b|interested\\b|limited\\b|located\\b|married\\b|qualified\\b|related\\b|supposed\\b|unaffected\\b|unauthenticated\\b|unauthorized\\b|undefined\\b|uninitialized\\b|unlocalized\\b|unrelated\\b|unsupported\\b|unchanged\\b)[a-z]{3,}ed\\b(?:\\s+(?:with|by|to|from|in|on|for))?",
+      "pattern": "\\b(?:can|could|may|might|must|shall|should|will|would)\\s+be\\b(?:\\s+(?:not|already|still|also|now|currently|[a-z]+ly))?\\s+(?!advanced\\b|aged\\b|based\\b|complicated\\b|concerned\\b|dedicated\\b|detailed\\b|fixed\\b|interested\\b|limited\\b|located\\b|married\\b|qualified\\b|related\\b|supposed\\b|unaffected\\b|unauthenticated\\b|unauthorized\\b|undefined\\b|uninitialized\\b|unlocalized\\b|unrelated\\b|unsupported\\b|unchanged\\b|unpublished\\b|designed\\b|intended\\b)[a-z]{3,}ed\\b(?:\\s+(?:with|by|to|from|in|on|for))?",
       "label": "passive voice (modal + be + regular participle)",
       "fix": "name who or what performs the action instead of the modal passive"
     },
     {
-      "pattern": "\\b(?:can|could|may|might|must|shall|should|will|would)\\s+be\\b(?:\\s+(?:not|already|still|also|now|currently|[a-z]+ly))?\\s+(?<!well\\s)(?<!widely\\s)(?:sent|read|set|given|done|seen|written|taken|made|held|kept|found|put|shown|known|thrown|broken|chosen|driven|left|built|bought|brought|caught|taught|sold|told|understood|spent|dealt|led|cut|hit|let|shut|split|run|drawn|grown|hidden|frozen|stolen|cast|spread)\\b(?:\\s+(?:with|by|to|from|in|on|for))?",
+      "pattern": "\\b(?:can|could|may|might|must|shall|should|will|would)\\s+be\\b(?:\\s+(?:not|already|still|also|now|currently|[a-z]+ly))?\\s+(?<!well\\s)(?<!widely\\s)(?:sent|read|set|given|done|seen|written|taken|made|held|kept|found|put|shown|known|bound|thrown|broken|chosen|driven|left|built|bought|brought|caught|taught|sold|told|understood|spent|dealt|led|cut|hit|let|shut|split|run|drawn|grown|hidden|frozen|stolen|cast|spread)\\b(?:\\s+(?:with|by|to|from|in|on|for))?",
       "label": "passive voice (modal + be + irregular participle)",
       "fix": "name who or what performs the action instead of the modal passive"
     }

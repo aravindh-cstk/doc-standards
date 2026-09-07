@@ -24,8 +24,7 @@ const { lintFile } = require('./lint-doc');
 const { collectDocs } = require('./sweep-docs');
 const { registry, byId, nextRuleId, checkSources } = require('./lib/rules-registry');
 
-// No default corpus: this repo is shared across projects, each with its own
-// docs tree in a different place, so the caller must always name a target.
+const DEFAULT_CORPUS = path.join(__dirname, '..', '..', 'docs');
 // Below this overlap the registry match is noise, so the honest answer is that
 // no rule owns the case rather than the least-bad rule.
 const OWNER_SCORE_FLOOR = 0.12;
@@ -111,8 +110,7 @@ function triageGap(hit, candidates) {
   };
 }
 
-function probe(entries, label, { corpus } = {}) {
-  if (!corpus) throw new Error('probe() requires a corpus target, there is no project-specific default.');
+function probe(entries, label, { corpus = DEFAULT_CORPUS } = {}) {
   const files = collectDocs(corpus);
   const hits = [];
   const errors = [];
@@ -210,7 +208,7 @@ function renderText(result) {
 }
 
 function parseArgs(argv) {
-  const args = { entries: null, pattern: null, label: null, corpus: null, format: 'text', out: null, nextId: null };
+  const args = { entries: null, pattern: null, label: null, corpus: DEFAULT_CORPUS, format: 'text', out: null, nextId: null };
   for (const arg of argv) {
     if (arg.startsWith('--entries=')) args.entries = arg.slice(10);
     else if (arg.startsWith('--pattern=')) args.pattern = arg.slice(10);
@@ -232,13 +230,8 @@ function main() {
   }
 
   if (!args.entries && !args.pattern) {
-    console.error('Usage: probe-corpus.js --entries=<file.json> --corpus=<dir> [--label=<text>]');
-    console.error('       probe-corpus.js --pattern=<re> --label=<text> --corpus=<dir>');
+    console.error('Usage: probe-corpus.js --entries=<file.json> | --pattern=<re> --label=<text>');
     console.error('       probe-corpus.js --next-id=C3');
-    process.exit(2);
-  }
-  if (!args.corpus) {
-    console.error('Usage: --corpus=<dir> is required, there is no project-specific default.');
     process.exit(2);
   }
 

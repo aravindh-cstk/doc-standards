@@ -1,0 +1,46 @@
+{
+  "ruleId": "C3-18",
+  "category": "figurative idiom",
+  "phrases": [
+    {
+      "pattern": "\\bthe (highest|first|last|lowest) one wins\\b",
+      "label": "the highest one wins",
+      "fix": "say \"Precedence, highest first:\" and let the ordered list carry the order"
+    },
+    {
+      "pattern": "\\boutlast(s|ed|ing)?\\b",
+      "label": "outlast",
+      "fix": "say \"exceeded the timeout\", which names the comparison instead of framing it as a contest"
+    },
+    {
+      "pattern": "\\bfails? loudly\\b",
+      "label": "fail loudly",
+      "fix": "say what actually fails (\"fails the whole connection\") instead of the volume metaphor"
+    },
+    {
+      "pattern": "\\bfails? silently\\b",
+      "label": "fail silently",
+      "fix": "say what happens instead (\"fails without an error\", \"returns an empty result\")"
+    },
+    {
+      "pattern": "\\bmeans nothing to\\b",
+      "label": "means nothing to",
+      "fix": "state the scope directly (\"these tools operate on the organization, not on a stack\")"
+    },
+    {
+      "pattern": "\\bbehaving as intended\\b",
+      "label": "behaving as intended",
+      "fix": "name the behavior (\"this is the documented least-privilege behavior\")"
+    },
+    {
+      "pattern": "\\bdid not help\\b",
+      "label": "did not help",
+      "fix": "say what happened (\"the refresh also failed\")"
+    },
+    {
+      "pattern": "\\bsaves? (Contentstack|the (app|server|client|runtime)) an?\\b",
+      "label": "saves <component> a <thing>",
+      "fix": "say what the component skips (\"lets Contentstack skip an organization lookup\")"
+    }
+  ]
+}

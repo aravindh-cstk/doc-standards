@@ -1,8 +1,8 @@
 'use strict';
 
-const fs = require('fs');
 const path = require('path');
 const { makeFinding } = require('../lib/report');
+const { loadEntryFile, entryRegex } = require('../lib/phrase-list');
 
 const WORDY_PHRASES_PATH = path.join(__dirname, '..', 'data', 'wordy-connectors.json');
 const INLINE_CODE_RE = /`[^`]*`/g;
@@ -12,13 +12,33 @@ const SENTENCE_SPLIT_RE = /(?<=[.?!])\s+(?=[A-Z`"'(])/;
 const MAX_WORDS = 28;
 const CAUSAL_MARKER_RE = /\b(because|since|so that|so it|therefore)\b/gi;
 
-function escapeRegExp(s) {
-  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
-
-function loadWordyPhrases() {
-  const data = JSON.parse(fs.readFileSync(WORDY_PHRASES_PATH, 'utf8'));
-  return data.phrases.map((p) => ({ ...p, ruleId: data.ruleId }));
+/**
+ * Finds the first wordy-connector entry matching one sentence, or null.
+ *
+ * Uses the shared `entryRegex` rather than a private matcher. This module used
+ * to hard-code `escapeRegExp(entry.phrase)`, which meant a `pattern`-only entry
+ * added to data/wordy-connectors.json threw on `undefined.replace`, and
+ * lint-doc.js converts a thrown check into a tier-1 LD-00 finding. A data edit
+ * could therefore fail the lint on every file in the corpus. It was the fourth
+ * hand-copied copy of this loader in the tree and the only one that crashed.
+ *
+ * The try/catch mirrors lib/phrase-list.js: a hand-drafted bad pattern must
+ * name itself rather than take the sweep down.
+ *
+ * Exported so its behavior is testable without building a DocModel, which is
+ * what lets test/sentence-concision.test.js cover the pattern case at all.
+ */
+function matchWordyPhrase(sentence, entries) {
+  for (const entry of entries) {
+    let re;
+    try {
+      re = entryRegex(entry);
+    } catch (err) {
+      continue;
+    }
+    if (re.test(sentence)) return entry;
+  }
+  return null;
 }
 
 /** Strip inline code, links, and a leading list marker so word/phrase counts reflect only prose. */
@@ -53,7 +73,7 @@ function countCausalMarkers(sentence) {
  */
 function checkSentenceConcision(doc) {
   const findings = [];
-  const wordyPhrases = loadWordyPhrases();
+  const wordyPhrases = loadEntryFile(WORDY_PHRASES_PATH);
   const lines = doc.proseLineNumbers(doc.bodyStartLine, doc.totalLines);
 
   for (const lineNo of lines) {
@@ -67,15 +87,20 @@ function checkSentenceConcision(doc) {
     for (const sentence of splitSentences(normalized)) {
       const words = wordCount(sentence);
       const causalCount = countCausalMarkers(sentence);
-      const matchedPhrase = wordyPhrases.find((entry) =>
-        new RegExp(`\\b${escapeRegExp(entry.phrase)}\\b`, 'i').test(sentence)
-      );
+      const matchedPhrase = matchWordyPhrase(sentence, wordyPhrases);
 
       if (words > MAX_WORDS || causalCount >= 2 || matchedPhrase) {
         const reasons = [];
         if (words > MAX_WORDS) reasons.push(`${words} words`);
         if (causalCount >= 2) reasons.push(`${causalCount} stacked causal clauses`);
-        if (matchedPhrase) reasons.push(`wordy phrase "${matchedPhrase.phrase}" (fix: ${matchedPhrase.fix})`);
+        // `label || phrase`, because a pattern entry has no `phrase` and would
+        // otherwise report `wordy phrase "undefined"`. That is a silently wrong
+        // report rather than a crash, so it is the real regression risk in the
+        // matcher switch above. Same fallback as banned-phrases.js.
+        if (matchedPhrase) {
+          const found = matchedPhrase.label || matchedPhrase.phrase;
+          reasons.push(`wordy phrase "${found}" (fix: ${matchedPhrase.fix})`);
+        }
 
         findings.push(
           makeFinding({
@@ -94,4 +119,4 @@ function checkSentenceConcision(doc) {
   return findings;
 }
 
-module.exports = { checkSentenceConcision };
+module.exports = { checkSentenceConcision, matchWordyPhrase, WORDY_PHRASES_PATH, MAX_WORDS };

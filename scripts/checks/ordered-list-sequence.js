@@ -22,7 +22,8 @@ const IMPERATIVE_VERBS = new Set([
   'duplicate', 'edit', 'enable', 'ensure', 'enter', 'expand', 'export', 'fetch', 'filter',
   'find', 'generate', 'give', 'go', 'grant', 'hover', 'import', 'increase', 'install', 'keep',
   'launch', 'list', 'log', 'modify', 'name', 'navigate', 'note', 'open', 'pause', 'paste',
-  'pick', 'publish', 'read', 'reconnect', 'refresh', 'reload', 'remove', 'rename', 'reopen',
+  'pick', 'press', 'publish', 'quote', 'read', 'reconnect', 'refresh', 'register', 'reload',
+  'remove', 'rename', 'reopen',
   'repeat', 'replace', 'request', 'rerun', 'reset', 'restart', 'restore', 'resume', 'return',
   'review', 'revoke', 'rotate', 'run', 'save', 'scroll', 'search', 'select', 'send', 'set',
   'share', 'sign', 'start', 'stop', 'submit', 'switch', 'test', 'toggle', 'trigger', 'type',
@@ -115,4 +116,7 @@ function checkOrderedListSequence(doc) {
   return findings;
 }
 
-module.exports = { checkOrderedListSequence };
+// IMPERATIVE_VERBS is exported for checks/paragraph-cohesion.js, which needs the
+// same question answered about a paragraph opener. One list, so a verb added
+// here is a verb both checks know.
+module.exports = { checkOrderedListSequence, IMPERATIVE_VERBS };

@@ -1,27 +1,123 @@
 [
   {
-    "id": "FM-01",
-    "source": "section-order.json",
+    "id": "AR-01",
+    "source": "api-ref/api-ref-method-v2.md",
     "docTypes": [
-      "all"
+      "api-ref"
     ],
-    "rule": "SEO front matter must include a title, a description, and a url.",
-    "why": "These are the machine-readable metadata fields every Section Order table marks as Required for search and indexing.",
+    "rule": "API reference pages carry exactly three front-matter keys: uid, seo_title, seo_description. Method pages leave both SEO fields empty, class pages fill them.",
+    "why": "The api-ref content type has no title/description/url fields, so the generic front-matter rule does not apply. A stray key silently fails to round-trip through the CMS converter.",
     "exception": "None.",
     "tier": 1,
-    "checkId": "front-matter"
+    "checkId": "front-matter-api-ref"
   },
   {
-    "id": "FM-02",
-    "source": "parse-markdown.js",
+    "id": "AR-02",
+    "source": "api-ref/api-ref-method-v2.md",
     "docTypes": [
-      "all"
+      "api-ref"
     ],
-    "rule": "Every non-blank, non-list front matter line must be a valid key colon value pair.",
-    "why": "A malformed line (for example a stray heading marker prepended to a key) can silently drop that key from the parsed front matter.",
-    "exception": "YAML list item lines (leading dash) are not key-value pairs and are not flagged.",
+    "rule": "A method page has exactly one H3, matching its filename, and every subsection is H4. A class page uses one H1 and H2 subsections.",
+    "why": "The CMS renders a method page as a fragment inside a class page, so an H1 or H2 on a method page breaks the assembled outline.",
+    "exception": "None.",
     "tier": 1,
-    "checkId": "front-matter"
+    "checkId": "api-ref-heading-levels"
+  },
+  {
+    "id": "AR-03",
+    "source": "api-ref/api-ref-method-v2.md",
+    "docTypes": [
+      "api-ref"
+    ],
+    "rule": "Method page sections appear in this order: optional Instance State, then Validation, Behavior, Example.",
+    "why": "Readers scan for the constraint before the mechanism and the mechanism before the sample. A different order forces a re-read.",
+    "exception": "Instance State appears only when the return type depends on the argument.",
+    "tier": 1,
+    "checkId": "api-ref-section-order"
+  },
+  {
+    "id": "AR-04",
+    "source": "api-ref/api-ref-method-v2.md",
+    "docTypes": [
+      "api-ref"
+    ],
+    "rule": "Every method page has a Returns line shaped as the bold label, the type, a period, then a noun-phrase sentence.",
+    "why": "The converter reads the type from this line into the CMS returns field, and the sentence is reused verbatim in the class Method Index.",
+    "exception": "None.",
+    "tier": 1,
+    "checkId": "api-ref-returns-line"
+  },
+  {
+    "id": "AR-05",
+    "source": "api-ref/api-ref-method-v2.md",
+    "docTypes": [
+      "api-ref"
+    ],
+    "rule": "A parameter table has exactly the five columns Name, Type, Required, Default, Description. The Default cell is never blank and never an em dash. Required parameters use Not applicable.",
+    "why": "The converter maps these five columns positionally onto the CMS parameters array. A blank Default reads as an undocumented default, and an em dash violates C3-05.",
+    "exception": "Methods that take no parameters omit the table entirely.",
+    "tier": 1,
+    "checkId": "api-ref-param-table"
+  },
+  {
+    "id": "AR-06",
+    "source": "api-ref/api-ref-method-v2.md",
+    "docTypes": [
+      "api-ref"
+    ],
+    "rule": "An Additional Resource callout closes the Validation section of any method that makes an HTTP call, with the label agreeing in number with the number of links it carries.",
+    "why": "The generic HTTP error codes belong in one linked reference rather than repeated per method, and a plural label over a single link reads as a missing link.",
+    "exception": "Pure client-side utility methods that make no request omit it.",
+    "tier": 2,
+    "checkId": "api-ref-additional-resource"
+  },
+  {
+    "id": "AR-07",
+    "source": "api-ref/api-ref-method-v2.md",
+    "docTypes": [
+      "api-ref"
+    ],
+    "rule": "Method pages end with a horizontal rule. Class pages do not.",
+    "why": "The rule marks the end of a method fragment when several are concatenated into one rendered class page. A class page is never concatenated, so the rule would render as a stray divider.",
+    "exception": "None.",
+    "tier": 2,
+    "checkId": "api-ref-trailing-rule"
+  },
+  {
+    "id": "AR-08",
+    "source": "api-ref/api-ref-method-v2.md",
+    "docTypes": [
+      "api-ref"
+    ],
+    "rule": "The Method Index table is the only list of a class's methods. No trailing bullet list of method links.",
+    "why": "Two lists of the same methods drift apart, and the converter derives the CMS methods array from the index.",
+    "exception": "None.",
+    "tier": 1,
+    "checkId": "api-ref-method-index-sole-list"
+  },
+  {
+    "id": "AR-09",
+    "source": "api-ref/api-ref-method-v2.md",
+    "docTypes": [
+      "api-ref"
+    ],
+    "rule": "Every method file is linked exactly once from its class Method Index, and every relative link in the doc set resolves.",
+    "why": "A method absent from the index is unreachable in the rendered page, and a method listed twice implies two callable methods.",
+    "exception": "None.",
+    "tier": 1,
+    "checkId": "api-ref-index-completeness"
+  },
+  {
+    "id": "AR-10",
+    "source": "api-ref/api-ref-method-v2.md",
+    "docTypes": [
+      "api-ref"
+    ],
+    "rule": "Take a parameter default from the SDK signature. Never from an API reference doc or Postman collection. When the SDK sets no default, say the API applies its own without naming a number.",
+    "why": "Default fields in API request docs are sample values, not defaults. A fabricated default is indistinguishable from a real one to the reader.",
+    "exception": "A default named in the API's own prose documentation, as opposed to a request-parameter table, may be cited with the source noted.",
+    "tier": 1,
+    "checkId": "api-ref-verified-defaults"
   },
   {
     "id": "B1-01",
@@ -408,6 +504,54 @@
     "checkId": null
   },
   {
+    "id": "C2-07",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "A heading is at most 4 words, counting an inline-code span or a hyphenated compound as one word.",
+    "why": "A reader scans headings to find their place. A heading that runs to a full sentence stops working as a label and becomes prose, and a table of contents built from such headings is unusable.",
+    "exception": "A heading that reproduces product output verbatim, so a reader searching the error text lands on the section that resolves it, may exceed 4 words. A symptom described in the author's own words is not product output.",
+    "tier": 2,
+    "checkId": "heading-length"
+  },
+  {
+    "id": "C2-08",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "A heading is a complete phrase. Do not open a heading with a lowercase verb or a conjunction that depends on a subject the heading does not name.",
+    "why": "A fragment reads as the tail of a sentence whose subject is missing, so a reader arriving from a search result or a table of contents cannot tell what the section covers.",
+    "exception": "A heading may open in lowercase when the first word is itself a lowercase identifier, such as a package name or an error code.",
+    "tier": 2,
+    "checkId": "heading-length"
+  },
+  {
+    "id": "C2-09",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Consecutive body paragraphs under one heading read as one argument or as labelled standalone facts. When the paragraphs build on each other, open each with the subordinating connective that carries the logic. When they cover separate sub-topics, give each a bolded lead-in label. Do not leave a run of three or more paragraphs that each open with a bare subject or a bare demonstrative and signal no relation to the paragraph above, and do not strand a one-sentence paragraph between two longer ones.",
+    "why": "A reader treats a section as one answer to one question. Paragraphs that each resolve backward, with nothing pointing forward, force the reader to reconstruct a connection the writer already knew, and a reader who cannot tell whether paragraph three continues paragraph two or starts a new topic rereads both.",
+    "exception": "Two short paragraphs where the second plainly continues the first need neither a label nor a connective. A procedure whose paragraphs are numbered steps carries its own sequence. A single backward demonstrative resolving the paragraph immediately above is correct and is governed by C3-24, not by this rule.",
+    "tier": 2,
+    "checkId": "paragraph-cohesion"
+  },
+  {
+    "id": "C2-10",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Every table row carries the same number of cells as its header row, and every cell's emphasis markers, parentheses and brackets close within that cell.",
+    "why": "A row that has lost or gained a cell renders with its values under the wrong columns, and a cell whose punctuation opens without closing renders text the author never wrote. Both survive a Markdown round trip unchanged, so no stability check can see them. A punctuation pass over this corpus moved a closing parenthesis across a cell boundary in 19 rows and the damage reached the published site.",
+    "exception": "A pipe that is part of a cell's content is written as \"\\|\" or wrapped in backticks, and is then not a cell separator. A blank leading header cell is correct in a comparison table whose first column holds the row labels, so it is only reported when no other header cell is labelled either.",
+    "tier": 1,
+    "checkId": "table-integrity"
+  },
+  {
     "id": "C3-01",
     "source": "common-rules.md",
     "docTypes": [
@@ -478,6 +622,270 @@
     "exception": "Very long docs with independently-read sections may redefine once per major section.",
     "tier": 1,
     "checkId": "acronym-first-use"
+  },
+  {
+    "id": "C3-07",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Write one idea per sentence. Cut hedging qualifiers and redundant justification clauses (\"in practice\", \"which means\", \"rather than letting X decide\", stacking two \"because/so\" clauses in one sentence).",
+    "why": "A sentence carrying two justifications forces the reader to hold both in mind before either one lands.",
+    "exception": "A single subordinate clause stating the direct cause of the preceding fact is fine, only stacked or redundant justification is the target.",
+    "tier": 2,
+    "checkId": "sentence-concision"
+  },
+  {
+    "id": "C3-08",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "No figurative/spatial metaphors for technical mechanisms.",
+    "why": "A metaphor reads smoothly but forces the reader to reverse-engineer the actual mechanism, and reused metaphors for different operations are confusing.",
+    "exception": "Domain-standard structural vocabulary (ancestor/descendant/parent/child naming a real data-model relationship) is exempt.",
+    "tier": 2,
+    "checkId": "metaphor-phrases"
+  },
+  {
+    "id": "C3-09",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Name a concept directly instead of describing what it does in roundabout language, when a concise technical term for it is already established elsewhere in this doc set.",
+    "why": "A roundabout description reads fine on its own but wastes words restating what a single established term already conveys, and it makes the doc set inconsistent about how it refers to the same concept.",
+    "exception": "A roundabout description is fine if no shorter direct term for the concept exists yet anywhere in this doc set.",
+    "tier": 2,
+    "checkId": "periphrasis-phrases"
+  },
+  {
+    "id": "C3-10",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "No passive-voice constructions (aux plus past participle, modal plus be plus participle, get-passives, or by-agent passives) where an active-voice rewrite would name the actor directly.",
+    "why": "Passive voice hides who or what performs an action, forcing the reader to infer the actor. Active voice states the mechanism directly and reads faster.",
+    "exception": "Predicate adjectives describing a state rather than an action (for example is unchanged, is unlocalized, is based on) are not passive voice and are exempt. Ambiguous config-state phrasing (is enabled, is published) is still flagged for human judgment rather than exempted.",
+    "tier": 2,
+    "checkId": "passive-voice"
+  },
+  {
+    "id": "C3-11",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Write a numeric error code or HTTP status code as inline code, never as bare prose.",
+    "why": "A bare number reads as a quantity, not an identifier. Inline code marks it as a literal value the reader compares against.",
+    "exception": "A written-out description of a status class (\"a client error\", \"a server error\") is prose and is not affected.",
+    "tier": 2,
+    "checkId": "error-code-format"
+  },
+  {
+    "id": "C3-12",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Do not embed a lowercase question word (\"how\", \"how many\", \"how much\") mid-sentence as an indirect question. Name the thing directly (\"the number of X\", \"the OAuth sign-in flow\", \"the steps to X\", \"the rules for combining them\") instead.",
+    "why": "An embedded question turns a declarative technical sentence into something that reads like a spoken aside, and it is unnecessary since the fact can be named directly.",
+    "exception": "A capitalized \"How\", \"How many\", or \"How much\" starting a standalone phrase, such as a heading or a parameter table cell description, is a different and accepted convention.",
+    "tier": 2,
+    "checkId": "embedded-question-phrases"
+  },
+  {
+    "id": "C3-13",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Bold a spelled-out retry or attempt count stated in prose, for example **five attempts**.",
+    "why": "A retry limit is a fact a developer scans the page for. Bold marks it the same way the Default column marks a value, and a spelled-out number has no other visual signal the way a bare digit does.",
+    "exception": "None. This targets the specific retry/attempt-count convention, not every number in prose.",
+    "tier": 2,
+    "checkId": "retry-attempt-count-bold"
+  },
+  {
+    "id": "C3-14",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Use a numbered list only for a sequence: instructions the reader performs in order, an event flow, or a ranked list such as precedence. Every other set of parallel items is an unordered list.",
+    "why": "Numbers assert an order. When a set of components or concepts is numbered, the reader looks for a first step and a last step that do not exist, and the numbers become noise that hides the real steps elsewhere on the page.",
+    "exception": "A ranked or ordered set whose intro line names the order, for example \"the highest one wins\", keeps its numbers.",
+    "tier": 2,
+    "checkId": "ordered-list-sequence"
+  },
+  {
+    "id": "C3-15",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Do not open a paragraph with a conversational discourse marker standing in for a callout (for example, \"One caveat:\", \"When in doubt:\", \"That said\", \"Wait.\"), and do not use conversational connectives such as \"either way\" or \"worth knowing\" in prose.",
+    "why": "A marker of this kind announces that something important follows without saying what, so the reader carries the framing instead of the fact. The standards already define a closed set of callout labels for content that must not be missed, and an ad hoc marker bypasses it.",
+    "exception": "None. Delete the marker and lead with the fact, or carry the fact in a Warning, Note, Tip, or Additional Resources callout.",
+    "tier": 1,
+    "checkId": "banned-phrases"
+  },
+  {
+    "id": "C3-16",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "When a sentence names what the reader can change, create, or configure, the list must be the complete set, or it must be marked as illustrative with \"for example\".",
+    "why": "A short coordinated list after an edit verb reads as the full set of what the product allows. A reader who wants to rename a profile and sees only \"change its tools or configuration\" concludes the product cannot do it.",
+    "exception": "A list already introduced by \"for example\" or \"such as\" is illustrative by construction and needs no change.",
+    "tier": 3,
+    "checkId": null
+  },
+  {
+    "id": "C3-17",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "State product behavior with the figure or the determining condition, not with a vague quantifier or frequency word (\"most clients\", \"some are destructive\", \"occasionally\", \"usually\").",
+    "why": "A vague quantifier gives the reader nothing to act on. \"Most clients list the tools\" leaves them unable to tell whether their own client is one of them.",
+    "exception": "A quantifier is acceptable when the exact figure is genuinely maintained outside the docs and the sentence names the authoritative source, or when the sentence already names the condition that decides the outcome.",
+    "tier": 3,
+    "checkId": null
+  },
+  {
+    "id": "C3-18",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Do not attribute intent, knowledge, perception, or volition to a system component. Name the mechanism instead, for example \"a disabled profile returns an empty tool list\" rather than \"a disabled profile advertises zero tools\".",
+    "why": "An intentional verb reads as an explanation while leaving the mechanism unstated. The reader cannot tell whether the component chose, computed, or merely reported the outcome, so the sentence gives them nothing to verify.",
+    "exception": "Protocol and network vocabulary whose intentional-sounding verb is the standard term for the operation is exempt: a server exposes tools, a client discovers them, an OAuth handshake, a PKCE exchange, a token that lacks a scope, a request that cannot reach an endpoint, a locale chain that falls back, an ID that collides, a stack that belongs to a region, an organization that owns a stack, and an LLM that reads or interprets a schema.",
+    "tier": 1,
+    "checkId": "anthropomorphism"
+  },
+  {
+    "id": "C3-19",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Write in simple present tense. Do not use present continuous as the main verb (\"the client is holding a stale token\", \"confirm calls are landing\").",
+    "why": "Documentation describes what the product does, which is always true, not what it happens to be doing while the reader watches. Continuous tense also adds a word without adding a fact.",
+    "exception": "A predicate adjective that happens to end in \"-ing\" is not a verb and is exempt (\"is missing\", \"is confusing\", \"is misleading\"). A passive progressive such as \"is being created\" belongs to C3-10, not here.",
+    "tier": 2,
+    "checkId": "present-continuous"
+  },
+  {
+    "id": "C3-20",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Do not use a gerund phrase as the grammatical subject when the sentence names or implies an actor who should hold the verb (\"clicking Duplicate and leaving does not create a profile\", \"omitting it uses the configured stack\").",
+    "why": "A gerund subject attributes the action to the action itself, so nobody performs the verb. The reader cannot tell whether they, the app, or the runtime is responsible, which is the defect passive voice creates by a different route.",
+    "exception": "A gerund that names a concept rather than hiding an actor is correct and stays, for example \"Duplicating copies a profile into a new custom profile you own\". If no actor is present to promote into the subject, the gerund is doing real work.",
+    "tier": 3,
+    "checkId": null
+  },
+  {
+    "id": "C3-21",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Use the specific mechanism verb rather than a general-purpose house verb (\"holds\", \"carries\", \"names\", \"asks for\", \"offers\", \"hides\", \"lets you\", \"picks\") when an exact verb is available (\"contains\", \"stores\", \"includes\", \"specifies\", \"requests\", \"returns\", \"accepts\", \"selects\").",
+    "why": "Each house verb is defensible in one sentence and unreadable in twenty. The doc set drifts into a vocabulary where every relationship is \"carries\" and no sentence says what the component actually does.",
+    "exception": "Protocol and network vocabulary whose intentional-sounding verb is the standard term for the operation is exempt: a server exposes tools, a client discovers them, an OAuth handshake, a PKCE exchange, a token that lacks a scope, a request that cannot reach an endpoint, a locale chain that falls back, an ID that collides, a stack that belongs to a region, an organization that owns a stack, and an LLM that reads or interprets a schema. A house verb is also acceptable when no exact verb exists for the relationship, or when the specific verb would be wrong, for example holds a lock or carries a signature.",
+    "tier": 3,
+    "checkId": null
+  },
+  {
+    "id": "C3-22",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Use a contrastive connective (\"but\", \"however\", \"though\", \"yet\") only when the clauses it joins actually point in opposite directions. Where both clauses point the same way, use \"and\" or a period.",
+    "why": "A false contrast makes the reader look for a tension that is not there, and re-read to find it. \"The flag lives on PUT /api/profiles, but that endpoint is internal\" reads as a caveat when both halves say the same thing: here it is, you cannot use it.",
+    "exception": "Quoted product output and error strings are exempt, because the doc reproduces them verbatim and cannot rewrite them. A connective inside a table cell is also exempt, since a cell is not a sentence. Note that clauses which genuinely do contrast are COMPLIANT rather than exempt.",
+    "tier": 3,
+    "checkId": null
+  },
+  {
+    "id": "C3-23",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "When a concept has a documented name outside this doc set, name it and link its documentation rather than describing its properties. Write \"an [auth token](...)\" rather than \"a short-lived token the dashboard issues for its own use and never displays\".",
+    "why": "A description is a copy of a definition, and copies go stale silently. Naming the concept and linking its canonical page keeps one source of truth, and it lets a reader searching for the term find the page at all.",
+    "exception": "A description is correct when the concept has no documented name, or when the sentence is USING the term rather than defining it. C3-09 covers the narrower case of roundabout language where a concise term is already established inside this doc set, so a hit that C3-09 owns is not this rule.",
+    "tier": 3,
+    "checkId": null
+  },
+  {
+    "id": "C3-24",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "A sentence that points at a code block, table, list, or section on the same page must say where that element is. Write \"the URL below\", \"the table above\", or name the section and link it. Do not point forward with a bare demonstrative, so \"this URL sets a branch:\" becomes \"the URL below sets a branch:\", and \"describes the argument like this:\" becomes \"describes the argument with the following text:\".",
+    "why": "\"This\" tells the reader the element has already appeared. When the element is still below, the reader scrolls up, finds nothing, and re-reads the sentence to work out what it meant. The direction is one word, and the writer already knows it.",
+    "exception": "A demonstrative that points backward at the block immediately above is correct and stays, for example \"This grants no extra access\" after the behavior it summarizes. A bare \"the following\" introducing a verified-complete set is governed by C3-04, not by this rule, so it is never flagged here.",
+    "tier": 2,
+    "checkId": "vague-reference"
+  },
+  {
+    "id": "C3-25",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Introduce every code block, table, and list with a sentence that names what follows, and resolve a pronoun to the noun when the nearest preceding block is an image, a table, or a code block rather than a sentence. Write \"Use the Executions view to confirm...\" rather than \"Use it to confirm...\" after a screenshot.",
+    "why": "A block that arrives with no lead-in makes the reader infer what they are looking at from the contents. A pronoun whose nearest antecedent is a block rather than a noun resolves to the wrong thing on a first read, and the reader only discovers the mistake after acting on it.",
+    "exception": "A block needs no lead-in when the heading directly above it names it, for example a Troubleshooting subsection whose heading is the error string the block quotes. A pronoun is fine when the noun it replaces is in the same sentence or the sentence immediately before, with no block between them.",
+    "tier": 3,
+    "checkId": null
+  },
+  {
+    "id": "C3-26",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "A lead-in that ends in a colon must name or count what follows, in the clause that touches the colon. Write \"The following places can set the same value:\" or \"The three cases below each return a different reason:\", not \"Several places can set the same value. The highest one wins:\".",
+    "why": "The colon promises the reader something specific. When the clause before it names nothing, the reader arrives at the block without knowing what it holds or how much of it there is, and has to read the whole structure before learning what question it answers. C3-24 catches this only when the sentence uses a demonstrative, and the defect is the absence of a pointer rather than the presence of a word.",
+    "exception": "A lead-in already carrying a direction word, an element noun, or a link to the target satisfies the rule and is never flagged. A short lead-in whose block is self-evident from the heading directly above it, for example \"This app serves:\" under a heading naming the app, needs nothing added. This rule is tier 3, so a reviewer or the judge decides whether the reader is genuinely left guessing.",
+    "tier": 3,
+    "checkId": null
+  },
+  {
+    "id": "C3-27",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Do not use emoji, arrows, or pictographic marks in prose. Write the word.",
+    "why": "Emoji render differently on every operating system and font, convey nothing to a screen reader, and do not translate. Arrows are worse than decorative: one glyph stands for a UI path, a range, a mapping and a consequence, so the reader has to infer the relation the sentence should have stated.",
+    "exception": "Code samples are out of scope, and so are the legal marks ©, ® and ™. Box drawing characters that draw a tree inside a code fence, and the mathematical symbols ≥, ≤, ≠ and ≈, are not pictographic and are permitted.",
+    "tier": 1,
+    "checkId": "no-emoji"
+  },
+  {
+    "id": "C3-28",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Do not use italics. Use bold for a visible UI element name, inline code for an identifier, and quotation marks for reported speech.",
+    "why": "Italics carry no meaning a reader can act on. Where emphasis matters the sentence should carry it, and where the text is a term, an identifier or a quotation another convention already owns the job and says which one it is.",
+    "exception": "None.",
+    "tier": 1,
+    "checkId": "no-italics"
   },
   {
     "id": "C4-01",
@@ -552,6 +960,30 @@
     "checkId": null
   },
   {
+    "id": "C4-07",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Write the name of a UI element (tab, button, menu item, screen, section, field, status badge, card action) in bold, never as inline code.",
+    "why": "Inline code tells the reader this is a literal they type or paste. A tab label is neither, so marking it as code sends them looking for it in a config file instead of on the screen.",
+    "exception": "A name the reader supplies or the product derives is a value, not a UI element, and stays in code.",
+    "tier": 2,
+    "checkId": "ui-element-bold"
+  },
+  {
+    "id": "C4-08",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Bold is for a UI element the reader can see and read on the screen. Name an icon that carries no visible label, and shows its name only as a hover tooltip, in double quotes instead.",
+    "why": "Bold tells the reader to look for that text on the screen. An icon has no text to find, so bolding its tooltip sends them hunting for a label the app never displays.",
+    "exception": "A table or list whose own purpose is to document the literal tooltip string keeps bold in that table, because it quotes UI text rather than naming the icon. The exception covers only the table itself. Prose elsewhere on the page still names the icon in quotes, and a table documenting an icon's tooltip is evidence that the prose naming it has no visible label to bold.",
+    "tier": 3,
+    "checkId": null
+  },
+  {
     "id": "C5-01",
     "source": "common-rules.md",
     "docTypes": [
@@ -600,6 +1032,30 @@
     "checkId": "duplicate-links"
   },
   {
+    "id": "C5-05",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Phrase an Additional Resource callout as \"For more information on <topic>, refer to the [Doc Name](url) documentation.\", or \"For detailed steps on <task>...\" when the target carries a procedure.",
+    "why": "The fixed opener tells the reader within three words that the callout is optional reading, so they can skip the line without parsing it. A sentence leading with the target's contents reads as body prose.",
+    "exception": "A callout pointing at another section of the same page closes with \"refer to the [Section Name](#anchor) section\", because \"documentation\" names a separate document.",
+    "tier": 2,
+    "checkId": "additional-resource-phrasing"
+  },
+  {
+    "id": "C5-06",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "An instruction that routes the reader elsewhere must carry the destination. Give a link, a mailto address, or the named screen, and say what to do when you get there.",
+    "why": "\"Raise a support request\" or \"ask an admin\" names an action and then abandons the reader, who now has a second research task before they can act. The destination is usually one link, and the writer already knows it.",
+    "exception": "An instruction is exempt when the destination is genuinely outside Contentstack and unknowable from the docs, for example asking a colleague, a network administrator, or an internal IT team. Naming who to ask is then the whole of the available answer.",
+    "tier": 3,
+    "checkId": null
+  },
+  {
     "id": "C6-01",
     "source": "common-rules.md",
     "docTypes": [
@@ -636,6 +1092,30 @@
     "checkId": "section-length-heuristic"
   },
   {
+    "id": "C6-04",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Do not cite internal implementation details as justification for a claim, describe an internal endpoint and the credential it authenticates with, or state that a check fails open when it cannot reach the data it checks against.",
+    "why": "Internal identifiers are meaningless to the reader and go stale when the implementation changes. Fail-open behavior and internal credential models are worse than meaningless: they tell someone probing the product where a control stops holding, and no reader needs either fact to finish a task.",
+    "exception": "None for externally published docs. Internal-only engineering documentation, explicitly marked as such and never published, is not subject to this rule.",
+    "tier": 3,
+    "checkId": null
+  },
+  {
+    "id": "C6-05",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "The first sentence of the Overview states what this page covers, in its own main clause. It does not open with a clause about another page's topic, and it does not leave the topic to a trailing result clause.",
+    "why": "The Overview's first sentence is where a reader decides whether this is the page they want. An opener that leads with a comparison to a different task, or that states background and reaches the topic only after \"so\", makes the reader work for an answer the sentence was supposed to give.",
+    "exception": "A page whose subject is the product itself may open by naming and defining the product, since that sentence already states the topic.",
+    "tier": 3,
+    "checkId": null
+  },
+  {
     "id": "C7-01",
     "source": "common-rules.md",
     "docTypes": [
@@ -654,10 +1134,10 @@
       "all"
     ],
     "rule": "A fact stated in Prerequisites must not be restated mid-doc as a general reminder.",
-    "why": "Multiple locations for the same fact create maintenance risk.",
-    "exception": "A brief inline reminder is acceptable in a very long doc where readers skip Prerequisites.",
-    "tier": 2,
-    "checkId": "duplicate-links"
+    "why": "A restated prerequisite reads as a second, possibly different requirement, and the reader cannot tell which statement is authoritative.",
+    "exception": "A second mention is acceptable when it links to the canonical statement rather than restating the fact, for example \"see [Enable and disable a profile](#enable-and-disable-a-profile)\". Distance alone is not an exception: a fact restated in full a hundred lines later is still two statements that can drift apart.",
+    "tier": 3,
+    "checkId": null
   },
   {
     "id": "C7-03",
@@ -668,6 +1148,42 @@
     "rule": "If two implementation patterns share the same underlying setup, one section is the source of truth and the other is a pointer to it.",
     "why": "Keeping two full copies in sync across doc revisions is error-prone.",
     "exception": "If the patterns differ in more than two meaningful ways, they are not near-identical and each gets full content.",
+    "tier": 3,
+    "checkId": null
+  },
+  {
+    "id": "C7-04",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "When a table already documents an item, any callout, bullet, or paragraph within ten lines of that table must add only what the table cannot show, not restate the table's own cells.",
+    "why": "A reader who already read the table gains nothing from a block repeating its columns, and two copies of one fact double the maintenance surface. A callout restating one row also mis-signals, implying that row matters more than the rows no callout mentions.",
+    "exception": "A one-clause restatement is acceptable when it introduces the block's genuinely new content, avoiding an orphaned bullet or callout with no lead-in.",
+    "tier": 2,
+    "checkId": "table-restatement"
+  },
+  {
+    "id": "C7-05",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "A callout or bolded paragraph placed beside a table must carry a fact the table does not. Restating a row in different words is still restating it.",
+    "why": "C7-04 catches a block that repeats a row's wording. A block can also repeat a row's meaning while sharing none of its words, which costs the reader the same second read and leaves the same two copies to maintain.",
+    "exception": "A block that states an instruction the table has no column for, such as what the reader should do about the row, adds a genuine fact. Move it into the table only when the table has somewhere to put it.",
+    "tier": 3,
+    "checkId": null
+  },
+  {
+    "id": "C7-06",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "State a fact once on a page. Where a second mention is genuinely needed, make one statement canonical and have the others link to it rather than restating it.",
+    "why": "A fact stated three times in three sections gives the reader no way to tell which statement is authoritative, and the three copies drift apart the first time one of them is edited.",
+    "exception": "A second mention is acceptable when it links to the canonical statement rather than restating the fact, for example \"see [Enable and disable a profile](#enable-and-disable-a-profile)\". Distance alone is not an exception: a fact restated in full a hundred lines later is still two statements that can drift apart.",
     "tier": 3,
     "checkId": null
   },
@@ -756,6 +1272,29 @@
     "checkId": "acronym-first-use"
   },
   {
+    "id": "C8-08",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Do not editorialize about the product's own defects. This covers calling a shipped control dead or pointless, saying a label or message misleads the reader, and asides about how the product reads to a customer.",
+    "why": "Telling a customer the product lies to them damages trust further than the defect does. The judgement also never survives the fix: when the defect is repaired the criticism is left behind, still published and now wrong.",
+    "exception": "None. A defect worth naming in a doc is worth filing for engineering. Record it there and document the current behavior neutrally.",
+    "tier": 1,
+    "checkId": "banned-phrases"
+  },
+  {
+    "id": "C8-09",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "State a real limit as a neutral fact: the boundary, when the reader meets it, and what to do instead. Do not frame the limit as the product failing the reader, or add that it gives no warning, does nothing, or acts silently.",
+    "why": "The reader needs the boundary in order to plan. Adverbs such as silently and quietly add no boundary, and phrasing a cap as a failure invites the reader to distrust every other limit on the page.",
+    "exception": "When the absence of a signal is itself the fact the reader must act on, state it plainly and once. A filtered view that looks empty but is not needs the reader to know that.",
+    "tier": 3
+  },
+  {
     "id": "C9-01",
     "source": "common-rules.md",
     "docTypes": [
@@ -802,6 +1341,30 @@
     "exception": "Tools with no known coverage gaps can omit the section.",
     "tier": 3,
     "checkId": null
+  },
+  {
+    "id": "FM-01",
+    "source": "section-order.json",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "SEO front matter must include a title, a description, and a url.",
+    "why": "These are the machine-readable metadata fields every Section Order table marks as Required for search and indexing.",
+    "exception": "None.",
+    "tier": 1,
+    "checkId": "front-matter"
+  },
+  {
+    "id": "FM-02",
+    "source": "parse-markdown.js",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Every non-blank, non-list front matter line must be a valid key colon value pair.",
+    "why": "A malformed line (for example a stray heading marker prepended to a key) can silently drop that key from the parsed front matter.",
+    "exception": "YAML list item lines (leading dash) are not key-value pairs and are not flagged.",
+    "tier": 1,
+    "checkId": "front-matter"
   },
   {
     "id": "MIG-01",
@@ -1030,101 +1593,5 @@
     "exception": "None.",
     "tier": 3,
     "checkId": null
-  },
-  {
-    "id": "C3-07",
-    "source": "common-rules.md",
-    "docTypes": [
-      "all"
-    ],
-    "rule": "Write one idea per sentence. Cut hedging qualifiers and redundant justification clauses (\"in practice\", \"which means\", \"rather than letting X decide\", stacking two \"because/so\" clauses in one sentence).",
-    "why": "A sentence carrying two justifications forces the reader to hold both in mind before either one lands.",
-    "exception": "A single subordinate clause stating the direct cause of the preceding fact is fine, only stacked or redundant justification is the target.",
-    "tier": 2,
-    "checkId": "sentence-concision"
-  },
-  {
-    "id": "C3-08",
-    "source": "common-rules.md",
-    "docTypes": [
-      "all"
-    ],
-    "rule": "No figurative/spatial metaphors for technical mechanisms.",
-    "why": "A metaphor reads smoothly but forces the reader to reverse-engineer the actual mechanism, and reused metaphors for different operations are confusing.",
-    "exception": "Domain-standard structural vocabulary (ancestor/descendant/parent/child naming a real data-model relationship) is exempt.",
-    "tier": 2,
-    "checkId": "metaphor-phrases"
-  },
-  {
-    "id": "C3-09",
-    "source": "common-rules.md",
-    "docTypes": [
-      "all"
-    ],
-    "rule": "Name a concept directly instead of describing what it does in roundabout language, when a concise technical term for it is already established elsewhere in this doc set.",
-    "why": "A roundabout description reads fine on its own but wastes words restating what a single established term already conveys, and it makes the doc set inconsistent about how it refers to the same concept.",
-    "exception": "A roundabout description is fine if no shorter direct term for the concept exists yet anywhere in this doc set.",
-    "tier": 2,
-    "checkId": "periphrasis-phrases"
-  },
-  {
-    "id": "C3-10",
-    "source": "common-rules.md",
-    "docTypes": [
-      "all"
-    ],
-    "rule": "No passive-voice constructions (aux plus past participle, modal plus be plus participle, get-passives, or by-agent passives) where an active-voice rewrite would name the actor directly.",
-    "why": "Passive voice hides who or what performs an action, forcing the reader to infer the actor. Active voice states the mechanism directly and reads faster.",
-    "exception": "Predicate adjectives describing a state rather than an action (for example is unchanged, is unlocalized, is based on) are not passive voice and are exempt. Ambiguous config-state phrasing (is enabled, is published) is still flagged for human judgment rather than exempted.",
-    "tier": 2,
-    "checkId": "passive-voice"
-  },
-  {
-    "id": "C3-11",
-    "source": "common-rules.md",
-    "docTypes": [
-      "all"
-    ],
-    "rule": "Write a numeric error code or HTTP status code as inline code, never as bare prose.",
-    "why": "A bare number reads as a quantity, not an identifier. Inline code marks it as a literal value the reader compares against.",
-    "exception": "A written-out description of a status class (\"a client error\", \"a server error\") is prose and is not affected.",
-    "tier": 2,
-    "checkId": "error-code-format"
-  },
-  {
-    "id": "C3-12",
-    "source": "common-rules.md",
-    "docTypes": [
-      "all"
-    ],
-    "rule": "Do not embed a lowercase question word (\"how\", \"how many\", \"how much\") mid-sentence as an indirect question. Name the thing directly (\"the number of X\", \"the OAuth sign-in flow\", \"the steps to X\", \"the rules for combining them\") instead.",
-    "why": "An embedded question turns a declarative technical sentence into something that reads like a spoken aside, and it is unnecessary since the fact can be named directly.",
-    "exception": "A capitalized \"How\", \"How many\", or \"How much\" starting a standalone phrase, such as a heading or a parameter table cell description, is a different and accepted convention.",
-    "tier": 2,
-    "checkId": "embedded-question-phrases"
-  },
-  {
-    "id": "C3-13",
-    "source": "common-rules.md",
-    "docTypes": [
-      "all"
-    ],
-    "rule": "Bold a spelled-out retry or attempt count stated in prose, for example **five attempts**.",
-    "why": "A retry limit is a fact a developer scans the page for. Bold marks it the same way the Default column marks a value, and a spelled-out number has no other visual signal the way a bare digit does.",
-    "exception": "None. This targets the specific retry/attempt-count convention, not every number in prose.",
-    "tier": 2,
-    "checkId": "retry-attempt-count-bold"
-  },
-  {
-    "id": "C3-14",
-    "source": "common-rules.md",
-    "docTypes": [
-      "all"
-    ],
-    "rule": "Use a numbered list only for a sequence: instructions the reader performs in order, an event flow, or a ranked list such as precedence. Every other set of parallel items is an unordered list.",
-    "why": "Numbers assert an order. When a set of components or concepts is numbered, the reader looks for a first step and a last step that do not exist, and the numbers become noise that hides the real steps elsewhere on the page.",
-    "exception": "A ranked or ordered set whose intro line names the order, for example \"the highest one wins\", keeps its numbers.",
-    "tier": 2,
-    "checkId": "ordered-list-sequence"
   }
 ]

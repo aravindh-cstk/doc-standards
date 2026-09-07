@@ -32,6 +32,22 @@ A setup involves three pieces:
 2. **The hosted runtime:** it loads the profile and runs operations.
 3. **MCP clients:** any app that connects to a connector URL.
 
+## Violation six, a casual escalation verb
+
+Only Contentstack can re-enable a disabled profile, so reach out to support.
+
+## Exemption six, a literal reach and an unrelated compound
+
+The client cannot reach the discovery endpoint, and each outcome has its own root cause.
+
+## Violation five, an intentional verb
+
+A profile carries an `enabled` flag. Disabling it takes effect immediately for every connected client: a disabled profile advertises zero tools to any connected client, and calls against it fail rather than running.
+
+## Exemption five, protocol vocabulary
+
+The runtime exposes the profile's tools, and the client discovers them during the MCP handshake.
+
 ## Exemption one, a heading may open with How
 
 ### How a tool call works
@@ -52,13 +68,50 @@ To reach older executions:
 2. Click **Load more**.
 3. Filter again.
 
-## Exemption four, a ranked list
+## Exemption four and violation eight, a ranked list under an unnamed lead-in
+
+The numbers stay, because the list really is ranked, so C3-14 must leave it
+alone. The lead-in is the C3-26 violation: the clause touching the colon names
+no element, no direction, and no count, so the reader reaches the list without
+knowing what it holds.
 
 Several places can set the same value. The highest one wins:
 
 1. **Tool arguments on a single call.**
 2. **The connector URL query string.**
 3. **The profile's stored configuration.**
+
+## Exemption ten, a lead-in that names what follows
+
+The two URLs below set the same stack on different branches:
+
+```
+https://example.com/api/mcp?profile_id=cms&branch=main
+https://example.com/api/mcp?profile_id=cms&branch=release-2
+```
+
+## Violation seven, a forward-pointing demonstrative
+
+For example, this URL sets a stack and a branch:
+
+```
+https://example.com/api/mcp?profile_id=cms&branch=release-2
+```
+
+## Exemption seven, a backward demonstrative
+
+This grants no extra access, because the call still runs on your own token.
+
+## Exemption eight, a complete set introduced with the following
+
+The following transports are the only ones Contentstack supports:
+
+1. Streamable HTTP.
+2. Server-sent events.
+
+## Exemption nine, an anchor slug carrying the flagged words
+
+Read [the parameter reference](/developers/mcp-url-parameters#this-url-and-this-table) before you edit a connector URL.
 
 ## Next Steps
 

@@ -162,3 +162,36 @@ test('bare link in Next Steps is caught, described link is not', () => {
   assert.equal(findings.length, 1);
   assert.ok(findings[0].message.includes('bare'));
 });
+
+test('broken feature doc: pseudo-callout discourse markers are caught as C3-15', () => {
+  const doc = loadFixture('broken-feature-doc.md');
+  const findings = checkBannedPhrases(doc);
+  const c315 = findings.filter((f) => f.ruleId === 'C3-15').map((f) => f.message);
+  assert.ok(c315.some((m) => m.includes('One caveat')), 'One caveat: opener');
+  assert.ok(c315.some((m) => m.includes('Either way')), 'either way connective');
+  assert.ok(c315.some((m) => m.includes('worth knowing')), 'worth knowing framing');
+  // One line, one finding. A second entry matching the same construction would
+  // report the same sentence twice and train the reader to skim the output.
+  assert.equal(c315.filter((m) => m.includes('One caveat')).length, 1);
+});
+
+test('C3-15 fires on a marker inside a callout, and not on "caveat" mid-sentence', () => {
+  const marker = new DocModel('marker.md', [
+    '# T',
+    '',
+    '> **Note:** One caveat: the token expires.',
+  ].join('\n'));
+  assert.ok(checkBannedPhrases(marker).some((f) => f.ruleId === 'C3-15'));
+
+  // The word itself is not the violation. Only the marker construction is, so a
+  // sentence that reports what the product calls a caveat must stay clean.
+  const prose = new DocModel('prose.md', [
+    '# T',
+    '',
+    'The response names the caveat in its `detail` field.',
+  ].join('\n'));
+  assert.equal(
+    checkBannedPhrases(prose).filter((f) => f.ruleId === 'C3-15').length,
+    0
+  );
+});

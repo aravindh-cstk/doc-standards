@@ -1,0 +1,56 @@
+{
+  "ruleId": "C3-18",
+  "category": "intentional-verb",
+  "phrases": [
+    {
+      "pattern": "\\badvertis(e|es|ed|ing)\\b",
+      "label": "advertise",
+      "fix": "name what the component returns or accepts (\"returns an empty tool list\", \"accepts this argument\") instead of the speech verb"
+    },
+    {
+      "pattern": "\\bannounc(e|es|ed|ing)\\b",
+      "label": "announce",
+      "fix": "name what is returned, logged, or published instead of the speech verb"
+    },
+    {
+      "pattern": "(?<!\\byou )\\bdecides?\\b",
+      "label": "decide (non-reader subject)",
+      "fix": "name the mechanism that produces the outcome (\"the URL binds the profile\", \"precedence, highest first\") instead of attributing a decision"
+    },
+    {
+      "pattern": "(?<!\\byou )(?<!\\bmodel )\\bchooses?\\b",
+      "label": "choose (non-reader, non-model subject)",
+      "fix": "name what selects the value and how, or use \"selects\" for a mechanical selection"
+    },
+    {
+      "pattern": "\\brefuses?\\b",
+      "label": "refuse",
+      "fix": "say \"rejects\" and name what is rejected"
+    },
+    {
+      "pattern": "\\bignores?\\b",
+      "label": "ignore",
+      "fix": "say \"discards\" or \"does not read\", which state the mechanism rather than implying deliberate disregard"
+    },
+    {
+      "pattern": "(?<!\\byou )\\bwants?\\b",
+      "label": "want (non-reader subject)",
+      "fix": "name the requirement instead of a desire"
+    },
+    {
+      "pattern": "(?<!\\bmodel )\\b(knows|thinks|understands|believes|remembers|learns)\\b",
+      "label": "cognition verb (non-model subject)",
+      "fix": "name what the component stores, reads, or resolves instead of what it knows"
+    },
+    {
+      "pattern": "(?<!\\bmodel )\\bsees\\b",
+      "label": "see (non-model subject)",
+      "fix": "name what is sent, returned, or displayed instead of what something sees"
+    },
+    {
+      "pattern": "\\bcares about\\b",
+      "label": "cares about",
+      "fix": "name the field or condition the component actually reads"
+    }
+  ]
+}

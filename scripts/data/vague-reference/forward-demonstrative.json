@@ -1,0 +1,31 @@
+{
+  "ruleId": "C3-24",
+  "category": "vague-reference",
+  "phrases": [
+    {
+      "pattern": "\\bthis (url|example|snippet|command|code|shape|format|structure|text|payload|output|message|error|diagram|image|screenshot)\\b",
+      "label": "this <element>",
+      "fix": "say where the element sits, for example the URL below or the snippet below, or name the element outright"
+    },
+    {
+      "pattern": "\\bthis (table|list|order|sequence|set|series)\\b",
+      "label": "this <collection>",
+      "fix": "say where the collection sits, for example the table above or the list below, or name what it contains"
+    },
+    {
+      "pattern": "\\bthese (cases|steps|values|parameters|options|fields|examples|commands|errors|messages|tabs|rows)\\b",
+      "label": "these <plural>",
+      "fix": "count them and say where they sit, for example the three cases below, or name them outright"
+    },
+    {
+      "pattern": "\\blike th(is|ese)\\b",
+      "label": "like this",
+      "fix": "name what follows instead, for example with the following text or in the format below"
+    },
+    {
+      "pattern": "\\bin th(is|at) (order|way|form|shape)\\b",
+      "label": "in this order",
+      "fix": "say where the order is written, for example in the order below or in the order the table above lists"
+    }
+  ]
+}

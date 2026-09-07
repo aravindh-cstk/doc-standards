@@ -10,7 +10,7 @@
     {
       "pattern": "\\b(?:needs?|keep|keeps|leave|leaves|want|wants)\\s+(?:the|a|an|its|their|your|one|every|each)\\s+(?:[a-z][a-z_-]*\\s+){0,3}(?!advanced\\b|aged\\b|based\\b|complicated\\b|concerned\\b|dedicated\\b|detailed\\b|fixed\\b|interested\\b|limited\\b|located\\b|married\\b|qualified\\b|related\\b|supposed\\b|unaffected\\b|unauthenticated\\b|unauthorized\\b|undefined\\b|uninitialized\\b|unlocalized\\b|unrelated\\b|unsupported\\b|unchanged\\b|designed\\b|intended\\b|expected\\b|needed\\b|required\\b|focused\\b|prepared\\b|used\\b)(?:[a-z]+-)?[a-z]{3,}ed\\b(?=\\s*(?:[,.;:)|]|$))",
       "label": "passive voice (object-complement small clause)",
-      "fix": "name who acts on the object: \"need you to re-pick the tool\", \"keep the URL in quotes\""
+      "fix": "name who acts on the object, for example \"you must select the tool again\" or \"keep the URL in quotes\""
     },
     {
       "pattern": "\\b(?:when|unless|once|until|where|if)\\s+(?:not\\s+)?(?!advanced\\b|aged\\b|based\\b|complicated\\b|concerned\\b|dedicated\\b|detailed\\b|fixed\\b|interested\\b|limited\\b|located\\b|married\\b|qualified\\b|related\\b|supposed\\b|unaffected\\b|unauthenticated\\b|unauthorized\\b|undefined\\b|uninitialized\\b|unlocalized\\b|unrelated\\b|unsupported\\b|unchanged\\b|designed\\b|intended\\b|expected\\b|needed\\b|required\\b|focused\\b|prepared\\b|used\\b)(?:[a-z]+-)?[a-z]{3,}ed\\b(?=\\s*(?:[,.;:)|]|$))",

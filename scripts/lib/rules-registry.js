@@ -135,6 +135,42 @@ function unimplementedCheckIds() {
     .map(([checkId, source]) => ({ checkId, rules: source.rules || [] }));
 }
 
+/**
+ * Tier-1 and tier-2 rules whose checkId names a module that never emits their
+ * ID as a literal. Reported, not failed, and frozen by a baseline test.
+ *
+ * Built after C7-02 was found to have never fired once. It was tier 2 with
+ * checkId "duplicate-links", check-sources.json listed it there, so every
+ * pairing test in validateRegistry passed, while heuristic-flags.js emitted
+ * only C5-04. The registry advertised coverage that did not exist.
+ *
+ * This cannot be a hard failure, and the reason is worth stating so nobody
+ * promotes it to one. check-sources.json's `rules` array is a claim about what
+ * a check ADDRESSES, not what it EMITS. Several registry rules legitimately map
+ * to one emitted finding: B1-01, B2-01 and C1-03 are all the section-order rule
+ * and all report as C1-01. Others are emitted from a computed variable rather
+ * than a literal, so `emittedRuleIds`, which greps for `ruleId: '...'`, cannot
+ * see them (section-structure.js:68 and :85, next-steps-links.js:15).
+ *
+ * So the list has legitimate members. What must never happen is the list
+ * GROWING unnoticed, which is what test/gap-loop.test.js freezes.
+ */
+function unemittedRuleClaims() {
+  const emitted = emittedRuleIds();
+  const out = [];
+  for (const [checkId, source] of Object.entries(checkSources)) {
+    if (source.kind !== 'structural' && source.kind !== 'regex') continue;
+    if (!source.module) continue;
+    const emittedByModule = new Set(emitted[source.module] || []);
+    for (const ruleId of source.rules || []) {
+      const rule = byId(ruleId);
+      if (!rule || rule.tier === 3) continue;
+      if (!emittedByModule.has(ruleId)) out.push(`${checkId}:${ruleId}`);
+    }
+  }
+  return out.sort();
+}
+
 module.exports = {
   registry,
   byId,
@@ -144,5 +180,7 @@ module.exports = {
   nextRuleId,
   validateRegistry,
   unimplementedCheckIds,
+  unemittedRuleClaims,
+  emittedRuleIds,
   checkSources,
 };

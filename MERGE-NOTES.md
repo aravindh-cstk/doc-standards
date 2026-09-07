@@ -42,6 +42,53 @@ The `CS Assets` copy and the other four copies disagreed on migration-guide.md's
 - `getting-started.md`, `conceptual-guide.md`, `how-to-guide.md`, `setup-guide.md`, `kickstarter.md`: identical content across all five source folders, carried over with no content changes.
 - `writing-guide-agent-skills.md`: carried over from `skills/doc-standards/.writing-guide.md` (the only copy that had it), made visible by dropping the leading dot, with a scope note added at the top clarifying it is specific to Agent Skills documentation and supplements, rather than replaces, `common-rules.md` C3 and C8.
 
+## 2026-09-07: the Studio and MCP Profile Hub forks
+
+The two working copies that had moved furthest ahead of this repo were `Desktop/Studio/doc-standards` and `Desktop/MCP Profile Hub/doc-standards`. This commit merges both into the canonical set. The copies in `SDK Project` and `CLI Project` were behind both and contributed nothing new.
+
+Neither fork was simply ahead of the other. Each held work the other never received:
+
+| Fork | What only it had |
+|---|---|
+| Studio | `check-links.js`, the emoji, italics and table integrity checks, the dash and anchor repair passes in `fix/`, `lib/prose-mask.js`, `lib/slugify.js`, `lib/table-shape.js`, and blockquote-aware fence masking in `lib/parse-markdown.js` |
+| MCP Profile Hub | the paragraph cohesion and forward-reference checks, the tier-3 rules `C3-23` and `C3-25` through `C3-26`, the passage-judging mode in `judge-tone.js`, and the stdin fix in `lib/claude-runner.js` that stops a nested `claude -p` call hanging until its timeout |
+
+The rule text and every wordlist here is a superset of what this repo carried before. Two literals moved rather than disappeared: `powerful` and `seamless` left `banned-phrases/superlatives.json` for `banned-phrases/marketing.json`, because the wordlist hygiene test refuses to let two rules claim the same literal.
+
+The suite is now 400 tests, all passing, none skipped.
+
+### Rule ID collisions, and how they were resolved
+
+Both forks hand-counted their next rule ID, and both landed on the same numbers for different rules. Three IDs collided:
+
+| ID | Studio assigned it to | MCP Profile Hub assigned it to |
+|---|---|---|
+| `C2-09` | table integrity | paragraph cohesion |
+| `C3-23` | no emoji | naming a documented concept |
+| `C3-24` | no italics | forward-pointing demonstrative |
+
+The MCP Profile Hub numbering is canonical, because its IDs are cited in rule prose and in the tier-3 judge prompts, while the three Studio rules were referenced only inside check modules. So Studio's three moved:
+
+- table integrity: `C2-09` becomes `C2-10`
+- no emoji: `C3-23` becomes `C3-27`
+- no italics: `C3-24` becomes `C3-28`
+
+`test/gap-loop.test.js` now asserts the invariant that `nextRuleId` returns one past the highest number a prefix holds, rather than asserting a hardcoded literal. Both forks carried a literal there, and a literal is what let each of them reuse an ID without noticing. Anyone syncing these changes back into `Studio/doc-standards` has to renumber the same three rules to match.
+
+### The API reference rules move into the root registry
+
+The 2026-08-20 sync gave `doc-types/api-reference/` its own `rules-registry.json`, `lib/`, linter and tests. Studio reverted that, and this commit follows the revert. The ten `AR-01` to `AR-10` rules now live in `scripts/data/rules-registry.json` tagged `docTypes: ["api-ref"]`, the linter is `scripts/lint-api-ref.js`, the templates are in `api-ref/`, and `doc-types/api-reference/SKILL.md` is left as the file that routes a reader to all of it.
+
+The reason is that `lib/rules-registry.js` validates the registry as one artifact. It cross-checks the rules against `data/check-sources.json` and against the check modules: a tier-3 rule may not name a `checkId`, a tier-1 or tier-2 rule must name one, and no check may emit an ID another check owns. A second registry in a subfolder sits outside all of that, which is how a rule ships advertising coverage that never existed.
+
+### Test fixtures are vendored
+
+`test/api-ref-structure.test.js` read its negative-control pages from a sibling checkout called `python-delivery-pr-217`, so three tests skipped on every clone that did not happen to have it. The control was missing exactly where the suite runs as a gate. Those pages already existed in this repo under the old api-reference folder, so they are now vendored at `scripts/test/fixtures/api-ref-good/` and the three tests run.
+
+### Corpus paths
+
+Every script that defaulted to a specific project's docs folder now defaults to `../../docs`, since this repo carries no docs corpus of its own. Pass the corpus explicitly when running a sweep, a probe, or a judge pass against a real doc set.
+
 ## A note on style
 
 Every file in this folder, including this one, avoids em dashes, en dashes, and semicolons in prose, per the no-dash rule in `common-rules.md` C3. Several of the original five copies (especially the older, smaller revisions) used dashes and semicolons throughout. Those were rewritten for internal consistency during the merge. This is a wording change only, not a content change.

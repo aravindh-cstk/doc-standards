@@ -19,12 +19,23 @@ const { checkGettingStartedSpecific } = require('./checks/getting-started-specif
 const { checkHeuristics } = require('./checks/heuristic-flags');
 const { checkSentenceConcision } = require('./checks/sentence-concision');
 const { checkMetaphors } = require('./checks/metaphor-phrases');
+const { checkAnthropomorphism } = require('./checks/anthropomorphism');
 const { checkPeriphrasis } = require('./checks/periphrasis-phrases');
 const { checkPassiveVoice } = require('./checks/passive-voice');
+const { checkPresentContinuous } = require('./checks/present-continuous');
 const { checkErrorCodeFormat } = require('./checks/error-code-format');
 const { checkEmbeddedQuestionPhrases } = require('./checks/embedded-question-phrases');
 const { checkRetryAttemptCountBold } = require('./checks/retry-attempt-count-bold');
 const { checkOrderedListSequence } = require('./checks/ordered-list-sequence');
+const { checkUiElementBold } = require('./checks/ui-element-bold');
+const { checkAdditionalResourcePhrasing } = require('./checks/additional-resource-phrasing');
+const { checkHeadingLength } = require('./checks/heading-length');
+const { checkTableRestatement } = require('./checks/table-restatement');
+const { checkVagueReference } = require('./checks/vague-reference');
+const { checkParagraphCohesion } = require('./checks/paragraph-cohesion');
+const { checkNoEmoji } = require('./checks/no-emoji');
+const { checkNoItalics } = require('./checks/no-italics');
+const { checkTableIntegrity } = require('./checks/table-integrity');
 
 const VALID_TYPES = [
   'conceptual-guide',
@@ -51,12 +62,23 @@ const CHECKS = [
   checkHeuristics,
   checkSentenceConcision,
   checkMetaphors,
+  checkAnthropomorphism,
   checkPeriphrasis,
   checkPassiveVoice,
+  checkPresentContinuous,
   checkErrorCodeFormat,
   checkEmbeddedQuestionPhrases,
   checkRetryAttemptCountBold,
   checkOrderedListSequence,
+  checkUiElementBold,
+  checkAdditionalResourcePhrasing,
+  checkHeadingLength,
+  checkTableRestatement,
+  checkVagueReference,
+  checkParagraphCohesion,
+  checkNoEmoji,
+  checkNoItalics,
+  checkTableIntegrity,
 ];
 
 function parseArgs(argv) {

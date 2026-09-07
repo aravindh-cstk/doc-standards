@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { makeFinding } = require('../../../scripts/lib/report');
+const { makeFinding } = require('../lib/report');
 
 // Structural checks for API reference pages (rules AR-01..AR-10).
 //

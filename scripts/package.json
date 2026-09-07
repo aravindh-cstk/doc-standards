@@ -7,11 +7,22 @@
     "lint-doc": "./lint-doc.js"
   },
   "scripts": {
-    "test": "node --test",
+    "test": "node --test test/*.test.js",
     "lint": "node lint-doc.js",
-    "sweep": "node sweep-docs.js",
+    "lint:api-ref": "node lint-api-ref.js",
+    "sweep": "node sweep-docs.js ../../docs",
+    "links": "node check-links.js ../../docs",
     "probe": "node probe-corpus.js",
     "review": "node review-candidates.js",
-    "build:section-order": "node build/build-section-order.js"
+    "judge": "node review-candidates.js --judge",
+    "build:section-order": "node build/build-section-order.js",
+    "judge:tone": "node judge-tone.js ../../docs",
+    "discover:tone": "node judge-tone.js ../../docs --discover --probe",
+    "review:refs": "node review-candidates.js ../../docs",
+    "judge:refs": "node judge-tone.js ../../docs --rules=C3-25 --emit-verdicts",
+    "review:cohesion": "node review-candidates.js ../../docs",
+    "judge:cohesion": "node judge-tone.js ../../docs --rules=C2-09 --emit-verdicts",
+    "fix:dashes": "node fix/fix-dashes.js ../../docs --report",
+    "audit:wordlists": "node audit-wordlists.js"
   }
 }

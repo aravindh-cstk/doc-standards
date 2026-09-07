@@ -1,0 +1,31 @@
+{
+  "ruleId": "C3-15",
+  "category": "discourse marker",
+  "phrases": [
+    {
+      "pattern": "^\\s*>?\\s*(?:\\*\\*[^*]+\\*\\*:?\\s*)?\\**(One caveat|One exception|One catch|One more thing|The catch|The practical consequence|The upshot|The good news|The bad news)\\b",
+      "label": "pseudo-callout opener",
+      "fix": "delete the marker and lead with the fact, or carry it in an allowed callout label (Warning, Note, Tip, Additional Resources)"
+    },
+    {
+      "pattern": "^\\s*>?\\s*(?:\\*\\*[^*]+\\*\\*:?\\s*)?\\**(Heads up|A word of warning|A word of caution|When in doubt|Worth noting|That said|In short|Long story short|Put simply|Simply put)\\b",
+      "label": "conversational opener",
+      "fix": "delete the marker and state the fact"
+    },
+    {
+      "pattern": "^\\s*>?\\s*(?:\\*\\*[^*]+\\*\\*:?\\s*)?\\**(Wait|Note that|Remember)[.,]",
+      "label": "conversational interjection",
+      "fix": "delete the interjection and state the fact"
+    },
+    {
+      "pattern": "\\beither way\\b",
+      "label": "either way",
+      "fix": "name the outcomes you mean, or drop the connective"
+    },
+    {
+      "pattern": "\\bworth (knowing|noting|mentioning|being aware of)\\b",
+      "label": "worth knowing",
+      "fix": "state the fact without framing it as advice"
+    }
+  ]
+}

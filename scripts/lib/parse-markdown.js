@@ -1,32 +1,49 @@
 'use strict';
 
+const { slugify } = require('./slugify');
+
 const FENCE_RE = /^(\s*)(`{3,}|~{3,})(.*)$/;
-const HEADING_RE = /^(#{1,6})\s+(.+?)\s*#*\s*$/;
+// Up to three leading spaces is still a heading in GFM, and this corpus has
+// them: `   ### The \`any\` flatten trap` is a real heading the docs site
+// generates an anchor for, and links point at it.
+const HEADING_RE = /^ {0,3}(#{1,6})\s+(.+?)\s*#*\s*$/;
 const KEY_VALUE_RE = /^([A-Za-z_][\w-]*):\s?(.*)$/;
 const LIST_ITEM_RE = /^(\s*)([-*+]|\d+[.)])\s+(.*)$/;
 const TABLE_SEPARATOR_RE = /^\s*\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)+\|?\s*$/;
 const LINK_RE = /\[([^\]]*)\]\(([^)]+)\)/g;
 
 /** GitHub-style heading anchor slug. */
-function slugify(text) {
-  return text
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, '')
-    .replace(/\s+/g, '-');
-}
 
 /**
  * Splits raw markdown text into lines and computes, per line (1-indexed),
  * whether it falls inside a fenced code block. Fence lines themselves count
  * as "in fence" (open and close lines included in the range).
  */
+/**
+ * Strip any leading blockquote markers before testing for a fence.
+ *
+ * A fence nested inside a blockquote is written "> ```js", and matching
+ * FENCE_RE against the raw line never sees it, so the whole code block stays
+ * unmasked. Every check that trusts inFenceMask then reads real source as
+ * prose. C3-05 found this the expensive way: it flagged the statement
+ * semicolons in an astro.config.mjs sample and a decodeUi() sample as banned
+ * punctuation, and the only way to satisfy it would have been to corrupt the
+ * code.
+ *
+ * Nested quoting ("> > ```") is handled by repeating the marker.
+ */
+const BLOCKQUOTE_PREFIX_RE = /^(\s*>)+\s?/;
+
+function stripBlockquote(line) {
+  return line.replace(BLOCKQUOTE_PREFIX_RE, '');
+}
+
 function findCodeFences(lines) {
   const fences = [];
   let openFence = null;
   lines.forEach((line, idx) => {
     const lineNo = idx + 1;
-    const match = line.match(FENCE_RE);
+    const match = stripBlockquote(line).match(FENCE_RE);
     if (!match) return;
     const fenceChar = match[2][0];
     if (!openFence) {

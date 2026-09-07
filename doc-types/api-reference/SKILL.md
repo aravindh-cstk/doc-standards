@@ -22,45 +22,64 @@ Do not mix the two. A conceptual guide does not need a Method Index or a Validat
 reference method page does not need an Overview or a Prerequisites section. Applying the wrong doc
 type's structural rules is a common and avoidable review mistake.
 
-## What this folder owns versus what it inherits from the root
+## Where everything actually lives
 
-This folder holds only what is genuinely specific to the class/method reference shape:
+This folder holds this file and nothing else. The templates, rules and linter for the doc type all
+live in the shared tree:
 
-- `api-ref-method-v2.md`: the template for one method's page (parameter table, Returns line,
-  Validation, Behavior, Example sections, Additional Resource callout conventions).
-- `api-ref-class-v2.md`: the template for a class page (constructor or properties table, Class-Level
-  Notes, Method Index, Class-Level Snippet).
-- `rules-registry.json`: the ten `AR-01` through `AR-10` structural rules this doc type enforces
-  (front matter shape, section order, the Returns line format, Method Index completeness, and so
-  on). These IDs exist only here, not in the root registry, since they only apply to this doc type.
-- `lint-api-ref.js` and `checks/api-ref-structure.js`: the linter that checks the above.
+| What | Where |
+|---|---|
+| Method page template (parameter table, Returns line, Validation, Behavior, Example, Additional Resource) | `api-ref/api-ref-method-v2.md` |
+| Class page template (constructor or properties table, Class-Level Notes, Method Index, Class-Level Snippet) | `api-ref/api-ref-class-v2.md` |
+| The ten `AR-01` to `AR-10` structural rules | `scripts/data/rules-registry.json`, tagged `docTypes: ["api-ref"]` |
+| The structural check that emits them | `scripts/checks/api-ref-structure.js` |
+| The linter | `scripts/lint-api-ref.js` |
 
-Everything else, every rule that is not about this doc type's specific structure, comes from the
-repo root and applies here unchanged: banned phrases, the no-dash rule, passive voice, metaphors,
-periphrasis, sentence concision, numeric error codes as inline code, embedded questions, bolding a
-retry count, and every other entry in the root `common-rules.md`. `lint-api-ref.js` reuses the root
-`scripts/checks/*.js` content checks directly rather than duplicating their logic. Only the
-structural checks these general ones cannot express (front matter shape, section order, the
-class/method split) live in this folder.
+Everything that is not about this doc type's structure comes from the root and applies unchanged:
+banned phrases, the no-dash rule, passive voice, metaphors, periphrasis, sentence concision, numeric
+error codes as inline code, embedded questions, bolding a retry count, and every other entry in the
+root `common-rules.md`.
 
-If you find yourself wanting to add a rule here that is really about wording or tone rather than
-this doc type's structure, it almost certainly belongs in the root `common-rules.md` instead, so
-every doc type benefits from it, not just this one.
+`lint-api-ref.js` exists as a separate runner because `detectDocType` in `lint-doc.js` classifies a
+method page as a conceptual guide, which floods the report with missing-Overview findings. It reuses
+the root `scripts/checks/*.js` content checks directly and drops the eight that are meaningless for
+this shape. The reason for each exclusion is recorded in a comment at the top of that file.
+
+If you want to add a rule here that is really about wording or tone rather than this doc type's
+structure, it belongs in the root `common-rules.md` instead, so every doc type benefits from it.
+
+To add a structural rule, compute the next free ID rather than guessing it:
+
+```
+node scripts/probe-corpus.js --next-id=AR
+```
 
 ## Running the linter
 
 ```
-node doc-types/api-reference/lint-api-ref.js <file-or-dir> [--format=text|json] [--tiers=1,2] [--baseline=<canonical doc-set root>]
+node scripts/lint-api-ref.js <file-or-dir> [--format=text|json] [--tiers=1,2] [--baseline=<canonical doc-set root>]
 ```
 
 Same flags and exit codes as the root `scripts/lint-doc.js` (0 clean, 1 on a tier-1 finding, 2 on a
 usage error). Point it at a class page, a methods folder, or a whole reviewed doc-type directory.
+Unlike `lint-doc.js`, it accepts a directory and scans it recursively for `class_reference.md` and
+`methods/*.md`, sorting class pages ahead of their methods.
 
-## Why this is a separate folder instead of a docType tag in the root registry
+Use this rather than `sweep-docs.js` for API reference pages. The sweep runs `lint-doc.js` per file,
+which misclassifies them.
 
-An earlier version of this work kept the `AR-*` rules in the shared root registry, distinguished
-only by a `docTypes: ["api-ref"]` field. That made the isolation something only the linter script
-knew about. A future Claude session skimming the repo to decide which rules apply had to read every
-entry's `docTypes` field to figure out which subset was relevant. Moving the API-reference-specific
-templates, rules, and linter into their own folder with this file at the top makes the doc-type
-routing something a session can determine by reading one file, before touching any content.
+## Why the rules sit in the root registry, not in this folder
+
+Splitting the `AR-*` rules into a folder of their own was tried and reverted, so this file exists to
+route a reader rather than to own anything.
+
+The registry is validated as one artifact. `lib/rules-registry.js` cross-checks
+`rules-registry.json` against `data/check-sources.json` and against the check modules themselves: a
+tier-3 rule may not name a `checkId`, a tier-1 or tier-2 rule must name one, and no check may emit
+an ID another check owns. A second registry in a subfolder sits outside all of that, which is how a
+rule ships advertising coverage that never existed. `test/gap-loop.test.js` guards the invariant and
+records the one incident where it happened.
+
+So the isolation is expressed as data, `docTypes: ["api-ref"]` on each rule, and the routing is
+expressed here in prose. If you are deciding which rules apply to a page, read this file. If you are
+changing a rule, edit the root registry and run `npm test` in `scripts/`.

@@ -13,7 +13,7 @@
  * Usage:
  *   node scan-metaphors-report.js [directory] [--out=<path>] [--format=md|json]
  *
- * Defaults: directory = ../python-delivery-pr-217/Taxonomy/methods (relative to
+ * Defaults: directory = ../../docs (relative to
  * this script), --out=metaphor-scan-report.md, --format=md.
  */
 
@@ -22,7 +22,7 @@ const path = require('path');
 const { DocModel } = require('./lib/doc-model');
 const { checkMetaphors } = require('./checks/metaphor-phrases');
 
-const DEFAULT_DIR = path.join(__dirname, '..', '..', 'python-delivery-pr-217', 'Taxonomy', 'methods');
+const DEFAULT_DIR = path.join(__dirname, '..', '..', 'docs');
 const DEFAULT_OUT = 'metaphor-scan-report.md';
 
 function parseArgs(argv) {

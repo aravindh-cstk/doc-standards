@@ -1,2 +1,5 @@
 node_modules/
 .DS_Store
+
+# Scratch output from the review and judge scripts.
+.doc-review/

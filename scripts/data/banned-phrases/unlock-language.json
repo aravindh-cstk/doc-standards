@@ -2,11 +2,35 @@
   "ruleId": "C8-03",
   "category": "unlock-language",
   "phrases": [
-    { "phrase": "unlock", "fix": "\"enables\" or \"lets you\"" },
-    { "phrase": "empower", "fix": "\"enables\" or \"lets you\"" },
-    { "phrase": "transform", "fix": "describe the specific technical outcome" },
-    { "phrase": "revolutionize", "fix": "describe the specific technical outcome" },
-    { "phrase": "supercharge", "fix": "describe the specific technical outcome" },
-    { "phrase": "elevate", "fix": "describe the specific technical outcome" }
+    {
+      "pattern": "\\bunlock(s|ed|ing)?\\b",
+      "label": "unlock",
+      "fix": "\"enables\", or recast with the reader as the subject"
+    },
+    {
+      "pattern": "\\bempower(s|ed|ing)?\\b",
+      "label": "empower",
+      "fix": "\"enables\", or recast with the reader as the subject"
+    },
+    {
+      "pattern": "\\btransform(s|ed|ing)?\\b",
+      "label": "transform",
+      "fix": "describe the specific technical outcome"
+    },
+    {
+      "pattern": "\\brevolutioniz(e|es|ed|ing)\\b",
+      "label": "revolutionize",
+      "fix": "describe the specific technical outcome"
+    },
+    {
+      "pattern": "\\bsupercharg(e|es|ed|ing)\\b",
+      "label": "supercharge",
+      "fix": "describe the specific technical outcome"
+    },
+    {
+      "pattern": "\\belevat(e|es|ing)\\b",
+      "label": "elevate",
+      "fix": "describe the specific technical outcome"
+    }
   ]
 }
