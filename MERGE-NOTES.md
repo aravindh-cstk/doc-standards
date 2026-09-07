@@ -44,7 +44,9 @@ The `CS Assets` copy and the other four copies disagreed on migration-guide.md's
 
 ## 2026-09-07: the Studio and MCP Profile Hub forks
 
-The two working copies that had moved furthest ahead of this repo were `Desktop/Studio/doc-standards` and `Desktop/MCP Profile Hub/doc-standards`. This commit merges both into the canonical set. The copies in `SDK Project` and `CLI Project` were behind both and contributed nothing new.
+The two working copies that had moved furthest ahead of this repo were `Desktop/Studio/doc-standards` and `Desktop/MCP Profile Hub/doc-standards`. This commit merges both into the canonical set. `Region Endpoints/doc-standards` was checked and holds nothing this repo lacks.
+
+This commit is not the union of every copy on the machine. `SDK Project` and `CLI Project` both hold rules and checks that are still outstanding, listed under "Still to merge" below.
 
 Neither fork was simply ahead of the other. Each held work the other never received:
 
@@ -88,6 +90,28 @@ The reason is that `lib/rules-registry.js` validates the registry as one artifac
 ### Corpus paths
 
 Every script that defaulted to a specific project's docs folder now defaults to `../../docs`, since this repo carries no docs corpus of its own. Pass the corpus explicitly when running a sweep, a probe, or a judge pass against a real doc set.
+
+### Still to merge
+
+Two working copies hold content this repo does not. Both were verified by comparing file lists, registry IDs and wordlist entries against this commit.
+
+`CLI Project/doc-standards` restructured itself into `sdk-templates/` and `cli-templates/`, and added a CLI doc-type family:
+
+- 27 rule IDs absent here: `CLI-01` to `CLI-20`, `PLG1` to `PLG5`, `C6-06` and `MIG-09`.
+- Six check modules absent here: `cli-specific.js` and `internal-link-form.js` (which emit the `CLI-*` rules), plus `callout-taxonomy.js`, `conditional-framing.js`, `heading-uniformity.js` and `unverified-claims.js`.
+- One wordlist absent here: `data/banned-phrases/absent-docs.json`.
+- Five rule files in `cli-templates/`, covering CLI Command Reference, CLI Task Runbook, CLI Module Reference and CLI Plugin Guide, and a `section-matrix.md` extended with a column for each.
+- 11 rules in its `sdk-templates/` copies of `common-rules.md` and `migration-guide.md` that never reached this repo, on callout labels, splitting mixed-content paragraphs, conditional framing, heading uniformity, verifying quantitative claims, and labelling each version's behavior separately in a migration guide.
+
+Three of its checks (`callout-taxonomy.js`, `conditional-framing.js`, `heading-uniformity.js`) emit `C2-07`, `C3-07` and `C6-04`, which this repo already carries as rules. The first two already have a different check here, so merging them means deciding which check owns the ID. `C6-04` is tier 3 with no check here, so giving it one means promoting it to tier 2.
+
+`SDK Project/doc-standards` added a third API reference doc type:
+
+- 13 rule IDs absent here: `UG-01` to `UG-13`, for a usage guide page.
+- `api-ref-usage-guide-v2.md`, the template, and `usage-guide-derivation.md`, which records how it was derived.
+- Its good and broken `usage_guide.md` fixtures.
+
+Its remaining differences are the old `doc-types/api-reference/` layout that this commit retired, so they are superseded rather than outstanding.
 
 ## A note on style
 
