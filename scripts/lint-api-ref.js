@@ -18,7 +18,7 @@
 //                                 [--baseline=<canonical doc-set root>]
 //
 //   <file-or-dir>  a single .md file, or a directory scanned recursively for
-//                  class_reference.md and methods/*.md
+//                  usage_guide.md, class_reference.md and methods/*.md
 //   --format       text (default) or json
 //   --tiers        comma-separated tiers to report, default 1,2
 //   --baseline     canonical doc-set root. Links that do not resolve inside a
@@ -47,7 +47,9 @@ const { checkRetryAttemptCountBold } = require('./checks/retry-attempt-count-bol
 const {
   checkApiRefStructure,
   checkIndexCompleteness,
+  checkClassOverviewCompleteness,
   isClassPage,
+  isUsageGuidePage,
 } = require('./checks/api-ref-structure');
 
 // Deliberately excluded, all four need a doc type this linter does not have:
@@ -84,7 +86,16 @@ function parseArgs(argv) {
   return args;
 }
 
-/** Every api-ref page under a directory, class pages first so output reads top down. */
+/**
+ * Every api-ref page under a directory, ordered the way the CMS renders the
+ * reference chain: the usage guide, then class pages, then their methods.
+ */
+function pageRank(filePath) {
+  if (isUsageGuidePage(filePath)) return 0;
+  if (isClassPage(filePath)) return 1;
+  return 2;
+}
+
 function collectFiles(target) {
   const stat = fs.statSync(target);
   if (stat.isFile()) return [target];
@@ -93,14 +104,18 @@ function collectFiles(target) {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
       const full = path.join(dir, entry.name);
       if (entry.isDirectory()) walk(full);
+      else if (isUsageGuidePage(entry.name)) out.push(full);
       else if (entry.name === 'class_reference.md') out.push(full);
       else if (entry.name.endsWith('.md') && path.basename(dir) === 'methods') out.push(full);
     }
   })(target);
   return out.sort((a, b) => {
-    const ca = isClassPage(a) ? 0 : 1;
-    const cb = isClassPage(b) ? 0 : 1;
-    return path.dirname(a).localeCompare(path.dirname(b)) || ca - cb || a.localeCompare(b);
+    const ra = pageRank(a);
+    const rb = pageRank(b);
+    // The usage guide sits above the class folders, so it sorts before them
+    // rather than alongside them by directory name.
+    if (ra === 0 || rb === 0) return ra - rb || a.localeCompare(b);
+    return path.dirname(a).localeCompare(path.dirname(b)) || ra - rb || a.localeCompare(b);
   });
 }
 
@@ -119,6 +134,7 @@ function lintFile(filePath, tiers) {
   }
   findings = findings.concat(checkApiRefStructure(doc));
   if (isClassPage(filePath)) findings = findings.concat(checkIndexCompleteness(doc));
+  if (isUsageGuidePage(filePath)) findings = findings.concat(checkClassOverviewCompleteness(doc));
   return findings
     .filter((f) => tiers.includes(f.tier))
     .sort((a, b) => a.tier - b.tier || (a.line || 0) - (b.line || 0));
@@ -178,7 +194,7 @@ function renderText(results, root) {
 function main() {
   const args = parseArgs(process.argv);
   if (!args.target) {
-    console.error('Usage: lint-api-ref.js <file-or-dir> [--format=text|json] [--tiers=1,2]');
+    console.error('Usage: lint-api-ref.js <file-or-dir> [--format=text|json] [--tiers=1,2] [--baseline=<root>]');
     process.exit(2);
   }
   if (!fs.existsSync(args.target)) {
@@ -188,7 +204,7 @@ function main() {
 
   const files = collectFiles(args.target);
   if (!files.length) {
-    console.error(`No api-ref pages found under ${args.target}. Expected class_reference.md or methods/*.md.`);
+    console.error(`No api-ref pages found under ${args.target}. Expected usage_guide.md, class_reference.md or methods/*.md.`);
     process.exit(2);
   }
 

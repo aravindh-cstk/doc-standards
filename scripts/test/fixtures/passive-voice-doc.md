@@ -66,3 +66,7 @@ Usage is being reviewed by the workspace administrator.
 The transport is designed for streaming responses rather than polling.
 
 A required field is absent from the payload.
+
+Complete the [Python Delivery SDK Get Started](/developers/get-started) guide first.
+
+Is discarded by the runtime when the session ends.

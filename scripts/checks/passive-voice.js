@@ -34,6 +34,24 @@ function entryRegex(entry) {
 }
 
 /**
+ * A match where every word is capitalized is a name, not a construction.
+ *
+ * The patterns are written lowercase and matched case-insensitively, so
+ * "Get Started" satisfies the get-passive shape of get plus a regular
+ * participle. It is the title of a guide, and this corpus links to one on
+ * nearly every SDK page, so the check reported a rewrite that would have
+ * renamed a real page.
+ *
+ * Only an all-capitalized match is exempt. A sentence-initial passive such as
+ * "Is discarded by the runtime" capitalizes the auxiliary alone, so it still
+ * reports.
+ */
+function isTitleCase(text) {
+  const words = text.match(/[A-Za-z]+/g) || [];
+  return words.length > 1 && words.every((w) => /^[A-Z]/.test(w));
+}
+
+/**
  * Tier 2: a genuine aux(+adverb/negation)+participle passive-voice construction
  * (regular -ed, curated irregular participles, modal+be, get-passive, or an
  * explicit by-agent variant of each). Tier 2, not tier 1, because whether a
@@ -55,7 +73,7 @@ function checkPassiveVoice(doc) {
     for (const entry of phraseList) {
       const re = entryRegex(entry);
       const match = re.exec(stripped);
-      if (match) {
+      if (match && !isTitleCase(match[0])) {
         const isByAgent = entry.category.includes('by-agent');
         findings.push(
           makeFinding({

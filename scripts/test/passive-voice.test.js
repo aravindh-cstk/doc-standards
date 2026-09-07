@@ -95,3 +95,17 @@ test('passive-voice fixture: status labels and prenominal participles are not fl
   assert.equal(flaggedOn(findings, doc, /is designed for streaming/i), false);
   assert.equal(flaggedOn(findings, doc, /A required field is absent/i), false);
 });
+
+test('passive-voice fixture: a title-case name is not a construction, but a sentence-initial passive still is', () => {
+  const doc = loadFixture('passive-voice-doc.md');
+  const findings = checkPassiveVoice(doc);
+
+  // "Get Started" satisfies the get-passive shape, and the corpus links to a
+  // guide by that name on nearly every SDK page. Reporting it asked the writer
+  // to rename a real page.
+  assert.equal(flaggedOn(findings, doc, /Python Delivery SDK Get Started/i), false);
+
+  // The exemption is only for an all-capitalized match. Capitalizing the
+  // auxiliary alone is just a sentence start, and the passive still reports.
+  assert.equal(flaggedOn(findings, doc, /^Is discarded by the runtime/i), true);
+});

@@ -77,8 +77,8 @@
     "docTypes": [
       "api-ref"
     ],
-    "rule": "Method pages end with a horizontal rule. Class pages do not.",
-    "why": "The rule marks the end of a method fragment when several are concatenated into one rendered class page. A class page is never concatenated, so the rule would render as a stray divider.",
+    "rule": "Method pages end with a horizontal rule. Class pages and usage guides do not.",
+    "why": "The rule marks the end of a method fragment when several are concatenated into one rendered class page. A class page and a usage guide are never concatenated, so the rule would render as a stray divider.",
     "exception": "None.",
     "tier": 2,
     "checkId": "api-ref-trailing-rule"
@@ -118,6 +118,162 @@
     "exception": "A default named in the API's own prose documentation, as opposed to a request-parameter table, may be cited with the source noted.",
     "tier": 1,
     "checkId": "api-ref-verified-defaults"
+  },
+  {
+    "id": "UG-01",
+    "source": "api-ref/api-ref-usage-guide-v2.md",
+    "docTypes": [
+      "api-ref"
+    ],
+    "rule": "A usage guide carries the same three front-matter keys as every api-ref page, and fills all three. Neither SEO field is left empty.",
+    "why": "A usage guide is a standalone URL, so its SEO text is rendered and indexed. A method page is a fragment whose SEO fields would never render, which is why AR-01 requires the opposite there.",
+    "exception": "None.",
+    "tier": 1,
+    "checkId": "front-matter-api-ref"
+  },
+  {
+    "id": "UG-02",
+    "source": "api-ref/api-ref-usage-guide-v2.md",
+    "docTypes": [
+      "api-ref"
+    ],
+    "rule": "A usage guide has exactly one H1 in the form of the SDK name followed by API Reference, sections at H2, and usage-pattern titles at H3. No heading is H4 or deeper, and no H2 repeats the H1 text.",
+    "why": "A usage guide is a standalone page rather than a concatenated fragment, so it owns its H1. An H2 repeating the title pushes the first real section below the fold on a page whose readers see the top third.",
+    "exception": "None.",
+    "tier": 1,
+    "checkId": "api-ref-heading-levels"
+  },
+  {
+    "id": "UG-03",
+    "source": "api-ref/api-ref-usage-guide-v2.md",
+    "docTypes": [
+      "api-ref"
+    ],
+    "rule": "Usage guide sections appear in this order: Minimum Working Example, SDK Structure, Class Overview, Task Index, Key Usage Patterns, SDK-Wide Notes, then SDK Limitations. The Before you begin blockquote sits immediately after the intro paragraph, before the first H2.",
+    "why": "Average measured scroll depth on the pages this replaces is 28.85%, so orientation, a working snippet, and both navigation tables have to sit inside the top third of the page. A reordering moves at least one of them out of view.",
+    "exception": "SDK Limitations is omitted entirely when the SDK has no known limitations that clear the section's two entry tests.",
+    "tier": 1,
+    "checkId": "api-ref-section-order"
+  },
+  {
+    "id": "UG-04",
+    "source": "api-ref/api-ref-usage-guide-v2.md",
+    "docTypes": [
+      "api-ref"
+    ],
+    "rule": "The Class Overview table has exactly the three columns Class, Role, and Accessed via, in that order. Every cell in the Class column is a markdown link, and every cell in the Accessed via column is inline code.",
+    "why": "A class name in plain text on the reference landing page is the affordance failure the 29.63% dead-click rate measures. Readers click it, nothing happens, and there is no other route to the class page.",
+    "exception": "None.",
+    "tier": 1,
+    "checkId": "api-ref-class-overview-table"
+  },
+  {
+    "id": "UG-05",
+    "source": "api-ref/api-ref-usage-guide-v2.md",
+    "docTypes": [
+      "api-ref"
+    ],
+    "rule": "Every class_reference.md in the doc set is linked exactly once from the Class Overview table, and every link in that table resolves.",
+    "why": "A class absent from the table is unreachable from the reference landing page, and a class listed twice implies two classes. This is AR-09 applied one tier up.",
+    "exception": "A partial review folder resolves links against the baseline tree given by the baseline flag.",
+    "tier": 1,
+    "checkId": "api-ref-class-overview-completeness"
+  },
+  {
+    "id": "UG-06",
+    "source": "api-ref/api-ref-usage-guide-v2.md",
+    "docTypes": [
+      "api-ref"
+    ],
+    "rule": "The Task Index table has exactly the three columns Task, Start here, and Class, in that order. Every Start here cell is a link that resolves, and every Task cell starts with a verb.",
+    "why": "102 of 110 benchmarked documentation sets organize by task or resource rather than by SDK class, so this table is the entry point for readers who know their goal but not which class owns it. A dead link here is worse than an absent row, because the reader has already committed to the route.",
+    "exception": "None.",
+    "tier": 1,
+    "checkId": "api-ref-task-index"
+  },
+  {
+    "id": "UG-07",
+    "source": "api-ref/api-ref-usage-guide-v2.md",
+    "docTypes": [
+      "api-ref"
+    ],
+    "rule": "A fact true of every class in the SDK lives once in SDK-Wide Notes or SDK Limitations on the usage guide and is not repeated on class pages. A fact confined to one class lives on that class page and is not hoisted to the usage guide.",
+    "why": "Two copies of the same note drift, and the reader cannot tell which is current. A class-specific note found on the usage guide reads as applying to every class, which is a worse error than omitting it.",
+    "exception": "None.",
+    "tier": 3,
+    "checkId": null
+  },
+  {
+    "id": "UG-08",
+    "source": "api-ref/api-ref-usage-guide-v2.md",
+    "docTypes": [
+      "api-ref"
+    ],
+    "rule": "SDK-Wide Notes carries a token-type warning naming the token type this SDK requires and the error a wrong token type produces.",
+    "why": "Auth and token scope is the largest single theme in the SDK issue corpus at 38 tickets, and the failure is close to silent. A management or preview token used where a delivery token belongs returns error code 109, We can't find that Stack, which names neither the token nor the fix.",
+    "exception": "An SDK that accepts exactly one token type and cannot be initialized with another omits it.",
+    "tier": 2,
+    "checkId": "api-ref-token-type-warning"
+  },
+  {
+    "id": "UG-09",
+    "source": "api-ref/api-ref-usage-guide-v2.md",
+    "docTypes": [
+      "api-ref"
+    ],
+    "rule": "A Before you begin blockquote follows the intro paragraph and carries three facts: a link to the Get Started guide, the runtime versions this SDK supports, and the SDK version this reference documents with a changelog link.",
+    "why": "The 23.53% quick-back rate is the signature of a reader who arrived without setup and left rather than navigating. The runtime version is a prerequisite that otherwise reads as an SDK bug, and the documented version is what separates an upgrade regression from a documentation error.",
+    "exception": "None. An SDK with no published changelog links its release notes instead.",
+    "tier": 1,
+    "checkId": "api-ref-before-you-begin"
+  },
+  {
+    "id": "UG-10",
+    "source": "api-ref/api-ref-usage-guide-v2.md",
+    "docTypes": [
+      "api-ref"
+    ],
+    "rule": "A usage guide carries no installation or authentication setup steps, no method signatures, no flat list of methods, no FAQ or Common Questions section, and no standalone Additional Resources section.",
+    "why": "Each of these is a defect observed on a live page. Setup belongs to Get Started, signatures and method lists belong to the class and method pages, an FAQ heading is a sign the topic has no owner, and a closing link list sits on the part of the page the scroll data says is not read. The trailing horizontal rule is covered by AR-07.",
+    "exception": "A package name or install command inside a fenced code block is not a setup step and is not flagged.",
+    "tier": 2,
+    "checkId": "api-ref-usage-guide-scope"
+  },
+  {
+    "id": "UG-11",
+    "source": "api-ref/api-ref-usage-guide-v2.md",
+    "docTypes": [
+      "api-ref"
+    ],
+    "rule": "Key Usage Patterns holds three or more H3 subsections, each titled with the scenario it demonstrates rather than a generic label such as Example 1 or Basic usage.",
+    "why": "The title is how a reader scanning the page picks which example to read. Benchmarked competitors carry 8 to 13 named scenarios per method against Contentstack's current 1, so three is the floor rather than the target.",
+    "exception": "None.",
+    "tier": 2,
+    "checkId": "api-ref-usage-patterns"
+  },
+  {
+    "id": "UG-12",
+    "source": "api-ref/api-ref-usage-guide-v2.md",
+    "docTypes": [
+      "api-ref"
+    ],
+    "rule": "The SDK Limitations table uses the same three columns as the class-level Capability Matrix, Capability, Supported, and Notes / Alternative, and no Notes / Alternative cell is left blank.",
+    "why": "Matching the class-level columns means a reader moving between the two tiers reads the same table shape. A blank alternative leaves the reader knowing they are blocked and not knowing what to do next, which is worse than omitting the row.",
+    "exception": "The whole section is omitted when the SDK has no known limitations that clear the section's two entry tests. An empty table is never correct.",
+    "tier": 1,
+    "checkId": "api-ref-sdk-limitations"
+  },
+  {
+    "id": "UG-13",
+    "source": "api-ref/api-ref-usage-guide-v2.md",
+    "docTypes": [
+      "api-ref"
+    ],
+    "rule": "SDK-Wide Notes is a table with exactly the three columns Concern, Behavior, and Default when unset. No Default when unset cell is blank. Required parameters use Not applicable.",
+    "why": "Five notes written as bold labels with bullets under each is fifteen lines of near-identical shape, and a reader after one fact has to read all of it. The three columns hold across every SDK family because each cross-cutting concern has a behavior and a default. A blank default reads as an undocumented default rather than an absent one, and undocumented parameters and defaults are the largest gap in the support corpus at 39 threads.",
+    "exception": "None. A concern with no default uses Not applicable rather than a blank cell.",
+    "tier": 1,
+    "checkId": "api-ref-sdk-wide-notes"
   },
   {
     "id": "B1-01",

@@ -46,11 +46,33 @@
       "AR-06"
     ]
   },
+  "api-ref-before-you-begin": {
+    "kind": "structural",
+    "module": "checks/api-ref-structure.js",
+    "rules": [
+      "UG-09"
+    ]
+  },
+  "api-ref-class-overview-completeness": {
+    "kind": "structural",
+    "module": "checks/api-ref-structure.js",
+    "rules": [
+      "UG-05"
+    ]
+  },
+  "api-ref-class-overview-table": {
+    "kind": "structural",
+    "module": "checks/api-ref-structure.js",
+    "rules": [
+      "UG-04"
+    ]
+  },
   "api-ref-heading-levels": {
     "kind": "structural",
     "module": "checks/api-ref-structure.js",
     "rules": [
-      "AR-02"
+      "AR-02",
+      "UG-02"
     ]
   },
   "api-ref-index-completeness": {
@@ -81,11 +103,40 @@
       "AR-04"
     ]
   },
+  "api-ref-sdk-limitations": {
+    "kind": "structural",
+    "module": "checks/api-ref-structure.js",
+    "rules": [
+      "UG-12"
+    ]
+  },
+  "api-ref-sdk-wide-notes": {
+    "kind": "structural",
+    "module": "checks/api-ref-structure.js",
+    "rules": [
+      "UG-13"
+    ]
+  },
   "api-ref-section-order": {
     "kind": "structural",
     "module": "checks/api-ref-structure.js",
     "rules": [
-      "AR-03"
+      "AR-03",
+      "UG-03"
+    ]
+  },
+  "api-ref-task-index": {
+    "kind": "structural",
+    "module": "checks/api-ref-structure.js",
+    "rules": [
+      "UG-06"
+    ]
+  },
+  "api-ref-token-type-warning": {
+    "kind": "structural",
+    "module": "checks/api-ref-structure.js",
+    "rules": [
+      "UG-08"
     ]
   },
   "api-ref-trailing-rule": {
@@ -93,6 +144,20 @@
     "module": "checks/api-ref-structure.js",
     "rules": [
       "AR-07"
+    ]
+  },
+  "api-ref-usage-guide-scope": {
+    "kind": "structural",
+    "module": "checks/api-ref-structure.js",
+    "rules": [
+      "UG-10"
+    ]
+  },
+  "api-ref-usage-patterns": {
+    "kind": "structural",
+    "module": "checks/api-ref-structure.js",
+    "rules": [
+      "UG-11"
     ]
   },
   "api-ref-verified-defaults": {
@@ -226,7 +291,8 @@
     "kind": "structural",
     "module": "checks/api-ref-structure.js",
     "rules": [
-      "AR-01"
+      "AR-01",
+      "UG-01"
     ]
   },
   "getting-started-specific": {

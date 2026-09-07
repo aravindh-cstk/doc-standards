@@ -12,6 +12,13 @@ class plus one page per method, and each method page has a parameter table, a `R
 worked code examples. A Method Index (a table of every method on a class page, linking to that
 method's own page) is the clearest single signal.
 
+The doc type has three page shapes, classified by filename, matching the three CMS content types in
+the reference chain: `usage_guide.md` is the one standalone entry page for an SDK,
+`class_reference.md` is a class page, and anything under `methods/` is a method page. A usage guide
+owns an H1 and carries no trailing rule, like a class page, but its section set and its two
+navigation tables (Class Overview and Task Index) are its own, which is why the `UG-*` rules exist
+separately from the `AR-*` ones.
+
 If the doc is prose organized around a task or a concept instead (a guide, a getting-started walkthrough,
 a migration path, a setup procedure), it is not this doc type. Use the repo root's `common-rules.md`
 plus the matching root-level template (`conceptual-guide.md`, `feature-doc.md`, `getting-started.md`,
@@ -31,7 +38,9 @@ live in the shared tree:
 |---|---|
 | Method page template (parameter table, Returns line, Validation, Behavior, Example, Additional Resource) | `api-ref/api-ref-method-v2.md` |
 | Class page template (constructor or properties table, Class-Level Notes, Method Index, Class-Level Snippet) | `api-ref/api-ref-class-v2.md` |
-| The ten `AR-01` to `AR-10` structural rules | `scripts/data/rules-registry.json`, tagged `docTypes: ["api-ref"]` |
+| Usage guide template (Before you begin, Class Overview table, Task Index, Usage Patterns, SDK-Wide Notes, SDK Limitations) | `api-ref/api-ref-usage-guide-v2.md` |
+| How the usage guide shape was derived | `api-ref/usage-guide-derivation.md` |
+| The `AR-01` to `AR-10` and `UG-01` to `UG-13` structural rules | `scripts/data/rules-registry.json`, tagged `docTypes: ["api-ref"]` |
 | The structural check that emits them | `scripts/checks/api-ref-structure.js` |
 | The linter | `scripts/lint-api-ref.js` |
 
