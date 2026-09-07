@@ -259,7 +259,9 @@ const UNEMITTED_BASELINE = [
   'section-structure:B1-01',
   'section-structure:B2-01',
   'section-structure:C1-03',
+  'section-structure:CLI-19',
   'section-structure:MIG-08',
+  'section-structure:PLG-05',
 ];
 
 test('no tier-1 or tier-2 rule newly claims a check that never emits it', () => {

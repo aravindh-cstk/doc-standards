@@ -402,5 +402,253 @@
       "required": "Required",
       "purpose": "3–5 links to the most logical reads after Quick Start, each with a one-sentence description"
     }
+  ],
+  "cli-command-reference": [
+    {
+      "order": "1",
+      "section": "SEO front matter (title, description, URL)",
+      "required": "Required",
+      "purpose": "Machine-readable metadata for search and indexing"
+    },
+    {
+      "order": "2",
+      "section": "Page title",
+      "required": "Required",
+      "purpose": "Human-readable entry point, names the plugin or namespace"
+    },
+    {
+      "order": "3",
+      "section": "Overview",
+      "required": "Required",
+      "purpose": "1-3 sentences: what this command surface does, and whether any command mutates stack data"
+    },
+    {
+      "order": "4",
+      "section": "Quick Reference",
+      "required": "If the doc covers 3 or more commands",
+      "purpose": "Command-to-purpose table so a reader can jump to the one command they need"
+    },
+    {
+      "order": "5",
+      "section": "Prerequisites",
+      "required": "Required",
+      "purpose": "CLI installed, authenticated, region configured, plus token scope and plugin install where they apply"
+    },
+    {
+      "order": "6",
+      "section": "Installation",
+      "required": "If the plugin is not bundled",
+      "purpose": "The `csdx plugins:install` line, present if and only if the plugin is absent from `oclif.plugins`"
+    },
+    {
+      "order": "7",
+      "section": "Commands",
+      "required": "Required",
+      "purpose": "One H3 per command, or the fixed facet order in bold lead-ins for a single-command doc"
+    },
+    {
+      "order": "8",
+      "section": "Examples",
+      "required": "Required",
+      "purpose": "Runnable scenarios that combine flags, kept out of the per-command H3s"
+    },
+    {
+      "order": "9",
+      "section": "Limitations",
+      "required": "Required",
+      "purpose": "Known coverage gaps, per C9"
+    },
+    {
+      "order": "10",
+      "section": "Next Steps",
+      "required": "Recommended",
+      "purpose": "Links to what comes after, each with a description, where at least two are genuinely specific to this page"
+    }
+  ],
+  "cli-task-runbook": [
+    {
+      "order": "1",
+      "section": "SEO front matter (title, description, URL)",
+      "required": "Required",
+      "purpose": "Machine-readable metadata for search and indexing"
+    },
+    {
+      "order": "2",
+      "section": "Page title",
+      "required": "Required",
+      "purpose": "Human-readable entry point, states the operation as an outcome"
+    },
+    {
+      "order": "3",
+      "section": "Overview",
+      "required": "Required",
+      "purpose": "1-3 sentences: what the developer will have done, and what it changes in the stack"
+    },
+    {
+      "order": "4",
+      "section": "Quick Decision Guide",
+      "required": "If the operation has more than one path",
+      "purpose": "Orients the reader before they read requirements, for example overwrite versus fresh import"
+    },
+    {
+      "order": "5",
+      "section": "Prerequisites",
+      "required": "Required",
+      "purpose": "CLI installed, authenticated, region configured, plus the token scope each step needs"
+    },
+    {
+      "order": "6",
+      "section": "Steps for Execution",
+      "required": "Required",
+      "purpose": "The one procedure spine. Every step ends with an observable outcome"
+    },
+    {
+      "order": "7",
+      "section": "Verification",
+      "required": "Recommended",
+      "purpose": "How the developer confirms the operation succeeded before moving on"
+    },
+    {
+      "order": "8",
+      "section": "Limitations",
+      "required": "Required",
+      "purpose": "What this path does not cover, per C9"
+    },
+    {
+      "order": "9",
+      "section": "Next Steps",
+      "required": "Recommended",
+      "purpose": "Links to what comes after, each with a description, where at least two are genuinely specific to this page"
+    }
+  ],
+  "cli-module-reference": [
+    {
+      "order": "1",
+      "section": "SEO front matter (title, description, URL)",
+      "required": "Required",
+      "purpose": "Machine-readable metadata for search and indexing"
+    },
+    {
+      "order": "2",
+      "section": "Page title",
+      "required": "Required",
+      "purpose": "Human-readable entry point, names the scope of the lookup"
+    },
+    {
+      "order": "3",
+      "section": "Overview",
+      "required": "Required",
+      "purpose": "1-3 sentences: what this page indexes, and what it deliberately does not cover"
+    },
+    {
+      "order": "4",
+      "section": "Quick Reference",
+      "required": "Required",
+      "purpose": "Index table mapping each module or command to its section, so no reader scrolls a 1,000-line page"
+    },
+    {
+      "order": "5",
+      "section": "Precedence and Scope",
+      "required": "Recommended",
+      "purpose": "How overlapping sources resolve, where the page documents configuration"
+    },
+    {
+      "order": "6",
+      "section": "Main Content",
+      "required": "Required",
+      "purpose": "One H2 per module or command, in the order the grouping rule sets"
+    },
+    {
+      "order": "7",
+      "section": "Next Steps",
+      "required": "Recommended",
+      "purpose": "Links to the command docs the entries here refer to, where at least two are genuinely specific to this page"
+    }
+  ],
+  "cli-plugin-guide": [
+    {
+      "order": "1",
+      "section": "SEO front matter (title, description, URL)",
+      "required": "Required",
+      "purpose": "Machine-readable metadata for search and indexing"
+    },
+    {
+      "order": "2",
+      "section": "Page title",
+      "required": "Required",
+      "purpose": "Human-readable entry point, states that this builds a plugin"
+    },
+    {
+      "order": "3",
+      "section": "Overview",
+      "required": "Required",
+      "purpose": "1-3 sentences: what building a plugin gets you, and that it is built on oclif"
+    },
+    {
+      "order": "4",
+      "section": "Prerequisites",
+      "required": "Required",
+      "purpose": "Node version, CLI installed, and the TypeScript or oclif familiarity the guide assumes"
+    },
+    {
+      "order": "5",
+      "section": "Plugin Structure",
+      "required": "Required",
+      "purpose": "The real directory layout: `package.json`, `src/commands/`, `oclif.manifest.json`, and what each piece is for"
+    },
+    {
+      "order": "6",
+      "section": "Creating a Plugin",
+      "required": "Required",
+      "purpose": "Scaffolding a new plugin and generating its first command, as a procedure the reader follows in order"
+    },
+    {
+      "order": "7",
+      "section": "Plugin Registration and Linking",
+      "required": "Required",
+      "purpose": "Making `csdx` discover the plugin locally, so the reader can run the command they just wrote"
+    },
+    {
+      "order": "8",
+      "section": "Commands and Flags",
+      "required": "Required",
+      "purpose": "How the reader defines their own command surface: flags, args, and the base classes available"
+    },
+    {
+      "order": "9",
+      "section": "Testing",
+      "required": "Recommended",
+      "purpose": "Unit and functional test patterns for a plugin's commands"
+    },
+    {
+      "order": "10",
+      "section": "Publishing",
+      "required": "Required",
+      "purpose": "Getting the plugin onto npm and installable via `csdx plugins:install`"
+    },
+    {
+      "order": "11",
+      "section": "Managing Installed Plugins",
+      "required": "Recommended",
+      "purpose": "Update, uninstall, and reset, which the reader needs while developing, not only after shipping"
+    },
+    {
+      "order": "12",
+      "section": "Available Methods and Utilities",
+      "required": "Optional",
+      "purpose": "Reference appendix cataloguing `@contentstack/cli-utilities` and base command methods a plugin author can call"
+    },
+    {
+      "order": "13",
+      "section": "Limitations",
+      "required": "Recommended",
+      "purpose": "Known coverage gaps, per C9"
+    },
+    {
+      "order": "14",
+      "section": "Next Steps",
+      "required": "Required",
+      "purpose": "Links to what comes after, each with a description"
+    }
   ]
 }

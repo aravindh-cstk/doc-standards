@@ -182,7 +182,8 @@
       "C8-04",
       "C8-05",
       "C8-06",
-      "C8-08"
+      "C8-08",
+      "CLI-16"
     ],
     "dataFiles": [
       "data/banned-phrases/*.json"
@@ -211,11 +212,115 @@
       "C5-03"
     ]
   },
+  "callout-taxonomy": {
+    "kind": "structural",
+    "module": "checks/callout-taxonomy.js",
+    "rules": [
+      "C2-11"
+    ],
+    "patterns": [
+      "CALLOUT_RE",
+      "VALID_LABELS"
+    ]
+  },
+  "cli-auth-step-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "CLI-13"
+    ]
+  },
+  "cli-command-form-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "CLI-11"
+    ]
+  },
+  "cli-error-entry-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "CLI-10"
+    ]
+  },
+  "cli-exit-code-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "CLI-15"
+    ]
+  },
+  "cli-flag-prose-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "CLI-08"
+    ]
+  },
   "cli-mutation-statement-heuristic": {
     "kind": "unimplemented",
     "module": null,
     "rules": [
       "C9-01"
+    ]
+  },
+  "cli-output-block-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "CLI-09"
+    ]
+  },
+  "cli-placeholder-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "CLI-14"
+    ]
+  },
+  "cli-plugin-boundary-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "CLI-18"
+    ]
+  },
+  "cli-scope-statement-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "CLI-12"
+    ]
+  },
+  "cli-specific": {
+    "kind": "structural",
+    "module": "checks/cli-specific.js",
+    "rules": [
+      "CLI-01",
+      "CLI-02",
+      "CLI-03",
+      "CLI-04",
+      "CLI-05",
+      "CLI-06",
+      "CLI-07"
+    ]
+  },
+  "cli-version-drift-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "CLI-20"
+    ]
+  },
+  "conditional-framing": {
+    "kind": "regex",
+    "module": "checks/conditional-framing.js",
+    "rules": [
+      "C3-29"
+    ],
+    "patterns": [
+      "IF_YOU_RE"
     ]
   },
   "duplicate-links": {
@@ -320,6 +425,24 @@
       "PLACEHOLDER_RE"
     ]
   },
+  "heading-uniformity": {
+    "kind": "structural",
+    "module": "checks/heading-uniformity.js",
+    "rules": [
+      "C6-06"
+    ]
+  },
+  "internal-link-form": {
+    "kind": "regex",
+    "module": "checks/internal-link-form.js",
+    "rules": [
+      "CLI-17"
+    ],
+    "patterns": [
+      "LINK_RE",
+      "BAD_FORMS"
+    ]
+  },
   "legacy-version-callout-heuristic": {
     "kind": "unimplemented",
     "module": null,
@@ -422,6 +545,34 @@
       "C4-03"
     ]
   },
+  "plugin-manifest-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "PLG-02"
+    ]
+  },
+  "plugin-publish-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "PLG-03"
+    ]
+  },
+  "plugin-scaffold-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "PLG-01"
+    ]
+  },
+  "plugin-test-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "PLG-04"
+    ]
+  },
   "prerequisites-links": {
     "kind": "structural",
     "module": "checks/heuristic-flags.js",
@@ -499,7 +650,9 @@
       "C1-01",
       "C1-02",
       "C1-03",
-      "MIG-08"
+      "MIG-08",
+      "CLI-19",
+      "PLG-05"
     ],
     "dataFiles": [
       "data/section-order.json"

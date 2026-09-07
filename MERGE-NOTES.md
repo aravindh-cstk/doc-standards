@@ -46,7 +46,7 @@ The `CS Assets` copy and the other four copies disagreed on migration-guide.md's
 
 The two working copies that had moved furthest ahead of this repo were `Desktop/Studio/doc-standards` and `Desktop/MCP Profile Hub/doc-standards`. This commit merges both into the canonical set. `Region Endpoints/doc-standards` was checked and holds nothing this repo lacks.
 
-This commit is not the union of every copy on the machine. `SDK Project` and `CLI Project` both hold rules and checks that are still outstanding, listed under "Still to merge" below.
+This commit is not the union of every copy on the machine. `SDK Project` and `CLI Project` were merged after it, in the section below.
 
 Neither fork was simply ahead of the other. Each held work the other never received:
 
@@ -91,27 +91,45 @@ The reason is that `lib/rules-registry.js` validates the registry as one artifac
 
 Every script that defaulted to a specific project's docs folder now defaults to `../../docs`, since this repo carries no docs corpus of its own. Pass the corpus explicitly when running a sweep, a probe, or a judge pass against a real doc set.
 
-### Still to merge
+## 2026-09-07: SDK Project and CLI Project
 
-Two working copies hold content this repo does not. Both were verified by comparing file lists, registry IDs and wordlist entries against this commit.
+Both were merged after the two forks above, in that order. Every copy of `doc-standards` on the machine has now been folded in, and `Region Endpoints` was verified to hold nothing new.
 
-`CLI Project/doc-standards` restructured itself into `sdk-templates/` and `cli-templates/`, and added a CLI doc-type family:
+### The usage guide page shape, from SDK Project
 
-- 27 rule IDs absent here: `CLI-01` to `CLI-20`, `PLG1` to `PLG5`, `C6-06` and `MIG-09`.
-- Six check modules absent here: `cli-specific.js` and `internal-link-form.js` (which emit the `CLI-*` rules), plus `callout-taxonomy.js`, `conditional-framing.js`, `heading-uniformity.js` and `unverified-claims.js`.
-- One wordlist absent here: `data/banned-phrases/absent-docs.json`.
-- Five rule files in `cli-templates/`, covering CLI Command Reference, CLI Task Runbook, CLI Module Reference and CLI Plugin Guide, and a `section-matrix.md` extended with a column for each.
-- 11 rules in its `sdk-templates/` copies of `common-rules.md` and `migration-guide.md` that never reached this repo, on callout labels, splitting mixed-content paragraphs, conditional framing, heading uniformity, verifying quantitative claims, and labelling each version's behavior separately in a migration guide.
+The api-ref doc type had two page shapes here and three there. `UG-01` to `UG-13` joined the root registry, `api-ref-structure.js` gained the eight usage-guide checks, and `lint-api-ref.js` learned to collect `usage_guide.md` and sort it above the class folders the way the CMS renders the chain. `AR-07` now says class pages and usage guides carry no trailing rule, which is the same rule restated for the shape that did not exist here.
 
-Three of its checks (`callout-taxonomy.js`, `conditional-framing.js`, `heading-uniformity.js`) emit `C2-07`, `C3-07` and `C6-04`, which this repo already carries as rules. The first two already have a different check here, so merging them means deciding which check owns the ID. `C6-04` is tier 3 with no check here, so giving it one means promoting it to tier 2.
+The good usage guide fixture was not clean under this repo's rules, which are stricter than SDK Project's. One of the two findings was a real defect in this repo's check: `passive-voice` reported "Get Started" inside a link to a published guide, because its patterns are written lowercase and matched case-insensitively, so the title satisfies the get-passive shape. The suggested fix would have renamed a real page. An all-capitalized match is now exempt as a name, while a sentence-initial passive capitalizes only its auxiliary and still reports. The other finding was genuine passive voice in a page whose job is to model the conventions, so the fixture was rewritten actively.
 
-`SDK Project/doc-standards` added a third API reference doc type:
+### The CLI doc-type family, from CLI Project
 
-- 13 rule IDs absent here: `UG-01` to `UG-13`, for a usage guide page.
-- `api-ref-usage-guide-v2.md`, the template, and `usage-guide-derivation.md`, which records how it was derived.
-- Its good and broken `usage_guide.md` fixtures.
+Four new doc types (`cli-command-reference`, `cli-task-runbook`, `cli-module-reference`, `cli-plugin-guide`) with their rule files in `cli-templates/`, 32 rules, six check modules, and the `absent-docs` wordlist. `section-matrix.md` is CLI Project's version, which carries all seven original columns plus one per CLI type.
 
-Its remaining differences are the old `doc-types/api-reference/` layout that this commit retired, so they are superseded rather than outstanding.
+Five rule IDs collided the way Studio and MCP Profile Hub collided, with entirely different rules sharing a number. This repo's numbering wins, so CLI Project's five moved:
+
+| CLI Project | Here | Rule |
+|---|---|---|
+| `C2-07` | `C2-11` | the four permitted callout labels |
+| `C2-08` | `C2-12` | split a paragraph that mixes kinds of information |
+| `C3-07` | `C3-29` | rewrite conditional framing as a direct statement |
+| `C6-04` | `C6-06` | one heading name and table shape per recurring category |
+| `C6-05` | `C6-07` | collapse a lone subsection into its parent |
+
+`C6-06` there, on verifying quantitative claims, became `C6-08`. `PLG1` to `PLG5` became `PLG-01` to `PLG-05`, because the registry's `ID_RE` requires the dash.
+
+Three constraints in this repo that CLI Project's registry did not enforce had to be satisfied rather than relaxed:
+
+- A tier-3 rule may not name a `checkId`. `C2-12`, `C6-07`, `C6-08` and `MIG-09` are tier 3 here and name none. `unverified-claims.js` still ships and still emits tier-3 findings for `C6-08`, which the validator allows for a rule that claims no check.
+- A tier-1 or tier-2 rule must name a `checkId` that exists. Fifteen CLI rules are tier 1 or 2 with no check written, so each has an `unimplemented` check-sources entry, the idiom this repo already uses for `AR-10` and the `C9` heuristics. Their tiers are preserved rather than demoted, because the tier is a claim about severity and the missing check is a gap in coverage.
+- `CLI-19` and `PLG-05` are the section-order rule for their doc types and report as `C1-01` does, so both join `UNEMITTED_BASELINE` alongside the four section-structure entries already there for that reason.
+
+Front matter is the one place the two corpora genuinely disagree and neither side is wrong. The SDK set requires `seo_title`, `seo_description` and `url`. The CLI set requires `title`, `description` and `url`, and its CMS-generated pages carry `uid`, `seo_title` and `seo_description` instead. Unifying them would report `FM-01` on every page of one corpus, so `checks/front-matter.js` scopes the required set by doc type and accepts the mirror shape for a CLI page.
+
+`CLI-05` and `CLI-19` bind on a doc's subject rather than its type, because a CLI page typed `setup-guide` or `migration-guide` is rendered by the same platform. That needed CLI Project's `isCliDoc`, and its version treated any `csdx` anywhere in the body as proof. That held in a corpus where every doc was a CLI doc and does not hold here: `clean-feature-doc.md` shows one `csdx plugins:install` line in its Installation section, and it was retyped as a command reference, reported six errors against a template it does not use, and was told to delete a Troubleshooting section that is correct for a feature doc. A passing mention is no longer enough. The signal is the title naming the CLI, or a `Commands` section, which a page documenting commands carries and a page merely invoking one does not. The four CLI docs typed under a product-wide template all name the CLI in their titles, so the case the heuristic exists for still works.
+
+Every test in the suite passed a doc type explicitly, so none of them could see that regression. `test/cli-doc-types.test.js` now asserts the detection directly.
+
+The suite is 443 tests, all passing, none skipped. `section-order.json` and `section-matrix.json` regenerate identically from the rule files here.
 
 ## A note on style
 

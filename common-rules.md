@@ -213,6 +213,16 @@ Every rule follows this format:
 
 **How to judge a borderline case:** ask whether the paragraphs answer one question or several. Several means bolded lead-ins, because the reader arrives at each fact separately. One means connectives, because the reader needs the logic and a label would freeze the break in the wrong place. The permitted connectives are subordinating conjunctions that carry logic. The conversational discourse markers C3-15 bans ("That said", "either way", "One caveat:", "When in doubt:") are still banned here, and reaching for one is a sign the paragraph order is wrong rather than the opener.
 
+**Rule:** A callout must use one of exactly four labels: Warning, Note, Tip, or Additional Resource.
+**Why:** An open-ended label set forces every reader to guess what a given label implies about severity.
+**Exception:** None.
+
+---
+
+**Rule:** Do not merge a stated fact, a conditional exception, an inline command reference, and a location fact into one paragraph, split each by kind into a labeled statement, table, or code block.
+**Why:** A paragraph blending several kinds of information forces the reader to parse prose to extract a fact they came to scan for.
+**Exception:** A short paragraph with only one or two kinds mixed, under roughly 40 words, does not need splitting.
+
 ---
 
 ### C3: Language and Tone
@@ -367,6 +377,10 @@ Every rule follows this format:
 
 **How to judge a borderline case:** read only the clause that touches the colon, because that is the promise the reader is holding when they reach the block. If it names an element, a direction, or a link, the rule is satisfied. If it names only the subject the sentence is about, it is not, which is why "the same value" does not rescue "Several places can set the same value. The highest one wins:". The generator lives in `checks/tier3-candidates.js` as `unnamedLeadInReferent` and the judge prompt in `judge-tone.js`, so a new exemption belongs in `ELEMENT_NOUN_RE` there rather than only in prose.
 
+**Rule:** Rewrite conditional framing that hides a direct cause-and-effect fact as a direct declarative statement.
+**Why:** Conditional framing presents an already-true fact about the system as a hypothetical the reader must first notice.
+**Exception:** Framing genuinely conditional on the reader's own setup or choices, not on system behavior, does not need rewriting.
+
 ---
 
 ### C4: Code vs Prose
@@ -486,6 +500,22 @@ Every rule follows this format:
 **Rule:** When a multi-fact paragraph is converted into a bulleted list under a bolded lead-in label, the label must name the specific grouping the bullets share, not a generic placeholder such as "Note," "Important," or "Important Points."
 **Why:** A generic label gives the reader no scan value and no way to judge relevance before reading the list. A specific label lets the reader decide whether the list matters to them.
 **Exception:** None.
+
+**Rule:** When the same category of change recurs across sibling sections, use one consistent heading name and table shape for every instance.
+**Why:** A reader scanning several sibling sections for the same kind of fact should find it under the same heading every time.
+**Exception:** A heading describing a behavior change unique to that instance is not subject to this rule.
+
+---
+
+**Rule:** A heading that is the only subsection under its parent, and does not belong to a recurring category, should be collapsed into a lead-in sentence.
+**Why:** A heading with no siblings and no recurring counterpart elsewhere in the doc adds a navigation stop without adding scan value.
+**Exception:** Keep the heading if the doc's table of contents or an existing cross-reference anchors directly to it.
+
+---
+
+**Rule:** A quantitative or capability claim must be verified against the current source of truth before publishing, and state the concrete verified fact.
+**Why:** An unverified count or capability claim reads as confident and specific, but if wrong, actively misleads a reader who trusts the doc over checking the source.
+**Exception:** If verification is not possible before publishing, state the claim as approximate or omit it.
 
 ---
 

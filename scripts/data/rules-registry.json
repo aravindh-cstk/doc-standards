@@ -708,6 +708,30 @@
     "checkId": "table-integrity"
   },
   {
+    "id": "C2-11",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "A callout must use one of exactly four labels: Warning, Note, Tip, or Additional Resource.",
+    "why": "An open-ended label set forces every reader to guess what a given label implies about severity.",
+    "exception": "None.",
+    "tier": 1,
+    "checkId": "callout-taxonomy"
+  },
+  {
+    "id": "C2-12",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Do not merge a stated fact, a conditional exception, an inline command reference, and a location fact into one paragraph, split each by kind into a labeled statement, table, or code block.",
+    "why": "A paragraph blending several kinds of information forces the reader to parse prose to extract a fact they came to scan for.",
+    "exception": "A short paragraph with only one or two kinds mixed, under roughly 40 words, does not need splitting.",
+    "tier": 3,
+    "checkId": null
+  },
+  {
     "id": "C3-01",
     "source": "common-rules.md",
     "docTypes": [
@@ -1044,6 +1068,18 @@
     "checkId": "no-italics"
   },
   {
+    "id": "C3-29",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Rewrite conditional framing that hides a direct cause-and-effect fact as a direct declarative statement.",
+    "why": "Conditional framing presents an already-true fact about the system as a hypothetical the reader must first notice.",
+    "exception": "Framing genuinely conditional on the reader's own setup or choices, not on system behavior, does not need rewriting.",
+    "tier": 2,
+    "checkId": "conditional-framing"
+  },
+  {
     "id": "C4-01",
     "source": "common-rules.md",
     "docTypes": [
@@ -1268,6 +1304,42 @@
     "rule": "The first sentence of the Overview states what this page covers, in its own main clause. It does not open with a clause about another page's topic, and it does not leave the topic to a trailing result clause.",
     "why": "The Overview's first sentence is where a reader decides whether this is the page they want. An opener that leads with a comparison to a different task, or that states background and reaches the topic only after \"so\", makes the reader work for an answer the sentence was supposed to give.",
     "exception": "A page whose subject is the product itself may open by naming and defining the product, since that sentence already states the topic.",
+    "tier": 3,
+    "checkId": null
+  },
+  {
+    "id": "C6-06",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "When the same category of change recurs across sibling sections, use one consistent heading name and table shape for every instance.",
+    "why": "A reader scanning several sibling sections for the same kind of fact should find it under the same heading every time.",
+    "exception": "A heading describing a behavior change unique to that instance is not subject to this rule.",
+    "tier": 2,
+    "checkId": "heading-uniformity"
+  },
+  {
+    "id": "C6-07",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "A heading that is the only subsection under its parent, and does not belong to a recurring category, should be collapsed into a lead-in sentence.",
+    "why": "A heading with no siblings and no recurring counterpart elsewhere in the doc adds a navigation stop without adding scan value.",
+    "exception": "Keep the heading if the doc's table of contents or an existing cross-reference anchors directly to it.",
+    "tier": 3,
+    "checkId": null
+  },
+  {
+    "id": "C6-08",
+    "source": "common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "A quantitative or capability claim must be verified against the current source of truth before publishing, and state the concrete verified fact.",
+    "why": "An unverified count or capability claim reads as confident and specific, but if wrong, actively misleads a reader who trusts the doc over checking the source.",
+    "exception": "If verification is not possible before publishing, state the claim as approximate or omit it.",
     "tier": 3,
     "checkId": null
   },
@@ -1619,6 +1691,18 @@
     "checkId": "section-structure"
   },
   {
+    "id": "MIG-09",
+    "source": "migration-guide.md",
+    "docTypes": [
+      "migration-guide"
+    ],
+    "rule": "Prose describing what both the old and new version do for the same fact must state each version as its own explicitly labeled V1/V2 statement, not blended sentences.",
+    "why": "A migrating developer needs to know exactly what changed, if the old version's behavior is only implied by contrast, the reader must reverse-engineer it.",
+    "exception": "Does not apply to Before/After code blocks or Type Mapping Reference rows, which already separate old and new by construction.",
+    "tier": 3,
+    "checkId": null
+  },
+  {
     "id": "RS1-01",
     "source": "getting-started.md",
     "docTypes": [
@@ -1749,5 +1833,337 @@
     "exception": "None.",
     "tier": 3,
     "checkId": null
+  },
+  {
+    "id": "CLI-01",
+    "source": "cli-templates/cli-common-rules.md",
+    "docTypes": [
+      "cli-command-reference",
+      "cli-task-runbook",
+      "cli-module-reference"
+    ],
+    "rule": "A flag or option table must use the columns Flag, Type, Required, Default, Description, Notes, in that order.",
+    "why": "CLI-C2 extends C9's four columns with the two the CLI needs. Type and Default are facts a reader checks before running a command, and the CLI declares 62 explicit flag defaults across its V2 plugins. 16 distinct column signatures are in use across the CLI docs, and 106 of the 167 tables already carry Type and Default, so the six-column shape is also the closest to current practice.",
+    "exception": "A table with only one or two flags and no caveats may use a two-column Flag and Description format, per C9.",
+    "tier": 1,
+    "checkId": "cli-specific"
+  },
+  {
+    "id": "CLI-02",
+    "source": "cli-templates/cli-common-rules.md",
+    "docTypes": [
+      "cli-command-reference",
+      "cli-task-runbook"
+    ],
+    "rule": "A CLI command reference or task runbook must have a Prerequisites section.",
+    "why": "Every CLI command needs at minimum the CLI installed, an authenticated session, and a configured region, because the base command class throws without them. A doc that omits Prerequisites lets a reader start and fail.",
+    "exception": "A module reference runs no command and deliberately has none.",
+    "tier": 1,
+    "checkId": "cli-specific"
+  },
+  {
+    "id": "CLI-03",
+    "source": "cli-templates/cli-common-rules.md",
+    "docTypes": [
+      "cli-command-reference",
+      "cli-task-runbook",
+      "cli-module-reference"
+    ],
+    "rule": "Prerequisites must be an H2, not nested under another section.",
+    "why": "The section-order comparison reads H2 text only, so a Prerequisites heading at H3 or H4 registers as missing rather than as misleveled, and the two need different fixes. At H4 it is also absent from the page navigation.",
+    "exception": "None.",
+    "tier": 1,
+    "checkId": "cli-specific"
+  },
+  {
+    "id": "CLI-04",
+    "source": "cli-templates/cli-common-rules.md",
+    "docTypes": [
+      "cli-command-reference",
+      "cli-task-runbook",
+      "cli-module-reference"
+    ],
+    "rule": "Each Prerequisites item links to the resource that fulfils it.",
+    "why": "A prerequisite the reader cannot act on is a blocker rather than a requirement.",
+    "exception": "A bare version requirement such as a Node.js version may have no link target.",
+    "tier": 2,
+    "checkId": "cli-specific"
+  },
+  {
+    "id": "CLI-05",
+    "source": "cli-templates/cli-common-rules.md",
+    "docTypes": [
+      "cli-command-reference",
+      "cli-task-runbook",
+      "cli-module-reference"
+    ],
+    "rule": "No CLI doc uses H4 or deeper. Where a fourth level of structure is needed, use a bold lead-in on its own line.",
+    "why": "The docs platform emits an anchor id and a right-hand navigation entry for H2 and H3 only, so an H4 is unlinkable and absent from the page's own navigation whatever it contains. This is a fact about the rendering platform rather than about a template, so it binds on every CLI doc including ones typed migration-guide, feature-doc or setup-guide. CLI Authentication and Adding Tokens puts all seven auth procedures at H4, which is why 26 inbound deep links across the corpus resolve to nothing.",
+    "exception": "None. A bold lead-in carries no anchor either, so content that genuinely needs to be linked to should be promoted to H3.",
+    "tier": 1,
+    "checkId": "cli-specific"
+  },
+  {
+    "id": "CLI-06",
+    "source": "cli-templates/cli-common-rules.md",
+    "docTypes": [
+      "cli-command-reference",
+      "cli-task-runbook",
+      "cli-module-reference"
+    ],
+    "rule": "Tag shell code fences bash and payload fences json.",
+    "why": "All 1,782 fences in the CLI corpus are untagged, so nothing highlights and a reader cannot tell a command from a JSON payload at a glance.",
+    "exception": "Output transcripts and directory trees have no meaningful language tag.",
+    "tier": 2,
+    "checkId": "cli-specific"
+  },
+  {
+    "id": "CLI-07",
+    "source": "cli-templates/cli-command-reference.md",
+    "docTypes": [
+      "cli-command-reference"
+    ],
+    "rule": "A doc that instructs the reader to run plugins:install must carry an Installation section.",
+    "why": "An install step the reader has to hunt for is an install step they skip, and the command then fails as command not found. Whether a plugin is bundled is a fact about oclif.plugins rather than about the page, so a script can only enforce this direction of CMD4.",
+    "exception": "A doc that mentions plugins:install only as an aside about a different plugin.",
+    "tier": 1,
+    "checkId": "cli-specific"
+  },
+  {
+    "id": "CLI-08",
+    "source": "cli-templates/cli-common-rules.md",
+    "docTypes": [
+      "cli-command-reference",
+      "cli-task-runbook",
+      "cli-module-reference"
+    ],
+    "rule": "Write user-supplied values as <UPPER_SNAKE_CASE>. Do not use double angle brackets.",
+    "why": "The corpus splits 41 against 40 between the two forms, so this has never been decided and both appear in sibling docs. Single angle brackets with upper snake case is the form C4 already mandates product-wide, so the CLI follows rather than inventing a second convention.",
+    "exception": "A literal value that is the point of the example, per C4, is not a placeholder.",
+    "tier": 2,
+    "checkId": "cli-flag-prose-heuristic"
+  },
+  {
+    "id": "CLI-09",
+    "source": "cli-templates/cli-common-rules.md",
+    "docTypes": [
+      "cli-command-reference",
+      "cli-task-runbook",
+      "cli-module-reference"
+    ],
+    "rule": "Callout labels put the colon inside the bold, as > **Note:** rather than > **Note**:.",
+    "why": "The corpus splits 218 against 82, so the majority form is established and the minority form is drift rather than a competing convention. The four permitted labels are the closed set in common-rules.md.",
+    "exception": "None.",
+    "tier": 2,
+    "checkId": "cli-output-block-heuristic"
+  },
+  {
+    "id": "CLI-10",
+    "source": "cli-templates/cli-common-rules.md",
+    "docTypes": [
+      "cli-command-reference",
+      "cli-task-runbook",
+      "cli-module-reference"
+    ],
+    "rule": "No shell prompt inside a code fence. Write csdx cm:stacks:export, not $ csdx cm:stacks:export.",
+    "why": "A reader copies the whole line, and a leading dollar sign makes the paste fail while adding nothing, because the fence already establishes that the line is a command. The corpus is 1,247 against 2, so this codifies existing practice.",
+    "exception": "A transcript that deliberately shows both input and output may keep the prompt, because there the prompt is what separates the two.",
+    "tier": 2,
+    "checkId": "cli-error-entry-heuristic"
+  },
+  {
+    "id": "CLI-11",
+    "source": "cli-templates/cli-common-rules.md",
+    "docTypes": [
+      "cli-command-reference",
+      "cli-task-runbook",
+      "cli-module-reference"
+    ],
+    "rule": "Recurring section names are plural: Limitations, Troubleshooting, Next Steps.",
+    "why": "These names are the anchor targets other docs link to. A singular variant produces a different anchor id, so a link written against the plural form silently resolves to nothing. Current splits are 22 against 4, 16 against 6, and 12 against 2.",
+    "exception": "None. The plural is the form every template's Section Order table uses.",
+    "tier": 1,
+    "checkId": "cli-command-form-heuristic"
+  },
+  {
+    "id": "CLI-12",
+    "source": "cli-templates/cli-common-rules.md",
+    "docTypes": [
+      "cli-command-reference",
+      "cli-task-runbook",
+      "cli-module-reference"
+    ],
+    "rule": "State whether the documented commands mutate stack data or are read-only, in the Overview or Prerequisites.",
+    "why": "This is C9's first rule, restated because it binds on task runbooks as hard as on command references. These are the docs that export, overwrite and delete stack content across more than one command, so a reader who misjudges the blast radius damages a stack rather than getting a failed command.",
+    "exception": "Commands whose name unambiguously states the action may skip a standalone statement, per C9.",
+    "tier": 1,
+    "checkId": "cli-scope-statement-heuristic"
+  },
+  {
+    "id": "CLI-13",
+    "source": "cli-templates/cli-common-rules.md",
+    "docTypes": [
+      "cli-command-reference",
+      "cli-task-runbook"
+    ],
+    "rule": "Prerequisites state, in order: CLI installed with the Node version from engines.node, csdx auth:login, region configured. Add a management token via csdx auth:tokens:add with its minimum scope stated inline when any documented command takes --alias, and csdx plugins:install when the plugin is absent from oclif.plugins.",
+    "why": "The first three are not editorial choices. The base command class every command extends throws when email is unset and exits when region is unset, so a reader missing either fails before their command runs. A fixed order means a reader who has read one CLI doc can skim the section in the next.",
+    "exception": "A module reference runs no command and has no Prerequisites section, per MOD3.",
+    "tier": 1,
+    "checkId": "cli-auth-step-heuristic"
+  },
+  {
+    "id": "CLI-14",
+    "source": "cli-templates/cli-common-rules.md",
+    "docTypes": [
+      "cli-command-reference",
+      "cli-task-runbook",
+      "cli-module-reference"
+    ],
+    "rule": "Any claim that a flag, command or behavior was added, renamed or removed in a given version cites the changelog and names the version.",
+    "why": "The CLI's public surface moved substantially at 2.0.0: short flags were removed across six plugins, --api-version was dropped from two bulk commands, and tsgen's --token-alias became --alias. A doc describing a flag GA removed reads as authoritative and sends the reader to a command that fails. The changelog is the source of record, not package.json in a local clone, which can sit behind the released version.",
+    "exception": "None. If a version cannot be verified before publishing, omit the claim rather than approximating it.",
+    "tier": 1,
+    "checkId": "cli-placeholder-heuristic"
+  },
+  {
+    "id": "CLI-15",
+    "source": "cli-templates/cli-common-rules.md",
+    "docTypes": [
+      "cli-command-reference",
+      "cli-task-runbook",
+      "cli-module-reference"
+    ],
+    "rule": "A doc derived from a previous version's page must have every flag name, flag description and worked example re-verified against the released manifest for the version being documented.",
+    "why": "Migrate your Content using the CLI Migration Command | V2.x.x was created from a correct V1 page and shipped documenting --config-file, which GA removed, while describing --config as doing what --inline-config now does. Both worked examples were wrong. Nothing looked wrong because every sentence had once been true. --config kept its name and changed its meaning, which no name diff catches and no reader can detect, since a V1 script still parses.",
+    "exception": "None.",
+    "tier": 1,
+    "checkId": "cli-exit-code-heuristic"
+  },
+  {
+    "id": "CLI-16",
+    "source": "cli-templates/cli-common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "A doc must not assert that documentation does not exist. Do not write that a guide is missing, planned, coming soon or yet to come. If a topic has no guide, omit the topic rather than announcing the gap.",
+    "why": "An absence claim outlives the gap it describes, because no publishing step revisits it. Both Install the CLI pages said the guide to create a plugin was yet to come, and pointed readers at oclif's own documentation instead, while Create Custom CLI Plugins for Contentstack was live in both versions at roughly 1,030 and 770 lines and present in the sidebar. A developer looking for CLI 2.0.0 plugin information read the note, concluded Contentstack had no plugin docs, and built their plugin from the source repo and oclif's docs. The note answered the question wrongly on the page where the question is first asked, so the reader never reached the guide two clicks away. CLI-10 and CLI-15 govern claims about a product that has moved on. This governs claims about the documentation itself, which go stale the same way.",
+    "exception": "A deprecation notice pointing at a live replacement is not an absence claim.",
+    "tier": 1,
+    "checkId": "banned-phrases"
+  },
+  {
+    "id": "CLI-17",
+    "source": "cli-templates/cli-common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Links to the Contentstack docs site must be root-relative, /docs/headless-cms/install-the-cli, never absolute. Links to the application and to third parties stay absolute.",
+    "why": "An absolute docs link resolves to production from every environment, so a reader reviewing on staging is thrown back to production the moment they click one, and a link path cannot be reviewed before it ships. Nine such links were in the corpus, and one of them also pointed at the wrong version: Create Custom CLI Plugins for Contentstack | V1.x.x linked the V2 install page, so a V1 reader landed on 2.0.0 instructions. The word relative appeared exactly once in the whole standard before this rule, inside C2-04, which is about Quick Reference tables only, and no check anywhere tested for http:// at all.",
+    "exception": "The application at contentstack.com/login and any third-party host. Neither is environment mirrored and neither has a relative form.",
+    "tier": 1,
+    "checkId": "internal-link-form"
+  },
+  {
+    "id": "CLI-18",
+    "source": "cli-templates/cli-common-rules.md",
+    "docTypes": [
+      "cli-command-reference",
+      "cli-task-runbook",
+      "cli-module-reference"
+    ],
+    "rule": "No CLI doc, old or new, carries a page-level Troubleshooting H2. Every failure mode belongs in the CLI troubleshooting hub. Link the reader there instead, in whichever section fits the page.",
+    "why": "The CLI troubleshooting hub already holds 30 ticket-sourced articles across five groups. A Troubleshooting section copied onto every command page that can produce a given error goes stale in as many places as it was copied, while one hub entry linked from every page that can hit it stays current when the error message or the fix changes.",
+    "exception": "None. See CLI-19 for the machine-checked half of this rule.",
+    "tier": 2,
+    "checkId": "cli-plugin-boundary-heuristic"
+  },
+  {
+    "id": "CLI-19",
+    "source": "cli-templates/cli-common-rules.md",
+    "docTypes": [
+      "cli-command-reference",
+      "cli-task-runbook",
+      "cli-module-reference"
+    ],
+    "rule": "A CLI command reference, task runbook, or module reference must not carry a page-level Troubleshooting section. Link the CLI troubleshooting hub instead.",
+    "why": "The CLI troubleshooting hub already holds 30 ticket-sourced articles across five groups. A Troubleshooting section on a CLI page duplicates content that goes stale wherever it is copied, and the hub is the one place a reader searching an error message is likely to land.",
+    "exception": "None.",
+    "tier": 1,
+    "checkId": "section-structure"
+  },
+  {
+    "id": "CLI-20",
+    "source": "cli-templates/cli-common-rules.md",
+    "docTypes": [
+      "cli-command-reference",
+      "cli-task-runbook",
+      "cli-module-reference"
+    ],
+    "rule": "A code-sourced Limitations finding must be classified before it is published: a boundary on function (a closed list, an unsupported operation, a safely-rejected input format) is a limitation and gets written. A weakness in how the CLI protects data (a secret exposed via argv, disk, or logs, unsanitized input reaching a shell or file path, encryption or auth that is off by default, a check that fails open) is a possible vulnerability and does not get published anywhere in the docs. When unsure, treat it as a vulnerability and report it to whoever asked for the pass instead.",
+    "why": "A docs site is public, indexed, and not reviewed by a security team before it ships, so it is the wrong place for a vulnerability to surface first. \"The CLI cannot do X\" and \"the CLI does X in a way that leaks Y\" read as the same sentence shape from outside the code, so a pass built to find limitations can walk into a vulnerability without noticing unless it reads past the matched line into the surrounding function.",
+    "exception": "A vulnerability already publicly disclosed, such as a fixed CVE or a changelog entry describing the fix, is fine to reference as a version-specific claim per CLI-C10.",
+    "tier": 2,
+    "checkId": "cli-version-drift-heuristic"
+  },
+  {
+    "id": "PLG-01",
+    "source": "cli-templates/cli-plugin-guide.md",
+    "docTypes": [
+      "cli-plugin-guide"
+    ],
+    "rule": "The directory layout in Plugin Structure uses real file and folder names exactly as the CLI plugin scaffolding creates them, such as src/commands/ and oclif.manifest.json, not renamed or reorganized for readability.",
+    "why": "A reader building their first plugin is about to create these exact files. A paraphrased layout either does not match what their scaffolding tool produces, or leaves out a file the plugin will not load without.",
+    "exception": "None.",
+    "tier": 2,
+    "checkId": "plugin-scaffold-heuristic"
+  },
+  {
+    "id": "PLG-02",
+    "source": "cli-templates/cli-plugin-guide.md",
+    "docTypes": [
+      "cli-plugin-guide"
+    ],
+    "rule": "A TypeScript example under Creating a Plugin or Commands and Flags is a complete, compilable command class, not a fragment that only illustrates a shape.",
+    "why": "The reader pastes this into a file and builds it. A fragment that reads correctly but does not compile fails at the moment a plugin guide most needs to work, before the reader has anything running to debug from.",
+    "exception": "A snippet explicitly introduced as showing one option in isolation does not need to be a full class, provided the surrounding prose says so.",
+    "tier": 2,
+    "checkId": "plugin-manifest-heuristic"
+  },
+  {
+    "id": "PLG-03",
+    "source": "cli-templates/cli-plugin-guide.md",
+    "docTypes": [
+      "cli-plugin-guide"
+    ],
+    "rule": "Plugin Registration and Linking includes a command the reader runs to confirm the plugin loaded, not only the linking command itself.",
+    "why": "A linking command succeeding is not the same as the new command being usable. A namespace collision or a skipped build step fails silently otherwise, and the reader spends the rest of the guide debugging a step that already went wrong.",
+    "exception": "None.",
+    "tier": 2,
+    "checkId": "plugin-publish-heuristic"
+  },
+  {
+    "id": "PLG-04",
+    "source": "cli-templates/cli-plugin-guide.md",
+    "docTypes": [
+      "cli-plugin-guide"
+    ],
+    "rule": "A reference section such as Available Methods and Utilities, where it runs long enough that a reader would scroll past what they need, opens with a table mapping each method or utility to its subsection.",
+    "why": "The same reasoning as MOD2, restated for the one section in this type shaped like a lookup page rather than a procedure. A developer skimming for one method should not have to read the whole appendix to find it.",
+    "exception": "A reference section short enough to read in full does not need an index.",
+    "tier": 2,
+    "checkId": "plugin-test-heuristic"
+  },
+  {
+    "id": "PLG-05",
+    "source": "cli-templates/cli-plugin-guide.md",
+    "docTypes": [
+      "cli-plugin-guide"
+    ],
+    "rule": "Do not add a Troubleshooting H2 to this type. Link the CLI troubleshooting hub instead, per CLI-C14.",
+    "why": "Same reason as the other CLI types: one entry in the hub stays current, a copy on this page does not.",
+    "exception": "None. checks/section-structure.js reports CLI-19 if one is added back.",
+    "tier": 1,
+    "checkId": "section-structure"
   }
 ]

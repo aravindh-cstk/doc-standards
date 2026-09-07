@@ -1,0 +1,9 @@
+{
+  "ruleId": "CLI-16",
+  "category": "absent-docs",
+  "phrases": [
+    { "phrase": "yet to come", "fix": "link the guide if it exists, or drop the sentence. Both Install the CLI pages said the plugin guide was yet to come while it was live in both versions, and a developer read that and built their plugin from oclif's docs instead" },
+    { "phrase": "coming soon", "fix": "link the guide if it exists, or drop the sentence. An absence claim outlives the gap it describes, because no publishing step revisits it" },
+    { "phrase": "not available yet", "fix": "link the guide if it exists, or drop the sentence. If the topic has no guide, omit the topic rather than announcing the gap" }
+  ]
+}

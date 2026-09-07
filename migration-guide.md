@@ -79,3 +79,11 @@ Every rule follows this format:
 **Rule:** Do not include theory sections in migration guides.
 **Why:** A developer performing a migration is executing a task under time pressure. Background on how the new serializer works internally is not actionable during the migration. It belongs in a separate conceptual doc linked from Next Steps.
 **Exception:** A one-sentence orientation in the Overview is acceptable if it prevents a common misunderstanding about the scope of the breaking change.
+
+---
+
+**Rule:** Prose describing what both the old and new version do for the same fact must state each version as its own explicitly labeled V1/V2 statement, not blended sentences.
+**Why:** A migrating developer needs to know exactly what changed, if the old version's behavior is only implied by contrast, the reader must reverse-engineer it.
+**Exception:** Does not apply to Before/After code blocks or Type Mapping Reference rows, which already separate old and new by construction.
+
+---
