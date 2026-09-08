@@ -8,7 +8,7 @@ Every rule in `scripts/data/rules-registry.json`, grouped by prefix. This is the
 catalog. For what the groups mean and how tiers behave, read the Rule system section of
 [README.md](README.md). For which check enforces a rule, read [REFERENCE-CHECKS.md](REFERENCE-CHECKS.md).
 
-The registry holds **181 rules**: 78 tier 1, 57 tier 2, 46 tier 3.
+The registry holds **182 rules**: 78 tier 1, 57 tier 2, 47 tier 3.
 
 Linting this file reports tier-1 findings, and that is expected. A rule that bans a phrase has to
 print the phrase in order to state itself, so every finding here falls inside quoted registry
@@ -24,7 +24,7 @@ repository, so nothing blocks on it.
 | [B1](#b1-the-ordered-audit-checklist) | 11 | 3 | 3 | 5 | `types/common-rules.md` |
 | [B2](#b2-the-anti-pattern-table) | 9 | 3 | 3 | 3 | `types/common-rules.md` |
 | [C1](#c1-structure-and-flow) | 6 | 5 | 1 | 0 | `types/common-rules.md` |
-| [C2](#c2-scannability) | 14 | 5 | 4 | 5 | `types/common-rules.md` |
+| [C2](#c2-scannability) | 15 | 5 | 4 | 6 | `types/common-rules.md` |
 | [C3](#c3-language-and-tone) | 30 | 10 | 12 | 8 | `types/common-rules.md` |
 | [C4](#c4-code-versus-prose) | 8 | 0 | 4 | 4 | `types/common-rules.md` |
 | [C5](#c5-cross-references) | 6 | 0 | 4 | 2 | `types/common-rules.md` |
@@ -957,7 +957,7 @@ Stated in: `types/common-rules.md`.
 
 **Rule.** Every table row carries the same number of cells as its header row, and every cell's emphasis markers, parentheses and brackets close within that cell.
 
-**Why.** A row that has lost or gained a cell renders with its values under the wrong columns, and a cell whose punctuation opens without closing renders text the author never wrote. Both survive a Markdown round trip unchanged, so no stability check can see them. A punctuation pass over this corpus moved a closing parenthesis across a cell boundary in 19 rows and the damage reached the published site.
+**Why.** A row that has lost or gained a cell renders with its values under the wrong columns, and a cell whose punctuation opens without closing renders text the author never wrote. Both survive a Markdown round trip unchanged, so no stability check can see them. A punctuation pass moved a closing parenthesis across a cell boundary in 19 rows of this corpus and the damage reached the published site.
 
 **Exception.** A pipe that is part of a cell's content is written as "\\|" or wrapped in backticks, and is then not a cell separator. A blank leading header cell is correct in a comparison table whose first column holds the row labels, so it is only reported when no other header cell is labelled either.
 
@@ -970,11 +970,11 @@ Stated in: `types/common-rules.md`.
 | Check | `callout-taxonomy` |
 | Source | `types/common-rules.md` |
 
-**Rule.** A callout must use one of exactly four labels: Warning, Note, Tip, or Additional Resource.
+**Rule.** A callout uses one of four labels: Warning, Note, Tip, or Additional Resource. Do not invent another label such as Important, Attention, or Caution. The Additional Resource label takes the plural, Additional Resources, when the callout carries two or more links. AR-06 owns that agreement, so this rule governs only which words may appear. An API reference usage guide adds one label, Before you begin, which UG-09 requires on that page and on no other.
 
-**Why.** An open-ended label set forces every reader to guess what a given label implies about severity.
+**Why.** A fixed, small set of labels lets readers learn what each one means and react consistently. Ad hoc labels dilute that signal and read as informal, and an open-ended set forces every reader to guess what a given label implies about severity.
 
-**Exception.** None.
+**Exception.** None on the label set. Map the intended severity onto the closest existing label. A caveat the reader must not miss is Warning, not Important.
 
 ### C2-12
 
@@ -1020,6 +1020,21 @@ Stated in: `types/common-rules.md`.
 **Why.** A label that resolves but misdescribes costs a reader more than a 404 does, because a 404 says something is wrong and a wrong page does not. A screen reader user tabbing between links hears only the labels, so "here, here, this page" gives them no way to choose. The same rule catches a label a bulk edit has broken into fragments, which is how 20 links shipped after a punctuation pass moved a bracket across a label boundary.
 
 **Exception.** A label may use different words for the same thing: "Slot props" over a page titled "Data-carrying slots" names the concept while the title names the shape, and both are right. A product noun used mid-sentence is not an opaque label: "a multi-type [Reference](...) field" gets its subject from the sentence.
+
+### C2-15
+
+| Field | Value |
+| --- | --- |
+| Tier | 3 |
+| Doc types | `all` |
+| Check | none, tier 3 is adjudicated |
+| Source | `types/common-rules.md` |
+
+**Rule.** When a bolded lead-in label introduces more than one distinct fact, or a condition with multiple branches, format the content as a bullet list under that label, nesting a sub-bullet for each branch, rather than one prose paragraph.
+
+**Why.** A paragraph that bundles a condition together with its outcomes forces the reader to reread to map each outcome to its trigger. Nested bullets make each branch and its outcome visible without rereading.
+
+**Exception.** When the label introduces a single fact with no sub-parts or branches, one prose sentence is correct. Do not force a one-fact note into a list.
 
 ## C3, language and tone
 
@@ -2594,7 +2609,7 @@ Stated in: `cli-templates/cli-common-rules.md`, `cli-templates/cli-command-refer
 | --- | --- |
 | Tier | 2 |
 | Doc types | `cli-command-reference`, `cli-task-runbook`, `cli-module-reference` |
-| Check | `cli-output-block-heuristic` |
+| Check | `callout-taxonomy` |
 | Source | `cli-templates/cli-common-rules.md` |
 
 **Rule.** Callout labels put the colon inside the bold, as > **Note:** rather than > **Note**:.

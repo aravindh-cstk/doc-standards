@@ -216,11 +216,13 @@
     "kind": "structural",
     "module": "checks/callout-taxonomy.js",
     "rules": [
-      "C2-11"
+      "C2-11",
+      "CLI-09"
     ],
     "patterns": [
-      "CALLOUT_RE",
-      "VALID_LABELS"
+      "LABEL_COLON_INSIDE_RE",
+      "LABEL_COLON_OUTSIDE_RE",
+      "ALLOWED_LABELS"
     ]
   },
   "cli-auth-step-heuristic": {
@@ -263,13 +265,6 @@
     "module": null,
     "rules": [
       "C9-01"
-    ]
-  },
-  "cli-output-block-heuristic": {
-    "kind": "unimplemented",
-    "module": null,
-    "rules": [
-      "CLI-09"
     ]
   },
   "cli-placeholder-heuristic": {

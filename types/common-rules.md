@@ -89,9 +89,13 @@ Work through these in order. Stop at the first "No" and fix it before continuing
 
 Every rule follows this format:
 
-> **Rule:** The rule, stated in one sentence.
-> **Why:** The rationale (what breaks without it, or what it enables).
-> **Exception:** When the rule does not apply.
+```markdown
+**Rule:** The rule, stated in one sentence.
+**Why:** The rationale (what breaks without it, or what it enables).
+**Exception:** When the rule does not apply.
+```
+
+The format is shown in a fenced block because it is a specification rather than a callout. Written as a blockquote it read as three callouts using three invented labels, which is a tier-1 C2-11 violation of the very rule set it introduces.
 
 ---
 
@@ -183,12 +187,6 @@ Every rule follows this format:
 
 ---
 
-**Rule:** The only valid callout labels are `Warning`, `Note`, `Tip`, and `Additional Resources`. Do not invent other labels such as `Important`, `Attention`, or `Caution`.
-**Why:** A fixed, small set of labels lets readers learn what each one means and react consistently. Ad hoc labels dilute that signal and read as informal.
-**Exception:** None. Map the intended severity onto the closest existing label instead of adding a new one (a caveat the reader must not miss is `Warning`, not `Important`).
-
----
-
 **Rule:** When a list of values is maintained externally (a live registry, an API response, or a build artifact), include a Note stating the authoritative source and any known constraints (such as a value that applies to one region only).
 **Why:** A list copied from an external source becomes stale without notice. Readers who trust an incomplete or out-of-date list ship broken code. Citing the source gives the reader a path to the current truth. Special-case constraints discovered at read time prevent runtime errors that would otherwise appear only in troubleshooting.
 **Exception:** If the doc already states explicitly that the list is illustrative and not exhaustive, and the authoritative source is linked inline, a separate Note is not required.
@@ -213,9 +211,9 @@ Every rule follows this format:
 
 **How to judge a borderline case:** ask whether the paragraphs answer one question or several. Several means bolded lead-ins, because the reader arrives at each fact separately. One means connectives, because the reader needs the logic and a label would freeze the break in the wrong place. The permitted connectives are subordinating conjunctions that carry logic. The conversational discourse markers C3-15 bans ("That said", "either way", "One caveat:", "When in doubt:") are still banned here, and reaching for one is a sign the paragraph order is wrong rather than the opener.
 
-**Rule:** A callout must use one of exactly four labels: Warning, Note, Tip, or Additional Resource.
-**Why:** An open-ended label set forces every reader to guess what a given label implies about severity.
-**Exception:** None.
+**Rule:** A callout uses one of four labels: `Warning`, `Note`, `Tip`, or `Additional Resource`. Do not invent another label such as `Important`, `Attention`, or `Caution`. The `Additional Resource` label takes the plural, `Additional Resources`, when the callout carries two or more links. AR-06 owns that agreement, so this rule governs only which words may appear. An API reference usage guide adds one label, `Before you begin`, which UG-09 requires on that page and on no other.
+**Why:** A fixed, small set of labels lets readers learn what each one means and react consistently. Ad hoc labels dilute that signal and read as informal, and an open-ended set forces every reader to guess what a given label implies about severity.
+**Exception:** None on the label set. Map the intended severity onto the closest existing label. A caveat the reader must not miss is `Warning`, not `Important`.
 
 ---
 
@@ -232,6 +230,12 @@ Every rule follows this format:
 **Rule:** A link label names its destination. It does not describe the act of following the link ("here", "read more"), and it does not promise a page other than the one it resolves to.
 **Why:** A label that resolves but misdescribes costs a reader more than a 404 does, because a 404 says something is wrong and a wrong page does not. A screen reader user tabbing between links hears only the labels, so "here, here, this page" gives them no way to choose. The same rule catches a label a bulk edit has broken into fragments, which is how 20 links shipped after a punctuation pass moved a bracket across a label boundary.
 **Exception:** A label may use different words for the same thing: "Slot props" over a page titled "Data-carrying slots" names the concept while the title names the shape, and both are right. A product noun used mid-sentence is not an opaque label: "a multi-type [Reference](...) field" gets its subject from the sentence.
+
+---
+
+**Rule:** Every table row carries the same number of cells as its header row, and every cell's emphasis markers, parentheses and brackets close within that cell.
+**Why:** A row that has lost or gained a cell renders with its values under the wrong columns, and a cell whose punctuation opens without closing renders text the author never wrote. Both survive a Markdown round trip unchanged, so no stability check can see them. A punctuation pass moved a closing parenthesis across a cell boundary in 19 rows of this corpus and the damage reached the published site.
+**Exception:** A pipe that is part of a cell's content is written as `\|` or wrapped in backticks, and is then not a cell separator. A blank leading header cell is correct in a comparison table whose first column holds the row labels, so it is only reported when no other header cell is labelled either.
 
 ---
 

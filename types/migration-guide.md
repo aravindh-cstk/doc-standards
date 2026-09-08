@@ -28,9 +28,11 @@ Apply the rules in `common-rules.md` (B1, B2, C1-C7) alongside this file. The C8
 
 Every rule follows this format:
 
-> **Rule:** The rule, stated in one sentence.
-> **Why:** The rationale, what breaks without it, or what it enables.
-> **Exception:** When the rule does not apply.
+```markdown
+**Rule:** The rule, stated in one sentence.
+**Why:** The rationale, what breaks without it, or what it enables.
+**Exception:** When the rule does not apply.
+```
 
 ---
 

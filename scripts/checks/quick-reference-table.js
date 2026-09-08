@@ -2,8 +2,32 @@
 
 const { makeFinding } = require('../lib/report');
 
+/**
+ * The three-column shape the Section Definitions in types/common-rules.md
+ * describe: Use Case, Section, Key Call.
+ */
 const QUICK_REFERENCE_COLUMNS = ['use case', 'section', 'key call'];
+
+/**
+ * Per-type overrides, because a type file overrides common-rules.md for its own
+ * type. cli-module-reference is the one type whose Quick Reference has a
+ * different job: MOD2 asks for an index mapping each module or command to its
+ * section anchor, not a task-to-call map. Applying the generic triple to it
+ * reported a tier-1 C2-04 on a table built exactly to its own template, which
+ * is the one shape that cannot be wrong.
+ *
+ * The Section column stays required here, because the anchor requirement is
+ * what C2-04 actually states and MOD2 asks for the same thing.
+ */
+const QUICK_REFERENCE_COLUMNS_BY_TYPE = {
+  'cli-module-reference': ['section'],
+};
+
 const QUICK_DECISION_COLUMNS = ['approach', 'key configuration value', 'reason'];
+
+function quickReferenceColumnsFor(docType) {
+  return QUICK_REFERENCE_COLUMNS_BY_TYPE[docType] || QUICK_REFERENCE_COLUMNS;
+}
 
 function normalizeHeader(cell) {
   return cell.trim().toLowerCase();
@@ -70,9 +94,9 @@ function checkColumns(doc, sectionName, expectedColumns, ruleId, requireSectionA
 }
 
 /** Tier 1: Quick Reference and Quick Decision Guide tables have their required columns, Quick Reference Section cells link to an anchor. */
-function checkQuickReferenceTable(doc) {
+function checkQuickReferenceTable(doc, docType) {
   return [
-    ...checkColumns(doc, 'Quick Reference', QUICK_REFERENCE_COLUMNS, 'C2-04', true),
+    ...checkColumns(doc, 'Quick Reference', quickReferenceColumnsFor(docType), 'C2-04', true),
     ...checkColumns(doc, 'Quick Decision Guide', QUICK_DECISION_COLUMNS, 'C1-02', false),
   ];
 }

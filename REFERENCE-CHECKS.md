@@ -8,14 +8,14 @@ Every entry in `scripts/data/check-sources.json`, which maps a `checkId` to the 
 implements it and the rules it addresses. For the architecture these modules sit in, read the
 Toolchain section of [README.md](README.md). For rule text, read [REFERENCE-RULES.md](REFERENCE-RULES.md).
 
-The map holds **86 entries**, of which 21 have no module behind them.
+The map holds **85 entries**, of which 20 have no module behind them.
 
 ## Counts by kind
 
 | Kind | Entries | What it means |
 | --- | --- | --- |
 | `structural` | 39 | Parses the document model and reports on shape, order or completeness. |
-| `unimplemented` | 21 | Registered with no module behind it. The rule is stated and tiered, but nothing enforces it. |
+| `unimplemented` | 20 | Registered with no module behind it. The rule is stated and tiered, but nothing enforces it. |
 | `regex` | 16 | Matches a named pattern against prose, outside code fences. |
 | `wordlist` | 8 | Matches entries from a JSON data file, so the rule widens by data rather than by code. |
 | `candidate` | 2 | Emits a tier-3 candidate for human or judge adjudication rather than a finding. |
@@ -50,7 +50,7 @@ legitimately share one emitted finding, so the two lists do not have to match on
 | `banned-phrases` | wordlist | `checks/banned-phrases.js` | B1-10, B2-09, C3-01, C3-03, C3-15, C8-01, C8-02, C8-03, C8-04, C8-05, C8-06, C8-08, CLI-16 | `data/banned-phrases/*.json` | none |
 | `bare-links` | structural | `checks/next-steps-links.js` | B2-08, C1-06, RS1-04 | none | `BARE_LINK_SECTIONS` |
 | `callout-frequency` | structural | `checks/heuristic-flags.js` | B1-08, B2-04, C2-05, C5-01, C5-03 | none | none |
-| `callout-taxonomy` | structural | `checks/callout-taxonomy.js` | C2-11 | none | `CALLOUT_RE`, `VALID_LABELS` |
+| `callout-taxonomy` | structural | `checks/callout-taxonomy.js` | C2-11, CLI-09 | none | `LABEL_COLON_INSIDE_RE`, `LABEL_COLON_OUTSIDE_RE`, `ALLOWED_LABELS` |
 | `cli-specific` | structural | `checks/cli-specific.js` | CLI-01, CLI-02, CLI-03, CLI-04, CLI-05, CLI-06, CLI-07 | none | none |
 | `conditional-framing` | regex | `checks/conditional-framing.js` | C3-29 | none | `IF_YOU_RE` |
 | `duplicate-links` | structural | `checks/heuristic-flags.js` | C5-04 | none | none |
@@ -108,7 +108,6 @@ nothing enforces, so a page can break them and still lint clean. Closing one is 
 | `cli-exit-code-heuristic` | CLI-15 |
 | `cli-flag-prose-heuristic` | CLI-08 |
 | `cli-mutation-statement-heuristic` | C9-01 |
-| `cli-output-block-heuristic` | CLI-09 |
 | `cli-placeholder-heuristic` | CLI-14 |
 | `cli-plugin-boundary-heuristic` | CLI-18 |
 | `cli-scope-statement-heuristic` | CLI-12 |

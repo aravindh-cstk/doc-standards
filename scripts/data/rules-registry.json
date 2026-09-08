@@ -702,7 +702,7 @@
       "all"
     ],
     "rule": "Every table row carries the same number of cells as its header row, and every cell's emphasis markers, parentheses and brackets close within that cell.",
-    "why": "A row that has lost or gained a cell renders with its values under the wrong columns, and a cell whose punctuation opens without closing renders text the author never wrote. Both survive a Markdown round trip unchanged, so no stability check can see them. A punctuation pass over this corpus moved a closing parenthesis across a cell boundary in 19 rows and the damage reached the published site.",
+    "why": "A row that has lost or gained a cell renders with its values under the wrong columns, and a cell whose punctuation opens without closing renders text the author never wrote. Both survive a Markdown round trip unchanged, so no stability check can see them. A punctuation pass moved a closing parenthesis across a cell boundary in 19 rows of this corpus and the damage reached the published site.",
     "exception": "A pipe that is part of a cell's content is written as \"\\|\" or wrapped in backticks, and is then not a cell separator. A blank leading header cell is correct in a comparison table whose first column holds the row labels, so it is only reported when no other header cell is labelled either.",
     "tier": 1,
     "checkId": "table-integrity"
@@ -713,9 +713,9 @@
     "docTypes": [
       "all"
     ],
-    "rule": "A callout must use one of exactly four labels: Warning, Note, Tip, or Additional Resource.",
-    "why": "An open-ended label set forces every reader to guess what a given label implies about severity.",
-    "exception": "None.",
+    "rule": "A callout uses one of four labels: Warning, Note, Tip, or Additional Resource. Do not invent another label such as Important, Attention, or Caution. The Additional Resource label takes the plural, Additional Resources, when the callout carries two or more links. AR-06 owns that agreement, so this rule governs only which words may appear. An API reference usage guide adds one label, Before you begin, which UG-09 requires on that page and on no other.",
+    "why": "A fixed, small set of labels lets readers learn what each one means and react consistently. Ad hoc labels dilute that signal and read as informal, and an open-ended set forces every reader to guess what a given label implies about severity.",
+    "exception": "None on the label set. Map the intended severity onto the closest existing label. A caveat the reader must not miss is Warning, not Important.",
     "tier": 1,
     "checkId": "callout-taxonomy"
   },
@@ -754,6 +754,18 @@
     "exception": "A label may use different words for the same thing: \"Slot props\" over a page titled \"Data-carrying slots\" names the concept while the title names the shape, and both are right. A product noun used mid-sentence is not an opaque label: \"a multi-type [Reference](...) field\" gets its subject from the sentence.",
     "tier": 1,
     "checkId": "link-label-fidelity"
+  },
+  {
+    "id": "C2-15",
+    "source": "types/common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "When a bolded lead-in label introduces more than one distinct fact, or a condition with multiple branches, format the content as a bullet list under that label, nesting a sub-bullet for each branch, rather than one prose paragraph.",
+    "why": "A paragraph that bundles a condition together with its outcomes forces the reader to reread to map each outcome to its trigger. Nested bullets make each branch and its outcome visible without rereading.",
+    "exception": "When the label introduces a single fact with no sub-parts or branches, one prose sentence is correct. Do not force a one-fact note into a list.",
+    "tier": 3,
+    "checkId": null
   },
   {
     "id": "C3-01",
@@ -1991,7 +2003,7 @@
     "why": "The corpus splits 218 against 82, so the majority form is established and the minority form is drift rather than a competing convention. The four permitted labels are the closed set in common-rules.md.",
     "exception": "None.",
     "tier": 2,
-    "checkId": "cli-output-block-heuristic"
+    "checkId": "callout-taxonomy"
   },
   {
     "id": "CLI-10",
