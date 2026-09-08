@@ -4,9 +4,9 @@
 /**
  * Regenerates data/section-order.json and data/section-matrix.json from the
  * doc-standards markdown source files. Re-run this manually whenever the
- * "## Section Order" tables in doc-standards/*.md or section-matrix.md change.
- * lint-doc.js never parses these markdown files at runtime, it only reads
- * the generated JSON.
+ * "## Section Order" tables in types/*.md, cli-templates/*.md, or
+ * types/section-matrix.md change. lint-doc.js never parses these markdown
+ * files at runtime, it only reads the generated JSON.
  */
 
 const fs = require('fs');
@@ -17,14 +17,14 @@ const STANDARDS_DIR = path.join(__dirname, '..', '..');
 const DATA_DIR = path.join(__dirname, '..', 'data');
 
 const TYPE_FILES = {
-  'conceptual-guide': 'conceptual-guide.md',
-  'feature-doc': 'feature-doc.md',
-  'how-to-guide': 'how-to-guide.md',
-  'setup-guide': 'setup-guide.md',
-  'kickstarter': 'kickstarter.md',
-  'migration-guide': 'migration-guide.md',
-  'getting-started': 'getting-started.md',
-  'chapter-index': 'chapter-index.md',
+  'conceptual-guide': 'types/conceptual-guide.md',
+  'feature-doc': 'types/feature-doc.md',
+  'how-to-guide': 'types/how-to-guide.md',
+  'setup-guide': 'types/setup-guide.md',
+  'kickstarter': 'types/kickstarter.md',
+  'migration-guide': 'types/migration-guide.md',
+  'getting-started': 'types/getting-started.md',
+  'chapter-index': 'types/chapter-index.md',
   'cli-command-reference': 'cli-templates/cli-command-reference.md',
   'cli-task-runbook': 'cli-templates/cli-task-runbook.md',
   'cli-module-reference': 'cli-templates/cli-module-reference.md',
@@ -64,7 +64,7 @@ function buildSectionOrder() {
 }
 
 function buildSectionMatrix() {
-  const filePath = path.join(STANDARDS_DIR, 'section-matrix.md');
+  const filePath = path.join(STANDARDS_DIR, 'types', 'section-matrix.md');
   const source = fs.readFileSync(filePath, 'utf8');
   const doc = parseMarkdown(source);
   const table = doc.tables[0];

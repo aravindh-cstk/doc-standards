@@ -1,8 +1,8 @@
 # CLI Common Rules: All CLI Doc Types
 
-`sdk-templates/common-rules.md` applies in full to every CLI doc. This file adds the rules that are specific to the CLI, and overrides the SDK rules where the CLI's rendering platform or command surface makes a stricter rule necessary.
+`types/common-rules.md` applies in full to every CLI doc. This file adds the rules that are specific to the CLI, and overrides the SDK rules where the CLI's rendering platform or command surface makes a stricter rule necessary.
 
-Read this file alongside `sdk-templates/common-rules.md` and the per-type file for the doc you are writing: `cli-command-reference.md`, `cli-task-runbook.md`, or `cli-module-reference.md`.
+Read this file alongside `types/common-rules.md` and the per-type file for the doc you are writing: `cli-command-reference.md`, `cli-task-runbook.md`, or `cli-module-reference.md`.
 
 **Scope.** These rules apply to any doc whose subject is the Contentstack CLI, regardless of which template it follows. A CLI doc typed `migration-guide`, `feature-doc`, or `setup-guide` is still a CLI doc, and CLI-C1 in particular binds on it.
 
@@ -134,7 +134,7 @@ Each rule below records the split measured across the 82 published CLI docs, so 
 
 **Rule:** Write user-supplied values as `<UPPER_SNAKE_CASE>`. Do not use `<<double_angle>>`.
 
-**Why:** The corpus is split almost exactly evenly, 41 against 40, so this has never been decided and both forms appear in sibling docs. Single angle brackets with upper snake case is the form C4 already mandates in `sdk-templates/common-rules.md`, so the CLI follows the product-wide convention rather than inventing a second one.
+**Why:** The corpus is split almost exactly evenly, 41 against 40, so this has never been decided and both forms appear in sibling docs. Single angle brackets with upper snake case is the form C4 already mandates in `types/common-rules.md`, so the CLI follows the product-wide convention rather than inventing a second one.
 
 **Exception:** None. A literal value that is the point of the example, per C4, is not a placeholder and needs no brackets.
 
@@ -144,7 +144,7 @@ Each rule below records the split measured across the 82 published CLI docs, so 
 
 **Rule:** Write `> **Note:**`, not `> **Note**:`.
 
-**Why:** The corpus splits 218 against 82, so the majority form is already established and the minority form is drift rather than a competing convention. The four permitted labels are the closed set from `sdk-templates/common-rules.md`: `Warning`, `Note`, `Tip`, `Additional Resource`.
+**Why:** The corpus splits 218 against 82, so the majority form is already established and the minority form is drift rather than a competing convention. The four permitted labels are the closed set from `types/common-rules.md`: `Warning`, `Note`, `Tip`, `Additional Resource`.
 
 **Exception:** None.
 
@@ -174,7 +174,7 @@ Each rule below records the split measured across the 82 published CLI docs, so 
 
 **Rule:** Any claim that a flag, command, or behavior was added, renamed, or removed in a given version cites `changelog/`, and names the version the claim applies to.
 
-**Why:** This is the CLI instance of the verified-claims rule in `sdk-templates/common-rules.md`. It matters more here than elsewhere because the CLI's public surface moved substantially at 2.0.0: short flags were removed across six plugins, `--api-version` was dropped from two bulk commands, and tsgen's `--token-alias` became `--alias`. A doc that describes a flag GA removed reads as authoritative and sends the reader to a command that fails.
+**Why:** This is the CLI instance of the verified-claims rule in `types/common-rules.md`. It matters more here than elsewhere because the CLI's public surface moved substantially at 2.0.0: short flags were removed across six plugins, `--api-version` was dropped from two bulk commands, and tsgen's `--token-alias` became `--alias`. A doc that describes a flag GA removed reads as authoritative and sends the reader to a command that fails.
 
 `changelog/` is the source of record, not `package.json` in a local clone, which can sit behind the released version.
 

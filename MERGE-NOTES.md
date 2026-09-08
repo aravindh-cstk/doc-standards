@@ -214,6 +214,10 @@ Two guards here exist because of that history and matter when a rule is added:
 
 Anyone syncing this repo back into a working copy inherits both. A working copy that keeps the old literal test will keep generating collisions.
 
+### Current layout
+
+The narrative above names files as they were called at each point in the merge, which is not always where they live today. As of 2026-09-08, the nine SDK doc-type rule files (`common-rules.md` and the eight per-type templates, plus `section-matrix.md`, `chapter-index.md` and `writing-guide-agent-skills.md`) moved from the repo root into `types/`, matching the sibling folders `api-ref/` and `cli-templates/`. A mention of `common-rules.md` or `section-matrix.md` elsewhere in this file means `types/common-rules.md` and `types/section-matrix.md` today.
+
 ## A note on style
 
-Every file in this folder, including this one, avoids em dashes, en dashes, and semicolons in prose, per the no-dash rule in `common-rules.md` C3. Several of the original five copies (especially the older, smaller revisions) used dashes and semicolons throughout. Those were rewritten for internal consistency during the merge. This is a wording change only, not a content change.
+Every file in this folder, including this one, avoids em dashes, en dashes, and semicolons in prose, per the no-dash rule in `types/common-rules.md` C3. Several of the original five copies (especially the older, smaller revisions) used dashes and semicolons throughout. Those were rewritten for internal consistency during the merge. This is a wording change only, not a content change.

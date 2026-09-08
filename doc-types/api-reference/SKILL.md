@@ -1,6 +1,6 @@
 ---
 name: api-reference-docs
-description: Rules and linter for SDK class/method API reference pages (a class page plus one page per method, each with a parameter table, Validation, Behavior, and Example sections). Load this instead of the general doc-standards templates when the doc being written or audited is this shape. For every other doc type (conceptual guide, feature doc, getting started, how-to, kickstarter, migration guide, setup guide), use the repo root's common-rules.md and matching template instead.
+description: Rules and linter for SDK class/method API reference pages (a class page plus one page per method, each with a parameter table, Validation, Behavior, and Example sections). Load this instead of the general doc-standards templates when the doc being written or audited is this shape. For every other doc type (conceptual guide, feature doc, getting started, how-to, kickstarter, migration guide, setup guide), use types/common-rules.md and the matching template in types/ instead.
 ---
 
 # API reference docs
@@ -20,8 +20,8 @@ navigation tables (Class Overview and Task Index) are its own, which is why the 
 separately from the `AR-*` ones.
 
 If the doc is prose organized around a task or a concept instead (a guide, a getting-started walkthrough,
-a migration path, a setup procedure), it is not this doc type. Use the repo root's `common-rules.md`
-plus the matching root-level template (`conceptual-guide.md`, `feature-doc.md`, `getting-started.md`,
+a migration path, a setup procedure), it is not this doc type. Use `types/common-rules.md`
+plus the matching template in `types/` (`conceptual-guide.md`, `feature-doc.md`, `getting-started.md`,
 `how-to-guide.md`, `kickstarter.md`, `migration-guide.md`, or `setup-guide.md`) and lint with the
 root `scripts/lint-doc.js`.
 
@@ -47,7 +47,7 @@ live in the shared tree:
 Everything that is not about this doc type's structure comes from the root and applies unchanged:
 banned phrases, the no-dash rule, passive voice, metaphors, periphrasis, sentence concision, numeric
 error codes as inline code, embedded questions, bolding a retry count, and every other entry in the
-root `common-rules.md`.
+`types/common-rules.md`.
 
 `lint-api-ref.js` exists as a separate runner because `detectDocType` in `lint-doc.js` classifies a
 method page as a conceptual guide, which floods the report with missing-Overview findings. It reuses
@@ -55,7 +55,7 @@ the root `scripts/checks/*.js` content checks directly and drops the eight that 
 this shape. The reason for each exclusion is recorded in a comment at the top of that file.
 
 If you want to add a rule here that is really about wording or tone rather than this doc type's
-structure, it belongs in the root `common-rules.md` instead, so every doc type benefits from it.
+structure, it belongs in the `types/common-rules.md` instead, so every doc type benefits from it.
 
 To add a structural rule, compute the next free ID rather than guessing it:
 

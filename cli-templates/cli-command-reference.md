@@ -2,7 +2,7 @@
 
 A CLI command reference documents the command surface of one plugin or one namespace: what each command does, its flags, and its output. The reader arrives knowing a command name and needs to find it without reading prose.
 
-Apply `sdk-templates/common-rules.md` (B1, B2, C1-C9) and `cli-common-rules.md` (CLI-C1 to CLI-C14) alongside this file.
+Apply `types/common-rules.md` (B1, B2, C1-C9) and `cli-common-rules.md` (CLI-C1 to CLI-C14) alongside this file.
 
 ---
 
