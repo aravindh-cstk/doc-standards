@@ -56,7 +56,7 @@
     },
     {
       "order": "10",
-      "section": "Next Steps",
+      "section": "Next Steps or See also",
       "required": "Required",
       "purpose": "Links to what comes after, each with a description"
     }
@@ -112,7 +112,7 @@
     },
     {
       "order": "9",
-      "section": "Next Steps",
+      "section": "Next Steps or See also",
       "required": "Required",
       "purpose": "Links to what comes after, each with a description"
     }
@@ -168,7 +168,7 @@
     },
     {
       "order": "9",
-      "section": "Next Steps",
+      "section": "Next Steps or See also",
       "required": "Required",
       "purpose": "Links to what comes after, each with a description"
     }
@@ -224,7 +224,7 @@
     },
     {
       "order": "9",
-      "section": "Next Steps",
+      "section": "Next Steps or See also",
       "required": "Required",
       "purpose": "Links to what the developer builds or configures next"
     }
@@ -280,7 +280,7 @@
     },
     {
       "order": "9",
-      "section": "Next Steps",
+      "section": "Next Steps or See also",
       "required": "Required",
       "purpose": "Links to the conceptual guide, feature docs, or how-to guides the developer should read next"
     }
@@ -348,7 +348,7 @@
     },
     {
       "order": "11",
-      "section": "Next Steps",
+      "section": "Next Steps or See also",
       "required": "Required",
       "purpose": "Links to SDK changelog, official migration references, and related docs"
     }
@@ -398,9 +398,47 @@
     },
     {
       "order": "8",
-      "section": "Next Steps",
+      "section": "Next Steps or See also",
       "required": "Required",
       "purpose": "3–5 links to the most logical reads after Quick Start, each with a one-sentence description"
+    }
+  ],
+  "chapter-index": [
+    {
+      "order": "1",
+      "section": "SEO front matter (title, description, URL)",
+      "required": "Required",
+      "purpose": "Machine-readable metadata for search and indexing"
+    },
+    {
+      "order": "2",
+      "section": "Page title",
+      "required": "Required",
+      "purpose": "The chapter's name, not a sentence"
+    },
+    {
+      "order": "3",
+      "section": "Overview",
+      "required": "Required",
+      "purpose": "1-2 sentences: what this chapter covers and who needs it. No preamble before it"
+    },
+    {
+      "order": "4",
+      "section": "On this chapter",
+      "required": "Required",
+      "purpose": "Every page in the chapter, each as a link plus one sentence saying what it holds. Grouped under sub-headings when the chapter has more than six pages"
+    },
+    {
+      "order": "5",
+      "section": "Continue",
+      "required": "Optional",
+      "purpose": "The chapter a reader goes to next, with the reason. Omitted on a terminal chapter"
+    },
+    {
+      "order": "6",
+      "section": "See also",
+      "required": "Required",
+      "purpose": "Links out of the chapter: back to the docs home, and to chapters that share its subject"
     }
   ],
   "cli-command-reference": [

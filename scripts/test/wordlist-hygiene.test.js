@@ -187,3 +187,44 @@ test('no two rules claim the same literal phrase', () => {
   }
   assert.deepEqual(problems, [], problems.join('\n'));
 });
+
+// ---------------------------------------------------------------------------
+// Negated minimizers (added after three meaning inversions shipped)
+// ---------------------------------------------------------------------------
+
+const { checkBannedPhrases: checkBanned } = require('../checks/banned-phrases');
+
+const oneLine = (line) => ({ bodyStartLine: 1, totalLines: 1, lines: [line], inFenceMask: { 1: false } });
+const justHits = (line) => checkBanned(oneLine(line)).filter((f) => /"just"/.test(f.message)).length;
+
+/**
+ * "not just X" means "not only X", so dropping the word reverses the sentence.
+ * Three lines shipped that way in a live pass before this was caught:
+ *
+ *   "so you see all iterations, not just one"  ->  "not one"
+ *   "needs to differ per region (not just the content)"  ->  "(not the content)"
+ *
+ * The corpus holds 33 "not just", 1 "never just" and 1 "doesn't just", and
+ * every one is correct English the rule must leave alone.
+ */
+test('"not just" is not a minimizer', () => {
+  assert.equal(justHits('Toggle Preview Mode so you see all iterations, not just one.'), 0);
+});
+
+test('"never just" and "doesn\'t just" are not minimizers', () => {
+  assert.equal(justHits('The binder never just flattens the value.'), 0);
+  assert.equal(justHits("It doesn't just render the node, it resolves the binding first."), 0);
+});
+
+test('a bare minimizer is still a finding', () => {
+  assert.equal(justHits('Expand the entry you just pinned.'), 1);
+  assert.equal(justHits('This is just a placeholder value.'), 1);
+});
+
+/**
+ * The lookbehind must not swallow a legitimate "just" that merely follows a
+ * negation earlier in the sentence.
+ */
+test('a negation elsewhere in the line does not exempt the minimizer', () => {
+  assert.equal(justHits('It is not a page, so just drop the entry there.'), 1);
+});

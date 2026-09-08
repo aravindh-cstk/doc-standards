@@ -148,3 +148,94 @@ test('C3-18 exempts exposes and discovers by rule text, not only by pattern', ()
     assert.ok(rule.exception.includes(term), `the C3-18 exception must name "${term}"`);
   }
 });
+
+// ---------------------------------------------------------------------------
+// The human-subject veto (added after 288 false positives on the corpus)
+// ---------------------------------------------------------------------------
+
+const { hasHumanSubject, clauseBefore, HUMAN_SUBJECT_RE } = require('../checks/anthropomorphism');
+
+/** Minimal DocModel stand-in, one body line, never inside a fence. */
+function oneLine(line) {
+  return { bodyStartLine: 1, totalLines: 1, lines: [line], inFenceMask: { 1: false } };
+}
+
+const countFor = (line) => checkAnthropomorphism(oneLine(line)).length;
+
+/**
+ * Each of these was a finding. The exclusion was written as a one-word
+ * lookbehind in the data file, `(?<!\byou )\bwants?\b`, which cannot see past
+ * anything sitting between the subject and the verb.
+ */
+test('a contraction between the subject and the verb does not hide the subject', () => {
+  assert.equal(countFor("Once you're comfortable with editing, you'll want to know:"), 0);
+});
+
+test('a modal between the subject and the verb does not hide the subject', () => {
+  assert.equal(countFor('you may want to override the default.'), 0);
+});
+
+test('an adverb between the subject and the verb does not hide the subject', () => {
+  assert.equal(countFor('You often want a slot here.'), 0);
+});
+
+/**
+ * Coordination shares a subject: one "you", two verbs. Cutting the clause at
+ * "or" leaves "want to" with nothing in it, so the window extends back past the
+ * conjunction until it finds a window that could hold a subject.
+ */
+test('a coordinated second verb inherits the subject of the first', () => {
+  assert.equal(countFor('If you also code, or want to understand the mechanics, read on.'), 0);
+});
+
+/**
+ * The lookbehind knew only "you" and "model". Every other human subject in the
+ * corpus was invisible to it.
+ */
+test('a role other than the reader is still a human subject', () => {
+  assert.equal(countFor('- Marketing sees the component as a drag-and-drop tile.'), 0);
+  assert.equal(countFor('Engineering decides which props marketing can override.'), 0);
+  assert.equal(countFor('We decide the precedence at build time.'), 0);
+  assert.equal(countFor('Sales learns these from a Solutions Consultant.'), 0);
+});
+
+// --- What the veto must NOT swallow -----------------------------------------
+
+/**
+ * The reason the window is one clause and not the whole line. This line
+ * addresses the reader and still gives the SDK a mind, and a line-wide search
+ * for "you" would clear it.
+ */
+test('a human subject in one clause does not clear a component subject in the next', () => {
+  assert.equal(countFor('You configure the SDK, and the SDK knows the region.'), 1);
+});
+
+test('a component subject after a comma is still a finding', () => {
+  assert.equal(countFor('The runtime reads the cache, then decides which entry to serve.'), 1);
+});
+
+test('the original violations still fire', () => {
+  assert.equal(countFor('A disabled profile advertises zero tools.'), 1);
+  assert.equal(countFor('The URL decides which profile loads.'), 1);
+  assert.equal(countFor('Studio wants a locale on every embedded entry.'), 1);
+  assert.equal(countFor('The loader refuses a payload that renders wrong.'), 1);
+});
+
+// --- The pieces in isolation -------------------------------------------------
+
+test('clauseBefore returns the flagged verb own clause, not the whole line', () => {
+  const line = 'You configure the SDK, and the SDK knows the region.';
+  assert.equal(clauseBefore(line, line.indexOf('knows')).trim(), 'the SDK');
+});
+
+test('hasHumanSubject is scoped to the clause', () => {
+  const line = 'You configure the SDK, and the SDK knows the region.';
+  assert.equal(hasHumanSubject(line, line.indexOf('knows')), false);
+  assert.equal(hasHumanSubject('you may want to override', 'you may '.length), true);
+});
+
+test('the human-subject list covers every role the corpus uses as a subject', () => {
+  for (const word of ['you', 'we', 'they', 'users', 'authors', 'marketing', 'engineering', 'sales', 'teams', 'customers']) {
+    assert.ok(HUMAN_SUBJECT_RE.test(word), `"${word}" is a subject this corpus uses`);
+  }
+});

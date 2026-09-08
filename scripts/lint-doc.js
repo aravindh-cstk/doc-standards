@@ -36,6 +36,8 @@ const { checkParagraphCohesion } = require('./checks/paragraph-cohesion');
 const { checkNoEmoji } = require('./checks/no-emoji');
 const { checkNoItalics } = require('./checks/no-italics');
 const { checkTableIntegrity } = require('./checks/table-integrity');
+const { checkTypographicSubstitutes } = require('./checks/typographic-substitutes');
+const { exemptRulesFor } = require('./lib/corpus-class');
 const { checkCalloutTaxonomy } = require('./checks/callout-taxonomy');
 const { checkConditionalFraming } = require('./checks/conditional-framing');
 const { checkHeadingUniformity } = require('./checks/heading-uniformity');
@@ -51,6 +53,7 @@ const VALID_TYPES = [
   'kickstarter',
   'migration-guide',
   'getting-started',
+  'chapter-index',
   'cli-command-reference',
   'cli-task-runbook',
   'cli-module-reference',
@@ -89,15 +92,14 @@ const CHECKS = [
   checkNoEmoji,
   checkNoItalics,
   checkTableIntegrity,
+  checkTypographicSubstitutes,
   checkCalloutTaxonomy,
   checkConditionalFraming,
   checkHeadingUniformity,
   checkInternalLinkForm,
   checkUnverifiedClaims,
-  // Returns nothing unless docType is one of the four cli-* types, so the CLI
-  // rules cannot fire on an SDK page. CLI Project also sniffed CLI-ness from
-  // page content; that heuristic is not carried over, so a CLI page has to be
-  // typed with --type or detected by detectDocType to be checked.
+  // Returns nothing unless the doc is a CLI doc, by type or by isCliDoc above,
+  // so the CLI rules cannot fire on an SDK page.
   checkCliSpecific,
 ];
 
@@ -252,8 +254,33 @@ function docIsCli(doc) {
   return isCliDoc(doc, titleHeading ? titleHeading.text.toLowerCase() : '');
 }
 
+/**
+ * A doc type declared in front matter, or null.
+ *
+ * The heuristic below reads titles and section names, and on the Studio corpus
+ * it answered `conceptual-guide` for 327 of 355 files. That is not a tuning
+ * problem, it is circular: the `setup-guide` branch tests text taken from the
+ * document's own Overview section, so a page with no Overview can never be
+ * classified as a setup guide, and `conceptual-guide` then requires an
+ * Overview. C1-01 was manufacturing most of its own 709 findings.
+ *
+ * So a declared `doc_type:` wins. classify-doc-type.js is what writes it, one
+ * `claude -p` call per page, and its verdicts are reviewable and cached. The
+ * heuristic stays for a file nobody has classified yet, because a wrong guess
+ * is still better than no section checking at all.
+ */
+function docTypeFromFrontMatter(doc) {
+  const declared = doc.frontMatter && doc.frontMatter.keys && doc.frontMatter.keys.doc_type;
+  if (!declared) return null;
+  const value = String(declared).trim().replace(/^["']|["']$/g, '');
+  return VALID_TYPES.includes(value) ? value : null;
+}
+
 /** Doc-type detection, mirroring ~/.claude/commands/revamp-doc.md Step 1's priority order. */
 function detectDocType(doc) {
+  const declared = docTypeFromFrontMatter(doc);
+  if (declared) return declared;
+
   const overviewSection = doc.findSection(['Overview']);
   const overviewText = overviewSection ? doc.sectionOwnBody(overviewSection).toLowerCase() : '';
   const titleHeading = doc.headings.find((h) => h.level === 1);
@@ -329,6 +356,12 @@ function lintFile(filePath, { type = null, tiers = [1, 2], label = null } = {}) 
       );
     }
   }
+  // Page-shape rules do not apply to a file whose shape something else owns.
+  // The class, the exempt rule ids, and the measurements behind both live in
+  // data/corpus-classes.json. Prose rules are never exempt anywhere.
+  const exempt = exemptRulesFor(filePath);
+  if (exempt.size) findings = findings.filter((f) => !exempt.has(f.ruleId));
+
   findings = findings.filter((f) => tiers.includes(f.tier));
 
   return buildReport(label || filePath, docType, findings);

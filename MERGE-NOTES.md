@@ -131,6 +131,46 @@ Every test in the suite passed a doc type explicitly, so none of them could see 
 
 The suite is 443 tests, all passing, none skipped. `section-order.json` and `section-matrix.json` regenerate identically from the rule files here.
 
+## 2026-09-07 (evening): Studio's second round
+
+Studio kept moving while the merges above were landing, and gained 20 new files plus edits to sixteen more. All of it is now in.
+
+New tooling: `classify-doc-type.js` with `lib/corpus-class.js` and `data/corpus-classes.json`, `judge-reading.js`, `sync-mirror.js`, `lib/markdown-links.js`, the `fix/fix-acronym-first-use.js` and `fix/fix-anthropomorphism.js` passes, and a `chapter-index` doc type with its own rule file.
+
+Three new rules, and all three collided again, because Studio still carries the literal-based `nextRuleId` test rather than the invariant one committed here:
+
+| Studio | Here | Rule |
+|---|---|---|
+| `C2-10` | `C2-13` | a stated count matches the structure it counts |
+| `C2-11` | `C2-14` | a link label names its destination |
+| `C3-25` | `C3-30` | do not use a typographic character in place of a word |
+
+Two changes here are worth knowing about because they fix findings that were mostly self-inflicted:
+
+- **An Overview may be a lede.** `C1-01` looked for an H2 literally named "Overview". One page in 272 carries that heading, while 170 published pages open with a lede paragraph under the H1, and all 170 were reported as missing an Overview. Either form now satisfies the rule. An H1 followed straight by an H2 is still a finding, which is one page. `checks/section-structure.js` here is the two-way merge of that change with the `isCli` work from CLI Project.
+- **A declared `doc_type:` in front matter wins over the heuristic.** The heuristic answered `conceptual-guide` for 327 of 355 files, and it was circular: the `setup-guide` branch reads text from the doc's own Overview, so a page without one could never be classified as a setup guide, and `conceptual-guide` then requires an Overview. `C1-01` was manufacturing most of its own findings.
+
+Also merged: the "Next Steps or See also" row rename across the seven rule files, with `lib/section-index.js` splitting an "A or B" row so both headings satisfy it (the corpus has 10 pages with one and 157 with the other), a `Chapter Index` column in `section-matrix.md`, and rule-id exemptions by corpus class so page-shape rules stop firing on files that are never published.
+
+`typographic-substitutes` is wired into `lint-doc.js`. `numeric-consistency` and `link-label-fidelity` are not, in either copy: both produce judge candidates rather than findings, and wiring them is a decision about the tier-3 pipeline rather than part of this merge.
+
+Two things carry Studio's own corpus paths and a consuming project overrides them: `data/corpus-classes.json` keys its patterns on `studio-docs/`, and `sync-mirror.js` hardwires that repo's `skills/src` to `docs/prompts` mirror, so it is kept as a script but left out of `npm run gate`.
+
+The suite is 605 tests, all passing, none skipped.
+
+## Maintaining this
+
+Every `doc-standards` copy on the machine is now merged into this repo, and the copies are the reason four rounds of renumbering were needed: each one hand-counted its next rule id and they collided every time.
+
+So this repo is the only copy that should be edited. Point agents and skills at it rather than at a per-project copy, and treat the copies under `Studio/`, `MCP Profile Hub/`, `SDK Project/`, `CLI Project/` and `Region Endpoints/` as read-only history.
+
+Two guards here exist because of that history and matter when a rule is added:
+
+- `npm run probe -- --next-id=<PREFIX>` computes the next free id. Do not hand-count one.
+- `test/gap-loop.test.js` asserts `nextRuleId` returns one past the highest number a prefix holds, stated as an invariant rather than a literal. A literal has to be edited every time a rule lands, and that edit is indistinguishable from renumbering the new rule to make the old literal pass, which is the bug itself.
+
+Anyone syncing this repo back into a working copy inherits both. A working copy that keeps the old literal test will keep generating collisions.
+
 ## A note on style
 
 Every file in this folder, including this one, avoids em dashes, en dashes, and semicolons in prose, per the no-dash rule in `common-rules.md` C3. Several of the original five copies (especially the older, smaller revisions) used dashes and semicolons throughout. Those were rewritten for internal consistency during the merge. This is a wording change only, not a content change.

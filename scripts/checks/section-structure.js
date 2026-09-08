@@ -38,6 +38,49 @@ function forbiddenSectionsFor(docType, isCli) {
   return forbidden;
 }
 
+/**
+ * The prose between the H1 and the first H2, which is how this corpus writes an
+ * Overview.
+ *
+ * The section matrix asks every doc type for an Overview, and C1-01 looked for
+ * an H2 literally named "Overview". Exactly ONE page in 272 carries that
+ * heading. The other 170 published pages open with a lede paragraph directly
+ * under the H1, and all 170 were reported as missing an Overview.
+ *
+ * The corpus is right and the check was wrong. The matrix says what an Overview
+ * is FOR: "1-3 sentences, what the reader will learn from this doc and who it
+ * is for". A lede does that. A heading reading "Overview" immediately under an
+ * H1 that already names the page is a label for something the reader can
+ * already see, and adding 170 of them would make every page slightly worse.
+ *
+ * So the requirement is satisfied by either form. What it is NOT satisfied by
+ * is an H1 followed straight by an H2, which leaves a reader no way to tell
+ * whether they are on the right page. Measured: exactly one page in this corpus
+ * does that, and it is a real finding.
+ *
+ * 40 characters rather than zero, because a one-word line under an H1 is a
+ * stray fragment rather than an orientation. Three sentences is roughly 150,
+ * so this is well below the floor the matrix describes and still catches the
+ * empty case.
+ */
+const LEDE_MIN_CHARS = 40;
+
+function hasLede(doc) {
+  const h1 = doc.headings.find((h) => h.level === 1);
+  if (!h1) return false;
+  const next = doc.headings.find((h) => h.line > h1.line && h.level <= 2);
+  const end = next ? next.line - 1 : doc.totalLines;
+  if (end <= h1.line) return false;
+
+  const text = doc
+    .proseLineNumbers(h1.line + 1, end)
+    .map((l) => doc.lines[l - 1])
+    .filter((l) => l.trim() && !l.trim().startsWith('<!--'))
+    .join(' ')
+    .trim();
+  return text.length >= LEDE_MIN_CHARS;
+}
+
 /** Tier 1: required section presence, order vs section-order.json, and forbidden sections for the doc type. */
 function checkSectionStructure(doc, docType, isCli) {
   const findings = [];
@@ -57,6 +100,7 @@ function checkSectionStructure(doc, docType, isCli) {
 
   const comparison = compareOrder(topLevelText, docType);
   if (comparison) {
+    const ledePresent = hasLede(doc);
     for (const row of comparison.missing) {
       // A CLI doc typed under a product-wide template (setup-guide, feature-doc,
       // migration-guide) still has Troubleshooting Required in that template's
@@ -64,6 +108,10 @@ function checkSectionStructure(doc, docType, isCli) {
       // whatever type it is checked against, so this one section is skipped here
       // rather than reported as missing.
       if (isCli && row.section.toLowerCase() === 'troubleshooting') continue;
+      // An Overview written as a lede under the H1 satisfies the requirement.
+      // See hasLede above for why the corpus writes it that way and why that is
+      // the better shape.
+      if (ledePresent && /^overview\b/i.test(row.section.trim())) continue;
       findings.push(
         makeFinding({
           tier: 1,
@@ -132,4 +180,4 @@ function checkSectionStructure(doc, docType, isCli) {
   return findings;
 }
 
-module.exports = { checkSectionStructure };
+module.exports = { checkSectionStructure, hasLede, LEDE_MIN_CHARS };

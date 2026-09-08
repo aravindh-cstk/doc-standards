@@ -78,6 +78,99 @@ function isImperativeOpener(stripped, index) {
 }
 
 /**
+ * Nouns that name a person or a role, so a verb whose subject is one of them is
+ * a person acting rather than a component being given a mind.
+ *
+ * The rule's own labels already claim this exclusion. "want (non-reader
+ * subject)", "see (non-model subject)" and "decide (non-reader subject)" were
+ * each written as a one-word lookbehind in the data file: `(?<!\byou )\bwants?\b`.
+ * A fixed-width lookbehind of one word cannot do the job, and the corpus proves
+ * it twice over.
+ *
+ * It sees no other subject. "we", "they", "users", "marketing", "engineering",
+ * "sales", "authors", "teams" and "customers" were all missing, so "Marketing
+ * sees the component as a drag-and-drop tile" was a finding.
+ *
+ * And it cannot see past anything sitting between the subject and the verb. All
+ * four of these were findings, on a corpus where the rule was believed clean:
+ *
+ *   "you'll want to know"           a contraction
+ *   "you may want to override"      a modal
+ *   "you often want a slot here"    an adverb
+ *   "if you also code, or want to"  a coordinated second verb
+ *
+ * Measured: 287 of 438 flagged lines in docs/ mention a person or a role. Not
+ * every one of those is a false positive, because a line can address the reader
+ * and still anthropomorphise a component in a later clause, which is why the
+ * check below is scoped to the flagged verb's own clause rather than to the
+ * whole line.
+ */
+const HUMAN_SUBJECT_RE =
+  /\b(?:you|your|yours|we|our|us|they|their|them|i|me|my|users?|readers?|authors?|editors?|marketers?|marketing|engineers?|engineering|developers?|designers?|teams?|attendees?|sales|customers?|clients?|people|someone|somebody|anyone|anybody|everyone|reviewers?|maintainers?|admins?|administrators?|operators?|consultants?|stakeholders?|colleagues?|partners?|managers?|owners?)\b/i;
+
+/**
+ * Where the flagged verb's clause begins.
+ *
+ * Scanning the whole line for a human noun is too broad: "You configure the
+ * SDK, and the SDK knows the region" addresses the reader and still gives the
+ * SDK a mind. Scanning one word back is too narrow, which is the bug this
+ * replaces. A clause is the unit that carries a subject, so the window runs
+ * from the nearest clause boundary to the verb.
+ *
+ * The boundary set is the punctuation and the conjunctions that start a new
+ * clause in this corpus. "that" and "which" are included because a relative
+ * clause takes its own subject from the noun before it, and that noun is inside
+ * the window either way.
+ */
+const CLAUSE_BOUNDARY_RE = /[.!?;:,()\[\]|]|\b(?:and|or|but|so|then|because|while|whereas|although|though|unless|until)\b/gi;
+
+/**
+ * Words that cannot be a subject, so a clause window containing only these has
+ * no subject of its own and takes one from the clause before it.
+ *
+ * This is what coordination does in English. "If you also code, or want to
+ * understand the mechanics" is one subject and two verbs, so cutting the window
+ * at "or" leaves "want to" with nothing in it and the reader is still the one
+ * wanting. Cutting at a comma or a full stop is different: those start a clause
+ * that brings its own subject, which is why "You configure the SDK, and the SDK
+ * knows the region" must still be a finding.
+ */
+const NON_SUBJECT_RE =
+  /^(?:\s|\b(?:to|also|often|still|already|now|then|just|only|really|simply|always|never|sometimes|usually|likely|probably|may|might|can|could|will|would|shall|should|must|do|does|did|not|no|never|even|rather|instead|therefore|thus|and|or|but|then|so)\b|[*_`"'(),-])*$/i;
+
+function clauseBefore(stripped, index) {
+  const boundaries = [];
+  CLAUSE_BOUNDARY_RE.lastIndex = 0;
+  for (const m of stripped.slice(0, index).matchAll(CLAUSE_BOUNDARY_RE)) {
+    boundaries.push({ end: m.index + m[0].length, text: m[0] });
+  }
+
+  // Walk boundaries from the nearest backwards, extending past any that leaves
+  // a window with no possible subject in it.
+  for (let i = boundaries.length - 1; i >= 0; i--) {
+    const window = stripped.slice(boundaries[i].end, index);
+    if (!NON_SUBJECT_RE.test(window)) return window;
+    // The conjunction that opened this window is itself skippable, so the next
+    // iteration sees the clause before it rather than the conjunction plus an
+    // empty tail. Without this, ", or want to" stops at the comma with "or" in
+    // the window and the shared subject two words earlier is never reached.
+  }
+  return stripped.slice(0, index);
+}
+
+/**
+ * True when the flagged verb's own clause names a person.
+ *
+ * Applied to every entry, the way PROTOCOL_CONTEXT_RE already is, rather than
+ * as a lookbehind per pattern. A veto that has to be repeated in ten patterns
+ * drifts the moment one of them is edited, which is exactly what happened: two
+ * entries carry a `(?<!\bmodel )` guard and the other eight do not.
+ */
+function hasHumanSubject(stripped, index) {
+  return HUMAN_SUBJECT_RE.test(clauseBefore(stripped, index));
+}
+
+/**
  * Named separately from the message so the note stays one sentence in the
  * report while the registry keeps the full allowlist. The report prints this
  * under "Possible false positive" on every tier-2 finding, which lib/report.js
@@ -124,6 +217,7 @@ function checkAnthropomorphism(doc) {
 
       if (PROTOCOL_CONTEXT_RE.test(raw)) return;
       if (isImperativeOpener(stripped, index)) return;
+      if (hasHumanSubject(stripped, index)) return;
 
       const found = entry.phrase || entry.label || matched;
       findings.push(
@@ -145,7 +239,12 @@ function checkAnthropomorphism(doc) {
 module.exports = {
   checkAnthropomorphism,
   isImperativeOpener,
+  hasHumanSubject,
+  clauseBefore,
   PROTOCOL_CONTEXT_RE,
   MARKUP_PREFIX_RE,
+  HUMAN_SUBJECT_RE,
+  CLAUSE_BOUNDARY_RE,
+  NON_SUBJECT_RE,
   DOMAIN_VERB_NOTE,
 };

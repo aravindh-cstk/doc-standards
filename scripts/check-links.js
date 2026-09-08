@@ -20,6 +20,12 @@
  *
  *   internal  filesystem and heading-slug resolution. No network, fast enough
  *             for CI on every commit. This is 95 percent of the link surface.
+ *   labels    whether the label describes where the link goes. A target that
+ *             resolves can still be labelled "here", or labelled with the name
+ *             of a different page, and a reader following it lands somewhere
+ *             they were not promised. Costs more than a 404, because a 404 says
+ *             something is wrong. No network. Only the half that settles
+ *             mechanically runs here: the rest is judged in judge-reading.js.
  *   external  HTTP liveness for absolute URLs. Slow, flaky, needs a cache and
  *             a skiplist, so it is opt-in.
  *   cms       every `url:` front-matter value has a published entry at that
@@ -29,6 +35,7 @@
  *
  * Usage:
  *   node check-links.js <dir>...                        # internal only
+ *   node check-links.js <dir>... --layers=internal,labels
  *   node check-links.js <dir>... --layers=internal,external
  *   node check-links.js <dir>... --layers=cms --env=production
  *   node check-links.js <dir>... --format=json --out=links.json
@@ -41,6 +48,15 @@ const http = require('http');
 
 const { collectDocs } = require('./sweep-docs');
 const { slugifyVariants } = require('./lib/slugify');
+const {
+  fenceMask,
+  linksIn,
+  anchorsIn,
+  publicUrlOf,
+  isUnresolvableHost,
+  classify,
+  splitFragment,
+} = require('./lib/markdown-links');
 
 const REPO_ROOT = path.join(__dirname, '..', '..');
 const CACHE_PATH = path.join(REPO_ROOT, '.doc-review', 'link-cache.json');
@@ -49,131 +65,8 @@ const EXTERNAL_CONCURRENCY = 6;
 const EXTERNAL_TIMEOUT_MS = 15000;
 
 // ---------------------------------------------------------------------------
-// Extraction
-// ---------------------------------------------------------------------------
-
-/**
- * Fence mask, computed here rather than through DocModel because this tool
- * reads front matter too and wants the raw lines either way.
- */
-function fenceMask(lines) {
-  const mask = new Array(lines.length + 1).fill(false);
-  let inFence = false;
-  lines.forEach((line, i) => {
-    if (/^\s*(```|~~~)/.test(line.replace(/^(\s*>)+\s?/, ''))) {
-      mask[i + 1] = true;
-      inFence = !inFence;
-      return;
-    }
-    mask[i + 1] = inFence;
-  });
-  return mask;
-}
-
-/**
- * Nested-bracket-aware link pattern.
- *
- * A label can itself contain brackets, which this corpus does: one alt text is
- * `[[...slug]]`, two levels of nesting. A naive `\[([^\]]*)\]` stops at the
- * first close and misreads the target.
- */
-const LINK_RE =
-  /(!?)\[((?:[^[\]]|\[[^[\]]*\])*)\]\(([^()\s]*(?:\([^()]*\)[^()\s]*)*)\s*(?:"[^"]*")?\)/g;
-const HTML_HREF_RE = /<a\s[^>]*href\s*=\s*"([^"]*)"/gi;
-const HEADING_RE = /^ {0,3}(#{1,6})\s+(.+?)\s*#*\s*$/;
-const FRONT_URL_RE = /^url:\s*(.+)$/;
-
-/** Every link in one file, with enough context to resolve it. */
-function linksIn(file) {
-  const text = fs.readFileSync(file, 'utf8');
-  const lines = text.split('\n');
-  const mask = fenceMask(lines);
-  const out = [];
-
-  lines.forEach((line, i) => {
-    const lineNo = i + 1;
-    if (mask[lineNo]) return;
-
-    // Code spans are blanked first, because a link written inside one is
-    // example syntax rather than a link. This corpus documents markdown image
-    // syntax as `![alt](./path.png)` in a table cell and shows a hardcoded nav
-    // as `<li><a href="/deals">Deals</a></li>`. Resolving either reports a
-    // broken link against something that was never meant to resolve.
-    //
-    // Only code spans, not the full prose mask: that one blanks `](target)`
-    // itself, which is the very thing being extracted.
-    const scan = line.replace(/`[^`\n]*`/g, (m) => ' '.repeat(m.length));
-
-    LINK_RE.lastIndex = 0;
-    for (const m of scan.matchAll(LINK_RE)) {
-      out.push({ file, line: lineNo, target: m[3], label: m[2], image: m[1] === '!' });
-    }
-    HTML_HREF_RE.lastIndex = 0;
-    for (const m of scan.matchAll(HTML_HREF_RE)) {
-      out.push({ file, line: lineNo, target: m[1], label: '', image: false, html: true });
-    }
-  });
-
-  return out;
-}
-
-/** Every anchor a heading in this file can be reached by. */
-function anchorsIn(file) {
-  const lines = fs.readFileSync(file, 'utf8').split('\n');
-  const mask = fenceMask(lines);
-  const set = new Set();
-  lines.forEach((line, i) => {
-    if (mask[i + 1]) return;
-    const m = line.match(HEADING_RE);
-    if (m) for (const v of slugifyVariants(m[2])) set.add(v);
-  });
-  // Explicit anchor targets, which a heading slug cannot produce.
-  const text = lines.join('\n');
-  for (const m of text.matchAll(/<a\s[^>]*(?:name|id)\s*=\s*"([^"]*)"/gi)) set.add(m[1]);
-  for (const m of text.matchAll(/\{#([^}]+)\}/g)) set.add(m[1]);
-  return set;
-}
-
-/** The `url:` front-matter value, which is the page's public path. */
-function publicUrlOf(file) {
-  const lines = fs.readFileSync(file, 'utf8').split('\n');
-  if (lines[0].trim() !== '---') return null;
-  for (let i = 1; i < lines.length && lines[i].trim() !== '---'; i++) {
-    const m = lines[i].match(FRONT_URL_RE);
-    if (m) return m[1].trim().replace(/^["']|["']$/g, '');
-  }
-  return null;
-}
-
-// ---------------------------------------------------------------------------
 // Layer 1: internal
 // ---------------------------------------------------------------------------
-
-/**
- * Hosts that are not real hosts.
- *
- * 381 of the 417 `http(s)://` occurrences in this corpus are bare or inside a
- * code sample: `localhost:5173`, `<cma-host>`, `${req.headers.host}`. Resolving
- * them produces roughly 380 false 404s, which is more noise than the 36 real
- * absolute links are worth.
- */
-function isUnresolvableHost(url) {
-  return (
-    /localhost|127\.0\.0\.1|0\.0\.0\.0/.test(url) ||
-    /[<>]/.test(url) ||
-    /\$\{/.test(url) ||
-    /\bexample\.(com|org|net)\b/.test(url) ||
-    /\byour(site|domain|app|-)/.test(url)
-  );
-}
-
-function classify(target) {
-  if (/^https?:\/\//i.test(target)) return 'external';
-  if (/^(mailto|tel|data|javascript):/i.test(target)) return 'scheme';
-  if (target.startsWith('//')) return 'external';
-  if (target.startsWith('#')) return 'same-page';
-  return 'relative';
-}
 
 function checkInternal(files) {
   const corpus = new Set(files.map((f) => path.resolve(f)));
@@ -244,12 +137,6 @@ function checkInternal(files) {
   }
 
   return { findings, counts };
-}
-
-function splitFragment(target) {
-  const at = target.indexOf('#');
-  if (at === -1) return [target, ''];
-  return [target.slice(0, at), target.slice(at + 1)];
 }
 
 // ---------------------------------------------------------------------------
@@ -475,7 +362,7 @@ async function main() {
   const args = parseArgs(process.argv.slice(2));
   if (!args.targets.length) {
     console.error(
-      'Usage: check-links.js <dir>... [--layers=internal,external,cms] [--env=staging] [--format=text|json] [--out=file]'
+      'Usage: check-links.js <dir>... [--layers=internal,labels,external,cms] [--env=staging] [--format=text|json] [--out=file]'
     );
     process.exit(2);
   }
@@ -492,6 +379,35 @@ async function main() {
     const { findings, stats } = await checkExternal(files);
     report.layers.external = stats;
     report.findings.push(...findings.map((f) => ({ ...f, layer: 'external' })));
+  }
+  if (args.layers.includes('labels')) {
+    // The deterministic half of C2-14 only. It needs exactly the target
+    // resolution this file already does, needs no network, and settles on its
+    // own: a label with an unbalanced bracket, or one that names the act of
+    // clicking rather than the destination. The half that needs a reader lives
+    // in judge-reading.js, because a lint failure has to be an answer.
+    //
+    // Required lazily so the checks/ directory does not become a load-time
+    // dependency of a script the CMS push also runs.
+    const { collectLinkLabelCandidates } = require('./checks/link-label-fidelity');
+    const corpus = new Set(files.map((f) => path.resolve(f)));
+    const findings = [];
+    let candidates = 0;
+    for (const file of files) {
+      const r = collectLinkLabelCandidates(file, { corpus });
+      candidates += r.candidates.length;
+      findings.push(
+        ...r.findings.map((f) => ({
+          file: f.file,
+          line: f.line,
+          kind: 'misleading-label',
+          message: f.message,
+          layer: 'labels',
+        }))
+      );
+    }
+    report.layers.labels = { settled: findings.length, needJudgment: candidates };
+    report.findings.push(...findings);
   }
   if (args.layers.includes('cms')) {
     const { findings, stats } = await checkCms(files, { environment: args.environment });
@@ -515,6 +431,12 @@ async function main() {
     if (report.layers.external) {
       const s = report.layers.external;
       console.log(`external URLs      ${s.urls} distinct, ${s.checked} probed, ${s.fromCache} from cache`);
+    }
+    if (report.layers.labels) {
+      const s = report.layers.labels;
+      console.log(
+        `labels             ${s.settled} settled here, ${s.needJudgment} need a reader (npm run reading:judge)`
+      );
     }
     if (report.layers.cms) {
       const s = report.layers.cms;

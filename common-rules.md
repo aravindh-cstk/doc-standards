@@ -223,6 +223,16 @@ Every rule follows this format:
 **Why:** A paragraph blending several kinds of information forces the reader to parse prose to extract a fact they came to scan for.
 **Exception:** A short paragraph with only one or two kinds mixed, under roughly 40 words, does not need splitting.
 
+**Rule:** A stated count must match the structure it counts. "Eight deliverables", "the four steps below" and a heading that says "(13)" each have to agree with the list, table or heading run that follows.
+**Why:** A reader who trusts the number stops looking when they reach it. "Eight deliverables are mandatory" over a list of seven does more damage than saying nothing, because the reader never learns what the eighth was and has no reason to suspect one is missing. The count and the list drift the first time somebody edits one of them, and no round-trip or stability check can see it.
+**Exception:** A count that refers to the world rather than to this page is out of scope: "Studio runs in seven regions" is a fact about Contentstack, not a claim about the list beneath it. The pointing word ("below", "following", "these") is what brings a count into scope. A count over a list whose items are alternatives rather than members is also out of scope.
+
+---
+
+**Rule:** A link label names its destination. It does not describe the act of following the link ("here", "read more"), and it does not promise a page other than the one it resolves to.
+**Why:** A label that resolves but misdescribes costs a reader more than a 404 does, because a 404 says something is wrong and a wrong page does not. A screen reader user tabbing between links hears only the labels, so "here, here, this page" gives them no way to choose. The same rule catches a label a bulk edit has broken into fragments, which is how 20 links shipped after a punctuation pass moved a bracket across a label boundary.
+**Exception:** A label may use different words for the same thing: "Slot props" over a page titled "Data-carrying slots" names the concept while the title names the shape, and both are right. A product noun used mid-sentence is not an opaque label: "a multi-type [Reference](...) field" gets its subject from the sentence.
+
 ---
 
 ### C3: Language and Tone
@@ -380,6 +390,10 @@ Every rule follows this format:
 **Rule:** Rewrite conditional framing that hides a direct cause-and-effect fact as a direct declarative statement.
 **Why:** Conditional framing presents an already-true fact about the system as a hypothetical the reader must first notice.
 **Exception:** Framing genuinely conditional on the reader's own setup or choices, not on system behavior, does not need rewriting.
+
+**Rule:** Do not use a typographic character in place of the word it stands for in prose: ·, §, …, ×, ≥, ≤, ≠, ±, ≈, ∞, and the bullet characters •, ‣ and ⁃. Write the word.
+**Why:** Each stands for a different word depending on where it sits, so the reader reconstructs a relation the sentence should have stated. "§" is "section" in one line and a paragraph mark in another. A screen reader says nothing useful for "·" or "≥", and a translator has no target for either. These were declared out of scope when C3-27 was added, on the true observation that none is an emoji or an arrow, but nobody checked where they sat: 261 of them were in prose on published pages, and 116 of those were a heading separator.
+**Exception:** Code samples, code spans, link targets and HTML attribute values are out of scope, as they are for every prose rule. Box drawing characters are not covered at all: inside a fence they draw a diagram, and the fence is where they belong. The legal marks ©, ® and ™ are permitted, and so is ° in a temperature or an angle, which has no word form that reads better. Dashes belong to C3-05, not here.
 
 ---
 

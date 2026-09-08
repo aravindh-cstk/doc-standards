@@ -19,8 +19,10 @@
       "fix": "drop the qualifier and state the steps"
     },
     {
-      "phrase": "just",
-      "fix": "drop the minimizer"
+      "fix": "drop the minimizer",
+      "pattern": "(?<!\\bnot )(?<!\\bnever )(?<!n't )(?<!\\bnothing but )\\bjust\\b",
+      "label": "just",
+      "why-pattern": "\"not just X\" means \"not only X\", so dropping the word reverses the sentence. Three lines shipped that way in a live pass: \"see all iterations, not just one\" became \"not one\", and \"the layout itself needs to differ per region (not just the content)\" became \"(not the content)\". The corpus holds 33 \"not just\", 1 \"never just\" and 1 \"doesn't just\", and every one of them is correct English that this rule must leave alone."
     },
     {
       "pattern": "\\brais(e|es|ed|ing) the value\\b",

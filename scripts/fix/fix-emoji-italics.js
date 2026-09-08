@@ -2,7 +2,8 @@
 'use strict';
 
 /**
- * Fixer for the emoji and italics rules (C3-27, C3-28).
+ * Fixer for the emoji, italics and typographic-substitute rules (C3-27, C3-28,
+ * C3-30).
  *
  * Built the same way as fix-dashes.js and for the same reason: 3,100 findings
  * across 300 files is too many for one model call each. A deterministic pass
@@ -31,6 +32,23 @@
  *   node fix/fix-emoji-italics.js <file|dir>... --apply
  *   node fix/fix-emoji-italics.js <file|dir>... --apply --llm --batch=10
  *   node fix/fix-emoji-italics.js <file|dir>... --apply --rules=italics
+ *   node fix/fix-emoji-italics.js <file|dir>... --apply --llm --rules=typography
+ *
+ * After ANY --llm run over studio-docs, run `node sync-mirror.js --apply`.
+ * `skills/src/` and `docs/prompts/` hold the same 84 files and lint-skills.ts
+ * requires them byte-identical. A deterministic pass keeps that true for free.
+ * A model pass does not: it reaches docs/prompts/ at file 185 and skills/src/
+ * at file 272, rewrites the two copies of one line in two separate calls, and
+ * two calls do not have to return the same sentence.
+ *
+ * The typography family (C3-30) has almost no deterministic half, and the
+ * corpus is why. Reading all 261 prose occurrences on published pages, exactly
+ * one shape replaces itself: a middle dot with a space on each side, which is
+ * always a separator between list items and is always a comma. Every other
+ * character stands for a different word depending on where it sits. "Node >= 18"
+ * wants "or later", a schema row's "<= 256 chars" wants "at most", and a
+ * cross-reference "Page S Step 3" wants "section". Guessing between those is
+ * what the model call is for.
  */
 
 const fs = require('fs');
@@ -42,6 +60,7 @@ const { collectDocs } = require('../sweep-docs');
 const { maskProse, maskForEmphasis } = require('../lib/prose-mask');
 const { EMOJI_RE } = require('../checks/no-emoji');
 const { AST_RE, UND_RE, HTML_ITALIC_RE } = require('../checks/no-italics');
+const { BANNED_RE: TYPO_RE, HINTS: TYPO_HINTS } = require('../checks/typographic-substitutes');
 const {
   isTableRow,
   isAlignmentRow,
@@ -84,8 +103,15 @@ function hasItalics(line) {
   return AST_RE.test(m) || UND_RE.test(m) || HTML_ITALIC_RE.test(line);
 }
 
+function hasTypography(line) {
+  TYPO_RE.lastIndex = 0;
+  const found = TYPO_RE.test(maskProse(line));
+  TYPO_RE.lastIndex = 0;
+  return found;
+}
+
 function offends(line) {
-  return hasEmoji(line) || hasItalics(line);
+  return hasEmoji(line) || hasItalics(line) || hasTypography(line);
 }
 
 // ---------------------------------------------------------------------------
@@ -200,6 +226,108 @@ function dropDecorativePrefix(line) {
 }
 
 /**
+ * A middle dot with a space on each side is a separator, and a separator is a
+ * comma.
+ *
+ * The only deterministic shape in the whole typography family. Every one of the
+ * 116 prose occurrences on published pages does the same job: it joins list
+ * items that share a line. Navigation links in a blockquote, bold column names
+ * in a sentence, allowed values in a table cell, and the two halves of a
+ * workshop heading. A comma carries all four, and a screen reader reads it.
+ *
+ * The spaces are load-bearing in the pattern. A dot with no space around it is
+ * not a separator: it appears inside version strings and identifiers, and this
+ * rule must not touch those. The prose mask already excludes code spans, so
+ * this is belt and braces on a rule that edits many lines.
+ */
+function dotSeparatorToComma(line) {
+  const masked = maskProse(line);
+
+  // The dot is LOCATED in the mask, so a dot inside a code span or a link
+  // target is invisible. The span to replace is then measured on the RAW line.
+  //
+  // Measuring it on the mask is a bug that the integrity verifier caught on its
+  // first run: masking blanks a protected span to spaces of the same length, so
+  // "[`a`](a.md) · [`b`](b.md)" masks to a dot with fifteen spaces on each side.
+  // A `\s+` around the dot then swallowed both link targets, and splicing those
+  // offsets into the raw line produced "- [, [, [". The mask says WHERE, never
+  // HOW MUCH.
+  const spans = [];
+  for (let i = 0; i < masked.length; i++) {
+    if (masked[i] !== '\u00b7') continue;
+    let start = i;
+    let end = i + 1;
+    while (start > 0 && /[ \t]/.test(line[start - 1])) start -= 1;
+    while (end < line.length && /[ \t]/.test(line[end])) end += 1;
+    // A separator has whitespace on both sides and content on both sides. A
+    // dot with no space around it sits inside an identifier or a version.
+    if (start === i || end === i + 1) continue;
+    if (!/\S/.test(line.slice(0, start)) || !/\S/.test(line.slice(end))) continue;
+    spans.push({ start, end });
+  }
+  if (!spans.length) return null;
+
+  spans.sort((a, b) => b.start - a.start);
+  let out = line;
+  for (const s of spans) out = `${out.slice(0, s.start)}, ${out.slice(s.end)}`;
+  return out === line ? null : { line: out, rule: 'dot-separator-comma' };
+}
+
+/**
+ * A trailing ellipsis that ends a lead-in phrase, deleted.
+ *
+ * The commonest shape in this corpus and the one the model got wrong most
+ * often. A table header reading "You want to…" is a stem that the next column
+ * completes, and the ellipsis is typographic throat-clearing. The first model
+ * pass returned "You want to, and so on", "Goes on, and so on" and "You're
+ * starting with, and so on", which say nothing. So this shape never reaches the
+ * model.
+ *
+ * An enumeration is the shape it must NOT touch. "Hero, Card, Button…" also
+ * ends its cell, and there the ellipsis stands for members the line stopped
+ * listing, so "and so on" is right. Two or more commas before the character in
+ * the same cell is what separates them, because a lead-in is one clause and an
+ * enumeration is a list.
+ *
+ * A quoted ellipsis is left alone too. Inside quotation marks it usually
+ * reproduces what the product shows, such as a truncated entry title in a
+ * screenshot caption, and that is not prose to rewrite.
+ */
+function trailingLeadInEllipsis(line) {
+  const masked = maskProse(line);
+  const spans = [];
+
+  for (let i = 0; i < masked.length; i++) {
+    if (masked[i] !== '\u2026') continue;
+
+    // Must end its cell or its line, allowing trailing spaces before a pipe.
+    const after = line.slice(i + 1);
+    if (!/^\s*(\||$)/.test(after)) continue;
+
+    // The cell, or the line, that the character closes.
+    const cellStart = line.lastIndexOf('|', i) + 1;
+    const cell = line.slice(cellStart, i);
+
+    // Inside quotation marks: product output, not prose.
+    if ((cell.match(/"/g) || []).length % 2 === 1) continue;
+    // An enumeration, not a lead-in.
+    if ((cell.match(/,/g) || []).length >= 2) continue;
+    // Nothing to lead in from.
+    if (!/\S/.test(cell)) continue;
+
+    let start = i;
+    while (start > cellStart && /\s/.test(line[start - 1])) start -= 1;
+    spans.push({ start, end: i + 1 });
+  }
+  if (!spans.length) return null;
+
+  spans.sort((a, b) => b.start - a.start);
+  let out = line;
+  for (const s of spans) out = out.slice(0, s.start) + out.slice(s.end);
+  return out === line ? null : { line: out, rule: 'trailing-lead-in-ellipsis' };
+}
+
+/**
  * Which rule belongs to which family, so `--rules=italics` can run the safe,
  * fully mechanical half on its own. Italics are decidable everywhere. Emoji
  * are not, so being able to land the italics pass separately keeps that diff
@@ -208,6 +336,7 @@ function dropDecorativePrefix(line) {
 const FAMILIES = {
   italics: [dropHtmlItalics, dropItalics],
   emoji: [dropLinkLabelArrow, statusOnlyCells, dropDecorativePrefix],
+  typography: [dotSeparatorToComma, trailingLeadInEllipsis],
 };
 
 const DETERMINISTIC = [...FAMILIES.italics, ...FAMILIES.emoji];
@@ -218,9 +347,15 @@ function rulesFor(families) {
 }
 
 /** True when `line` satisfies the families being run, not necessarily both. */
+const FAMILY_TESTS = {
+  italics: hasItalics,
+  emoji: hasEmoji,
+  typography: hasTypography,
+};
+
 function satisfiesFamilies(line, families) {
   if (!families) return !offends(line);
-  return families.every((f) => (f === 'italics' ? !hasItalics(line) : !hasEmoji(line)));
+  return families.every((f) => !(FAMILY_TESTS[f] || (() => false))(line));
 }
 
 /** Apply the deterministic rules until the line stops changing or comes clean. */
@@ -257,10 +392,11 @@ function fixDeterministic(line, families = null) {
 function buildBatchPrompt(items, priorViolation) {
   const lines = [
     'You are editing technical documentation. This doc set forbids emoji,',
-    'arrows and italics in prose.',
+    'arrows, italics, and typographic characters standing in for words, in prose.',
     '',
     `Below are ${items.length} numbered lines. Rewrite each to remove every emoji,`,
-    'arrow and italic marker, keeping the meaning the marks were carrying.',
+    'arrow, italic marker and banned typographic character, keeping the meaning',
+    'those marks were carrying.',
     '',
     'How to replace them:',
     '- An arrow stands for a different relation each time. Name the relation.',
@@ -273,6 +409,34 @@ function buildBatchPrompt(items, priorViolation) {
     '- A warning sign becomes nothing when a callout already says Warning, or',
     '  the word the row needs ("unverified", "untested").',
     '- An italic marker comes off. A quoted phrase keeps its quotation marks.',
+    '- A typographic character stands for a different word in each place it sits,',
+    '  so write the word the sentence needs:',
+    '  ·  a separator between items: use a comma, or "and"',
+    '  §  a cross-reference between a page name and a section name: use a comma.',
+    '     "[Section Slots § Slot vs Section Slot]" becomes',
+    '     "[Section Slots, Slot vs Section Slot]". Never just delete it: the two',
+    '     names run together and the label stops making sense.',
+    '  …  depends entirely on what it stands for, so read the line first:',
+    '     - A trailing lead-in that the next column or the next line completes.',
+    '       A table header "You want to…" or "Goes on…", a stem like "You would',
+    '       have to…". DELETE the character and change nothing else. It becomes',
+    '       "You want to". Do NOT write "and so on" here: the phrase is not a',
+    '       list and "You want to, and so on" says nothing.',
+    '     - Omitted members of a list that the line has begun enumerating.',
+    '       "Hero, Card, Button…" becomes "Hero, Card, Button, and so on".',
+    '     - Inside quotation marks reproducing what the product SHOWS, such as a',
+    '       truncated entry title in a screenshot caption: "Welcome to Studio…".',
+    '       LEAVE IT EXACTLY AS IT IS. It is the product output, not prose.',
+    '  ×  dimensions: write "by" ("1440 by 900")',
+    '  ≥  write "or later", "at least", or "or more"',
+    '  ≤  write "or earlier", "at most", or "or fewer"',
+    '  ≠  write "is not" or "differs from"',
+    '  •  a bullet: use a Markdown list item, or a comma in a sentence',
+    '  ±  write "plus or minus"',
+    '  ≈  write "about" or "approximately"',
+    '- A heading that reads "A · B: C" becomes "A, B: C". Do not add a second colon.',
+    '- Leave box-drawing characters alone. They draw diagrams and are not in scope.',
+    '- Leave ©, ®, ™ and ° alone. Those are legal marks and units, not decoration.',
     '',
     'Rules you must not break:',
     '- Return the COMPLETE line, from its first character to its last, including',
@@ -288,7 +452,8 @@ function buildBatchPrompt(items, priorViolation) {
     '- Keep every identifier, parameter name, flag, URL, file path and version',
     '  number byte-identical.',
     '- Do not reword anything the mark removal does not require.',
-    '- Do not introduce a new emoji, arrow, italic, em dash, en dash or semicolon.',
+    '- Do not introduce a new emoji, arrow, italic, em dash, en dash, semicolon,',
+    '  or banned typographic character.',
     '',
     'Reply with one line per input, in this exact format and nothing else:',
     '',
@@ -325,7 +490,20 @@ function preserved(text) {
 }
 
 function findViolation(text, original) {
-  if (offends(text)) return 'still contains an emoji, arrow or italic marker';
+  // An ellipsis kept because it reproduces product output is the one case where
+  // a line may legitimately come back still carrying a banned character. Only
+  // that character, only inside quotation marks, and only when the original had
+  // it there too: everything else still has to go.
+  const quotedEllipsisOnly = (s) => {
+    const stripped = s.replace(/"[^"]*\u2026[^"]*"/g, (m) => m.replace(/\u2026/g, ''));
+    return !hasTypography(stripped) && !hasEmoji(stripped) && !hasItalics(stripped);
+  };
+  if (offends(text)) {
+    const originalHadQuotedEllipsis = /"[^"]*\u2026[^"]*"/.test(original);
+    if (!(originalHadQuotedEllipsis && quotedEllipsisOnly(text))) {
+      return 'still contains an emoji, arrow, italic marker, or one of the banned typographic characters';
+    }
+  }
   if (/[—–;]/.test(maskProse(text))) return 'introduced an em dash, en dash or semicolon';
 
   for (const item of preserved(original)) {
@@ -343,6 +521,16 @@ function findViolation(text, original) {
   const styleOf = (s) => (s.match(/style\s*=\s*"[^"]*"/g) || []).join('|');
   if (styleOf(text) !== styleOf(original)) {
     return 'altered a style attribute, which is CSS and out of scope';
+  }
+
+  // Bold is not in scope for any of these three rules, and the model dropped a
+  // pair anyway: '**"SDK Not Initialized"**' came back unbolded while the
+  // section sign two clauses later was being replaced. One line in eighteen, so
+  // not systematic, but a silent emphasis change is exactly the class of damage
+  // PR #86 spent a pass undoing. A retry that names it is visible. A skip is
+  // visible. A quiet edit is not.
+  if ((text.match(/\*\*/g) || []).length !== (original.match(/\*\*/g) || []).length) {
+    return 'changed the bold markers, which none of these rules covers';
   }
 
   if (isTableRow(original)) {
@@ -526,9 +714,12 @@ module.exports = {
   dropLinkLabelArrow,
   statusOnlyCells,
   dropDecorativePrefix,
+  dotSeparatorToComma,
+  trailingLeadInEllipsis,
   findViolation,
   parseBatchReply,
   hasEmoji,
   hasItalics,
+  hasTypography,
   DECORATIVE,
 };

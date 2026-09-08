@@ -450,6 +450,17 @@
       "C9-03"
     ]
   },
+  "link-label-fidelity": {
+    "kind": "candidate",
+    "module": "checks/link-label-fidelity.js",
+    "rules": [
+      "C2-14"
+    ],
+    "patterns": [
+      "OPAQUE_LABELS",
+      "STOP_WORDS"
+    ]
+  },
   "metaphor-phrases": {
     "kind": "wordlist",
     "module": "checks/metaphor-phrases.js",
@@ -498,6 +509,19 @@
       "AST_RE",
       "UND_RE",
       "HTML_ITALIC_RE"
+    ]
+  },
+  "numeric-consistency": {
+    "kind": "candidate",
+    "module": "checks/numeric-consistency.js",
+    "rules": [
+      "C2-13"
+    ],
+    "patterns": [
+      "COUNT_RE",
+      "POINTER_RE",
+      "UNIT_NOUNS",
+      "NOT_A_NOUN"
     ]
   },
   "ordered-list-sequence": {
@@ -725,6 +749,19 @@
     "module": "checks/heuristic-flags.js",
     "rules": [
       "MIG-05"
+    ]
+  },
+  "typographic-substitutes": {
+    "kind": "regex",
+    "module": "checks/typographic-substitutes.js",
+    "rules": [
+      "C3-30"
+    ],
+    "patterns": [
+      "BANNED",
+      "BANNED_RE",
+      "ALLOWED",
+      "HINTS"
     ]
   },
   "ui-element-bold": {

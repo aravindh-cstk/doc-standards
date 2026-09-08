@@ -17,7 +17,7 @@ Apply the rules in `common-rules.md` (B1, B2, C1–C7) alongside this file.
 | 5 | Prerequisites | Required | Only the blocking items for the Quick Start path; each links to the resource that fulfills it |
 | 6 | Quick Start | Required | The single fastest path to a working outcome; time-bounded, one path only, ends with a verifiable outcome |
 | 7 | Documentation Map | Required | Navigation table organized by developer goal; the developer's map of what exists and where to go next |
-| 8 | Next Steps | Required | 3–5 links to the most logical reads after Quick Start, each with a one-sentence description |
+| 8 | Next Steps or See also | Required | 3–5 links to the most logical reads after Quick Start, each with a one-sentence description |
 
 **Governing rule:** A developer who knows what they want must be able to leave this page to the right doc in under 30 seconds. A developer who does not know what they want must have a working outcome within the time stated in the Quick Start.
 

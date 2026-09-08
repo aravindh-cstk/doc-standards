@@ -18,7 +18,7 @@ Apply the rules in `common-rules.md` (B1, B2, C1-C7) alongside this file.
 | 6 | Main Content | Required | Feature setup, configuration, and usage |
 | 7 | Theory Sections | Optional | Explanatory content, placed after working setup |
 | 8 | Troubleshooting | Required | Root cause and resolution for each known failure |
-| 9 | Next Steps | Required | Links to what comes after, each with a description |
+| 9 | Next Steps or See also | Required | Links to what comes after, each with a description |
 
 **Governing rule:** Do first, understand second, debug last. Developers act before they read theory.
 

@@ -18,7 +18,7 @@ Apply the rules in `common-rules.md` (B1, B2, C1-C7) alongside this file.
 | 6 | Main Content | Required | Clone, install, configure, run steps, each step ends with a verifiable outcome |
 | 7 | Theory Sections | Not used | Conceptual explanation belongs in linked docs, not in the kickstarter |
 | 8 | Troubleshooting | Optional | Root cause and resolution for common local-run failures |
-| 9 | Next Steps | Required | Links to the conceptual guide, feature docs, or how-to guides the developer should read next |
+| 9 | Next Steps or See also | Required | Links to the conceptual guide, feature docs, or how-to guides the developer should read next |
 
 **Governing rule:** A developer with no prior context must be able to clone, configure, and run the starter using only this doc. Every step is explicit.
 

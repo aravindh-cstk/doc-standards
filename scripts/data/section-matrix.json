@@ -10,7 +10,8 @@
     "CLI Command Reference",
     "CLI Task Runbook",
     "CLI Module Reference",
-    "CLI Plugin Guide"
+    "CLI Plugin Guide",
+    "Chapter Index"
   ],
   "matrix": {
     "SEO front matter": {
@@ -24,7 +25,8 @@
       "CLI Command Reference": "Required",
       "CLI Task Runbook": "Required",
       "CLI Module Reference": "Required",
-      "CLI Plugin Guide": "Required"
+      "CLI Plugin Guide": "Required",
+      "Chapter Index": "Required"
     },
     "Overview": {
       "Get Started Guide": "Required (2-3 sentences only)",
@@ -37,7 +39,8 @@
       "CLI Command Reference": "Required",
       "CLI Task Runbook": "Required",
       "CLI Module Reference": "Required",
-      "CLI Plugin Guide": "Required"
+      "CLI Plugin Guide": "Required",
+      "Chapter Index": "Required (1-2 sentences only)"
     },
     "Role-Based Routing Table": {
       "Get Started Guide": "Required",
@@ -50,7 +53,8 @@
       "CLI Command Reference": "Not used",
       "CLI Task Runbook": "Not used",
       "CLI Module Reference": "Not used",
-      "CLI Plugin Guide": "Not used"
+      "CLI Plugin Guide": "Not used",
+      "Chapter Index": "Not used"
     },
     "Quick Decision Guide": {
       "Get Started Guide": "Not used",
@@ -63,7 +67,8 @@
       "CLI Command Reference": "Not used",
       "CLI Task Runbook": "If the operation has more than one path",
       "CLI Module Reference": "Not used",
-      "CLI Plugin Guide": "Not used"
+      "CLI Plugin Guide": "Not used",
+      "Chapter Index": "Not used"
     },
     "Quick Reference": {
       "Get Started Guide": "Not used",
@@ -76,7 +81,8 @@
       "CLI Command Reference": "If the doc covers 3 or more commands",
       "CLI Task Runbook": "Not used",
       "CLI Module Reference": "Required",
-      "CLI Plugin Guide": "Not used"
+      "CLI Plugin Guide": "Not used",
+      "Chapter Index": "Not used"
     },
     "Prerequisites": {
       "Get Started Guide": "Required (Quick Start path only)",
@@ -89,7 +95,8 @@
       "CLI Command Reference": "Required",
       "CLI Task Runbook": "Required",
       "CLI Module Reference": "Not used",
-      "CLI Plugin Guide": "Required"
+      "CLI Plugin Guide": "Required",
+      "Chapter Index": "Not used"
     },
     "Quick Start": {
       "Get Started Guide": "Required",
@@ -102,7 +109,8 @@
       "CLI Command Reference": "Not used",
       "CLI Task Runbook": "Not used",
       "CLI Module Reference": "Not used",
-      "CLI Plugin Guide": "Not used"
+      "CLI Plugin Guide": "Not used",
+      "Chapter Index": "Not used"
     },
     "Documentation Map": {
       "Get Started Guide": "Required",
@@ -115,7 +123,8 @@
       "CLI Command Reference": "Not used",
       "CLI Task Runbook": "Not used",
       "CLI Module Reference": "Not used",
-      "CLI Plugin Guide": "Not used"
+      "CLI Plugin Guide": "Not used",
+      "Chapter Index": "Not used"
     },
     "Installation": {
       "Get Started Guide": "Not used",
@@ -128,7 +137,8 @@
       "CLI Command Reference": "Required if the plugin is not bundled",
       "CLI Task Runbook": "Not used",
       "CLI Module Reference": "Not used",
-      "CLI Plugin Guide": "Not used"
+      "CLI Plugin Guide": "Not used",
+      "Chapter Index": "Not used"
     },
     "Type Mapping Reference": {
       "Get Started Guide": "Not used",
@@ -141,7 +151,8 @@
       "CLI Command Reference": "Not used",
       "CLI Task Runbook": "Not used",
       "CLI Module Reference": "Not used",
-      "CLI Plugin Guide": "Not used"
+      "CLI Plugin Guide": "Not used",
+      "Chapter Index": "Not used"
     },
     "Main Content": {
       "Get Started Guide": "Not used",
@@ -154,7 +165,8 @@
       "CLI Command Reference": "Not used",
       "CLI Task Runbook": "Not used",
       "CLI Module Reference": "Required",
-      "CLI Plugin Guide": "Not used"
+      "CLI Plugin Guide": "Not used",
+      "Chapter Index": "Not used"
     },
     "Commands": {
       "Get Started Guide": "Not used",
@@ -167,7 +179,8 @@
       "CLI Command Reference": "Required",
       "CLI Task Runbook": "Not used",
       "CLI Module Reference": "Not used",
-      "CLI Plugin Guide": "Not used"
+      "CLI Plugin Guide": "Not used",
+      "Chapter Index": "Not used"
     },
     "Steps for Execution": {
       "Get Started Guide": "Not used",
@@ -180,7 +193,8 @@
       "CLI Command Reference": "Not used",
       "CLI Task Runbook": "Required",
       "CLI Module Reference": "Not used",
-      "CLI Plugin Guide": "Not used"
+      "CLI Plugin Guide": "Not used",
+      "Chapter Index": "Not used"
     },
     "Theory Sections": {
       "Get Started Guide": "Not used",
@@ -193,7 +207,8 @@
       "CLI Command Reference": "Not used",
       "CLI Task Runbook": "Not used",
       "CLI Module Reference": "Not used",
-      "CLI Plugin Guide": "Not used"
+      "CLI Plugin Guide": "Not used",
+      "Chapter Index": "Not used"
     },
     "Gradual Migration": {
       "Get Started Guide": "Not used",
@@ -206,7 +221,8 @@
       "CLI Command Reference": "Not used",
       "CLI Task Runbook": "Not used",
       "CLI Module Reference": "Not used",
-      "CLI Plugin Guide": "Not used"
+      "CLI Plugin Guide": "Not used",
+      "Chapter Index": "Not used"
     },
     "Troubleshooting": {
       "Get Started Guide": "Not used",
@@ -219,7 +235,8 @@
       "CLI Command Reference": "Not used",
       "CLI Task Runbook": "Not used",
       "CLI Module Reference": "Not used",
-      "CLI Plugin Guide": "Not used"
+      "CLI Plugin Guide": "Not used",
+      "Chapter Index": "Not used"
     },
     "Limitations": {
       "Get Started Guide": "Not used",
@@ -232,7 +249,8 @@
       "CLI Command Reference": "Required",
       "CLI Task Runbook": "Required",
       "CLI Module Reference": "Not used",
-      "CLI Plugin Guide": "Recommended"
+      "CLI Plugin Guide": "Recommended",
+      "Chapter Index": "Not used"
     },
     "Pre-Upgrade Checklist": {
       "Get Started Guide": "Not used",
@@ -245,9 +263,10 @@
       "CLI Command Reference": "Not used",
       "CLI Task Runbook": "Not used",
       "CLI Module Reference": "Not used",
-      "CLI Plugin Guide": "Not used"
+      "CLI Plugin Guide": "Not used",
+      "Chapter Index": "Not used"
     },
-    "Next Steps": {
+    "Next Steps or See also": {
       "Get Started Guide": "Required",
       "Conceptual Guide": "Required",
       "Feature Doc": "Required",
@@ -258,7 +277,8 @@
       "CLI Command Reference": "Recommended",
       "CLI Task Runbook": "Recommended",
       "CLI Module Reference": "Recommended",
-      "CLI Plugin Guide": "Required"
+      "CLI Plugin Guide": "Required",
+      "Chapter Index": "Not used"
     },
     "Plugin Structure": {
       "Get Started Guide": "Not used",
@@ -271,7 +291,8 @@
       "CLI Command Reference": "Not used",
       "CLI Task Runbook": "Not used",
       "CLI Module Reference": "Not used",
-      "CLI Plugin Guide": "Required"
+      "CLI Plugin Guide": "Required",
+      "Chapter Index": "Not used"
     },
     "Creating a Plugin": {
       "Get Started Guide": "Not used",
@@ -284,7 +305,8 @@
       "CLI Command Reference": "Not used",
       "CLI Task Runbook": "Not used",
       "CLI Module Reference": "Not used",
-      "CLI Plugin Guide": "Required"
+      "CLI Plugin Guide": "Required",
+      "Chapter Index": "Not used"
     },
     "Plugin Registration and Linking": {
       "Get Started Guide": "Not used",
@@ -297,7 +319,8 @@
       "CLI Command Reference": "Not used",
       "CLI Task Runbook": "Not used",
       "CLI Module Reference": "Not used",
-      "CLI Plugin Guide": "Required"
+      "CLI Plugin Guide": "Required",
+      "Chapter Index": "Not used"
     },
     "Commands and Flags": {
       "Get Started Guide": "Not used",
@@ -310,7 +333,8 @@
       "CLI Command Reference": "Not used",
       "CLI Task Runbook": "Not used",
       "CLI Module Reference": "Not used",
-      "CLI Plugin Guide": "Required"
+      "CLI Plugin Guide": "Required",
+      "Chapter Index": "Not used"
     },
     "Testing": {
       "Get Started Guide": "Not used",
@@ -323,7 +347,8 @@
       "CLI Command Reference": "Not used",
       "CLI Task Runbook": "Not used",
       "CLI Module Reference": "Not used",
-      "CLI Plugin Guide": "Recommended"
+      "CLI Plugin Guide": "Recommended",
+      "Chapter Index": "Not used"
     },
     "Publishing": {
       "Get Started Guide": "Not used",
@@ -336,7 +361,8 @@
       "CLI Command Reference": "Not used",
       "CLI Task Runbook": "Not used",
       "CLI Module Reference": "Not used",
-      "CLI Plugin Guide": "Required"
+      "CLI Plugin Guide": "Required",
+      "Chapter Index": "Not used"
     },
     "Managing Installed Plugins": {
       "Get Started Guide": "Not used",
@@ -349,7 +375,8 @@
       "CLI Command Reference": "Not used",
       "CLI Task Runbook": "Not used",
       "CLI Module Reference": "Not used",
-      "CLI Plugin Guide": "Recommended"
+      "CLI Plugin Guide": "Recommended",
+      "Chapter Index": "Not used"
     },
     "Available Methods and Utilities": {
       "Get Started Guide": "Not used",
@@ -362,7 +389,8 @@
       "CLI Command Reference": "Not used",
       "CLI Task Runbook": "Not used",
       "CLI Module Reference": "Not used",
-      "CLI Plugin Guide": "Optional"
+      "CLI Plugin Guide": "Optional",
+      "Chapter Index": "Not used"
     }
   }
 }

@@ -18,7 +18,7 @@ Apply the rules in `common-rules.md` (B1, B2, C1-C7) alongside this file.
 | 6 | Main Content | Required | Step-by-step procedure |
 | 7 | Theory Sections | Rare | Only if a concept is required to complete the task and cannot be linked externally |
 | 8 | Troubleshooting | Optional | Root cause and resolution for failure modes specific to this task |
-| 9 | Next Steps | Required | Links to what comes after, each with a description |
+| 9 | Next Steps or See also | Required | Links to what comes after, each with a description |
 
 **Governing rule:** Every step is actionable. The developer must be able to complete the task by following the steps without leaving the page.
 

@@ -24,6 +24,7 @@ const TYPE_FILES = {
   'kickstarter': 'kickstarter.md',
   'migration-guide': 'migration-guide.md',
   'getting-started': 'getting-started.md',
+  'chapter-index': 'chapter-index.md',
   'cli-command-reference': 'cli-templates/cli-command-reference.md',
   'cli-task-runbook': 'cli-templates/cli-task-runbook.md',
   'cli-module-reference': 'cli-templates/cli-module-reference.md',

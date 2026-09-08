@@ -1,0 +1,62 @@
+{
+  "_why": [
+    "Not every markdown file in these repos is a documentation page, and the rules",
+    "that describe a page's SHAPE were firing on files whose shape something else",
+    "already owns.",
+    "",
+    "Measured on 2026-09-07 across studio-docs: 3,789 tier-1 findings, of which",
+    "2,558 were on files that are never published. 254 of those were FM-01 asking",
+    "for SEO front matter on an agent skill file, and 366 were C1-01 asking for an",
+    "Overview and a Next Steps section on the same files. docs/sync-plan.json lists",
+    "170 published pages. Nothing under docs/prompts/ or skills/ is among them.",
+    "",
+    "docs/prompts/ and skills/src/ are byte-identical mirrors of one another, so",
+    "every finding there is also counted twice. studio-docs/scripts/lint-skills.ts",
+    "owns their shape: name-only front matter, a `## When to use` body section, a",
+    "token budget, and mirror parity. Asking them for `seo_title` contradicts that",
+    "linter rather than adding a check nobody was doing.",
+    "",
+    "This is a scoping statement, not a suppression list. Every PROSE rule still",
+    "applies everywhere: casual language, marketing phrasing, buzzwords,",
+    "anthropomorphism, emoji, italics, typographic substitutes. A skill file is",
+    "read by a model and by the humans who maintain it, and both are better served",
+    "by house prose. Only the rules that assert 'a published documentation page",
+    "looks like this' are scoped, and each one is listed by id below so that",
+    "widening the exemption takes an edit here rather than a quiet default.",
+    "",
+    "Order matters: the first pattern whose prefix matches wins, so put the most",
+    "specific path first."
+  ],
+
+  "classes": {
+    "published": {
+      "what": "A page that ships to the docs site. docs/sync-plan.json is the authority on which ones those are. Every rule applies.",
+      "exemptRules": []
+    },
+    "agent-prompt": {
+      "what": "A skill or prompt file read by an agent, not by a reader on the docs site. studio-docs/scripts/lint-skills.ts owns its front matter, its section shape and its mirror parity.",
+      "exemptRules": ["FM-01", "FM-02", "C1-01", "C1-02", "MIG-02", "C2-04"]
+    },
+    "internal": {
+      "what": "Working notes, research and contributor guidance that live in the repo and never publish. No SEO front matter, and no obligation to the section matrix.",
+      "exemptRules": ["FM-01", "FM-02", "C1-01", "C1-02", "MIG-02", "C2-04"]
+    }
+  },
+
+  "patterns": [
+    { "prefix": "studio-docs/docs/prompts/", "class": "agent-prompt" },
+    { "prefix": "studio-docs/skills/", "class": "agent-prompt" },
+    { "prefix": "studio-docs/docs/_research/", "class": "internal" },
+    { "prefix": "studio-docs/docs/_decompose-verification/", "class": "internal" },
+    { "prefix": "studio-docs/docs/adr/", "class": "internal" },
+    { "prefix": "studio-docs/docs/assets/", "class": "internal" },
+    { "prefix": "studio-docs/docs/AGENTS.md", "class": "internal" },
+    { "prefix": "studio-docs/AGENTS.md", "class": "internal" },
+    { "prefix": "studio-docs/CLAUDE.md", "class": "internal" },
+    { "prefix": "studio-docs/README.md", "class": "internal" },
+    { "prefix": "doc-standards/", "class": "internal" },
+    { "prefix": "studio-docs/docs/", "class": "published" }
+  ],
+
+  "default": "internal"
+}

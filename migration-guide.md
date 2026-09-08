@@ -20,7 +20,7 @@ Apply the rules in `common-rules.md` (B1, B2, C1-C7) alongside this file. The C8
 | 8 | Gradual Migration | Required if a partial migration path exists | Adapter or compatibility pattern for incremental porting |
 | 9 | Troubleshooting | Required | Root cause and resolution for each known failure introduced by the migration |
 | 10 | Pre-Upgrade Checklist | Required | Ordered checklist of every change the developer must make before removing the old dependency |
-| 11 | Next Steps | Required | Links to SDK changelog, official migration references, and related docs |
+| 11 | Next Steps or See also | Required | Links to SDK changelog, official migration references, and related docs |
 
 ---
 

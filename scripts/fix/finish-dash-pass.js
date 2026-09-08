@@ -30,7 +30,7 @@ const { execFileSync } = require('child_process');
 
 const SCRIPTS = path.join(__dirname, '..');
 const PROJECT_ROOT = path.join(SCRIPTS, '..', '..');
-const CORPUS = path.join(PROJECT_ROOT, 'docs');
+const CORPUS = path.join(PROJECT_ROOT, 'studio-docs', 'docs');
 
 function run(label, cmd, args, opts = {}) {
   console.log(`\n${'='.repeat(70)}`);

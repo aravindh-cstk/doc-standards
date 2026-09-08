@@ -330,6 +330,7 @@ function main() {
 if (require.main === module) main();
 
 module.exports = {
+  blockquoteProblems,
   checkFile,
   fences,
   words,
