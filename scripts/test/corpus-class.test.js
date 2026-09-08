@@ -4,7 +4,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const path = require('path');
 
-const { classify, exemptRulesFor, isExempt, config, REPO_ROOT } = require('../lib/corpus-class');
+const { classify, exemptRulesFor, isExempt, config, REPO_ROOT, toProjectRelative, STANDARDS_DIR } = require('../lib/corpus-class');
 const registry = require('../data/rules-registry.json');
 
 const p = (...parts) => path.join(REPO_ROOT, ...parts);
@@ -44,8 +44,8 @@ test('architecture decision records classify as internal', () => {
  * makes every prompt a published page and puts 2,558 findings back.
  */
 test('a more specific prefix wins over the general docs prefix', () => {
-  const prompts = config.patterns.findIndex((x) => x.prefix === 'studio-docs/docs/prompts/');
-  const general = config.patterns.findIndex((x) => x.prefix === 'studio-docs/docs/');
+  const prompts = config.patterns.findIndex((x) => x.prefix === 'docs/prompts/');
+  const general = config.patterns.findIndex((x) => x.prefix === 'docs/');
   assert.ok(prompts < general, 'the prompts pattern must come before the general docs pattern');
 });
 
@@ -111,5 +111,42 @@ test('every exempt rule id is in the registry', () => {
 test('every class carries a "what" explaining who owns the shape instead', () => {
   for (const [name, entry] of Object.entries(config.classes)) {
     assert.ok(entry.what && entry.what.trim(), `class "${name}" has no explanation`);
+  }
+});
+
+// --- The patterns must hold for any project, not just the one they came from -
+
+/**
+ * The regression this guards is the reason the patterns were rewritten. They
+ * used to be prefixed `studio-docs/`, so a file at the same path in any other
+ * project matched nothing, fell to the default, and quietly lost its
+ * exemptions. Sharing this repo was enough to break it.
+ */
+test('the same layout classifies the same way in any project', () => {
+  for (const project of ['studio-docs', 'mcp-docs', 'cli-docs', 'anything-at-all']) {
+    assert.equal(classify(p(project, 'docs/90-reference/index.md')), 'published', project);
+    assert.equal(classify(p(project, 'docs/prompts/install.md')), 'agent-prompt', project);
+    assert.equal(classify(p(project, 'skills/src/install.md')), 'agent-prompt', project);
+    assert.equal(classify(p(project, 'docs/_research/notes.md')), 'internal', project);
+    assert.equal(classify(p(project, 'CLAUDE.md')), 'internal', project);
+  }
+});
+
+test('the standards tree itself is internal, whatever the directory is called', () => {
+  assert.equal(classify(p(STANDARDS_DIR, 'common-rules.md')), 'internal');
+  assert.equal(classify(p(STANDARDS_DIR, 'scripts/lint-doc.js')), 'internal');
+});
+
+test('toProjectRelative drops the project directory and refuses paths outside it', () => {
+  assert.equal(toProjectRelative(p('some-project', 'docs/a.md')), 'docs/a.md');
+  assert.equal(toProjectRelative('/tmp/outside.md'), null);
+});
+
+test('no pattern carries a project directory name', () => {
+  for (const { prefix } of config.patterns) {
+    assert.ok(
+      !/^[a-z0-9-]+-docs\//.test(prefix),
+      `pattern "${prefix}" is scoped to one project, so it matches nothing anywhere else`
+    );
   }
 });

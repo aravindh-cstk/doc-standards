@@ -34,7 +34,8 @@
  *   node fix/fix-emoji-italics.js <file|dir>... --apply --rules=italics
  *   node fix/fix-emoji-italics.js <file|dir>... --apply --llm --rules=typography
  *
- * After ANY --llm run over studio-docs, run `node sync-mirror.js --apply`.
+ * After ANY --llm run over a corpus that keeps a mirror, resync it:
+ * `node sync-mirror.js <source-dir> <mirror-dir> --apply`.
  * `skills/src/` and `docs/prompts/` hold the same 84 files and lint-skills.ts
  * requires them byte-identical. A deterministic pass keeps that true for free.
  * A model pass does not: it reaches docs/prompts/ at file 185 and skills/src/

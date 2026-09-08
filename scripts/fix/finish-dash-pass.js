@@ -11,26 +11,30 @@
  *      heading's anchor is derived from its text, so the pass renamed anchors
  *      under every link pointing at them. It needs the snapshot taken before
  *      the pass.
- *   2. The skills mirror MUST be resynced. Any pass over studio-docs/docs edits
- *      docs/prompts/ and leaves skills/src/ untouched, which breaks that repo's
- *      byte-identity rule for 83 files at once.
+ *   2. A skills mirror MUST be resynced, for a project that keeps one. A pass
+ *      over the docs tree edits the mirrored copy and leaves the source copy
+ *      untouched, which breaks byte identity for every mirrored file at once.
+ *      Skipped, and reported as skipped, when no mirror is named.
  *   3. Integrity verification MUST compare against the pre-pass ref, so it has
  *      to run before anyone commits.
  *
  * Every step is read-only unless --apply is passed.
  *
  * Usage:
- *   node fix/finish-dash-pass.js                 # report what each step would do
- *   node fix/finish-dash-pass.js --apply
- *   node fix/finish-dash-pass.js --apply --ref=<sha>
+ *   node fix/finish-dash-pass.js <corpus-dir>              # report only
+ *   node fix/finish-dash-pass.js <corpus-dir> --apply
+ *   node fix/finish-dash-pass.js <corpus-dir> --apply --ref=<sha>
+ *
+ * For a project that keeps a skills mirror, add step 2:
+ *   --mirror-src=<dir> --mirror-dir=<dir>
+ *   --mirror-index=<file>      a file mirrored from outside the source dir
+ *   --mirror-only=a.md,b.md    files that exist only in the mirror by design
  */
 
 const path = require('path');
 const { execFileSync } = require('child_process');
 
 const SCRIPTS = path.join(__dirname, '..');
-const PROJECT_ROOT = path.join(SCRIPTS, '..', '..');
-const CORPUS = path.join(PROJECT_ROOT, 'studio-docs', 'docs');
 
 function run(label, cmd, args, opts = {}) {
   console.log(`\n${'='.repeat(70)}`);
@@ -54,9 +58,26 @@ function run(label, cmd, args, opts = {}) {
 function main() {
   const argv = process.argv.slice(2);
   const apply = argv.includes('--apply');
-  const refArg = argv.find((a) => a.startsWith('--ref='));
-  const ref = refArg ? refArg.split('=')[1] : 'HEAD';
+  const opt = (name) => {
+    const hit = argv.find((a) => a.startsWith(`--${name}=`));
+    return hit ? hit.slice(name.length + 3) : null;
+  };
+  const ref = opt('ref') || 'HEAD';
   const writeFlag = apply ? ['--apply'] : [];
+
+  const positional = argv.filter((a) => !a.startsWith('--'));
+  if (positional.length !== 1) {
+    console.error('Usage: finish-dash-pass.js <corpus-dir> [--apply] [--ref=<sha>]');
+    console.error('       [--mirror-src=<dir> --mirror-dir=<dir> [--mirror-index=<file>] [--mirror-only=a.md,b.md]]');
+    process.exit(2);
+  }
+  const CORPUS = path.resolve(positional[0]);
+  const mirrorSrc = opt('mirror-src');
+  const mirrorDir = opt('mirror-dir');
+  if (Boolean(mirrorSrc) !== Boolean(mirrorDir)) {
+    console.error('finish-dash-pass: --mirror-src and --mirror-dir must be given together.');
+    process.exit(2);
+  }
 
   const results = {};
 
@@ -86,11 +107,26 @@ function main() {
     ...writeFlag,
   ]);
 
-  // Step 2. Restore the skills mirror studio-docs requires byte-identical.
-  results.mirror = run('STEP 2  resync the skills mirror', 'node', [
-    path.join(PROJECT_ROOT, 'scripts', 'mirror-skills.js'),
-    ...(apply ? ['--write'] : []),
-  ]);
+  // Step 2. Restore any mirror the project requires to be byte-identical.
+  // Reported as skipped rather than omitted: a project that has a mirror and
+  // forgets the flags would otherwise read a clean summary over a broken one.
+  if (mirrorSrc && mirrorDir) {
+    const mirrorIndex = opt('mirror-index');
+    const mirrorOnly = opt('mirror-only');
+    results.mirror = run('STEP 2  resync the mirror', 'node', [
+      'sync-mirror.js',
+      mirrorSrc,
+      mirrorDir,
+      ...(mirrorIndex ? [`--index=${mirrorIndex}`] : []),
+      ...(mirrorOnly ? [`--mirror-only=${mirrorOnly}`] : []),
+      ...(apply ? ['--apply'] : []),
+    ]);
+  } else {
+    console.log(`\n${'='.repeat(70)}`);
+    console.log('STEP 2  resync the mirror: SKIPPED, no --mirror-src/--mirror-dir given');
+    console.log('='.repeat(70));
+    results.mirror = { ok: true, skipped: true, out: '' };
+  }
 
   // Step 3. Prove the whole pass changed punctuation and nothing else.
   results.integrity = run('STEP 3  verify only punctuation changed', 'node', [
@@ -118,12 +154,12 @@ function main() {
   console.log('='.repeat(70));
   console.log(`C3-05 remaining      ${flagged}`);
   console.log(`anchor repair        ${results.anchors.ok ? 'ok' : 'FAILED'}`);
-  console.log(`skills mirror        ${results.mirror.ok ? 'ok' : 'FAILED'}`);
+  console.log(`mirror resync        ${results.mirror.skipped ? 'skipped' : results.mirror.ok ? 'ok' : 'FAILED'}`);
   console.log(`edit integrity       ${results.integrity.ok ? 'punctuation only' : 'ISSUES FOUND'}`);
   const dead = /dead\s+(\d+)/.exec(results.audit.out || '');
-  console.log(`dead anchors         ${dead ? dead[1] : 'unknown'} (72 were already dead before the pass)`);
+  console.log(`dead anchors         ${dead ? dead[1] : 'unknown'}`);
   if (!apply) {
-    console.log('\nDry run. Pass --apply to write the anchor repair and the mirror resync.');
+    console.log('\nDry run. Pass --apply to write the anchor repair and any mirror resync.');
   }
   if (!results.integrity.ok) process.exitCode = 1;
 }
