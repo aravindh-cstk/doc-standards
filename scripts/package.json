@@ -8,6 +8,7 @@
   },
   "scripts": {
     "audit:wordlists": "node audit-wordlists.js",
+    "build:readme": "node build/build-readme-rules.js",
     "build:section-order": "node build/build-section-order.js",
     "classify": "node classify-doc-type.js ../../docs",
     "classify:apply": "node classify-doc-type.js --apply",
