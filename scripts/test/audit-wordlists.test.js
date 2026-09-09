@@ -9,7 +9,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 
-const { validateAuditReply, runGates, buildProposal, entryCacheKey, LETTERS, NEW_HIT_ALARM } = require('../audit-wordlists');
+const { validateAuditReply, runGates, buildProposal, entryCacheKey, LETTERS, NEW_HIT_ALARM } = require('../tools/audit-wordlists');
 const { siblingsOf, compileWidening, uncoveredSiblings } = require('../lib/inflect');
 
 function itemOf(phrase, forms) {

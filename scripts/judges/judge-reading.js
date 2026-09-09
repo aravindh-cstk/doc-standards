@@ -44,14 +44,14 @@
 const fs = require('fs');
 const path = require('path');
 
-const { askClaude } = require('./lib/claude-runner');
-const { DocModel } = require('./lib/doc-model');
-const { collectDocs } = require('./sweep-docs');
-const { byId } = require('./lib/rules-registry');
-const { collectNumericCandidates } = require('./checks/numeric-consistency');
-const { collectLinkLabelCandidates } = require('./checks/link-label-fidelity');
+const { askClaude } = require('../lib/claude-runner');
+const { DocModel } = require('../lib/doc-model');
+const { collectDocs } = require('../sweep-docs');
+const { byId } = require('../lib/rules-registry');
+const { collectNumericCandidates } = require('../checks/numeric-consistency');
+const { collectLinkLabelCandidates } = require('../checks/link-label-fidelity');
 
-const REPO_ROOT = path.join(__dirname, '..', '..');
+const REPO_ROOT = path.join(__dirname, '..', '..', '..');
 const DEFAULT_DIR = path.join(REPO_ROOT, '.doc-review');
 const CANDIDATES_PATH = path.join(DEFAULT_DIR, 'reading-candidates.json');
 const VERDICTS_PATH = path.join(DEFAULT_DIR, 'reading-verdicts.json');

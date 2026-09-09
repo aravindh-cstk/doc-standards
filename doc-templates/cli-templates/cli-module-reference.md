@@ -2,7 +2,7 @@
 
 A CLI module reference is a lookup page. It lists what the CLI supports, or what it does not, or what it accepts, one section per module or per command, with no procedure. The reader arrives with one lookup in mind and should reach it in one jump.
 
-Apply `types/common-rules.md` (B1, B2, C1-C9) and `cli-common-rules.md` (CLI-C1 to CLI-C14) alongside this file.
+Apply `../feature-docs/common-rules.md` (B1, B2, C1-C9) and `cli-common-rules.md` (CLI-C1 to CLI-C14) alongside this file.
 
 ---
 

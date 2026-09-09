@@ -19,10 +19,10 @@
 
 const fs = require('fs');
 const path = require('path');
-const { DocModel } = require('./lib/doc-model');
-const { checkMetaphors } = require('./checks/metaphor-phrases');
+const { DocModel } = require('../lib/doc-model');
+const { checkMetaphors } = require('../checks/metaphor-phrases');
 
-const DEFAULT_DIR = path.join(__dirname, '..', '..', 'docs');
+const DEFAULT_DIR = path.join(__dirname, '..', '..', '..', 'docs');
 const DEFAULT_OUT = 'metaphor-scan-report.md';
 
 function parseArgs(argv) {

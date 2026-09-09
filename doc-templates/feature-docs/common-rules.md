@@ -389,7 +389,7 @@ The format is shown in a fenced block because it is a specification rather than 
 **Why:** The colon promises the reader something specific. When the clause before it names nothing, the reader arrives at the block without knowing what it holds or how much of it there is, and has to read the whole structure before learning what question it answers. C3-24 catches this only when the sentence uses a demonstrative, so a lead-in that names nothing while using no flagged vocabulary passes every wordlist in the corpus.
 **Exception:** A lead-in already carrying a direction word, an element noun, or a link to the target satisfies the rule and is never flagged. A short lead-in whose block is self-evident from the heading directly above it, for example "This app serves:" under a heading naming the app, needs nothing added. This rule is tier 3, so a reviewer or the judge decides whether the reader is genuinely left guessing.
 
-**How to judge a borderline case:** read only the clause that touches the colon, because that is the promise the reader is holding when they reach the block. If it names an element, a direction, or a link, the rule is satisfied. If it names only the subject the sentence is about, it is not, which is why "the same value" does not rescue "Several places can set the same value. The highest one wins:". The generator lives in `checks/tier3-candidates.js` as `unnamedLeadInReferent` and the judge prompt in `judge-tone.js`, so a new exemption belongs in `ELEMENT_NOUN_RE` there rather than only in prose.
+**How to judge a borderline case:** read only the clause that touches the colon, because that is the promise the reader is holding when they reach the block. If it names an element, a direction, or a link, the rule is satisfied. If it names only the subject the sentence is about, it is not, which is why "the same value" does not rescue "Several places can set the same value. The highest one wins:". The generator lives in `checks/tier3-candidates.js` as `unnamedLeadInReferent` and the judge prompt in `judges/judge-tone.js`, so a new exemption belongs in `ELEMENT_NOUN_RE` there rather than only in prose.
 
 **Rule:** Rewrite conditional framing that hides a direct cause-and-effect fact as a direct declarative statement.
 **Why:** Conditional framing presents an already-true fact about the system as a hypothetical the reader must first notice.
@@ -642,6 +642,48 @@ This section applies to all doc types. Its rules are more specific than C3 (Lang
 **Rule:** State a real limit as a neutral fact. Give the boundary, when the reader meets it, and what to do instead. Do not frame the limit as the product failing the reader, and do not add that the product gives no warning, does nothing, or acts silently.
 **Why:** The reader needs the boundary in order to plan. Adverbs such as "silently" and "quietly" add no boundary, and phrasing a cap as a failure invites the reader to distrust every other limit on the page. A neutral limit still enables the reader to work around it.
 **Exception:** When the absence of a signal is itself the fact the reader must act on, state it plainly and once. A filtered view that looks empty but is not needs the reader to know that, because otherwise they draw a false conclusion from it.
+
+---
+
+**Rule:** Do not use marketing calls to action: "Get started today," "Try it now," "Start building." Write the procedural instruction the reader is meant to follow, or remove the sentence.
+**Why:** A call to action asks the reader to decide something they already decided by opening the page. It occupies the position where the first real step belongs, so the reader has to scan past it to find the instruction.
+**Exception:** None in technical prose.
+
+---
+
+**Rule:** Do not open a sentence by enumerating the audience: "Whether you're a beginner or an expert," "No matter your skill level," "For developers of all backgrounds." Start with the subject of the sentence.
+**Why:** The clause is true of every reader, so it distinguishes nothing and delays the subject. A reader who needs a skill-level signal is served by a stated prerequisite, not by a reassurance.
+**Exception:** None.
+
+---
+
+**Rule:** Do not claim intelligence without naming the mechanism: "smart enough to," "intelligent routing," "context-aware," "automatically understands." Name what the system actually reads and what it does with it.
+**Why:** These phrases describe an impression rather than a behavior, and the reader cannot predict the outcome from them. "Context-aware" tells a reader nothing they can plan around. "The router reads the trigger table in `SKILL.md`" tells them exactly what to change when the routing is wrong.
+**Exception:** None.
+
+---
+
+**Rule:** Do not use rhetorical immediacy: "instantly," "immediately," "in real time," when the claim is about how fast the product feels rather than a measured latency or a documented synchronous guarantee.
+**Why:** The reader cannot distinguish a rhetorical "instantly" from a real synchronous guarantee, so the word either misleads them about a cache or a publish queue, or it says nothing. State the actual behavior: "the CDN serves the new version within 30 seconds," or "the call blocks until the write completes."
+**Exception:** A documented synchronous behavior may be described as immediate when that is the technical fact.
+
+---
+
+**Before and after**
+
+Each row rewrites a real sentence that broke one of the C8 rules above.
+
+| Before | After |
+|---|---|
+| "Agent skills close that gap. They give the assistant product-specific knowledge and guardrails." | "Agent skills add product-specific routing rules and restrictions so the assistant produces correct output." |
+| "production-ready, and safe by default" | "correct by default: delivery tokens are client-safe, management tokens are not, and the agent confirms before any destructive operation" |
+| "in under 5 minutes" | Remove, or state the number of install commands. |
+| "walks you end-to-end through migrating a project" | "covers migrating a project: content types, entries, assets and code" |
+| "re-platform to Contentstack" | "migrate to Contentstack" |
+| "the mental model behind skills, routing and the safety contract" | "how skills, routing and the safety contract work" |
+| "guardrails so its output is correct" | "restrictions: it uses correct SDK method names, keeps management tokens server-side, and confirms before destructive operations" |
+| "The primary entry point for Brand Kit" | "Handles Brand Kit questions: setup, Voice Profiles, Knowledge Vault, on-brand generation and API routing" |
+| "intelligent routing picks the right skill" | "the router matches the request against the trigger table in each `SKILL.md`" |
 
 ---
 

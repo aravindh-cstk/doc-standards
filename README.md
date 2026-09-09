@@ -27,25 +27,29 @@ Two generated companion files hold the exhaustive detail:
 
 Find your job in this table and go to the section it names.
 
-| You want to | Go to |
-| --- | --- |
-| Write a new documentation page | [Pick a doc type](#pick-a-doc-type), then workflow 1 |
-| Fix an existing page against the rules | Workflow 2 |
-| Audit a whole documentation corpus | Workflow 3 |
-| Look up what a rule ID means | [REFERENCE-RULES.md](REFERENCE-RULES.md) |
-| Add a rule, or write a check for one | [Rule system](#rule-system), then workflow 5 |
-| Understand why the linter missed something | Workflow 4 |
-| Set this up on a new machine | [Wider setup](#wider-setup) |
-| Know what is broken today | [Known gaps](#known-gaps) |
+| You want to | Command | Or read |
+| --- | --- | --- |
+| Write a new documentation page | none, do it by hand | [Pick a doc type](#pick-a-doc-type), then workflow 1 |
+| Fix an existing page against the rules | `/revamp-doc`, `/revamp-api-ref` or `/revamp-cli-doc` | Workflow 2 |
+| Audit a whole documentation corpus | `/audit-docs` | Workflow 3 |
+| Declare `doc_type:` across a corpus | `/classify-doc-types` | Workflow 7 |
+| Judge the rules no script can check | `/adjudicate-tier3` | Workflow 6 |
+| Understand why the linter missed something | `/doc-gap` | Workflow 4 |
+| Add a rule, or write a check for one | `/add-doc-rule` | [Rule system](#rule-system), then workflow 5 |
+| Check whether it is safe to merge | `/doc-gate` | [Editing this repo](#editing-this-repo) |
+| Wire this up for a new project | `/onboard-docs-repo` | Workflow 7 |
+| Look up what a rule ID means | none | [REFERENCE-RULES.md](REFERENCE-RULES.md) |
+| Set this up on a new machine | none | [Wider setup](#wider-setup) |
+| Know what is broken today | none | [Known gaps](#known-gaps) |
 
 ### How it is consumed
 
 Four paths, and knowing which one is running matters when a result surprises you.
 
 1. **The editor hooks.** Every `Write` or `Edit` of a markdown file under a `docs/` path in a consuming repo runs the dash check and then the linter. Tier 1 findings block the edit. This path runs on every documentation edit, without anyone invoking it.
-2. **The two slash commands.** `/revamp-doc` brings one page into compliance. `/doc-gap` turns a missed violation into a permanent check. Both live outside this repo and read files inside it.
+2. **The ten slash commands.** One per task this repository can perform, from revamping a single page to running the pre-merge gate. They are git-tracked in `.claude/commands/` and symlinked into `~/.claude/commands/` by `scripts/install-commands.sh`, so they work from any repository. `.claude/commands/README.md` is the index.
 3. **The npm scripts.** Run manually from `scripts/` when auditing a corpus, closing a gap or rebuilding generated data.
-4. **Agent context.** An agent working on documentation in another repo loads `types/common-rules.md` and the matching type file as context.
+4. **Agent context.** An agent working on documentation in another repo loads `doc-templates/feature-docs/common-rules.md` and the matching type file as context.
 
 ### One copy only
 
@@ -57,14 +61,15 @@ Every `doc-standards` folder on this machine has been merged into this repositor
 
 | Path | Holds | Edited by |
 | --- | --- | --- |
-| `types/` | The shared rule spine and eight prose doc types | Anyone changing a prose rule |
-| `api-ref/` | Three API reference page shapes, plus one derivation record | Anyone changing an SDK reference page shape |
-| `cli-templates/` | The shared CLI rules and four CLI doc types | Anyone changing a CLI rule |
-| `doc-types/api-reference/SKILL.md` | A routing file that owns no rules | Rarely, it only points elsewhere |
+| `doc-templates/feature-docs/` | The shared rule spine and eight prose doc types | Anyone changing a prose rule |
+| `doc-templates/api-ref/` | Three API reference page shapes, plus one derivation record | Anyone changing an SDK reference page shape |
+| `doc-templates/cli-templates/` | The shared CLI rules and four CLI doc types | Anyone changing a CLI rule |
 | `scripts/` | The whole enforcement layer | Anyone adding a check, a fixer or a test |
 | `scripts/checks/` | 42 check modules, one concern each | Adding or widening a check |
 | `scripts/lib/` | 14 shared parsers and helpers | Adding a primitive two checks need |
 | `scripts/data/` | The rule registry, the check map, the wordlists, two generated tables | Adding a rule or a wordlist entry |
+| `scripts/judges/` | The four Claude-backed judges: tone, reading, tier-3 review, doc-type classification | Changing what gets sent to a model |
+| `scripts/tools/` | Corpus probes, wordlist audits, the mirror sync, the flat-doc merger | Maintaining the toolchain itself |
 | `scripts/fix/` | 10 fixers, deterministic and model-backed | Fixing findings at corpus scale |
 | `scripts/build/` | Two generators that produce committed artifacts | After changing a section-order table or a rule |
 | `scripts/test/` | 35 test files plus fixtures, 631 tests | Every change to any of the above |
@@ -81,23 +86,23 @@ Twelve types are linted by `lint-doc.js`. Three more page shapes are linted by `
 
 | The page is about | Type | Template |
 | --- | --- | --- |
-| The product's single entry point | `getting-started` | `types/getting-started.md` |
-| A concept, behavior or pattern | `conceptual-guide` | `types/conceptual-guide.md` |
-| One product feature, from enabling it to configuring it | `feature-doc` | `types/feature-doc.md` |
-| One task, titled as an instruction | `how-to-guide` | `types/how-to-guide.md` |
-| Configuring an environment or SDK | `setup-guide` | `types/setup-guide.md` |
-| A runnable starter application | `kickstarter` | `types/kickstarter.md` |
-| Upgrading across a breaking change | `migration-guide` | `types/migration-guide.md` |
-| The landing page of a chapter | `chapter-index` | `types/chapter-index.md` |
-| The command surface of a CLI plugin | `cli-command-reference` | `cli-templates/cli-command-reference.md` |
-| One CLI operation, from first command to verification | `cli-task-runbook` | `cli-templates/cli-task-runbook.md` |
-| A CLI lookup table of identifiers | `cli-module-reference` | `cli-templates/cli-module-reference.md` |
-| Building and publishing a `csdx` plugin | `cli-plugin-guide` | `cli-templates/cli-plugin-guide.md` |
-| An SDK reference landing page | `usage_guide` | `api-ref/api-ref-usage-guide-v2.md` |
-| One SDK class | `class_reference` | `api-ref/api-ref-class-v2.md` |
-| One SDK method | method page | `api-ref/api-ref-method-v2.md` |
+| The product's single entry point | `getting-started` | `doc-templates/feature-docs/getting-started.md` |
+| A concept, behavior or pattern | `conceptual-guide` | `doc-templates/feature-docs/conceptual-guide.md` |
+| One product feature, from enabling it to configuring it | `feature-doc` | `doc-templates/feature-docs/feature-doc.md` |
+| One task, titled as an instruction | `how-to-guide` | `doc-templates/feature-docs/how-to-guide.md` |
+| Configuring an environment or SDK | `setup-guide` | `doc-templates/feature-docs/setup-guide.md` |
+| A runnable starter application | `kickstarter` | `doc-templates/feature-docs/kickstarter.md` |
+| Upgrading across a breaking change | `migration-guide` | `doc-templates/feature-docs/migration-guide.md` |
+| The landing page of a chapter | `chapter-index` | `doc-templates/feature-docs/chapter-index.md` |
+| The command surface of a CLI plugin | `cli-command-reference` | `doc-templates/cli-templates/cli-command-reference.md` |
+| One CLI operation, from first command to verification | `cli-task-runbook` | `doc-templates/cli-templates/cli-task-runbook.md` |
+| A CLI lookup table of identifiers | `cli-module-reference` | `doc-templates/cli-templates/cli-module-reference.md` |
+| Building and publishing a `csdx` plugin | `cli-plugin-guide` | `doc-templates/cli-templates/cli-plugin-guide.md` |
+| An SDK reference landing page | `usage_guide` | `doc-templates/api-ref/api-ref-usage-guide-v2.md` |
+| One SDK class | `class_reference` | `doc-templates/api-ref/api-ref-class-v2.md` |
+| One SDK method | method page | `doc-templates/api-ref/api-ref-method-v2.md` |
 
-Declare the choice in the page's front matter as `doc_type: <value>`, using the value from the table. A declared type beats the linter's heuristic, which matters: on one corpus of 355 files the heuristic answered `conceptual-guide` for 327 of them, and the section rules then asked all 327 for sections they should never have. `classify-doc-type.js` can declare the whole corpus in one pass.
+Declare the choice in the page's front matter as `doc_type: <value>`, using the value from the table. A declared type beats the linter's heuristic, which matters: on one corpus of 355 files the heuristic answered `conceptual-guide` for 327 of them, and the section rules then asked all 327 for sections they should never have. `judges/classify-doc-type.js` can declare the whole corpus in one pass.
 
 ### Three families
 
@@ -105,13 +110,13 @@ Rule inheritance differs by family, so read the right pair of files.
 
 | Family | Types | Rules that apply | Linter |
 | --- | --- | --- | --- |
-| Prose | The eight `types/` entries above | `types/common-rules.md` B1, B2, C1 to C9, plus the type file | `lint-doc.js` |
-| CLI | The four `cli-templates/` entries | The prose rules, plus `cli-templates/cli-common-rules.md` CLI-C1 to CLI-C15, plus the type file | `lint-doc.js` |
-| API reference | `usage_guide`, `class_reference`, method page | The `api-ref/` templates, plus the AR and UG rules | `lint-api-ref.js` |
+| Prose | The eight `doc-templates/feature-docs/` entries above | `doc-templates/feature-docs/common-rules.md` B1, B2, C1 to C9, plus the type file | `lint-doc.js` |
+| CLI | The four `doc-templates/cli-templates/` entries | The prose rules, plus `doc-templates/cli-templates/cli-common-rules.md` CLI-C1 to CLI-C15, plus the type file | `lint-doc.js` |
+| API reference | `usage_guide`, `class_reference`, method page | The `doc-templates/api-ref/` templates, plus the AR and UG rules | `lint-api-ref.js` |
 
 The API reference family needs its own linter rather than a flag on the shared one. An api-ref method page has no H1 title and no H2 sections, so the shared type detection falls through to `conceptual-guide` and the run fills with findings for a missing Overview and missing Prerequisites that the shape never had.
 
-`types/section-matrix.md` is the cross-type lookup: one table of 26 sections against 12 doc types, each cell Required, Optional or Not used. Use it to answer "does this type take a Troubleshooting section" without opening four files. It does not cover the three api-ref shapes. `doc-types/api-reference/SKILL.md` routes a reader to those, and `api-ref/api-ref-usage-guide-v2.md` and `checks/api-ref-structure.js` also enumerate them. One caveat before relying on the matrix. `data/section-matrix.json` is generated but never read at runtime. `lib/section-index.js` requires it and re-exports it unused, and nothing else in `scripts/` touches it, so the matrix is documentation rather than enforcement.
+`doc-templates/feature-docs/section-matrix.md` is the cross-type lookup: one table of 26 sections against 12 doc types, each cell Required, Optional or Not used. Use it to answer "does this type take a Troubleshooting section" without opening four files. It does not cover the three api-ref shapes. `/revamp-api-ref` routes a reader to those, and `doc-templates/api-ref/api-ref-usage-guide-v2.md` and `checks/api-ref-structure.js` also enumerate them. One caveat before relying on the matrix. `data/section-matrix.json` is generated but never read at runtime. `lib/section-index.js` requires it and re-exports it unused, and nothing else in `scripts/` touches it, so the matrix is documentation rather than enforcement.
 
 ### Required sections
 
@@ -217,14 +222,14 @@ Which file states which group:
 
 | Source file | Rules |
 | --- | --- |
-| `types/common-rules.md` | 111 |
-| `cli-templates/cli-common-rules.md` | 19 |
-| `api-ref/api-ref-usage-guide-v2.md` | 13 |
-| `types/getting-started.md` | 11 |
-| `api-ref/api-ref-method-v2.md` | 10 |
-| `types/migration-guide.md` | 9 |
-| `cli-templates/cli-plugin-guide.md` | 5 |
-| `cli-templates/cli-command-reference.md` | 1 |
+| `doc-templates/feature-docs/common-rules.md` | 111 |
+| `doc-templates/cli-templates/cli-common-rules.md` | 19 |
+| `doc-templates/api-ref/api-ref-usage-guide-v2.md` | 13 |
+| `doc-templates/feature-docs/getting-started.md` | 11 |
+| `doc-templates/api-ref/api-ref-method-v2.md` | 10 |
+| `doc-templates/feature-docs/migration-guide.md` | 9 |
+| `doc-templates/cli-templates/cli-plugin-guide.md` | 5 |
+| `doc-templates/cli-templates/cli-command-reference.md` | 1 |
 | `section-order.json` and `parse-markdown.js` | 2, both synthetic |
 
 ### Numbering a new rule
@@ -333,7 +338,7 @@ These are the reuse surface. Before writing a helper inside a new check, look he
 
 The wordlist folders are `banned-phrases/` with 12 files, `passive-voice/` with 9, `anthropomorphism/`, `metaphors/`, `periphrasis/`, `vague-reference/` and `house-verbs/`, plus `acronyms.json` and `wordy-connectors.json`. A wordlist rule widens by adding an entry, which is why it needs no code change and why `audit:wordlists` exists to catch entries narrower than their rule.
 
-`section-order.json` and `section-matrix.json` are build output. `build/build-section-order.js` produces them from the `## Section Order` tables in `types/*.md` and `cli-templates/*.md` and from `types/section-matrix.md`. **The linter never parses those markdown files at runtime, it reads only the generated JSON.** Editing a section-order table without rebuilding changes nothing.
+`section-order.json` and `section-matrix.json` are build output. `build/build-section-order.js` produces them from the `## Section Order` tables in `doc-templates/feature-docs/*.md` and `doc-templates/cli-templates/*.md` and from `doc-templates/feature-docs/section-matrix.md`. **The linter never parses those markdown files at runtime, it reads only the generated JSON.** Editing a section-order table without rebuilding changes nothing.
 
 `corpus-classes.json` determines which files count as documentation pages. It exists because rules describing a page's shape were firing on files whose shape something else owns. On one corpus, 2,558 of 3,789 tier-1 findings were on files that are never published, including 254 asking for SEO front matter on an agent skill file. Override it per project with the `DOC_STANDARDS_CORPUS_CLASSES` environment variable, which is tried before the built-ins and merged over them. A malformed override is reported and ignored.
 
@@ -362,9 +367,9 @@ Three scripts call a model because the rule needs a reader.
 
 | Script | Rules | Note |
 | --- | --- | --- |
-| `judge-tone.js` | C3-18, C3-21, C2-09, C3-25 | Also has a discovery mode that hunts wording no wordlist covers. |
-| `judge-reading.js` | C2-13, C2-14 | A stated count that disagrees with what it counts, and a link label that misdescribes its destination. |
-| `classify-doc-type.js` | None. It declares types. | Replaces a heuristic that answered `conceptual-guide` for 327 of 355 files. |
+| `judges/judge-tone.js` | C3-18, C3-21, C2-09, C3-25 | Also has a discovery mode that hunts wording no wordlist covers. |
+| `judges/judge-reading.js` | C2-13, C2-14 | A stated count that disagrees with what it counts, and a link label that misdescribes its destination. |
+| `judges/classify-doc-type.js` | None. It declares types. | Replaces a heuristic that answered `conceptual-guide` for 327 of 355 files. |
 
 All three need the `claude` CLI and cost money per call. None is in `gate`, and none may ever run inside a check.
 
@@ -381,7 +386,7 @@ The rule that governs a new test comes from the gap loop: a regression test that
 ### 1. Write a new page
 
 1. Select the type from [Types by subject](#types-by-subject).
-2. Read `types/common-rules.md` B1 and B2, then the type file, in full.
+2. Read `doc-templates/feature-docs/common-rules.md` B1 and B2, then the type file, in full.
 3. Declare `doc_type:` in the front matter.
 4. Build the page in the section order the type requires.
 5. Lint it: `cd scripts && npm run lint -- ../path/to/page.md --type=<type>`.
@@ -389,9 +394,9 @@ The rule that governs a new test comes from the gap loop: a regression test that
 
 ### 2. Revamp an existing page
 
-Run `/revamp-doc` and let it drive. It detects the type, lints, reads the rule files, runs the B1 and B2 audit, then edits in place.
+Run `/revamp-doc` and let it drive. It detects the type, lints, reads the rule files, runs the B1 and B2 audit, then edits in place. Use `/revamp-api-ref` for an api-ref page and `/revamp-cli-doc` for one of the four CLI types, since each family has its own templates and its own linter.
 
-That command handles seven of the twelve types. For a `chapter-index`, any of the four CLI types, or an api-ref page, work manually: identify the type yourself, pass `--type=` explicitly, and read the matching template. See [Known gaps](#known-gaps).
+The three revamp commands cover all fifteen page shapes between them, and each one routes a page that belongs to another family rather than linting it as the wrong type. `/revamp-doc` now handles `chapter-index` as well as the seven other prose types.
 
 Never write a `-revamped.md` sibling. Confirm the file is clean in `git status` first, then edit in place.
 
@@ -408,11 +413,11 @@ Read the ranking rather than the file list. The top rule by count is where a sin
 
 ### 4. Close a linter gap
 
-Someone spotted a violation the linter did not catch. Run `/doc-gap`, which drives the whole loop. The shape of it:
+Someone spotted a violation the linter did not catch. Run `/doc-gap`, which drives the whole loop. When the rule is already decided and only the check is missing, run `/add-doc-rule` instead. The shape of it:
 
 1. Restate the violation as a probe label.
 2. Baseline with `sweep-docs.js`.
-3. Seed a probe and run `probe-corpus.js`.
+3. Seed a probe and run `tools/probe-corpus.js`.
 4. Read the corpus manually for meaning-siblings. This is the step no script can do.
 5. Widen, and apply the convergence test.
 6. Classify the gap as `NOT_A_GAP`, `WORDLIST_GAP`, `REGEX_TOO_NARROW` or `NO_RULE`.
@@ -457,10 +462,26 @@ Three pieces outside this repository make it work. All are per-machine, in `~/.c
 
 ### The slash commands
 
-| File | Does | Known limit |
-| --- | --- | --- |
-| `~/.claude/commands/revamp-doc.md` | Brings one page into compliance. Detects the type, lints, reads the rule files, audits, edits in place. | Handles seven of the twelve types. |
-| `~/.claude/commands/doc-gap.md` | Turns a missed violation into a permanent check with a test. Writes to `checks/`, the registry, the check map and `test/`. | Hardcodes one project's corpus path. |
+The commands now live in this repository, at `.claude/commands/`, and are the same artifacts the
+symlinks in `~/.claude/commands/` point at. Run `bash scripts/install-commands.sh` once per machine.
+`.claude/commands/README.md` holds the full index and the shared path resolver.
+
+| Command | Does |
+| --- | --- |
+| `/revamp-doc` | Brings one prose page into compliance. Detects the type, lints, reads the rule files, audits, edits in place |
+| `/revamp-api-ref` | The same for the three api-ref page shapes, using `lint-api-ref.js` and the `api-ref` templates |
+| `/revamp-cli-doc` | The same for the four CLI types, and carries the sixteen unenforced CLI rules as a manual checklist |
+| `/audit-docs` | Sweeps a corpus and ranks findings by rule. Routes api-ref subtrees to their own linter |
+| `/classify-doc-types` | Declares `doc_type:` across a corpus, generate then judge then reconcile then apply |
+| `/adjudicate-tier3` | Generates tier-3 candidates, judges each one, and reconciles so a partial review cannot read as complete |
+| `/doc-gap` | Turns a missed violation into a permanent check with a test. Diagnoses first |
+| `/add-doc-rule` | Codifies a rule already decided, with its registry row, check, fixture and test |
+| `/doc-gate` | The pre-merge check. Runs the gate, then verifies the generated catalogs are current |
+| `/onboard-docs-repo` | Wires the toolchain to a new project, corpus classes first, then a baseline |
+
+`scripts/test/commands.test.js` guards them. It asserts all ten are present, that each carries the
+shared resolver verbatim, that none has reverted to the single-layout form, that none hardcodes a
+consuming project, and that none passes a flag its linter would reject.
 
 ### The editor hooks
 
@@ -505,17 +526,17 @@ Counts are the linter's own tier-1 findings, not a raw character scan, so a glyp
 
 | File | Breaks |
 | --- | --- |
-| `types/getting-started.md` | C3-05, 25 findings across 12 em dashes, 5 en dashes and 11 semicolons |
-| `types/common-rules.md` | C3-27, 15 findings across 17 arrow glyphs. C3-28, 1 |
-| `types/migration-guide.md` | C3-27, 1 arrow glyph |
-| `api-ref/api-ref-method-v2.md` | C3-27, 7 findings across four check marks, one cross mark and two arrows. C3-28, 4 |
-| `api-ref/api-ref-class-v2.md` | C3-27, 1 arrow glyph. C3-28, 3. C8, the superlative in its `Optional but powerful` bullet label |
-| `api-ref/api-ref-usage-guide-v2.md` | C3-28, 7 |
-| `api-ref/usage-guide-derivation.md` | C3-28, 10 |
+| `doc-templates/feature-docs/getting-started.md` | C3-05, 25 findings across 12 em dashes, 5 en dashes and 11 semicolons |
+| `doc-templates/feature-docs/common-rules.md` | C3-27, 15 findings across 17 arrow glyphs. C3-28, 1 |
+| `doc-templates/feature-docs/migration-guide.md` | C3-27, 1 arrow glyph |
+| `doc-templates/api-ref/api-ref-method-v2.md` | C3-27, 7 findings across four check marks, one cross mark and two arrows. C3-28, 4 |
+| `doc-templates/api-ref/api-ref-class-v2.md` | C3-27, 1 arrow glyph. C3-28, 3. C8, the superlative in its `Optional but powerful` bullet label |
+| `doc-templates/api-ref/api-ref-usage-guide-v2.md` | C3-28, 7 |
+| `doc-templates/api-ref/usage-guide-derivation.md` | C3-28, 10 |
 
 The 25 C3-28 italics findings fall into two mechanical patterns. The `*(required when X)*` parenthetical idiom accounts for 14 across the three `api-ref` templates, and the italic paragraph lead-in label accounts for 9 in `usage-guide-derivation.md`.
 
-`api-ref/usage-guide-derivation.md` also contains an en dash, a semicolon and four arrows, and the linter correctly reports none of them. They sit inside a fence the author opened deliberately, saying so at line 83: quoted verbatim in a fenced block because the source punctuation does not follow this repository's house style. Whether a fence is an acceptable escape hatch for quoted text is an open question, not a violation.
+`doc-templates/api-ref/usage-guide-derivation.md` also contains an en dash, a semicolon and four arrows, and the linter correctly reports none of them. They sit inside a fence the author opened deliberately, saying so at line 83: quoted verbatim in a fenced block because the source punctuation does not follow this repository's house style. Whether a fence is an acceptable escape hatch for quoted text is an open question, not a violation.
 
 `MERGE-NOTES.md` claims every file in the folder avoids these characters. That claim is currently false.
 
@@ -524,26 +545,26 @@ The 25 C3-28 italics findings fall into two mechanical patterns. The `*(required
 Every other entry in this section is a missing finding. These three are wrong findings, which costs more trust, and all three are reproducible today.
 
 - **A correct callout label fires a false error.** `checks/callout-taxonomy.js` accepts only the singular `Additional Resource` and emits `C2-11` at tier 1. `AR-06` requires the plural whenever a callout carries two or more links, and `checks/api-ref-structure.js` enforces that agreement. So a callout correctly written `> **Additional Resources:**` for three links is a tier-1 error. `test/fixtures/api-ref-good/Taxonomy/class_reference.md` carries a plural label and escapes only because `lint-api-ref.js` excludes this check.
-- **A compliant Quick Reference fires a false error.** `checks/quick-reference-table.js` hard-codes the expected columns as Use case, Section and Key call, and emits `C2-04` at tier 1 for a missing one. `MOD2` in `cli-templates/cli-module-reference.md` specifies a different shape for this type, each module or command mapped to its anchor. A module reference built to its own template fails the linter.
+- **A compliant Quick Reference fires a false error.** `checks/quick-reference-table.js` hard-codes the expected columns as Use case, Section and Key call, and emits `C2-04` at tier 1 for a missing one. `MOD2` in `doc-templates/cli-templates/cli-module-reference.md` specifies a different shape for this type, each module or command mapped to its anchor. A module reference built to its own template fails the linter.
 - **The drift form the rule exists to catch is invisible.** The blockquote pattern in `checks/callout-taxonomy.js` matches only the colon-inside-the-bold form, so `> **Note**:` matches nothing and produces no finding, from either `C2-11` or `CLI-09`. `CLI-09` is the rule whose entire purpose is that spelling.
 
 ### Stale paths
 
-The nine prose rule files moved from the repository root into `types/` on 2026-09-08, and four references were not updated. Each still points at a root `common-rules.md` or `section-matrix.md` that no longer exists.
+The nine prose rule files moved from the repository root into `doc-templates/feature-docs/` on 2026-09-08, and four references were not updated. Each still points at a root `common-rules.md` or `section-matrix.md` that no longer exists.
 
-- `api-ref/api-ref-usage-guide-v2.md`, line 18, which also still says "the repo root"
-- `api-ref/api-ref-method-v2.md`, line 72
-- `api-ref/usage-guide-derivation.md`, lines 484 and 487
+- `doc-templates/api-ref/api-ref-usage-guide-v2.md`, line 18, which also still says "the repo root"
+- `doc-templates/api-ref/api-ref-method-v2.md`, line 72
+- `doc-templates/api-ref/usage-guide-derivation.md`, lines 484 and 487
 
 Line 18 carries a second error in the same sentence. It says the class and method templates apply `common-rules.md` the same way, but `api-ref-class-v2.md` never references that file.
 
-Fourteen more references across nine `types/` files say `common-rules.md` with no path. Those resolve correctly, because the files sit in the same folder, so they are an inconsistency rather than a break. The occurrences in `MERGE-NOTES.md` describe the pre-move layout and are correct as history.
+Fourteen more references across nine `doc-templates/feature-docs/` files say `common-rules.md` with no path. Those resolve correctly, because the files sit in the same folder, so they are an inconsistency rather than a break. The occurrences in `MERGE-NOTES.md` describe the pre-move layout and are correct as history.
 
-Two paths in `cli-templates/cli-common-rules.md`, at lines 223 and 249, carry a `doc-standards/` prefix that resolves from one directory up rather than from the repository root. The files exist at `scripts/data/banned-phrases/absent-docs.json` and `scripts/checks/internal-link-form.js`.
+Two paths in `doc-templates/cli-templates/cli-common-rules.md`, at lines 223 and 249, carry a `doc-standards/` prefix that resolves from one directory up rather than from the repository root. The files exist at `scripts/data/banned-phrases/absent-docs.json` and `scripts/checks/internal-link-form.js`.
 
 ### Miscited rule ranges
 
-`cli-templates/cli-common-rules.md` defines CLI-C1 to CLI-C15, with no gaps. Three of the four CLI templates tell the reader to apply CLI-C1 to CLI-C14, so CLI-C15 is invisible from them. Only `cli-plugin-guide.md` cites the full range. The shared file returns the favor: its own line 5 lists the per-type files and omits `cli-plugin-guide.md`.
+`doc-templates/cli-templates/cli-common-rules.md` defines CLI-C1 to CLI-C15, with no gaps. Three of the four CLI templates tell the reader to apply CLI-C1 to CLI-C14, so CLI-C15 is invisible from them. Only `cli-plugin-guide.md` cites the full range. The shared file returns the favor: its own line 5 lists the per-type files and omits `cli-plugin-guide.md`.
 
 One rule carries two numbers. `cli-command-reference.md` calls the Installation rule `CMD2`, while the registry entry `CLI-07` and `checks/cli-specific.js` both call it `CMD4`.
 
@@ -559,7 +580,7 @@ A further 18 pairs sit in the unemitted-claims list, where a module owns the rul
 
 ### Prose-only rules
 
-Four of the twelve linted types have no type-specific registry entries. Nothing cites `cli-templates/cli-task-runbook.md`, `cli-templates/cli-module-reference.md`, `types/chapter-index.md`, `types/section-matrix.md`, `types/writing-guide-agent-skills.md` or `api-ref/api-ref-class-v2.md` as a source, and `cli-command-reference.md` supplies exactly one rule.
+Four of the twelve linted types have no type-specific registry entries. Nothing cites `doc-templates/cli-templates/cli-task-runbook.md`, `doc-templates/cli-templates/cli-module-reference.md`, `doc-templates/feature-docs/chapter-index.md`, `doc-templates/feature-docs/section-matrix.md` or `doc-templates/api-ref/api-ref-class-v2.md` as a source, and `cli-command-reference.md` supplies exactly one rule.
 
 Having no registry entry is not the same as having no enforcement. Five of these prose rules are already enforced under another rule's ID, which is why they never needed one:
 
@@ -570,7 +591,7 @@ Having no registry entry is not the same as having no enforcement. Five of these
 | `MOD2`, a Quick Reference must be present | `C1-01`, the same way. Its completeness half is not checked |
 | The chapter-index ban on Quick Start, Role-Based Routing Table and Documentation Map | `C1-01`, through the get-started-only forbidden list |
 
-What genuinely has no enforcement: `CMD1`, the other direction of `CMD2`, `RUN1`, `RUN2`, `RUN3`, `MOD1a`, `MOD1b`, the completeness half of `MOD2`, the Prerequisites and Limitations halves of `MOD3`, `MOD4`, and four of the six chapter-index rules. The cheapest of those is `MOD3`, because `section-structure.js` already has the exact per-type forbidden-list shape it needs, and `compareOrder` already computes an `unexpected` array that nothing reads.
+What genuinely has no enforcement: `CMD1`, the other direction of `CMD2`, `RUN1`, `RUN2`, `RUN3`, `MOD1a`, `MOD1b`, the completeness half of `MOD2`, the Prerequisites and Limitations halves of `MOD3`, `MOD4`, and four of the six chapter-index rules, which `/revamp-doc` now enforces by eye in its Step 5 rather than by script. The cheapest of those is `MOD3`, because `section-structure.js` already has the exact per-type forbidden-list shape it needs, and `compareOrder` already computes an `unexpected` array that nothing reads.
 
 ### Duplicate rules
 
@@ -579,22 +600,23 @@ What genuinely has no enforcement: `CMD1`, the other direction of `CMD2`, `RUN1`
 
 ### Tooling drift
 
-- `~/.claude/commands/doc-gap.md` hardcodes `CORPUS="$ROOT/studio-docs/docs"`. That is exactly the project coupling that commit `c353d8b` removed from every script in this repository.
-- `~/.claude/commands/revamp-doc.md` handles seven doc types. A CLI page, a chapter index or an api-ref page run through it gets typed and linted as something else.
+- The editor hook only ever runs `lint-doc.js`. Editing a `class_reference.md` or a method page in a consuming repository produces findings for sections that shape never had, because `detectDocType` reads it as a conceptual guide. Route those pages through `/revamp-api-ref` and read hook output on them with suspicion. The fix is a filename test in `~/.claude/hooks/lint_doc_standards.py`.
+- `lint-api-ref.js` filters by filename only when its target is a directory. Given a single file it lints it whatever the name, treating anything that is not a class page or usage guide as a method page. Pointed at a prose page it reports a full set of confident nonsense rather than refusing.
+- Six `CLI` and `PLG` check names in `data/check-sources.json` do not describe the rule they are attached to. `cli-exit-code-heuristic` is bound to `CLI-15`, which is about re-verifying a derived doc, and `cli-error-entry-heuristic` to `CLI-10`, which is about shell prompts in code fences. All are `unimplemented`, so nothing behaves wrongly today, and a reader picking a name up as a specification would be misled.
 
 ### Dangling references
 
-`cli-templates/cli-common-rules.md` cites `notes/reports/flag-inventory.json` twice and `scripts/gen_flag_accuracy_report.py` once. Neither exists here, both were CLI Project artifacts. `changelog/`, `troubleshooting/` and `repo/cli-plugins` in the same file are consuming-repo paths, not paths in this repository.
+`doc-templates/cli-templates/cli-common-rules.md` cites `notes/reports/flag-inventory.json` twice and `scripts/gen_flag_accuracy_report.py` once. Neither exists here, both were CLI Project artifacts. `changelog/`, `troubleshooting/` and `repo/cli-plugins` in the same file are consuming-repo paths, not paths in this repository.
 
 The cost is not even across the two. At line 79 the missing filename is incidental, because the instruction that matters, verify against the `oclif.manifest.json` in the published npm tarball, survives without it. At line 201 the entire "How to check" procedure for CLI-C11 is built on both missing files, so that rule currently ships with no way to satisfy it. Its four defect classes are worth keeping as a manual checklist.
 
 ### Duplicated content
 
-`types/writing-guide-agent-skills.md` maintains a second copy of the C8 marketing table, the jargon table with the same per-word fixes, and the acronym list. Its own scope note says it supplements rather than replaces, but the two copies now drift independently.
+`doc-templates/feature-docs/writing-guide-agent-skills.md` used to maintain a second copy of the C8 marketing table, the jargon table with the same per-word fixes, and the acronym list. Its scope note said it supplemented rather than replaced C8, and the two copies drifted independently anyway. The four rules it held that C8 did not, the marketing call to action, the audience-enumerating opener, the unnamed-mechanism intelligence claim and rhetorical immediacy, are now C8 rules, and its before-and-after table is the one at the end of C8. The file is gone.
 
 ### Leftovers
 
-`doc-types/api-reference/` holds one file and nothing else. It is named `SKILL.md` and no skill loader reads it, because it sits outside any `.claude/skills` tree. It routes a reader and owns no rules, which its own text says. Splitting the AR rules into a folder of their own was tried and reverted, and this file is what remains.
+`doc-types/api-reference/SKILL.md` used to sit here as a routing file that owned no rules. It was named `SKILL.md` and no skill loader read it, because it sat outside any `.claude/skills` tree. Its two useful sections, the test for whether a page belongs to the api-ref family and the reason the `AR-*` rules live in the root registry, now sit in `/revamp-api-ref`, which is where a reader is already looking when they need either one. The folder is gone.
 
 ## Editing this repo
 

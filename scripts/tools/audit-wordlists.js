@@ -38,14 +38,14 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 
-const { askClaude } = require('./lib/claude-runner');
-const { loadEntryFile, entryRegex } = require('./lib/phrase-list');
-const { siblingsOf, uncoveredSiblings, compileWidening } = require('./lib/inflect');
-const { byId } = require('./lib/rules-registry');
+const { askClaude } = require('../lib/claude-runner');
+const { loadEntryFile, entryRegex } = require('../lib/phrase-list');
+const { siblingsOf, uncoveredSiblings, compileWidening } = require('../lib/inflect');
+const { byId } = require('../lib/rules-registry');
 const { probe } = require('./probe-corpus');
 
-const REPO_ROOT = path.join(__dirname, '..', '..');
-const DATA_ROOT = path.join(__dirname, 'data');
+const REPO_ROOT = path.join(__dirname, '..', '..', '..');
+const DATA_ROOT = path.join(__dirname, '..', 'data');
 const DEFAULT_DIR = path.join(REPO_ROOT, '.doc-review');
 const DEFAULT_CORPUS = path.join(REPO_ROOT, 'docs');
 
@@ -90,7 +90,7 @@ function walk(dir) {
 function collectWork({ fileFilter = null } = {}) {
   const work = [];
   for (const file of walk(DATA_ROOT)) {
-    const rel = path.relative(__dirname, file);
+    const rel = path.relative(path.join(__dirname, '..'), file);
     if (fileFilter && !rel.includes(fileFilter)) continue;
 
     let entries;

@@ -2,7 +2,7 @@
 
 A CLI plugin guide teaches a developer to build, test, and publish their own `csdx` plugin. It is not about using an existing command, it is about writing the code that becomes one. That is the test for this type: a command reference or task runbook has a reader who runs `csdx` commands, a plugin guide has a reader who is about to add one.
 
-Apply `types/common-rules.md` (B1, B2, C1-C9) and `cli-common-rules.md` (CLI-C1 to CLI-C15) alongside this file.
+Apply `../feature-docs/common-rules.md` (B1, B2, C1-C9) and `cli-common-rules.md` (CLI-C1 to CLI-C15) alongside this file.
 
 ---
 

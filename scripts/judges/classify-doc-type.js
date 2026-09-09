@@ -43,13 +43,13 @@
 const fs = require('fs');
 const path = require('path');
 
-const { DocModel } = require('./lib/doc-model');
-const { askClaude } = require('./lib/claude-runner');
-const { collectDocs } = require('./sweep-docs');
-const { classify } = require('./lib/corpus-class');
-const { VALID_TYPES } = require('./lint-doc');
+const { DocModel } = require('../lib/doc-model');
+const { askClaude } = require('../lib/claude-runner');
+const { collectDocs } = require('../sweep-docs');
+const { classify } = require('../lib/corpus-class');
+const { VALID_TYPES } = require('../lint-doc');
 
-const REPO_ROOT = path.join(__dirname, '..', '..');
+const REPO_ROOT = path.join(__dirname, '..', '..', '..');
 const DEFAULT_DIR = path.join(REPO_ROOT, '.doc-review');
 const CANDIDATES_PATH = path.join(DEFAULT_DIR, 'doc-type-candidates.json');
 const VERDICTS_PATH = path.join(DEFAULT_DIR, 'doc-type-verdicts.json');
