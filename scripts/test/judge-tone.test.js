@@ -20,7 +20,7 @@ const {
   findFixViolation,
   findPreservationViolation,
   PROMPT_VERSION,
-} = require('../judge-tone');
+} = require('../judges/judge-tone');
 const { byId } = require('../lib/rules-registry');
 
 const RULE = byId('C3-21');

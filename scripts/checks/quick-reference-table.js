@@ -3,7 +3,7 @@
 const { makeFinding } = require('../lib/report');
 
 /**
- * The three-column shape the Section Definitions in types/common-rules.md
+ * The three-column shape the Section Definitions in doc-templates/feature-docs/common-rules.md
  * describe: Use Case, Section, Key Call.
  */
 const QUICK_REFERENCE_COLUMNS = ['use case', 'section', 'key call'];

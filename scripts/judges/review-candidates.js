@@ -25,12 +25,12 @@
 
 const fs = require('fs');
 const path = require('path');
-const { DocModel } = require('./lib/doc-model');
-const { askClaude } = require('./lib/claude-runner');
-const { collectTier3Candidates } = require('./checks/tier3-candidates');
-const { collectDocs } = require('./sweep-docs');
+const { DocModel } = require('../lib/doc-model');
+const { askClaude } = require('../lib/claude-runner');
+const { collectTier3Candidates } = require('../checks/tier3-candidates');
+const { collectDocs } = require('../sweep-docs');
 
-const REPO_ROOT = path.join(__dirname, '..', '..');
+const REPO_ROOT = path.join(__dirname, '..', '..', '..');
 const DEFAULT_CORPUS = path.join(REPO_ROOT, 'docs');
 const DEFAULT_DIR = path.join(REPO_ROOT, '.doc-review');
 const VALID_VERDICTS = new Set(['VIOLATION', 'COMPLIANT', 'EXCEPTION_APPLIES', 'UNCLEAR']);

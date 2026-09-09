@@ -23,7 +23,7 @@ const { checkVagueReference } = require('../checks/vague-reference');
 const { collectTier3Candidates } = require('../checks/tier3-candidates');
 const { nextRuleId, validateRegistry, unemittedRuleClaims, byId } = require('../lib/rules-registry');
 const registry = require('../data/rules-registry.json');
-const { triageGap } = require('../probe-corpus');
+const { triageGap } = require('../tools/probe-corpus');
 
 function loadFixture(name) {
   return DocModel.fromFile(path.join(__dirname, 'fixtures', name));

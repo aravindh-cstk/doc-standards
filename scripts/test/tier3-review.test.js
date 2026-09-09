@@ -15,7 +15,7 @@ const path = require('path');
 
 const { DocModel } = require('../lib/doc-model');
 const { collectTier3Candidates } = require('../checks/tier3-candidates');
-const { reconcile, toFindings, validateVerdictReply, mergeVerdicts } = require('../review-candidates');
+const { reconcile, toFindings, validateVerdictReply, mergeVerdicts } = require('../judges/review-candidates');
 const { byId } = require('../lib/rules-registry');
 
 function loadFixture(name) {

@@ -1,7 +1,7 @@
 [
   {
     "id": "AR-01",
-    "source": "api-ref/api-ref-method-v2.md",
+    "source": "doc-templates/api-ref/api-ref-method-v2.md",
     "docTypes": [
       "api-ref"
     ],
@@ -13,7 +13,7 @@
   },
   {
     "id": "AR-02",
-    "source": "api-ref/api-ref-method-v2.md",
+    "source": "doc-templates/api-ref/api-ref-method-v2.md",
     "docTypes": [
       "api-ref"
     ],
@@ -25,7 +25,7 @@
   },
   {
     "id": "AR-03",
-    "source": "api-ref/api-ref-method-v2.md",
+    "source": "doc-templates/api-ref/api-ref-method-v2.md",
     "docTypes": [
       "api-ref"
     ],
@@ -37,7 +37,7 @@
   },
   {
     "id": "AR-04",
-    "source": "api-ref/api-ref-method-v2.md",
+    "source": "doc-templates/api-ref/api-ref-method-v2.md",
     "docTypes": [
       "api-ref"
     ],
@@ -49,7 +49,7 @@
   },
   {
     "id": "AR-05",
-    "source": "api-ref/api-ref-method-v2.md",
+    "source": "doc-templates/api-ref/api-ref-method-v2.md",
     "docTypes": [
       "api-ref"
     ],
@@ -61,7 +61,7 @@
   },
   {
     "id": "AR-06",
-    "source": "api-ref/api-ref-method-v2.md",
+    "source": "doc-templates/api-ref/api-ref-method-v2.md",
     "docTypes": [
       "api-ref"
     ],
@@ -73,7 +73,7 @@
   },
   {
     "id": "AR-07",
-    "source": "api-ref/api-ref-method-v2.md",
+    "source": "doc-templates/api-ref/api-ref-method-v2.md",
     "docTypes": [
       "api-ref"
     ],
@@ -85,7 +85,7 @@
   },
   {
     "id": "AR-08",
-    "source": "api-ref/api-ref-method-v2.md",
+    "source": "doc-templates/api-ref/api-ref-method-v2.md",
     "docTypes": [
       "api-ref"
     ],
@@ -97,7 +97,7 @@
   },
   {
     "id": "AR-09",
-    "source": "api-ref/api-ref-method-v2.md",
+    "source": "doc-templates/api-ref/api-ref-method-v2.md",
     "docTypes": [
       "api-ref"
     ],
@@ -109,7 +109,7 @@
   },
   {
     "id": "AR-10",
-    "source": "api-ref/api-ref-method-v2.md",
+    "source": "doc-templates/api-ref/api-ref-method-v2.md",
     "docTypes": [
       "api-ref"
     ],
@@ -121,7 +121,7 @@
   },
   {
     "id": "UG-01",
-    "source": "api-ref/api-ref-usage-guide-v2.md",
+    "source": "doc-templates/api-ref/api-ref-usage-guide-v2.md",
     "docTypes": [
       "api-ref"
     ],
@@ -133,7 +133,7 @@
   },
   {
     "id": "UG-02",
-    "source": "api-ref/api-ref-usage-guide-v2.md",
+    "source": "doc-templates/api-ref/api-ref-usage-guide-v2.md",
     "docTypes": [
       "api-ref"
     ],
@@ -145,7 +145,7 @@
   },
   {
     "id": "UG-03",
-    "source": "api-ref/api-ref-usage-guide-v2.md",
+    "source": "doc-templates/api-ref/api-ref-usage-guide-v2.md",
     "docTypes": [
       "api-ref"
     ],
@@ -157,7 +157,7 @@
   },
   {
     "id": "UG-04",
-    "source": "api-ref/api-ref-usage-guide-v2.md",
+    "source": "doc-templates/api-ref/api-ref-usage-guide-v2.md",
     "docTypes": [
       "api-ref"
     ],
@@ -169,7 +169,7 @@
   },
   {
     "id": "UG-05",
-    "source": "api-ref/api-ref-usage-guide-v2.md",
+    "source": "doc-templates/api-ref/api-ref-usage-guide-v2.md",
     "docTypes": [
       "api-ref"
     ],
@@ -181,7 +181,7 @@
   },
   {
     "id": "UG-06",
-    "source": "api-ref/api-ref-usage-guide-v2.md",
+    "source": "doc-templates/api-ref/api-ref-usage-guide-v2.md",
     "docTypes": [
       "api-ref"
     ],
@@ -193,7 +193,7 @@
   },
   {
     "id": "UG-07",
-    "source": "api-ref/api-ref-usage-guide-v2.md",
+    "source": "doc-templates/api-ref/api-ref-usage-guide-v2.md",
     "docTypes": [
       "api-ref"
     ],
@@ -205,7 +205,7 @@
   },
   {
     "id": "UG-08",
-    "source": "api-ref/api-ref-usage-guide-v2.md",
+    "source": "doc-templates/api-ref/api-ref-usage-guide-v2.md",
     "docTypes": [
       "api-ref"
     ],
@@ -217,7 +217,7 @@
   },
   {
     "id": "UG-09",
-    "source": "api-ref/api-ref-usage-guide-v2.md",
+    "source": "doc-templates/api-ref/api-ref-usage-guide-v2.md",
     "docTypes": [
       "api-ref"
     ],
@@ -229,7 +229,7 @@
   },
   {
     "id": "UG-10",
-    "source": "api-ref/api-ref-usage-guide-v2.md",
+    "source": "doc-templates/api-ref/api-ref-usage-guide-v2.md",
     "docTypes": [
       "api-ref"
     ],
@@ -241,7 +241,7 @@
   },
   {
     "id": "UG-11",
-    "source": "api-ref/api-ref-usage-guide-v2.md",
+    "source": "doc-templates/api-ref/api-ref-usage-guide-v2.md",
     "docTypes": [
       "api-ref"
     ],
@@ -253,7 +253,7 @@
   },
   {
     "id": "UG-12",
-    "source": "api-ref/api-ref-usage-guide-v2.md",
+    "source": "doc-templates/api-ref/api-ref-usage-guide-v2.md",
     "docTypes": [
       "api-ref"
     ],
@@ -265,7 +265,7 @@
   },
   {
     "id": "UG-13",
-    "source": "api-ref/api-ref-usage-guide-v2.md",
+    "source": "doc-templates/api-ref/api-ref-usage-guide-v2.md",
     "docTypes": [
       "api-ref"
     ],
@@ -277,7 +277,7 @@
   },
   {
     "id": "B1-01",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -289,7 +289,7 @@
   },
   {
     "id": "B1-02",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -301,7 +301,7 @@
   },
   {
     "id": "B1-03",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -313,7 +313,7 @@
   },
   {
     "id": "B1-04",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -325,7 +325,7 @@
   },
   {
     "id": "B1-05",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -337,7 +337,7 @@
   },
   {
     "id": "B1-06",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -349,7 +349,7 @@
   },
   {
     "id": "B1-07",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -361,7 +361,7 @@
   },
   {
     "id": "B1-08",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -373,7 +373,7 @@
   },
   {
     "id": "B1-09",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -385,7 +385,7 @@
   },
   {
     "id": "B1-10",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -397,7 +397,7 @@
   },
   {
     "id": "B1-11",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -409,7 +409,7 @@
   },
   {
     "id": "B2-01",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -421,7 +421,7 @@
   },
   {
     "id": "B2-02",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -433,7 +433,7 @@
   },
   {
     "id": "B2-03",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -445,7 +445,7 @@
   },
   {
     "id": "B2-04",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -457,7 +457,7 @@
   },
   {
     "id": "B2-05",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -469,7 +469,7 @@
   },
   {
     "id": "B2-06",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -481,7 +481,7 @@
   },
   {
     "id": "B2-07",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -493,7 +493,7 @@
   },
   {
     "id": "B2-08",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -505,7 +505,7 @@
   },
   {
     "id": "B2-09",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -517,7 +517,7 @@
   },
   {
     "id": "C1-01",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -529,7 +529,7 @@
   },
   {
     "id": "C1-02",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -541,7 +541,7 @@
   },
   {
     "id": "C1-03",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -553,7 +553,7 @@
   },
   {
     "id": "C1-04",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -565,7 +565,7 @@
   },
   {
     "id": "C1-05",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -577,7 +577,7 @@
   },
   {
     "id": "C1-06",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -589,7 +589,7 @@
   },
   {
     "id": "C2-01",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -601,7 +601,7 @@
   },
   {
     "id": "C2-02",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -613,7 +613,7 @@
   },
   {
     "id": "C2-03",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -625,7 +625,7 @@
   },
   {
     "id": "C2-04",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -637,7 +637,7 @@
   },
   {
     "id": "C2-05",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -649,7 +649,7 @@
   },
   {
     "id": "C2-06",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -661,7 +661,7 @@
   },
   {
     "id": "C2-07",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -673,7 +673,7 @@
   },
   {
     "id": "C2-08",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -685,7 +685,7 @@
   },
   {
     "id": "C2-09",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -697,7 +697,7 @@
   },
   {
     "id": "C2-10",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -709,7 +709,7 @@
   },
   {
     "id": "C2-11",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -721,7 +721,7 @@
   },
   {
     "id": "C2-12",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -733,7 +733,7 @@
   },
   {
     "id": "C2-13",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -745,7 +745,7 @@
   },
   {
     "id": "C2-14",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -757,7 +757,7 @@
   },
   {
     "id": "C2-15",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -769,7 +769,7 @@
   },
   {
     "id": "C3-01",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -781,7 +781,7 @@
   },
   {
     "id": "C3-02",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -793,7 +793,7 @@
   },
   {
     "id": "C3-03",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -805,7 +805,7 @@
   },
   {
     "id": "C3-04",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -817,7 +817,7 @@
   },
   {
     "id": "C3-05",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -829,7 +829,7 @@
   },
   {
     "id": "C3-06",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -841,7 +841,7 @@
   },
   {
     "id": "C3-07",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -853,7 +853,7 @@
   },
   {
     "id": "C3-08",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -865,7 +865,7 @@
   },
   {
     "id": "C3-09",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -877,7 +877,7 @@
   },
   {
     "id": "C3-10",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -889,7 +889,7 @@
   },
   {
     "id": "C3-11",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -901,7 +901,7 @@
   },
   {
     "id": "C3-12",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -913,7 +913,7 @@
   },
   {
     "id": "C3-13",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -925,7 +925,7 @@
   },
   {
     "id": "C3-14",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -937,7 +937,7 @@
   },
   {
     "id": "C3-15",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -949,7 +949,7 @@
   },
   {
     "id": "C3-16",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -961,7 +961,7 @@
   },
   {
     "id": "C3-17",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -973,7 +973,7 @@
   },
   {
     "id": "C3-18",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -985,7 +985,7 @@
   },
   {
     "id": "C3-19",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -997,7 +997,7 @@
   },
   {
     "id": "C3-20",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1009,7 +1009,7 @@
   },
   {
     "id": "C3-21",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1021,7 +1021,7 @@
   },
   {
     "id": "C3-22",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1033,7 +1033,7 @@
   },
   {
     "id": "C3-23",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1045,7 +1045,7 @@
   },
   {
     "id": "C3-24",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1057,7 +1057,7 @@
   },
   {
     "id": "C3-25",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1069,7 +1069,7 @@
   },
   {
     "id": "C3-26",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1081,7 +1081,7 @@
   },
   {
     "id": "C3-27",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1093,7 +1093,7 @@
   },
   {
     "id": "C3-28",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1105,7 +1105,7 @@
   },
   {
     "id": "C3-29",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1117,7 +1117,7 @@
   },
   {
     "id": "C3-30",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1129,7 +1129,7 @@
   },
   {
     "id": "C4-01",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1141,7 +1141,7 @@
   },
   {
     "id": "C4-02",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1153,7 +1153,7 @@
   },
   {
     "id": "C4-03",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1165,7 +1165,7 @@
   },
   {
     "id": "C4-04",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1177,7 +1177,7 @@
   },
   {
     "id": "C4-05",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1189,7 +1189,7 @@
   },
   {
     "id": "C4-06",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1201,7 +1201,7 @@
   },
   {
     "id": "C4-07",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1213,7 +1213,7 @@
   },
   {
     "id": "C4-08",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1225,7 +1225,7 @@
   },
   {
     "id": "C5-01",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1237,7 +1237,7 @@
   },
   {
     "id": "C5-02",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1249,7 +1249,7 @@
   },
   {
     "id": "C5-03",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1261,7 +1261,7 @@
   },
   {
     "id": "C5-04",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1273,7 +1273,7 @@
   },
   {
     "id": "C5-05",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1285,7 +1285,7 @@
   },
   {
     "id": "C5-06",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1297,7 +1297,7 @@
   },
   {
     "id": "C6-01",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1309,7 +1309,7 @@
   },
   {
     "id": "C6-02",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1321,7 +1321,7 @@
   },
   {
     "id": "C6-03",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1333,7 +1333,7 @@
   },
   {
     "id": "C6-04",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1345,7 +1345,7 @@
   },
   {
     "id": "C6-05",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1357,7 +1357,7 @@
   },
   {
     "id": "C6-06",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1369,7 +1369,7 @@
   },
   {
     "id": "C6-07",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1381,7 +1381,7 @@
   },
   {
     "id": "C6-08",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1393,7 +1393,7 @@
   },
   {
     "id": "C7-01",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1405,7 +1405,7 @@
   },
   {
     "id": "C7-02",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1417,7 +1417,7 @@
   },
   {
     "id": "C7-03",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1429,7 +1429,7 @@
   },
   {
     "id": "C7-04",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1441,7 +1441,7 @@
   },
   {
     "id": "C7-05",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1453,7 +1453,7 @@
   },
   {
     "id": "C7-06",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1465,7 +1465,7 @@
   },
   {
     "id": "C8-01",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1477,7 +1477,7 @@
   },
   {
     "id": "C8-02",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1489,7 +1489,7 @@
   },
   {
     "id": "C8-03",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1501,7 +1501,7 @@
   },
   {
     "id": "C8-04",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1513,7 +1513,7 @@
   },
   {
     "id": "C8-05",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1525,7 +1525,7 @@
   },
   {
     "id": "C8-06",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1537,7 +1537,7 @@
   },
   {
     "id": "C8-07",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1549,7 +1549,7 @@
   },
   {
     "id": "C8-08",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1561,7 +1561,7 @@
   },
   {
     "id": "C8-09",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1572,7 +1572,7 @@
   },
   {
     "id": "C9-01",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1584,7 +1584,7 @@
   },
   {
     "id": "C9-02",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1596,7 +1596,7 @@
   },
   {
     "id": "C9-03",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1608,7 +1608,7 @@
   },
   {
     "id": "C9-04",
-    "source": "types/common-rules.md",
+    "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -1644,7 +1644,7 @@
   },
   {
     "id": "MIG-01",
-    "source": "types/migration-guide.md",
+    "source": "doc-templates/feature-docs/migration-guide.md",
     "docTypes": [
       "migration-guide"
     ],
@@ -1656,7 +1656,7 @@
   },
   {
     "id": "MIG-02",
-    "source": "types/migration-guide.md",
+    "source": "doc-templates/feature-docs/migration-guide.md",
     "docTypes": [
       "migration-guide"
     ],
@@ -1668,7 +1668,7 @@
   },
   {
     "id": "MIG-03",
-    "source": "types/migration-guide.md",
+    "source": "doc-templates/feature-docs/migration-guide.md",
     "docTypes": [
       "migration-guide"
     ],
@@ -1680,7 +1680,7 @@
   },
   {
     "id": "MIG-04",
-    "source": "types/migration-guide.md",
+    "source": "doc-templates/feature-docs/migration-guide.md",
     "docTypes": [
       "migration-guide"
     ],
@@ -1692,7 +1692,7 @@
   },
   {
     "id": "MIG-05",
-    "source": "types/migration-guide.md",
+    "source": "doc-templates/feature-docs/migration-guide.md",
     "docTypes": [
       "migration-guide"
     ],
@@ -1704,7 +1704,7 @@
   },
   {
     "id": "MIG-06",
-    "source": "types/migration-guide.md",
+    "source": "doc-templates/feature-docs/migration-guide.md",
     "docTypes": [
       "migration-guide"
     ],
@@ -1716,7 +1716,7 @@
   },
   {
     "id": "MIG-07",
-    "source": "types/migration-guide.md",
+    "source": "doc-templates/feature-docs/migration-guide.md",
     "docTypes": [
       "migration-guide"
     ],
@@ -1728,7 +1728,7 @@
   },
   {
     "id": "MIG-08",
-    "source": "types/migration-guide.md",
+    "source": "doc-templates/feature-docs/migration-guide.md",
     "docTypes": [
       "migration-guide"
     ],
@@ -1740,7 +1740,7 @@
   },
   {
     "id": "MIG-09",
-    "source": "types/migration-guide.md",
+    "source": "doc-templates/feature-docs/migration-guide.md",
     "docTypes": [
       "migration-guide"
     ],
@@ -1752,7 +1752,7 @@
   },
   {
     "id": "RS1-01",
-    "source": "types/getting-started.md",
+    "source": "doc-templates/feature-docs/getting-started.md",
     "docTypes": [
       "getting-started"
     ],
@@ -1764,7 +1764,7 @@
   },
   {
     "id": "RS1-02",
-    "source": "types/getting-started.md",
+    "source": "doc-templates/feature-docs/getting-started.md",
     "docTypes": [
       "getting-started"
     ],
@@ -1776,7 +1776,7 @@
   },
   {
     "id": "RS1-03",
-    "source": "types/getting-started.md",
+    "source": "doc-templates/feature-docs/getting-started.md",
     "docTypes": [
       "getting-started"
     ],
@@ -1788,7 +1788,7 @@
   },
   {
     "id": "RS1-04",
-    "source": "types/getting-started.md",
+    "source": "doc-templates/feature-docs/getting-started.md",
     "docTypes": [
       "getting-started"
     ],
@@ -1800,7 +1800,7 @@
   },
   {
     "id": "RS2-01",
-    "source": "types/getting-started.md",
+    "source": "doc-templates/feature-docs/getting-started.md",
     "docTypes": [
       "getting-started"
     ],
@@ -1812,7 +1812,7 @@
   },
   {
     "id": "RS2-02",
-    "source": "types/getting-started.md",
+    "source": "doc-templates/feature-docs/getting-started.md",
     "docTypes": [
       "getting-started"
     ],
@@ -1824,7 +1824,7 @@
   },
   {
     "id": "RS2-03",
-    "source": "types/getting-started.md",
+    "source": "doc-templates/feature-docs/getting-started.md",
     "docTypes": [
       "getting-started"
     ],
@@ -1836,7 +1836,7 @@
   },
   {
     "id": "RS2-04",
-    "source": "types/getting-started.md",
+    "source": "doc-templates/feature-docs/getting-started.md",
     "docTypes": [
       "getting-started"
     ],
@@ -1848,7 +1848,7 @@
   },
   {
     "id": "RS3-01",
-    "source": "types/getting-started.md",
+    "source": "doc-templates/feature-docs/getting-started.md",
     "docTypes": [
       "getting-started"
     ],
@@ -1860,7 +1860,7 @@
   },
   {
     "id": "RS3-02",
-    "source": "types/getting-started.md",
+    "source": "doc-templates/feature-docs/getting-started.md",
     "docTypes": [
       "getting-started"
     ],
@@ -1872,7 +1872,7 @@
   },
   {
     "id": "RS3-03",
-    "source": "types/getting-started.md",
+    "source": "doc-templates/feature-docs/getting-started.md",
     "docTypes": [
       "getting-started"
     ],
@@ -1884,7 +1884,7 @@
   },
   {
     "id": "CLI-01",
-    "source": "cli-templates/cli-common-rules.md",
+    "source": "doc-templates/cli-templates/cli-common-rules.md",
     "docTypes": [
       "cli-command-reference",
       "cli-task-runbook",
@@ -1898,7 +1898,7 @@
   },
   {
     "id": "CLI-02",
-    "source": "cli-templates/cli-common-rules.md",
+    "source": "doc-templates/cli-templates/cli-common-rules.md",
     "docTypes": [
       "cli-command-reference",
       "cli-task-runbook"
@@ -1911,7 +1911,7 @@
   },
   {
     "id": "CLI-03",
-    "source": "cli-templates/cli-common-rules.md",
+    "source": "doc-templates/cli-templates/cli-common-rules.md",
     "docTypes": [
       "cli-command-reference",
       "cli-task-runbook",
@@ -1925,7 +1925,7 @@
   },
   {
     "id": "CLI-04",
-    "source": "cli-templates/cli-common-rules.md",
+    "source": "doc-templates/cli-templates/cli-common-rules.md",
     "docTypes": [
       "cli-command-reference",
       "cli-task-runbook",
@@ -1939,7 +1939,7 @@
   },
   {
     "id": "CLI-05",
-    "source": "cli-templates/cli-common-rules.md",
+    "source": "doc-templates/cli-templates/cli-common-rules.md",
     "docTypes": [
       "cli-command-reference",
       "cli-task-runbook",
@@ -1953,7 +1953,7 @@
   },
   {
     "id": "CLI-06",
-    "source": "cli-templates/cli-common-rules.md",
+    "source": "doc-templates/cli-templates/cli-common-rules.md",
     "docTypes": [
       "cli-command-reference",
       "cli-task-runbook",
@@ -1967,7 +1967,7 @@
   },
   {
     "id": "CLI-07",
-    "source": "cli-templates/cli-command-reference.md",
+    "source": "doc-templates/cli-templates/cli-command-reference.md",
     "docTypes": [
       "cli-command-reference"
     ],
@@ -1979,7 +1979,7 @@
   },
   {
     "id": "CLI-08",
-    "source": "cli-templates/cli-common-rules.md",
+    "source": "doc-templates/cli-templates/cli-common-rules.md",
     "docTypes": [
       "cli-command-reference",
       "cli-task-runbook",
@@ -1993,7 +1993,7 @@
   },
   {
     "id": "CLI-09",
-    "source": "cli-templates/cli-common-rules.md",
+    "source": "doc-templates/cli-templates/cli-common-rules.md",
     "docTypes": [
       "cli-command-reference",
       "cli-task-runbook",
@@ -2007,7 +2007,7 @@
   },
   {
     "id": "CLI-10",
-    "source": "cli-templates/cli-common-rules.md",
+    "source": "doc-templates/cli-templates/cli-common-rules.md",
     "docTypes": [
       "cli-command-reference",
       "cli-task-runbook",
@@ -2021,7 +2021,7 @@
   },
   {
     "id": "CLI-11",
-    "source": "cli-templates/cli-common-rules.md",
+    "source": "doc-templates/cli-templates/cli-common-rules.md",
     "docTypes": [
       "cli-command-reference",
       "cli-task-runbook",
@@ -2035,7 +2035,7 @@
   },
   {
     "id": "CLI-12",
-    "source": "cli-templates/cli-common-rules.md",
+    "source": "doc-templates/cli-templates/cli-common-rules.md",
     "docTypes": [
       "cli-command-reference",
       "cli-task-runbook",
@@ -2049,7 +2049,7 @@
   },
   {
     "id": "CLI-13",
-    "source": "cli-templates/cli-common-rules.md",
+    "source": "doc-templates/cli-templates/cli-common-rules.md",
     "docTypes": [
       "cli-command-reference",
       "cli-task-runbook"
@@ -2062,7 +2062,7 @@
   },
   {
     "id": "CLI-14",
-    "source": "cli-templates/cli-common-rules.md",
+    "source": "doc-templates/cli-templates/cli-common-rules.md",
     "docTypes": [
       "cli-command-reference",
       "cli-task-runbook",
@@ -2076,7 +2076,7 @@
   },
   {
     "id": "CLI-15",
-    "source": "cli-templates/cli-common-rules.md",
+    "source": "doc-templates/cli-templates/cli-common-rules.md",
     "docTypes": [
       "cli-command-reference",
       "cli-task-runbook",
@@ -2090,7 +2090,7 @@
   },
   {
     "id": "CLI-16",
-    "source": "cli-templates/cli-common-rules.md",
+    "source": "doc-templates/cli-templates/cli-common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -2102,7 +2102,7 @@
   },
   {
     "id": "CLI-17",
-    "source": "cli-templates/cli-common-rules.md",
+    "source": "doc-templates/cli-templates/cli-common-rules.md",
     "docTypes": [
       "all"
     ],
@@ -2114,7 +2114,7 @@
   },
   {
     "id": "CLI-18",
-    "source": "cli-templates/cli-common-rules.md",
+    "source": "doc-templates/cli-templates/cli-common-rules.md",
     "docTypes": [
       "cli-command-reference",
       "cli-task-runbook",
@@ -2128,7 +2128,7 @@
   },
   {
     "id": "CLI-19",
-    "source": "cli-templates/cli-common-rules.md",
+    "source": "doc-templates/cli-templates/cli-common-rules.md",
     "docTypes": [
       "cli-command-reference",
       "cli-task-runbook",
@@ -2142,7 +2142,7 @@
   },
   {
     "id": "CLI-20",
-    "source": "cli-templates/cli-common-rules.md",
+    "source": "doc-templates/cli-templates/cli-common-rules.md",
     "docTypes": [
       "cli-command-reference",
       "cli-task-runbook",
@@ -2156,7 +2156,7 @@
   },
   {
     "id": "PLG-01",
-    "source": "cli-templates/cli-plugin-guide.md",
+    "source": "doc-templates/cli-templates/cli-plugin-guide.md",
     "docTypes": [
       "cli-plugin-guide"
     ],
@@ -2168,7 +2168,7 @@
   },
   {
     "id": "PLG-02",
-    "source": "cli-templates/cli-plugin-guide.md",
+    "source": "doc-templates/cli-templates/cli-plugin-guide.md",
     "docTypes": [
       "cli-plugin-guide"
     ],
@@ -2180,7 +2180,7 @@
   },
   {
     "id": "PLG-03",
-    "source": "cli-templates/cli-plugin-guide.md",
+    "source": "doc-templates/cli-templates/cli-plugin-guide.md",
     "docTypes": [
       "cli-plugin-guide"
     ],
@@ -2192,7 +2192,7 @@
   },
   {
     "id": "PLG-04",
-    "source": "cli-templates/cli-plugin-guide.md",
+    "source": "doc-templates/cli-templates/cli-plugin-guide.md",
     "docTypes": [
       "cli-plugin-guide"
     ],
@@ -2204,7 +2204,7 @@
   },
   {
     "id": "PLG-05",
-    "source": "cli-templates/cli-plugin-guide.md",
+    "source": "doc-templates/cli-templates/cli-plugin-guide.md",
     "docTypes": [
       "cli-plugin-guide"
     ],

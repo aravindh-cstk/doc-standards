@@ -54,7 +54,7 @@ The two sets do not overlap, apart from `param`. Calling `fetch` on the no-UID o
 - No method takes credentials directly.
 
 **Rate limiting and retry.**
-- This SDK retries on `408` and `429` automatically, up to **five attempts**. The default strategy uses `backoff_factor=0`, so those retries fire back to back with no delay between them. A rate limit needs time to reset, and this default gives it none.
+- This SDK retries on `408` and `429` automatically, sending the initial request plus up to **five retries**. The default strategy uses `backoff_factor=0`, so those retries fire back to back with no delay between them. A rate limit needs time to reset, and this default gives it none.
 - Pass your own `retry_strategy` to `Stack` with a non-zero backoff factor if you expect to hit `429`.
 
 > **Additional Resources:** [Implement Retry Mechanism with Python Delivery SDK](/developers/sdks/content-delivery-sdk/python/python-delivery-retry-mechanism) covers the full set of `retry_strategy` parameters and backoff configuration examples.

@@ -2,7 +2,7 @@
 
 Reference table for all doc types. Use this alongside the per-type file to know which sections are required for the doc you are reviewing or writing.
 
-The four CLI types live in `cli-templates/`. They are separate types rather than variants of Feature Doc or How-To Guide because their required sections differ, and because a Section Order row cannot be scoped to one product.
+The four CLI types live in `../cli-templates/`. They are separate types rather than variants of Feature Doc or How-To Guide because their required sections differ, and because a Section Order row cannot be scoped to one product.
 
 | Section | Get Started Guide | Conceptual Guide | Feature Doc | How-To Guide | Setup Guide | Kickstarter | Migration Guide | CLI Command Reference | CLI Task Runbook | CLI Module Reference | CLI Plugin Guide | Chapter Index |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|

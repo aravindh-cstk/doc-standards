@@ -13,7 +13,7 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
-const { pairs, parseArgs } = require('../sync-mirror');
+const { pairs, parseArgs } = require('../tools/sync-mirror');
 
 function fixture() {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'sync-mirror-'));
@@ -86,9 +86,9 @@ test('pairs names no directory that the caller did not pass', () => {
 });
 
 test('the module exports no hardcoded corpus path', () => {
-  const mod = require('../sync-mirror');
+  const mod = require('../tools/sync-mirror');
   assert.deepEqual(Object.keys(mod).sort(), ['pairs', 'parseArgs']);
-  const src = fs.readFileSync(path.join(__dirname, '..', 'sync-mirror.js'), 'utf8');
+  const src = fs.readFileSync(path.join(__dirname, '..', 'tools', 'sync-mirror.js'), 'utf8');
   const code = src.slice(src.indexOf("const fs = require"));
   assert.ok(!/studio-docs/.test(code), 'a corpus path in the code scopes this to one project again');
 });

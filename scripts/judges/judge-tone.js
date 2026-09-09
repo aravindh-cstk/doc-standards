@@ -37,18 +37,18 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 
-const { askClaude } = require('./lib/claude-runner');
-const { DocModel } = require('./lib/doc-model');
-const { collectDocs } = require('./sweep-docs');
-const { lintFile } = require('./lint-doc');
-const { loadPhraseList, entryRegex, stripNonProse } = require('./lib/phrase-list');
-const { byId } = require('./lib/rules-registry');
+const { askClaude } = require('../lib/claude-runner');
+const { DocModel } = require('../lib/doc-model');
+const { collectDocs } = require('../sweep-docs');
+const { lintFile } = require('../lint-doc');
+const { loadPhraseList, entryRegex, stripNonProse } = require('../lib/phrase-list');
+const { byId } = require('../lib/rules-registry');
 const { validateVerdictObject, VALID_VERDICTS } = require('./review-candidates');
-const { checkBannedPhrases } = require('./checks/banned-phrases');
-const { checkEmDashSemicolon } = require('./checks/em-dash-semicolon');
-const { checkAnthropomorphism } = require('./checks/anthropomorphism');
+const { checkBannedPhrases } = require('../checks/banned-phrases');
+const { checkEmDashSemicolon } = require('../checks/em-dash-semicolon');
+const { checkAnthropomorphism } = require('../checks/anthropomorphism');
 
-const REPO_ROOT = path.join(__dirname, '..', '..');
+const REPO_ROOT = path.join(__dirname, '..', '..', '..');
 const DEFAULT_CORPUS = path.join(REPO_ROOT, 'docs');
 const DEFAULT_DIR = path.join(REPO_ROOT, '.doc-review');
 const DEFAULT_BATCH = 12;
@@ -75,8 +75,8 @@ const BATCH_TIMEOUT_MS = 240000;
 const MAX_BATCH_CHARS = 6000;
 
 const DATA_DIRS = {
-  'C3-21': path.join(__dirname, 'data', 'house-verbs'),
-  'C3-18': path.join(__dirname, 'data', 'anthropomorphism'),
+  'C3-21': path.join(__dirname, '..', 'data', 'house-verbs'),
+  'C3-18': path.join(__dirname, '..', 'data', 'anthropomorphism'),
   // C5-06, C3-22, C3-26, C7-06 and C7-02 have no wordlist. Their candidates come from
   // a structural signal in tier3-candidates.js, so rowsFromCandidates finds no
   // entries for them and reports the matched verbs as unavailable, which is
@@ -570,10 +570,10 @@ function unseenSentences(filePath) {
 
   const allEntries = [];
   for (const dir of [
-    path.join(__dirname, 'data', 'anthropomorphism'),
-    path.join(__dirname, 'data', 'house-verbs'),
-    path.join(__dirname, 'data', 'banned-phrases'),
-    path.join(__dirname, 'data', 'metaphors'),
+    path.join(__dirname, '..', 'data', 'anthropomorphism'),
+    path.join(__dirname, '..', 'data', 'house-verbs'),
+    path.join(__dirname, '..', 'data', 'banned-phrases'),
+    path.join(__dirname, '..', 'data', 'metaphors'),
   ]) {
     try {
       allEntries.push(...loadPhraseList(dir));
@@ -833,10 +833,10 @@ function runJudge(args) {
 function runDiscover(args) {
   const knownEntries = [];
   for (const dir of [
-    path.join(__dirname, 'data', 'anthropomorphism'),
-    path.join(__dirname, 'data', 'house-verbs'),
-    path.join(__dirname, 'data', 'banned-phrases'),
-    path.join(__dirname, 'data', 'metaphors'),
+    path.join(__dirname, '..', 'data', 'anthropomorphism'),
+    path.join(__dirname, '..', 'data', 'house-verbs'),
+    path.join(__dirname, '..', 'data', 'banned-phrases'),
+    path.join(__dirname, '..', 'data', 'metaphors'),
   ]) {
     try {
       knownEntries.push(...loadPhraseList(dir));
@@ -895,7 +895,7 @@ function runDiscover(args) {
 
   if (args.probe) {
     // probe() takes one corpus path, not a list, so run it per target and merge.
-    const { probe } = require('./probe-corpus');
+    const { probe } = require('../tools/probe-corpus');
     for (const p of out) {
       const hits = [];
       let unreportedCount = 0;

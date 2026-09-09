@@ -2,7 +2,7 @@
 
 A CLI task runbook walks a developer through one operation end to end, usually across more than one command and more than one plugin. The reader completes the operation from this page alone.
 
-Apply `types/common-rules.md` (B1, B2, C1-C9) and `cli-common-rules.md` (CLI-C1 to CLI-C14) alongside this file.
+Apply `../feature-docs/common-rules.md` (B1, B2, C1-C9) and `cli-common-rules.md` (CLI-C1 to CLI-C14) alongside this file.
 
 ---
 

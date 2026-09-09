@@ -19,26 +19,26 @@ repository, so nothing blocks on it.
 
 | Group | Rules | Tier 1 | Tier 2 | Tier 3 | Stated in |
 | --- | --- | --- | --- | --- | --- |
-| [AR](#ar-api-reference-page-anatomy) | 10 | 8 | 2 | 0 | `api-ref/api-ref-method-v2.md` |
-| [UG](#ug-usage-guide-anatomy) | 13 | 9 | 3 | 1 | `api-ref/api-ref-usage-guide-v2.md` |
-| [B1](#b1-the-ordered-audit-checklist) | 11 | 3 | 3 | 5 | `types/common-rules.md` |
-| [B2](#b2-the-anti-pattern-table) | 9 | 3 | 3 | 3 | `types/common-rules.md` |
-| [C1](#c1-structure-and-flow) | 6 | 5 | 1 | 0 | `types/common-rules.md` |
-| [C2](#c2-scannability) | 15 | 5 | 4 | 6 | `types/common-rules.md` |
-| [C3](#c3-language-and-tone) | 30 | 10 | 12 | 8 | `types/common-rules.md` |
-| [C4](#c4-code-versus-prose) | 8 | 0 | 4 | 4 | `types/common-rules.md` |
-| [C5](#c5-cross-references) | 6 | 0 | 4 | 2 | `types/common-rules.md` |
-| [C6](#c6-content-accuracy-and-grouping) | 8 | 0 | 2 | 6 | `types/common-rules.md` |
-| [C7](#c7-duplication) | 6 | 0 | 2 | 4 | `types/common-rules.md` |
-| [C8](#c8-developer-tone) | 9 | 8 | 0 | 1 | `types/common-rules.md` |
-| [C9](#c9-cli-command-documentation) | 4 | 0 | 3 | 1 | `types/common-rules.md` |
+| [AR](#ar-api-reference-page-anatomy) | 10 | 8 | 2 | 0 | `doc-templates/api-ref/api-ref-method-v2.md` |
+| [UG](#ug-usage-guide-anatomy) | 13 | 9 | 3 | 1 | `doc-templates/api-ref/api-ref-usage-guide-v2.md` |
+| [B1](#b1-the-ordered-audit-checklist) | 11 | 3 | 3 | 5 | `doc-templates/feature-docs/common-rules.md` |
+| [B2](#b2-the-anti-pattern-table) | 9 | 3 | 3 | 3 | `doc-templates/feature-docs/common-rules.md` |
+| [C1](#c1-structure-and-flow) | 6 | 5 | 1 | 0 | `doc-templates/feature-docs/common-rules.md` |
+| [C2](#c2-scannability) | 15 | 5 | 4 | 6 | `doc-templates/feature-docs/common-rules.md` |
+| [C3](#c3-language-and-tone) | 30 | 10 | 12 | 8 | `doc-templates/feature-docs/common-rules.md` |
+| [C4](#c4-code-versus-prose) | 8 | 0 | 4 | 4 | `doc-templates/feature-docs/common-rules.md` |
+| [C5](#c5-cross-references) | 6 | 0 | 4 | 2 | `doc-templates/feature-docs/common-rules.md` |
+| [C6](#c6-content-accuracy-and-grouping) | 8 | 0 | 2 | 6 | `doc-templates/feature-docs/common-rules.md` |
+| [C7](#c7-duplication) | 6 | 0 | 2 | 4 | `doc-templates/feature-docs/common-rules.md` |
+| [C8](#c8-developer-tone) | 9 | 8 | 0 | 1 | `doc-templates/feature-docs/common-rules.md` |
+| [C9](#c9-cli-command-documentation) | 4 | 0 | 3 | 1 | `doc-templates/feature-docs/common-rules.md` |
 | [FM](#fm-front-matter) | 2 | 2 | 0 | 0 | `section-order.json`, `parse-markdown.js` |
-| [MIG](#mig-migration-guide-specifics) | 9 | 4 | 2 | 3 | `types/migration-guide.md` |
-| [RS1](#rs1-role-based-routing) | 4 | 3 | 0 | 1 | `types/getting-started.md` |
-| [RS2](#rs2-quick-start-constraints) | 4 | 2 | 1 | 1 | `types/getting-started.md` |
-| [RS3](#rs3-what-a-get-started-guide-excludes) | 3 | 2 | 0 | 1 | `types/getting-started.md` |
-| [CLI](#cli-shared-cli-rules) | 20 | 13 | 7 | 0 | `cli-templates/cli-common-rules.md`, `cli-templates/cli-command-reference.md` |
-| [PLG](#plg-plugin-guide-specifics) | 5 | 1 | 4 | 0 | `cli-templates/cli-plugin-guide.md` |
+| [MIG](#mig-migration-guide-specifics) | 9 | 4 | 2 | 3 | `doc-templates/feature-docs/migration-guide.md` |
+| [RS1](#rs1-role-based-routing) | 4 | 3 | 0 | 1 | `doc-templates/feature-docs/getting-started.md` |
+| [RS2](#rs2-quick-start-constraints) | 4 | 2 | 1 | 1 | `doc-templates/feature-docs/getting-started.md` |
+| [RS3](#rs3-what-a-get-started-guide-excludes) | 3 | 2 | 0 | 1 | `doc-templates/feature-docs/getting-started.md` |
+| [CLI](#cli-shared-cli-rules) | 20 | 13 | 7 | 0 | `doc-templates/cli-templates/cli-common-rules.md`, `doc-templates/cli-templates/cli-command-reference.md` |
+| [PLG](#plg-plugin-guide-specifics) | 5 | 1 | 4 | 0 | `doc-templates/cli-templates/cli-plugin-guide.md` |
 
 ## How to read a row
 
@@ -54,7 +54,7 @@ repository, so nothing blocks on it.
 
 ## AR, API reference page anatomy
 
-Stated in: `api-ref/api-ref-method-v2.md`.
+Stated in: `doc-templates/api-ref/api-ref-method-v2.md`.
 
 ### AR-01
 
@@ -63,7 +63,7 @@ Stated in: `api-ref/api-ref-method-v2.md`.
 | Tier | 1 |
 | Doc types | `api-ref` |
 | Check | `front-matter-api-ref` |
-| Source | `api-ref/api-ref-method-v2.md` |
+| Source | `doc-templates/api-ref/api-ref-method-v2.md` |
 
 **Rule.** API reference pages carry exactly three front-matter keys: uid, seo_title, seo_description. Method pages leave both SEO fields empty, class pages fill them.
 
@@ -78,7 +78,7 @@ Stated in: `api-ref/api-ref-method-v2.md`.
 | Tier | 1 |
 | Doc types | `api-ref` |
 | Check | `api-ref-heading-levels` |
-| Source | `api-ref/api-ref-method-v2.md` |
+| Source | `doc-templates/api-ref/api-ref-method-v2.md` |
 
 **Rule.** A method page has exactly one H3, matching its filename, and every subsection is H4. A class page uses one H1 and H2 subsections.
 
@@ -93,7 +93,7 @@ Stated in: `api-ref/api-ref-method-v2.md`.
 | Tier | 1 |
 | Doc types | `api-ref` |
 | Check | `api-ref-section-order` |
-| Source | `api-ref/api-ref-method-v2.md` |
+| Source | `doc-templates/api-ref/api-ref-method-v2.md` |
 
 **Rule.** Method page sections appear in this order: optional Instance State, then Validation, Behavior, Example.
 
@@ -108,7 +108,7 @@ Stated in: `api-ref/api-ref-method-v2.md`.
 | Tier | 1 |
 | Doc types | `api-ref` |
 | Check | `api-ref-returns-line` |
-| Source | `api-ref/api-ref-method-v2.md` |
+| Source | `doc-templates/api-ref/api-ref-method-v2.md` |
 
 **Rule.** Every method page has a Returns line shaped as the bold label, the type, a period, then a noun-phrase sentence.
 
@@ -123,7 +123,7 @@ Stated in: `api-ref/api-ref-method-v2.md`.
 | Tier | 1 |
 | Doc types | `api-ref` |
 | Check | `api-ref-param-table` |
-| Source | `api-ref/api-ref-method-v2.md` |
+| Source | `doc-templates/api-ref/api-ref-method-v2.md` |
 
 **Rule.** A parameter table has exactly the five columns Name, Type, Required, Default, Description. The Default cell is never blank and never an em dash. Required parameters use Not applicable.
 
@@ -138,7 +138,7 @@ Stated in: `api-ref/api-ref-method-v2.md`.
 | Tier | 2 |
 | Doc types | `api-ref` |
 | Check | `api-ref-additional-resource` |
-| Source | `api-ref/api-ref-method-v2.md` |
+| Source | `doc-templates/api-ref/api-ref-method-v2.md` |
 
 **Rule.** An Additional Resource callout closes the Validation section of any method that makes an HTTP call, with the label agreeing in number with the number of links it carries.
 
@@ -153,7 +153,7 @@ Stated in: `api-ref/api-ref-method-v2.md`.
 | Tier | 2 |
 | Doc types | `api-ref` |
 | Check | `api-ref-trailing-rule` |
-| Source | `api-ref/api-ref-method-v2.md` |
+| Source | `doc-templates/api-ref/api-ref-method-v2.md` |
 
 **Rule.** Method pages end with a horizontal rule. Class pages and usage guides do not.
 
@@ -168,7 +168,7 @@ Stated in: `api-ref/api-ref-method-v2.md`.
 | Tier | 1 |
 | Doc types | `api-ref` |
 | Check | `api-ref-method-index-sole-list` |
-| Source | `api-ref/api-ref-method-v2.md` |
+| Source | `doc-templates/api-ref/api-ref-method-v2.md` |
 
 **Rule.** The Method Index table is the only list of a class's methods. No trailing bullet list of method links.
 
@@ -183,7 +183,7 @@ Stated in: `api-ref/api-ref-method-v2.md`.
 | Tier | 1 |
 | Doc types | `api-ref` |
 | Check | `api-ref-index-completeness` |
-| Source | `api-ref/api-ref-method-v2.md` |
+| Source | `doc-templates/api-ref/api-ref-method-v2.md` |
 
 **Rule.** Every method file is linked exactly once from its class Method Index, and every relative link in the doc set resolves.
 
@@ -198,7 +198,7 @@ Stated in: `api-ref/api-ref-method-v2.md`.
 | Tier | 1 |
 | Doc types | `api-ref` |
 | Check | `api-ref-verified-defaults` |
-| Source | `api-ref/api-ref-method-v2.md` |
+| Source | `doc-templates/api-ref/api-ref-method-v2.md` |
 
 **Rule.** Take a parameter default from the SDK signature. Never from an API reference doc or Postman collection. When the SDK sets no default, say the API applies its own without naming a number.
 
@@ -208,7 +208,7 @@ Stated in: `api-ref/api-ref-method-v2.md`.
 
 ## UG, usage guide anatomy
 
-Stated in: `api-ref/api-ref-usage-guide-v2.md`.
+Stated in: `doc-templates/api-ref/api-ref-usage-guide-v2.md`.
 
 ### UG-01
 
@@ -217,7 +217,7 @@ Stated in: `api-ref/api-ref-usage-guide-v2.md`.
 | Tier | 1 |
 | Doc types | `api-ref` |
 | Check | `front-matter-api-ref` |
-| Source | `api-ref/api-ref-usage-guide-v2.md` |
+| Source | `doc-templates/api-ref/api-ref-usage-guide-v2.md` |
 
 **Rule.** A usage guide carries the same three front-matter keys as every api-ref page, and fills all three. Neither SEO field is left empty.
 
@@ -232,7 +232,7 @@ Stated in: `api-ref/api-ref-usage-guide-v2.md`.
 | Tier | 1 |
 | Doc types | `api-ref` |
 | Check | `api-ref-heading-levels` |
-| Source | `api-ref/api-ref-usage-guide-v2.md` |
+| Source | `doc-templates/api-ref/api-ref-usage-guide-v2.md` |
 
 **Rule.** A usage guide has exactly one H1 in the form of the SDK name followed by API Reference, sections at H2, and usage-pattern titles at H3. No heading is H4 or deeper, and no H2 repeats the H1 text.
 
@@ -247,7 +247,7 @@ Stated in: `api-ref/api-ref-usage-guide-v2.md`.
 | Tier | 1 |
 | Doc types | `api-ref` |
 | Check | `api-ref-section-order` |
-| Source | `api-ref/api-ref-usage-guide-v2.md` |
+| Source | `doc-templates/api-ref/api-ref-usage-guide-v2.md` |
 
 **Rule.** Usage guide sections appear in this order: Minimum Working Example, SDK Structure, Class Overview, Task Index, Key Usage Patterns, SDK-Wide Notes, then SDK Limitations. The Before you begin blockquote sits immediately after the intro paragraph, before the first H2.
 
@@ -262,7 +262,7 @@ Stated in: `api-ref/api-ref-usage-guide-v2.md`.
 | Tier | 1 |
 | Doc types | `api-ref` |
 | Check | `api-ref-class-overview-table` |
-| Source | `api-ref/api-ref-usage-guide-v2.md` |
+| Source | `doc-templates/api-ref/api-ref-usage-guide-v2.md` |
 
 **Rule.** The Class Overview table has exactly the three columns Class, Role, and Accessed via, in that order. Every cell in the Class column is a markdown link, and every cell in the Accessed via column is inline code.
 
@@ -277,7 +277,7 @@ Stated in: `api-ref/api-ref-usage-guide-v2.md`.
 | Tier | 1 |
 | Doc types | `api-ref` |
 | Check | `api-ref-class-overview-completeness` |
-| Source | `api-ref/api-ref-usage-guide-v2.md` |
+| Source | `doc-templates/api-ref/api-ref-usage-guide-v2.md` |
 
 **Rule.** Every class_reference.md in the doc set is linked exactly once from the Class Overview table, and every link in that table resolves.
 
@@ -292,7 +292,7 @@ Stated in: `api-ref/api-ref-usage-guide-v2.md`.
 | Tier | 1 |
 | Doc types | `api-ref` |
 | Check | `api-ref-task-index` |
-| Source | `api-ref/api-ref-usage-guide-v2.md` |
+| Source | `doc-templates/api-ref/api-ref-usage-guide-v2.md` |
 
 **Rule.** The Task Index table has exactly the three columns Task, Start here, and Class, in that order. Every Start here cell is a link that resolves, and every Task cell starts with a verb.
 
@@ -307,7 +307,7 @@ Stated in: `api-ref/api-ref-usage-guide-v2.md`.
 | Tier | 3 |
 | Doc types | `api-ref` |
 | Check | none, tier 3 is adjudicated |
-| Source | `api-ref/api-ref-usage-guide-v2.md` |
+| Source | `doc-templates/api-ref/api-ref-usage-guide-v2.md` |
 
 **Rule.** A fact true of every class in the SDK lives once in SDK-Wide Notes or SDK Limitations on the usage guide and is not repeated on class pages. A fact confined to one class lives on that class page and is not hoisted to the usage guide.
 
@@ -322,7 +322,7 @@ Stated in: `api-ref/api-ref-usage-guide-v2.md`.
 | Tier | 2 |
 | Doc types | `api-ref` |
 | Check | `api-ref-token-type-warning` |
-| Source | `api-ref/api-ref-usage-guide-v2.md` |
+| Source | `doc-templates/api-ref/api-ref-usage-guide-v2.md` |
 
 **Rule.** SDK-Wide Notes carries a token-type warning naming the token type this SDK requires and the error a wrong token type produces.
 
@@ -337,7 +337,7 @@ Stated in: `api-ref/api-ref-usage-guide-v2.md`.
 | Tier | 1 |
 | Doc types | `api-ref` |
 | Check | `api-ref-before-you-begin` |
-| Source | `api-ref/api-ref-usage-guide-v2.md` |
+| Source | `doc-templates/api-ref/api-ref-usage-guide-v2.md` |
 
 **Rule.** A Before you begin blockquote follows the intro paragraph and carries three facts: a link to the Get Started guide, the runtime versions this SDK supports, and the SDK version this reference documents with a changelog link.
 
@@ -352,7 +352,7 @@ Stated in: `api-ref/api-ref-usage-guide-v2.md`.
 | Tier | 2 |
 | Doc types | `api-ref` |
 | Check | `api-ref-usage-guide-scope` |
-| Source | `api-ref/api-ref-usage-guide-v2.md` |
+| Source | `doc-templates/api-ref/api-ref-usage-guide-v2.md` |
 
 **Rule.** A usage guide carries no installation or authentication setup steps, no method signatures, no flat list of methods, no FAQ or Common Questions section, and no standalone Additional Resources section.
 
@@ -367,7 +367,7 @@ Stated in: `api-ref/api-ref-usage-guide-v2.md`.
 | Tier | 2 |
 | Doc types | `api-ref` |
 | Check | `api-ref-usage-patterns` |
-| Source | `api-ref/api-ref-usage-guide-v2.md` |
+| Source | `doc-templates/api-ref/api-ref-usage-guide-v2.md` |
 
 **Rule.** Key Usage Patterns holds three or more H3 subsections, each titled with the scenario it demonstrates rather than a generic label such as Example 1 or Basic usage.
 
@@ -382,7 +382,7 @@ Stated in: `api-ref/api-ref-usage-guide-v2.md`.
 | Tier | 1 |
 | Doc types | `api-ref` |
 | Check | `api-ref-sdk-limitations` |
-| Source | `api-ref/api-ref-usage-guide-v2.md` |
+| Source | `doc-templates/api-ref/api-ref-usage-guide-v2.md` |
 
 **Rule.** The SDK Limitations table uses the same three columns as the class-level Capability Matrix, Capability, Supported, and Notes / Alternative, and no Notes / Alternative cell is left blank.
 
@@ -397,7 +397,7 @@ Stated in: `api-ref/api-ref-usage-guide-v2.md`.
 | Tier | 1 |
 | Doc types | `api-ref` |
 | Check | `api-ref-sdk-wide-notes` |
-| Source | `api-ref/api-ref-usage-guide-v2.md` |
+| Source | `doc-templates/api-ref/api-ref-usage-guide-v2.md` |
 
 **Rule.** SDK-Wide Notes is a table with exactly the three columns Concern, Behavior, and Default when unset. No Default when unset cell is blank. Required parameters use Not applicable.
 
@@ -407,7 +407,7 @@ Stated in: `api-ref/api-ref-usage-guide-v2.md`.
 
 ## B1, the ordered audit checklist
 
-Stated in: `types/common-rules.md`.
+Stated in: `doc-templates/feature-docs/common-rules.md`.
 
 ### B1-01
 
@@ -416,7 +416,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `section-structure` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Does the doc lead with setup or action before theory (Do first, understand second)?
 
@@ -431,7 +431,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Does each heading name accurately describe what the section contains, not what it aspires to contain?
 
@@ -446,7 +446,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Are all items in each section genuinely the same type of thing?
 
@@ -461,7 +461,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Does every "you must do X" instruction explain what breaks without X before stating the rule?
 
@@ -476,7 +476,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Is any prose block that could be a table or bullet list already a table or bullet list?
 
@@ -491,7 +491,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `acronym-first-use` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Is each key term defined once on first use and abbreviated consistently thereafter?
 
@@ -506,7 +506,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `prose-guard-heuristic` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Are implementation guards, conditional flags, and required configuration values shown as code rather than described in sentences?
 
@@ -521,7 +521,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `callout-frequency` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Has every outbound callout (Additional Resource, See also, Note) been classified as required, optional, or redundant?
 
@@ -536,7 +536,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `duplicate-sections` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** If two sections are near-identical, does the second reference the first rather than repeating it?
 
@@ -551,7 +551,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `banned-phrases` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Is there any casual language, Q&A-style headers, or marketing phrasing?
 
@@ -566,7 +566,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Does the reader know what happens if they skip or misapply each required step?
 
@@ -576,7 +576,7 @@ Stated in: `types/common-rules.md`.
 
 ## B2, the anti-pattern table
 
-Stated in: `types/common-rules.md`.
+Stated in: `doc-templates/feature-docs/common-rules.md`.
 
 ### B2-01
 
@@ -585,7 +585,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `section-structure` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Avoid Understand-Understand-Do ordering.
 
@@ -600,7 +600,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Avoid an aspirational heading that does not match its content.
 
@@ -615,7 +615,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Avoid stating an implementation rule before its consequence.
 
@@ -630,7 +630,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `callout-frequency` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Avoid an outbound callout placed mid-flow.
 
@@ -645,7 +645,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Avoid grouping unlike things as peers (for example, a CDN listed alongside SSR, CSR, SSG).
 
@@ -660,7 +660,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `duplicate-sections` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Avoid near-identical sections with full content duplication.
 
@@ -675,7 +675,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `prose-guard-heuristic` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Avoid prose for implementation guards or conditions.
 
@@ -690,7 +690,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `bare-links` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Avoid bare cross-reference links without a description.
 
@@ -705,7 +705,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `banned-phrases` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Avoid casual or marketing phrasing in technical voice.
 
@@ -715,7 +715,7 @@ Stated in: `types/common-rules.md`.
 
 ## C1, structure and flow
 
-Stated in: `types/common-rules.md`.
+Stated in: `doc-templates/feature-docs/common-rules.md`.
 
 ### C1-01
 
@@ -724,7 +724,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `section-structure` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Order sections as Do, then Understand, then Debug. Setup comes before theory, troubleshooting comes last.
 
@@ -739,7 +739,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `section-structure` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** The Quick Decision Guide belongs before Prerequisites, not inside Main Content.
 
@@ -754,7 +754,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `section-structure` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Theory sections belong after the working setup, never before it.
 
@@ -769,7 +769,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `prerequisites-links` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Prerequisites must link to the resource that fulfills each requirement.
 
@@ -784,7 +784,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `troubleshooting-format` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Troubleshooting entries require a root cause and a resolution, not just a symptom.
 
@@ -799,7 +799,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `bare-links` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Each link in Next Steps must include a one-sentence description of what the linked doc covers.
 
@@ -809,7 +809,7 @@ Stated in: `types/common-rules.md`.
 
 ## C2, scannability
 
-Stated in: `types/common-rules.md`.
+Stated in: `doc-templates/feature-docs/common-rules.md`.
 
 ### C2-01
 
@@ -818,7 +818,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Use tables instead of prose for comparisons, decision matrices, and option sets with two or more dimensions.
 
@@ -833,7 +833,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Use bullet lists instead of prose for sequences of conditions, requirements, or parallel items.
 
@@ -848,7 +848,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Use an ASCII or flow diagram for data flows with three or more steps or two or more actors.
 
@@ -863,7 +863,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `quick-reference-table` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Section names in a Quick Reference table must link to the corresponding section using the relative doc URL and section anchor.
 
@@ -878,7 +878,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `callout-frequency` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Callouts are reserved for high-stakes warnings (data loss, broken preview, security issues), not general information.
 
@@ -893,7 +893,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** When a list of values is maintained externally, include a Note stating the authoritative source and any known constraints.
 
@@ -908,7 +908,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `heading-length` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** A heading is at most 4 words, counting an inline-code span or a hyphenated compound as one word.
 
@@ -923,7 +923,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `heading-length` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** A heading is a complete phrase. Do not open a heading with a lowercase verb or a conjunction that depends on a subject the heading does not name.
 
@@ -938,7 +938,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `paragraph-cohesion` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Consecutive body paragraphs under one heading read as one argument or as labelled standalone facts. When the paragraphs build on each other, open each with the subordinating connective that carries the logic. When they cover separate sub-topics, give each a bolded lead-in label. Do not leave a run of three or more paragraphs that each open with a bare subject or a bare demonstrative and signal no relation to the paragraph above, and do not strand a one-sentence paragraph between two longer ones.
 
@@ -953,7 +953,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `table-integrity` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Every table row carries the same number of cells as its header row, and every cell's emphasis markers, parentheses and brackets close within that cell.
 
@@ -968,7 +968,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `callout-taxonomy` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** A callout uses one of four labels: Warning, Note, Tip, or Additional Resource. Do not invent another label such as Important, Attention, or Caution. The Additional Resource label takes the plural, Additional Resources, when the callout carries two or more links. AR-06 owns that agreement, so this rule governs only which words may appear. An API reference usage guide adds one label, Before you begin, which UG-09 requires on that page and on no other.
 
@@ -983,7 +983,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Do not merge a stated fact, a conditional exception, an inline command reference, and a location fact into one paragraph, split each by kind into a labeled statement, table, or code block.
 
@@ -998,7 +998,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `numeric-consistency` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** A stated count must match the structure it counts. "Eight deliverables", "the four steps below" and a heading that says "(13)" each have to agree with the list, table or heading run that follows.
 
@@ -1013,7 +1013,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `link-label-fidelity` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** A link label names its destination. It does not describe the act of following the link ("here", "read more"), and it does not promise a page other than the one it resolves to.
 
@@ -1028,7 +1028,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** When a bolded lead-in label introduces more than one distinct fact, or a condition with multiple branches, format the content as a bullet list under that label, nesting a sub-bullet for each branch, rather than one prose paragraph.
 
@@ -1038,7 +1038,7 @@ Stated in: `types/common-rules.md`.
 
 ## C3, language and tone
 
-Stated in: `types/common-rules.md`.
+Stated in: `doc-templates/feature-docs/common-rules.md`.
 
 ### C3-01
 
@@ -1047,7 +1047,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `banned-phrases` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** No casual language in prose (for example, "right away", "on its own", "you'll find", "pretty straightforward", "just").
 
@@ -1062,7 +1062,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `qa-headers` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** No Q&A-style headers in body sections.
 
@@ -1077,7 +1077,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `banned-phrases` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** No marketing phrasing (for example, "seamless", "powerful", "instant feedback", "enhanced experience").
 
@@ -1092,7 +1092,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `exhaustive-claim-phrases` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Use "for example" when the set shown is illustrative, not exhaustive. Do not use "all of the following" or "these are the only ways" unless the set is verified complete.
 
@@ -1107,7 +1107,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `em-dash-semicolon` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** No em dashes or semicolons in prose outside of code blocks.
 
@@ -1122,7 +1122,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `acronym-first-use` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Define each key term once at first use using the full form, then use the abbreviation consistently.
 
@@ -1137,7 +1137,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `sentence-concision` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Write one idea per sentence. Cut hedging qualifiers and redundant justification clauses ("in practice", "which means", "rather than letting X decide", stacking two "because/so" clauses in one sentence).
 
@@ -1152,7 +1152,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `metaphor-phrases` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** No figurative/spatial metaphors for technical mechanisms.
 
@@ -1167,7 +1167,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `periphrasis-phrases` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Name a concept directly instead of describing what it does in roundabout language, when a concise technical term for it is already established elsewhere in this doc set.
 
@@ -1182,7 +1182,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `passive-voice` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** No passive-voice constructions (aux plus past participle, modal plus be plus participle, get-passives, or by-agent passives) where an active-voice rewrite would name the actor directly.
 
@@ -1197,7 +1197,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `error-code-format` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Write a numeric error code or HTTP status code as inline code, never as bare prose.
 
@@ -1212,7 +1212,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `embedded-question-phrases` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Do not embed a lowercase question word ("how", "how many", "how much") mid-sentence as an indirect question. Name the thing directly ("the number of X", "the OAuth sign-in flow", "the steps to X", "the rules for combining them") instead.
 
@@ -1227,7 +1227,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `retry-attempt-count-bold` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Bold a spelled-out retry or attempt count stated in prose, for example **five attempts**.
 
@@ -1242,7 +1242,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `ordered-list-sequence` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Use a numbered list only for a sequence: instructions the reader performs in order, an event flow, or a ranked list such as precedence. Every other set of parallel items is an unordered list.
 
@@ -1257,7 +1257,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `banned-phrases` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Do not open a paragraph with a conversational discourse marker standing in for a callout (for example, "One caveat:", "When in doubt:", "That said", "Wait."), and do not use conversational connectives such as "either way" or "worth knowing" in prose.
 
@@ -1272,7 +1272,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** When a sentence names what the reader can change, create, or configure, the list must be the complete set, or it must be marked as illustrative with "for example".
 
@@ -1287,7 +1287,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** State product behavior with the figure or the determining condition, not with a vague quantifier or frequency word ("most clients", "some are destructive", "occasionally", "usually").
 
@@ -1302,7 +1302,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `anthropomorphism` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Do not attribute intent, knowledge, perception, or volition to a system component. Name the mechanism instead, for example "a disabled profile returns an empty tool list" rather than "a disabled profile advertises zero tools".
 
@@ -1317,7 +1317,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `present-continuous` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Write in simple present tense. Do not use present continuous as the main verb ("the client is holding a stale token", "confirm calls are landing").
 
@@ -1332,7 +1332,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Do not use a gerund phrase as the grammatical subject when the sentence names or implies an actor who should hold the verb ("clicking Duplicate and leaving does not create a profile", "omitting it uses the configured stack").
 
@@ -1347,7 +1347,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Use the specific mechanism verb rather than a general-purpose house verb ("holds", "carries", "names", "asks for", "offers", "hides", "lets you", "picks") when an exact verb is available ("contains", "stores", "includes", "specifies", "requests", "returns", "accepts", "selects").
 
@@ -1362,7 +1362,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Use a contrastive connective ("but", "however", "though", "yet") only when the clauses it joins actually point in opposite directions. Where both clauses point the same way, use "and" or a period.
 
@@ -1377,7 +1377,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** When a concept has a documented name outside this doc set, name it and link its documentation rather than describing its properties. Write "an [auth token](...)" rather than "a short-lived token the dashboard issues for its own use and never displays".
 
@@ -1392,7 +1392,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `vague-reference` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** A sentence that points at a code block, table, list, or section on the same page must say where that element is. Write "the URL below", "the table above", or name the section and link it. Do not point forward with a bare demonstrative, so "this URL sets a branch:" becomes "the URL below sets a branch:", and "describes the argument like this:" becomes "describes the argument with the following text:".
 
@@ -1407,7 +1407,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Introduce every code block, table, and list with a sentence that names what follows, and resolve a pronoun to the noun when the nearest preceding block is an image, a table, or a code block rather than a sentence. Write "Use the Executions view to confirm..." rather than "Use it to confirm..." after a screenshot.
 
@@ -1422,7 +1422,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** A lead-in that ends in a colon must name or count what follows, in the clause that touches the colon. Write "The following places can set the same value:" or "The three cases below each return a different reason:", not "Several places can set the same value. The highest one wins:".
 
@@ -1437,7 +1437,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `no-emoji` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Do not use emoji, arrows, or pictographic marks in prose. Write the word.
 
@@ -1452,7 +1452,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `no-italics` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Do not use italics. Use bold for a visible UI element name, inline code for an identifier, and quotation marks for reported speech.
 
@@ -1467,7 +1467,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `conditional-framing` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Rewrite conditional framing that hides a direct cause-and-effect fact as a direct declarative statement.
 
@@ -1482,7 +1482,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `typographic-substitutes` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Do not use a typographic character in place of the word it stands for in prose: ·, §, …, ×, ≥, ≤, ≠, ±, ≈, ∞, and the bullet characters •, ‣ and ⁃. Write the word.
 
@@ -1492,7 +1492,7 @@ Stated in: `types/common-rules.md`.
 
 ## C4, code versus prose
 
-Stated in: `types/common-rules.md`.
+Stated in: `doc-templates/feature-docs/common-rules.md`.
 
 ### C4-01
 
@@ -1501,7 +1501,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** State the consequence before the implementation rule.
 
@@ -1516,7 +1516,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `prose-guard-heuristic` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Show implementation guards as code, not as prose.
 
@@ -1531,7 +1531,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `placeholder-heuristic` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Use parameterized placeholders for user-supplied values in instructional code blocks. Reserve specific values for examples where the value itself is the point of the example.
 
@@ -1546,7 +1546,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Show required values, conditional flags, and SDK options in code rather than describing them in sentences.
 
@@ -1561,7 +1561,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `try-catch-heuristic` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Error handling patterns (try-catch) must appear in code examples that involve async operations or external calls.
 
@@ -1576,7 +1576,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** SDK error messages documented in troubleshooting entries must include the bad value or condition, the corrective action, and a link to help.
 
@@ -1591,7 +1591,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `ui-element-bold` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Write the name of a UI element (tab, button, menu item, screen, section, field, status badge, card action) in bold, never as inline code.
 
@@ -1606,7 +1606,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Bold is for a UI element the reader can see and read on the screen. Name an icon that carries no visible label, and shows its name only as a hover tooltip, in double quotes instead.
 
@@ -1616,7 +1616,7 @@ Stated in: `types/common-rules.md`.
 
 ## C5, cross-references
 
-Stated in: `types/common-rules.md`.
+Stated in: `doc-templates/feature-docs/common-rules.md`.
 
 ### C5-01
 
@@ -1625,7 +1625,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `callout-frequency` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Classify every outbound callout as required, optional, or redundant.
 
@@ -1640,7 +1640,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Required cross-references include a brief inline summary of the critical fact.
 
@@ -1655,7 +1655,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `callout-frequency` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Optional cross-references are grouped at the end of the section or in Next Steps, not scattered mid-flow.
 
@@ -1670,7 +1670,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `duplicate-links` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Remove cross-references that duplicate links already present in Prerequisites or Next Steps.
 
@@ -1685,7 +1685,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `additional-resource-phrasing` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Phrase an Additional Resource callout as "For more information on <topic>, refer to the [Doc Name](url) documentation.", or "For detailed steps on <task>..." when the target carries a procedure.
 
@@ -1700,7 +1700,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** An instruction that routes the reader elsewhere must carry the destination. Give a link, a mailto address, or the named screen, and say what to do when you get there.
 
@@ -1710,7 +1710,7 @@ Stated in: `types/common-rules.md`.
 
 ## C6, content accuracy and grouping
 
-Stated in: `types/common-rules.md`.
+Stated in: `doc-templates/feature-docs/common-rules.md`.
 
 ### C6-01
 
@@ -1719,7 +1719,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Heading names describe the actual content of the section, not aspirational or intended content.
 
@@ -1734,7 +1734,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Items grouped in the same section must belong to the same category of thing.
 
@@ -1749,7 +1749,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `section-length-heuristic` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** If a section grows beyond its heading's scope, rename the section or split it.
 
@@ -1764,7 +1764,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Do not cite internal implementation details as justification for a claim, describe an internal endpoint and the credential it authenticates with, or state that a check fails open when it cannot reach the data it checks against.
 
@@ -1779,7 +1779,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** The first sentence of the Overview states what this page covers, in its own main clause. It does not open with a clause about another page's topic, and it does not leave the topic to a trailing result clause.
 
@@ -1794,7 +1794,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `heading-uniformity` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** When the same category of change recurs across sibling sections, use one consistent heading name and table shape for every instance.
 
@@ -1809,7 +1809,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** A heading that is the only subsection under its parent, and does not belong to a recurring category, should be collapsed into a lead-in sentence.
 
@@ -1824,7 +1824,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** A quantitative or capability claim must be verified against the current source of truth before publishing, and state the concrete verified fact.
 
@@ -1834,7 +1834,7 @@ Stated in: `types/common-rules.md`.
 
 ## C7, duplication
 
-Stated in: `types/common-rules.md`.
+Stated in: `doc-templates/feature-docs/common-rules.md`.
 
 ### C7-01
 
@@ -1843,7 +1843,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `duplicate-sections` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** When two sections are near-identical, the second references the first and adds only what is genuinely different.
 
@@ -1858,7 +1858,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** A fact stated in Prerequisites must not be restated mid-doc as a general reminder.
 
@@ -1873,7 +1873,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** If two implementation patterns share the same underlying setup, one section is the source of truth and the other is a pointer to it.
 
@@ -1888,7 +1888,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `table-restatement` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** When a table already documents an item, any callout, bullet, or paragraph within ten lines of that table must add only what the table cannot show, not restate the table's own cells.
 
@@ -1903,7 +1903,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** A callout or bolded paragraph placed beside a table must carry a fact the table does not. Restating a row in different words is still restating it.
 
@@ -1918,7 +1918,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** State a fact once on a page. Where a second mention is genuinely needed, make one statement canonical and have the others link to it rather than restating it.
 
@@ -1928,7 +1928,7 @@ Stated in: `types/common-rules.md`.
 
 ## C8, developer tone
 
-Stated in: `types/common-rules.md`.
+Stated in: `doc-templates/feature-docs/common-rules.md`.
 
 ### C8-01
 
@@ -1937,7 +1937,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `banned-phrases` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Do not use empty superlatives (powerful, robust, comprehensive, seamless, effortless, best-in-class, world-class, industry-leading, cutting-edge, next-generation).
 
@@ -1952,7 +1952,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `banned-phrases` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Do not make unmeasurable benefit promises ("saves you time," "eliminates complexity," "just works," "in under 5 minutes," "in minutes").
 
@@ -1967,7 +1967,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `banned-phrases` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Do not use emotional unlock language (unlock, empower, transform, revolutionize, supercharge, elevate).
 
@@ -1982,7 +1982,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `banned-phrases` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Do not use vague readiness claims (production-ready, enterprise-grade, battle-tested, proven).
 
@@ -1997,7 +1997,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `banned-phrases` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Do not use out-of-the-box language ("out of the box," "zero-config," "plug-and-play").
 
@@ -2012,7 +2012,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `banned-phrases` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Do not use vague AI or enterprise buzzwords (guardrails, agentic, mental model, single source of truth, filler end-to-end, opinionated, zero-downtime, re-platform, golden path, leverage, onboarding, paradigm, surface as a verb).
 
@@ -2027,7 +2027,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `acronym-first-use` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Define acronyms on first use in introductory and setup sections (CDA, CMA, HMAC, OAuth, SSR, SSG, CSR, BFF, CDN, CI, CD, SSO).
 
@@ -2042,7 +2042,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `banned-phrases` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Do not editorialize about the product's own defects. This covers calling a shipped control dead or pointless, saying a label or message misleads the reader, and asides about how the product reads to a customer.
 
@@ -2057,7 +2057,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** State a real limit as a neutral fact: the boundary, when the reader meets it, and what to do instead. Do not frame the limit as the product failing the reader, or add that it gives no warning, does nothing, or acts silently.
 
@@ -2067,7 +2067,7 @@ Stated in: `types/common-rules.md`.
 
 ## C9, CLI command documentation
 
-Stated in: `types/common-rules.md`.
+Stated in: `doc-templates/feature-docs/common-rules.md`.
 
 ### C9-01
 
@@ -2076,7 +2076,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `cli-mutation-statement-heuristic` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** State whether a CLI command mutates stack data or is read-only, in the Overview or Prerequisites, for any command that connects to a live stack.
 
@@ -2091,7 +2091,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `token-scope-heuristic` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** Every Mandatory prerequisite that names a token must state the minimum required permission or scope inline, not only as a Troubleshooting root cause.
 
@@ -2106,7 +2106,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 2 |
 | Doc types | `all` |
 | Check | `legacy-version-callout-heuristic` |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** If a newer version of the documented command or tool exists, state that in one sentence at the top of the Overview with a link, in addition to any detailed comparison table elsewhere.
 
@@ -2121,7 +2121,7 @@ Stated in: `types/common-rules.md`.
 | Tier | 3 |
 | Doc types | `all` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/common-rules.md` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
 
 **Rule.** State known coverage gaps in a Limitations section rather than leaving them implicit.
 
@@ -2165,7 +2165,7 @@ Stated in: `section-order.json`, `parse-markdown.js`.
 
 ## MIG, migration guide specifics
 
-Stated in: `types/migration-guide.md`.
+Stated in: `doc-templates/feature-docs/migration-guide.md`.
 
 ### MIG-01
 
@@ -2174,7 +2174,7 @@ Stated in: `types/migration-guide.md`.
 | Tier | 3 |
 | Doc types | `migration-guide` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/migration-guide.md` |
+| Source | `doc-templates/feature-docs/migration-guide.md` |
 
 **Rule.** The Overview of a migration guide must state, in order: when the guide applies, what breaks, and what the reader gains.
 
@@ -2189,7 +2189,7 @@ Stated in: `types/migration-guide.md`.
 | Tier | 1 |
 | Doc types | `migration-guide` |
 | Check | `migration-specific` |
-| Source | `types/migration-guide.md` |
+| Source | `doc-templates/feature-docs/migration-guide.md` |
 
 **Rule.** Include a `version` field in the SEO front matter, holding the target version the guide applies to.
 
@@ -2204,7 +2204,7 @@ Stated in: `types/migration-guide.md`.
 | Tier | 2 |
 | Doc types | `migration-guide` |
 | Check | `migration-before-after` |
-| Source | `types/migration-guide.md` |
+| Source | `doc-templates/feature-docs/migration-guide.md` |
 
 **Rule.** Every Main Content subsection must contain a Before block and an After block with labeled code examples.
 
@@ -2219,7 +2219,7 @@ Stated in: `types/migration-guide.md`.
 | Tier | 1 |
 | Doc types | `migration-guide` |
 | Check | `migration-specific` |
-| Source | `types/migration-guide.md` |
+| Source | `doc-templates/feature-docs/migration-guide.md` |
 
 **Rule.** The Type Mapping Reference is a table with minimum columns Area, old API identifier with version label, new API identifier with version label.
 
@@ -2234,7 +2234,7 @@ Stated in: `types/migration-guide.md`.
 | Tier | 2 |
 | Doc types | `migration-guide` |
 | Check | `type-mapping-row-grouping` |
-| Source | `types/migration-guide.md` |
+| Source | `doc-templates/feature-docs/migration-guide.md` |
 
 **Rule.** Each row in the Type Mapping Reference covers one renamed or replaced identifier, do not group multiple renames into one row.
 
@@ -2249,7 +2249,7 @@ Stated in: `types/migration-guide.md`.
 | Tier | 1 |
 | Doc types | `migration-guide` |
 | Check | `migration-specific` |
-| Source | `types/migration-guide.md` |
+| Source | `doc-templates/feature-docs/migration-guide.md` |
 
 **Rule.** The Pre-Upgrade Checklist is an ordered list of single, discrete actions, each linking to the subsection covering the full change.
 
@@ -2264,7 +2264,7 @@ Stated in: `types/migration-guide.md`.
 | Tier | 3 |
 | Doc types | `migration-guide` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/migration-guide.md` |
+| Source | `doc-templates/feature-docs/migration-guide.md` |
 
 **Rule.** The Gradual Migration section, if present, must state what the adapter does not restore.
 
@@ -2279,7 +2279,7 @@ Stated in: `types/migration-guide.md`.
 | Tier | 1 |
 | Doc types | `migration-guide` |
 | Check | `section-structure` |
-| Source | `types/migration-guide.md` |
+| Source | `doc-templates/feature-docs/migration-guide.md` |
 
 **Rule.** Do not include theory sections in migration guides.
 
@@ -2294,7 +2294,7 @@ Stated in: `types/migration-guide.md`.
 | Tier | 3 |
 | Doc types | `migration-guide` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/migration-guide.md` |
+| Source | `doc-templates/feature-docs/migration-guide.md` |
 
 **Rule.** Prose describing what both the old and new version do for the same fact must state each version as its own explicitly labeled V1/V2 statement, not blended sentences.
 
@@ -2304,7 +2304,7 @@ Stated in: `types/migration-guide.md`.
 
 ## RS1, role-based routing
 
-Stated in: `types/getting-started.md`.
+Stated in: `doc-templates/feature-docs/getting-started.md`.
 
 ### RS1-01
 
@@ -2313,7 +2313,7 @@ Stated in: `types/getting-started.md`.
 | Tier | 1 |
 | Doc types | `getting-started` |
 | Check | `getting-started-specific` |
-| Source | `types/getting-started.md` |
+| Source | `doc-templates/feature-docs/getting-started.md` |
 
 **Rule.** The Role-Based Routing Table comes immediately after the Overview, before Prerequisites and Quick Start.
 
@@ -2328,7 +2328,7 @@ Stated in: `types/getting-started.md`.
 | Tier | 1 |
 | Doc types | `getting-started` |
 | Check | `getting-started-specific` |
-| Source | `types/getting-started.md` |
+| Source | `doc-templates/feature-docs/getting-started.md` |
 
 **Rule.** The Role-Based Routing Table has three columns: "I want to...", "I am...", and "Start here", and "Start here" links directly to the first doc in that path.
 
@@ -2343,7 +2343,7 @@ Stated in: `types/getting-started.md`.
 | Tier | 3 |
 | Doc types | `getting-started` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/getting-started.md` |
+| Source | `doc-templates/feature-docs/getting-started.md` |
 
 **Rule.** The Documentation Map is organized by developer goal, not by doc type.
 
@@ -2358,7 +2358,7 @@ Stated in: `types/getting-started.md`.
 | Tier | 1 |
 | Doc types | `getting-started` |
 | Check | `bare-links` |
-| Source | `types/getting-started.md` |
+| Source | `doc-templates/feature-docs/getting-started.md` |
 
 **Rule.** Every link in the Role-Based Routing Table and Documentation Map must include a one-sentence description.
 
@@ -2368,7 +2368,7 @@ Stated in: `types/getting-started.md`.
 
 ## RS2, quick start constraints
 
-Stated in: `types/getting-started.md`.
+Stated in: `doc-templates/feature-docs/getting-started.md`.
 
 ### RS2-01
 
@@ -2377,7 +2377,7 @@ Stated in: `types/getting-started.md`.
 | Tier | 3 |
 | Doc types | `getting-started` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/getting-started.md` |
+| Source | `doc-templates/feature-docs/getting-started.md` |
 
 **Rule.** The Quick Start covers one path only, the most common one, and does not branch.
 
@@ -2392,7 +2392,7 @@ Stated in: `types/getting-started.md`.
 | Tier | 1 |
 | Doc types | `getting-started` |
 | Check | `getting-started-specific` |
-| Source | `types/getting-started.md` |
+| Source | `doc-templates/feature-docs/getting-started.md` |
 
 **Rule.** State the time estimate in the Quick Start heading or immediately below it, in the form "Estimated time: X minutes."
 
@@ -2407,7 +2407,7 @@ Stated in: `types/getting-started.md`.
 | Tier | 2 |
 | Doc types | `getting-started` |
 | Check | `quick-start-verification` |
-| Source | `types/getting-started.md` |
+| Source | `doc-templates/feature-docs/getting-started.md` |
 
 **Rule.** The Quick Start must end with a verifiable, observable outcome.
 
@@ -2422,7 +2422,7 @@ Stated in: `types/getting-started.md`.
 | Tier | 1 |
 | Doc types | `getting-started` |
 | Check | `getting-started-specific` |
-| Source | `types/getting-started.md` |
+| Source | `doc-templates/feature-docs/getting-started.md` |
 
 **Rule.** The Quick Start covers at most 10 steps.
 
@@ -2432,7 +2432,7 @@ Stated in: `types/getting-started.md`.
 
 ## RS3, what a get started guide excludes
 
-Stated in: `types/getting-started.md`.
+Stated in: `doc-templates/feature-docs/getting-started.md`.
 
 ### RS3-01
 
@@ -2441,7 +2441,7 @@ Stated in: `types/getting-started.md`.
 | Tier | 1 |
 | Doc types | `getting-started` |
 | Check | `getting-started-specific` |
-| Source | `types/getting-started.md` |
+| Source | `doc-templates/feature-docs/getting-started.md` |
 
 **Rule.** No theory sections, link to the relevant conceptual guide instead.
 
@@ -2456,7 +2456,7 @@ Stated in: `types/getting-started.md`.
 | Tier | 1 |
 | Doc types | `getting-started` |
 | Check | `getting-started-specific` |
-| Source | `types/getting-started.md` |
+| Source | `doc-templates/feature-docs/getting-started.md` |
 
 **Rule.** No troubleshooting section, resolutions for Quick Start failures belong in the linked setup guide or feature doc.
 
@@ -2471,7 +2471,7 @@ Stated in: `types/getting-started.md`.
 | Tier | 3 |
 | Doc types | `getting-started` |
 | Check | none, tier 3 is adjudicated |
-| Source | `types/getting-started.md` |
+| Source | `doc-templates/feature-docs/getting-started.md` |
 
 **Rule.** No feature explanation beyond what is needed to complete the Quick Start.
 
@@ -2481,7 +2481,7 @@ Stated in: `types/getting-started.md`.
 
 ## CLI, shared CLI rules
 
-Stated in: `cli-templates/cli-common-rules.md`, `cli-templates/cli-command-reference.md`.
+Stated in: `doc-templates/cli-templates/cli-common-rules.md`, `doc-templates/cli-templates/cli-command-reference.md`.
 
 ### CLI-01
 
@@ -2490,7 +2490,7 @@ Stated in: `cli-templates/cli-common-rules.md`, `cli-templates/cli-command-refer
 | Tier | 1 |
 | Doc types | `cli-command-reference`, `cli-task-runbook`, `cli-module-reference` |
 | Check | `cli-specific` |
-| Source | `cli-templates/cli-common-rules.md` |
+| Source | `doc-templates/cli-templates/cli-common-rules.md` |
 
 **Rule.** A flag or option table must use the columns Flag, Type, Required, Default, Description, Notes, in that order.
 
@@ -2505,7 +2505,7 @@ Stated in: `cli-templates/cli-common-rules.md`, `cli-templates/cli-command-refer
 | Tier | 1 |
 | Doc types | `cli-command-reference`, `cli-task-runbook` |
 | Check | `cli-specific` |
-| Source | `cli-templates/cli-common-rules.md` |
+| Source | `doc-templates/cli-templates/cli-common-rules.md` |
 
 **Rule.** A CLI command reference or task runbook must have a Prerequisites section.
 
@@ -2520,7 +2520,7 @@ Stated in: `cli-templates/cli-common-rules.md`, `cli-templates/cli-command-refer
 | Tier | 1 |
 | Doc types | `cli-command-reference`, `cli-task-runbook`, `cli-module-reference` |
 | Check | `cli-specific` |
-| Source | `cli-templates/cli-common-rules.md` |
+| Source | `doc-templates/cli-templates/cli-common-rules.md` |
 
 **Rule.** Prerequisites must be an H2, not nested under another section.
 
@@ -2535,7 +2535,7 @@ Stated in: `cli-templates/cli-common-rules.md`, `cli-templates/cli-command-refer
 | Tier | 2 |
 | Doc types | `cli-command-reference`, `cli-task-runbook`, `cli-module-reference` |
 | Check | `cli-specific` |
-| Source | `cli-templates/cli-common-rules.md` |
+| Source | `doc-templates/cli-templates/cli-common-rules.md` |
 
 **Rule.** Each Prerequisites item links to the resource that fulfils it.
 
@@ -2550,7 +2550,7 @@ Stated in: `cli-templates/cli-common-rules.md`, `cli-templates/cli-command-refer
 | Tier | 1 |
 | Doc types | `cli-command-reference`, `cli-task-runbook`, `cli-module-reference` |
 | Check | `cli-specific` |
-| Source | `cli-templates/cli-common-rules.md` |
+| Source | `doc-templates/cli-templates/cli-common-rules.md` |
 
 **Rule.** No CLI doc uses H4 or deeper. Where a fourth level of structure is needed, use a bold lead-in on its own line.
 
@@ -2565,7 +2565,7 @@ Stated in: `cli-templates/cli-common-rules.md`, `cli-templates/cli-command-refer
 | Tier | 2 |
 | Doc types | `cli-command-reference`, `cli-task-runbook`, `cli-module-reference` |
 | Check | `cli-specific` |
-| Source | `cli-templates/cli-common-rules.md` |
+| Source | `doc-templates/cli-templates/cli-common-rules.md` |
 
 **Rule.** Tag shell code fences bash and payload fences json.
 
@@ -2580,7 +2580,7 @@ Stated in: `cli-templates/cli-common-rules.md`, `cli-templates/cli-command-refer
 | Tier | 1 |
 | Doc types | `cli-command-reference` |
 | Check | `cli-specific` |
-| Source | `cli-templates/cli-command-reference.md` |
+| Source | `doc-templates/cli-templates/cli-command-reference.md` |
 
 **Rule.** A doc that instructs the reader to run plugins:install must carry an Installation section.
 
@@ -2595,7 +2595,7 @@ Stated in: `cli-templates/cli-common-rules.md`, `cli-templates/cli-command-refer
 | Tier | 2 |
 | Doc types | `cli-command-reference`, `cli-task-runbook`, `cli-module-reference` |
 | Check | `cli-flag-prose-heuristic` |
-| Source | `cli-templates/cli-common-rules.md` |
+| Source | `doc-templates/cli-templates/cli-common-rules.md` |
 
 **Rule.** Write user-supplied values as <UPPER_SNAKE_CASE>. Do not use double angle brackets.
 
@@ -2610,7 +2610,7 @@ Stated in: `cli-templates/cli-common-rules.md`, `cli-templates/cli-command-refer
 | Tier | 2 |
 | Doc types | `cli-command-reference`, `cli-task-runbook`, `cli-module-reference` |
 | Check | `callout-taxonomy` |
-| Source | `cli-templates/cli-common-rules.md` |
+| Source | `doc-templates/cli-templates/cli-common-rules.md` |
 
 **Rule.** Callout labels put the colon inside the bold, as > **Note:** rather than > **Note**:.
 
@@ -2625,7 +2625,7 @@ Stated in: `cli-templates/cli-common-rules.md`, `cli-templates/cli-command-refer
 | Tier | 2 |
 | Doc types | `cli-command-reference`, `cli-task-runbook`, `cli-module-reference` |
 | Check | `cli-error-entry-heuristic` |
-| Source | `cli-templates/cli-common-rules.md` |
+| Source | `doc-templates/cli-templates/cli-common-rules.md` |
 
 **Rule.** No shell prompt inside a code fence. Write csdx cm:stacks:export, not $ csdx cm:stacks:export.
 
@@ -2640,7 +2640,7 @@ Stated in: `cli-templates/cli-common-rules.md`, `cli-templates/cli-command-refer
 | Tier | 1 |
 | Doc types | `cli-command-reference`, `cli-task-runbook`, `cli-module-reference` |
 | Check | `cli-command-form-heuristic` |
-| Source | `cli-templates/cli-common-rules.md` |
+| Source | `doc-templates/cli-templates/cli-common-rules.md` |
 
 **Rule.** Recurring section names are plural: Limitations, Troubleshooting, Next Steps.
 
@@ -2655,7 +2655,7 @@ Stated in: `cli-templates/cli-common-rules.md`, `cli-templates/cli-command-refer
 | Tier | 1 |
 | Doc types | `cli-command-reference`, `cli-task-runbook`, `cli-module-reference` |
 | Check | `cli-scope-statement-heuristic` |
-| Source | `cli-templates/cli-common-rules.md` |
+| Source | `doc-templates/cli-templates/cli-common-rules.md` |
 
 **Rule.** State whether the documented commands mutate stack data or are read-only, in the Overview or Prerequisites.
 
@@ -2670,7 +2670,7 @@ Stated in: `cli-templates/cli-common-rules.md`, `cli-templates/cli-command-refer
 | Tier | 1 |
 | Doc types | `cli-command-reference`, `cli-task-runbook` |
 | Check | `cli-auth-step-heuristic` |
-| Source | `cli-templates/cli-common-rules.md` |
+| Source | `doc-templates/cli-templates/cli-common-rules.md` |
 
 **Rule.** Prerequisites state, in order: CLI installed with the Node version from engines.node, csdx auth:login, region configured. Add a management token via csdx auth:tokens:add with its minimum scope stated inline when any documented command takes --alias, and csdx plugins:install when the plugin is absent from oclif.plugins.
 
@@ -2685,7 +2685,7 @@ Stated in: `cli-templates/cli-common-rules.md`, `cli-templates/cli-command-refer
 | Tier | 1 |
 | Doc types | `cli-command-reference`, `cli-task-runbook`, `cli-module-reference` |
 | Check | `cli-placeholder-heuristic` |
-| Source | `cli-templates/cli-common-rules.md` |
+| Source | `doc-templates/cli-templates/cli-common-rules.md` |
 
 **Rule.** Any claim that a flag, command or behavior was added, renamed or removed in a given version cites the changelog and names the version.
 
@@ -2700,7 +2700,7 @@ Stated in: `cli-templates/cli-common-rules.md`, `cli-templates/cli-command-refer
 | Tier | 1 |
 | Doc types | `cli-command-reference`, `cli-task-runbook`, `cli-module-reference` |
 | Check | `cli-exit-code-heuristic` |
-| Source | `cli-templates/cli-common-rules.md` |
+| Source | `doc-templates/cli-templates/cli-common-rules.md` |
 
 **Rule.** A doc derived from a previous version's page must have every flag name, flag description and worked example re-verified against the released manifest for the version being documented.
 
@@ -2715,7 +2715,7 @@ Stated in: `cli-templates/cli-common-rules.md`, `cli-templates/cli-command-refer
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `banned-phrases` |
-| Source | `cli-templates/cli-common-rules.md` |
+| Source | `doc-templates/cli-templates/cli-common-rules.md` |
 
 **Rule.** A doc must not assert that documentation does not exist. Do not write that a guide is missing, planned, coming soon or yet to come. If a topic has no guide, omit the topic rather than announcing the gap.
 
@@ -2730,7 +2730,7 @@ Stated in: `cli-templates/cli-common-rules.md`, `cli-templates/cli-command-refer
 | Tier | 1 |
 | Doc types | `all` |
 | Check | `internal-link-form` |
-| Source | `cli-templates/cli-common-rules.md` |
+| Source | `doc-templates/cli-templates/cli-common-rules.md` |
 
 **Rule.** Links to the Contentstack docs site must be root-relative, /docs/headless-cms/install-the-cli, never absolute. Links to the application and to third parties stay absolute.
 
@@ -2745,7 +2745,7 @@ Stated in: `cli-templates/cli-common-rules.md`, `cli-templates/cli-command-refer
 | Tier | 2 |
 | Doc types | `cli-command-reference`, `cli-task-runbook`, `cli-module-reference` |
 | Check | `cli-plugin-boundary-heuristic` |
-| Source | `cli-templates/cli-common-rules.md` |
+| Source | `doc-templates/cli-templates/cli-common-rules.md` |
 
 **Rule.** No CLI doc, old or new, carries a page-level Troubleshooting H2. Every failure mode belongs in the CLI troubleshooting hub. Link the reader there instead, in whichever section fits the page.
 
@@ -2760,7 +2760,7 @@ Stated in: `cli-templates/cli-common-rules.md`, `cli-templates/cli-command-refer
 | Tier | 1 |
 | Doc types | `cli-command-reference`, `cli-task-runbook`, `cli-module-reference` |
 | Check | `section-structure` |
-| Source | `cli-templates/cli-common-rules.md` |
+| Source | `doc-templates/cli-templates/cli-common-rules.md` |
 
 **Rule.** A CLI command reference, task runbook, or module reference must not carry a page-level Troubleshooting section. Link the CLI troubleshooting hub instead.
 
@@ -2775,7 +2775,7 @@ Stated in: `cli-templates/cli-common-rules.md`, `cli-templates/cli-command-refer
 | Tier | 2 |
 | Doc types | `cli-command-reference`, `cli-task-runbook`, `cli-module-reference` |
 | Check | `cli-version-drift-heuristic` |
-| Source | `cli-templates/cli-common-rules.md` |
+| Source | `doc-templates/cli-templates/cli-common-rules.md` |
 
 **Rule.** A code-sourced Limitations finding must be classified before it is published: a boundary on function (a closed list, an unsupported operation, a safely-rejected input format) is a limitation and gets written. A weakness in how the CLI protects data (a secret exposed via argv, disk, or logs, unsanitized input reaching a shell or file path, encryption or auth that is off by default, a check that fails open) is a possible vulnerability and does not get published anywhere in the docs. When unsure, treat it as a vulnerability and report it to whoever asked for the pass instead.
 
@@ -2785,7 +2785,7 @@ Stated in: `cli-templates/cli-common-rules.md`, `cli-templates/cli-command-refer
 
 ## PLG, plugin guide specifics
 
-Stated in: `cli-templates/cli-plugin-guide.md`.
+Stated in: `doc-templates/cli-templates/cli-plugin-guide.md`.
 
 ### PLG-01
 
@@ -2794,7 +2794,7 @@ Stated in: `cli-templates/cli-plugin-guide.md`.
 | Tier | 2 |
 | Doc types | `cli-plugin-guide` |
 | Check | `plugin-scaffold-heuristic` |
-| Source | `cli-templates/cli-plugin-guide.md` |
+| Source | `doc-templates/cli-templates/cli-plugin-guide.md` |
 
 **Rule.** The directory layout in Plugin Structure uses real file and folder names exactly as the CLI plugin scaffolding creates them, such as src/commands/ and oclif.manifest.json, not renamed or reorganized for readability.
 
@@ -2809,7 +2809,7 @@ Stated in: `cli-templates/cli-plugin-guide.md`.
 | Tier | 2 |
 | Doc types | `cli-plugin-guide` |
 | Check | `plugin-manifest-heuristic` |
-| Source | `cli-templates/cli-plugin-guide.md` |
+| Source | `doc-templates/cli-templates/cli-plugin-guide.md` |
 
 **Rule.** A TypeScript example under Creating a Plugin or Commands and Flags is a complete, compilable command class, not a fragment that only illustrates a shape.
 
@@ -2824,7 +2824,7 @@ Stated in: `cli-templates/cli-plugin-guide.md`.
 | Tier | 2 |
 | Doc types | `cli-plugin-guide` |
 | Check | `plugin-publish-heuristic` |
-| Source | `cli-templates/cli-plugin-guide.md` |
+| Source | `doc-templates/cli-templates/cli-plugin-guide.md` |
 
 **Rule.** Plugin Registration and Linking includes a command the reader runs to confirm the plugin loaded, not only the linking command itself.
 
@@ -2839,7 +2839,7 @@ Stated in: `cli-templates/cli-plugin-guide.md`.
 | Tier | 2 |
 | Doc types | `cli-plugin-guide` |
 | Check | `plugin-test-heuristic` |
-| Source | `cli-templates/cli-plugin-guide.md` |
+| Source | `doc-templates/cli-templates/cli-plugin-guide.md` |
 
 **Rule.** A reference section such as Available Methods and Utilities, where it runs long enough that a reader would scroll past what they need, opens with a table mapping each method or utility to its subsection.
 
@@ -2854,7 +2854,7 @@ Stated in: `cli-templates/cli-plugin-guide.md`.
 | Tier | 1 |
 | Doc types | `cli-plugin-guide` |
 | Check | `section-structure` |
-| Source | `cli-templates/cli-plugin-guide.md` |
+| Source | `doc-templates/cli-templates/cli-plugin-guide.md` |
 
 **Rule.** Do not add a Troubleshooting H2 to this type. Link the CLI troubleshooting hub instead, per CLI-C14.
 
