@@ -11,14 +11,14 @@ This command changes nothing. It reports. To fix one page, use `/revamp-doc`, `/
 
 ```bash
 ROOT=$(git rev-parse --show-toplevel)
-if [ -f "$ROOT/scripts/lint-doc.js" ]; then
+if [ -f "$ROOT/scripts/lint/lint-doc.js" ]; then
   STANDARDS="$ROOT"
-elif [ -f "$ROOT/doc-standards/scripts/lint-doc.js" ]; then
+elif [ -f "$ROOT/doc-standards/scripts/lint/lint-doc.js" ]; then
   STANDARDS="$ROOT/doc-standards"
 else
   D=$PWD
   while [ "$D" != "/" ]; do
-    if [ -f "$D/doc-standards/scripts/lint-doc.js" ]; then STANDARDS="$D/doc-standards"; break; fi
+    if [ -f "$D/doc-standards/scripts/lint/lint-doc.js" ]; then STANDARDS="$D/doc-standards"; break; fi
     D=$(dirname "$D")
   done
 fi
@@ -73,7 +73,7 @@ find "$CORPUS" \( -name usage_guide.md -o -name class_reference.md \) -print
 Every folder that turns up is audited with its own linter instead:
 
 ```bash
-node "$STANDARDS/scripts/lint-api-ref.js" "<that folder>" --format=text --tiers=1,2
+node "$STANDARDS/scripts/lint/lint-api-ref.js" "<that folder>" --format=text --tiers=1,2
 ```
 
 Keep those results in a separate section of your report. Their rule IDs are `AR` and `UG`, and
@@ -82,25 +82,25 @@ mixing them into the prose ranking makes both harder to read.
 ## Step 3: Sweep the prose and CLI pages
 
 ```bash
-node "$STANDARDS/scripts/sweep-docs.js" "$CORPUS"
+node "$STANDARDS/scripts/lint/sweep-docs.js" "$CORPUS"
 ```
 
 Then the blocking subset on its own, which is the number that answers "can this ship":
 
 ```bash
-node "$STANDARDS/scripts/sweep-docs.js" "$CORPUS" --tiers=1
+node "$STANDARDS/scripts/lint/sweep-docs.js" "$CORPUS" --tiers=1
 ```
 
 For a machine-readable copy to compare against a later run:
 
 ```bash
-node "$STANDARDS/scripts/sweep-docs.js" "$CORPUS" --format=json --out="$REVIEW/sweep.json"
+node "$STANDARDS/scripts/lint/sweep-docs.js" "$CORPUS" --format=json --out="$REVIEW/sweep.json"
 ```
 
 ## Step 4: Check the links
 
 ```bash
-node "$STANDARDS/scripts/check-links.js" "$CORPUS" --layers=internal,labels
+node "$STANDARDS/scripts/lint/check-links.js" "$CORPUS" --layers=internal,labels
 ```
 
 `internal` resolves every relative link and anchor. `labels` checks that a link's text matches what

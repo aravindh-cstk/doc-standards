@@ -44,7 +44,7 @@ const path = require('path');
 
 const { askClaude } = require('../lib/claude-runner');
 const { DocModel } = require('../lib/doc-model');
-const { collectDocs } = require('../sweep-docs');
+const { collectDocs } = require('../lint/sweep-docs');
 const { maskProse } = require('../lib/prose-mask');
 const { checkAcronymFirstUse } = require('../checks/acronym-first-use');
 const { isTableRow, separatorCount, rowShapeOk } = require('../lib/table-shape');

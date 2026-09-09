@@ -492,7 +492,7 @@ consuming project, and that none passes a flag its linter would reject.
 
 The second hook is worth understanding, because its behavior is deliberate at three points.
 
-- It **walks up** from the edited file looking for `doc-standards/scripts/lint-doc.js` rather than hardcoding a path, because the linter is checked into the repository it lints and this repository is not the only consumer.
+- It **walks up** from the edited file looking for `doc-standards/scripts/lint/lint-doc.js` rather than hardcoding a path, because the linter is checked into the repository it lints and this repository is not the only consumer.
 - Tier 1 blocks so the agent self-corrects. Tier 2 arrives as non-blocking context, because blocking on every passive-voice candidate would make editing documentation impossible.
 - It **fails open** everywhere. A hook that fails closed blocks all editing.
 

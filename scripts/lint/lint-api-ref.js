@@ -14,7 +14,7 @@
 // the four that need a doc type, and adds the AR-01..AR-10 structural checks.
 //
 // Usage:
-//   node scripts/lint-api-ref.js <file-or-dir> [--format=text|json] [--tiers=1,2]
+//   node scripts/lint/lint-api-ref.js <file-or-dir> [--format=text|json] [--tiers=1,2]
 //                                 [--baseline=<canonical doc-set root>]
 //
 //   <file-or-dir>  a single .md file, or a directory scanned recursively for
@@ -30,27 +30,27 @@
 const fs = require('fs');
 const path = require('path');
 
-const { DocModel } = require('./lib/doc-model');
-const registry = require('./lib/rules-registry');
+const { DocModel } = require('../lib/doc-model');
+const registry = require('../lib/rules-registry');
 
-const { checkBannedPhrases } = require('./checks/banned-phrases');
-const { checkEmDashSemicolon } = require('./checks/em-dash-semicolon');
-const { checkQaHeaders } = require('./checks/qa-headers');
-const { checkAcronymFirstUse } = require('./checks/acronym-first-use');
-const { checkSentenceConcision } = require('./checks/sentence-concision');
-const { checkMetaphors } = require('./checks/metaphor-phrases');
-const { checkPeriphrasis } = require('./checks/periphrasis-phrases');
-const { checkPassiveVoice } = require('./checks/passive-voice');
-const { checkErrorCodeFormat } = require('./checks/error-code-format');
-const { checkEmbeddedQuestionPhrases } = require('./checks/embedded-question-phrases');
-const { checkRetryAttemptCountBold } = require('./checks/retry-attempt-count-bold');
+const { checkBannedPhrases } = require('../checks/banned-phrases');
+const { checkEmDashSemicolon } = require('../checks/em-dash-semicolon');
+const { checkQaHeaders } = require('../checks/qa-headers');
+const { checkAcronymFirstUse } = require('../checks/acronym-first-use');
+const { checkSentenceConcision } = require('../checks/sentence-concision');
+const { checkMetaphors } = require('../checks/metaphor-phrases');
+const { checkPeriphrasis } = require('../checks/periphrasis-phrases');
+const { checkPassiveVoice } = require('../checks/passive-voice');
+const { checkErrorCodeFormat } = require('../checks/error-code-format');
+const { checkEmbeddedQuestionPhrases } = require('../checks/embedded-question-phrases');
+const { checkRetryAttemptCountBold } = require('../checks/retry-attempt-count-bold');
 const {
   checkApiRefStructure,
   checkIndexCompleteness,
   checkClassOverviewCompleteness,
   isClassPage,
   isUsageGuidePage,
-} = require('./checks/api-ref-structure');
+} = require('../checks/api-ref-structure');
 
 // Deliberately excluded, all four need a doc type this linter does not have:
 // front-matter (wants title/description/url), section-structure (wants an H2

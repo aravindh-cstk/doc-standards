@@ -45,9 +45,9 @@ const path = require('path');
 
 const { DocModel } = require('../lib/doc-model');
 const { askClaude } = require('../lib/claude-runner');
-const { collectDocs } = require('../sweep-docs');
+const { collectDocs } = require('../lint/sweep-docs');
 const { classify } = require('../lib/corpus-class');
-const { VALID_TYPES } = require('../lint-doc');
+const { VALID_TYPES } = require('../lint/lint-doc');
 
 const REPO_ROOT = path.join(__dirname, '..', '..', '..');
 const DEFAULT_DIR = path.join(REPO_ROOT, '.doc-review');

@@ -25,7 +25,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const { collectDocs } = require('../sweep-docs');
+const { collectDocs } = require('../lint/sweep-docs');
 const { slugify } = require('../lib/slugify');
 
 const DEFAULT_SNAPSHOT = path.join(__dirname, '..', '..', '..', '.doc-review', 'heading-slugs.json');

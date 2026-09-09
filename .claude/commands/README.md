@@ -40,9 +40,9 @@ way.
 
 | The page is | Command | Linter behind it |
 | --- | --- | --- |
-| `usage_guide.md`, `class_reference.md` or a file under `methods/` | `/revamp-api-ref` | `scripts/lint-api-ref.js` |
-| A CLI command reference, task runbook, module reference or plugin guide | `/revamp-cli-doc` | `scripts/lint-doc.js` with a `cli-` type |
-| Any of the eight prose types in `doc-templates/feature-docs/` | `/revamp-doc` | `scripts/lint-doc.js` |
+| `usage_guide.md`, `class_reference.md` or a file under `methods/` | `/revamp-api-ref` | `scripts/lint/lint-api-ref.js` |
+| A CLI command reference, task runbook, module reference or plugin guide | `/revamp-cli-doc` | `scripts/lint/lint-doc.js` with a `cli-` type |
+| Any of the eight prose types in `doc-templates/feature-docs/` | `/revamp-doc` | `scripts/lint/lint-doc.js` |
 
 ### `/doc-gap` against `/add-doc-rule`
 
@@ -60,14 +60,14 @@ asserts all ten carry it verbatim, and the test fails on a copy that has drifted
 
 ```bash
 ROOT=$(git rev-parse --show-toplevel)
-if [ -f "$ROOT/scripts/lint-doc.js" ]; then
+if [ -f "$ROOT/scripts/lint/lint-doc.js" ]; then
   STANDARDS="$ROOT"
-elif [ -f "$ROOT/doc-standards/scripts/lint-doc.js" ]; then
+elif [ -f "$ROOT/doc-standards/scripts/lint/lint-doc.js" ]; then
   STANDARDS="$ROOT/doc-standards"
 else
   D=$PWD
   while [ "$D" != "/" ]; do
-    if [ -f "$D/doc-standards/scripts/lint-doc.js" ]; then STANDARDS="$D/doc-standards"; break; fi
+    if [ -f "$D/doc-standards/scripts/lint/lint-doc.js" ]; then STANDARDS="$D/doc-standards"; break; fi
     D=$(dirname "$D")
   done
 fi

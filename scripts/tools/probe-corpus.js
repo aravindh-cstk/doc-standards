@@ -20,8 +20,8 @@ const fs = require('fs');
 const path = require('path');
 const { DocModel } = require('../lib/doc-model');
 const { loadEntryFile, scanDoc } = require('../lib/phrase-list');
-const { lintFile } = require('../lint-doc');
-const { collectDocs } = require('../sweep-docs');
+const { lintFile } = require('../lint/lint-doc');
+const { collectDocs } = require('../lint/sweep-docs');
 const { registry, byId, nextRuleId, checkSources } = require('../lib/rules-registry');
 
 const DEFAULT_CORPUS = path.join(__dirname, '..', '..', '..', 'docs');

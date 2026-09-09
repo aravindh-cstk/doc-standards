@@ -134,7 +134,7 @@ test('the same layout classifies the same way in any project', () => {
 
 test('the standards tree itself is internal, whatever the directory is called', () => {
   assert.equal(classify(p(STANDARDS_DIR, 'doc-templates/feature-docs/common-rules.md')), 'internal');
-  assert.equal(classify(p(STANDARDS_DIR, 'scripts/lint-doc.js')), 'internal');
+  assert.equal(classify(p(STANDARDS_DIR, 'scripts/lint/lint-doc.js')), 'internal');
 });
 
 test('toProjectRelative drops the project directory and refuses paths outside it', () => {

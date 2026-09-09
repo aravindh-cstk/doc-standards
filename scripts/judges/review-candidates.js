@@ -28,7 +28,7 @@ const path = require('path');
 const { DocModel } = require('../lib/doc-model');
 const { askClaude } = require('../lib/claude-runner');
 const { collectTier3Candidates } = require('../checks/tier3-candidates');
-const { collectDocs } = require('../sweep-docs');
+const { collectDocs } = require('../lint/sweep-docs');
 
 const REPO_ROOT = path.join(__dirname, '..', '..', '..');
 const DEFAULT_CORPUS = path.join(REPO_ROOT, 'docs');

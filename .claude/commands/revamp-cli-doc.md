@@ -25,14 +25,14 @@ enforcing them, which is the main reason this command exists rather than passing
 
 ```bash
 ROOT=$(git rev-parse --show-toplevel)
-if [ -f "$ROOT/scripts/lint-doc.js" ]; then
+if [ -f "$ROOT/scripts/lint/lint-doc.js" ]; then
   STANDARDS="$ROOT"
-elif [ -f "$ROOT/doc-standards/scripts/lint-doc.js" ]; then
+elif [ -f "$ROOT/doc-standards/scripts/lint/lint-doc.js" ]; then
   STANDARDS="$ROOT/doc-standards"
 else
   D=$PWD
   while [ "$D" != "/" ]; do
-    if [ -f "$D/doc-standards/scripts/lint-doc.js" ]; then STANDARDS="$D/doc-standards"; break; fi
+    if [ -f "$D/doc-standards/scripts/lint/lint-doc.js" ]; then STANDARDS="$D/doc-standards"; break; fi
     D=$(dirname "$D")
   done
 fi
@@ -48,7 +48,7 @@ A declared `doc_type:` in front matter wins. Otherwise ask the linter rather tha
 type comes from the repository's own detection and cannot drift from it:
 
 ```bash
-node "$STANDARDS/scripts/lint-doc.js" "$ARGUMENTS" --format=json | head -20
+node "$STANDARDS/scripts/lint/lint-doc.js" "$ARGUMENTS" --format=json | head -20
 ```
 
 The `type` field in that report is what `detectCliDocType` decided. Read it and state it in one
@@ -82,7 +82,7 @@ recommend it as a retire candidate rather than manufacturing sections for it.
 ## Step 3: Lint
 
 ```bash
-node "$STANDARDS/scripts/lint-doc.js" "$ARGUMENTS" --type=<cli-type> --format=text --tiers=1,2
+node "$STANDARDS/scripts/lint/lint-doc.js" "$ARGUMENTS" --type=<cli-type> --format=text --tiers=1,2
 ```
 
 Pass `--type` explicitly from here on, so a later edit that removes the detection signal does not

@@ -39,8 +39,8 @@ const crypto = require('crypto');
 
 const { askClaude } = require('../lib/claude-runner');
 const { DocModel } = require('../lib/doc-model');
-const { collectDocs } = require('../sweep-docs');
-const { lintFile } = require('../lint-doc');
+const { collectDocs } = require('../lint/sweep-docs');
+const { lintFile } = require('../lint/lint-doc');
 const { loadPhraseList, entryRegex, stripNonProse } = require('../lib/phrase-list');
 const { byId } = require('../lib/rules-registry');
 const { validateVerdictObject, VALID_VERDICTS } = require('./review-candidates');

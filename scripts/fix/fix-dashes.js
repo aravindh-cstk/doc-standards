@@ -36,7 +36,7 @@ const path = require('path');
 
 const { askClaude } = require('../lib/claude-runner');
 const { DocModel } = require('../lib/doc-model');
-const { collectDocs } = require('../sweep-docs');
+const { collectDocs } = require('../lint/sweep-docs');
 const { maskProse, isProtectedAt, proseMatches } = require('../lib/prose-mask');
 const { isTableRow, rowShapeOk, separatorCount } = require('../lib/table-shape');
 

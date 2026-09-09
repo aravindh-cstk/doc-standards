@@ -17,7 +17,7 @@
 const fs = require('fs');
 const path = require('path');
 const { lintFile } = require('./lint-doc');
-const { byId } = require('./lib/rules-registry');
+const { byId } = require('../lib/rules-registry');
 
 // Directories that never hold reviewable prose. Walking them wastes time and,
 // worse, would report findings against vendored or generated markdown.

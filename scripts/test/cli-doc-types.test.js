@@ -16,7 +16,7 @@ const { checkSectionStructure } = require('../checks/section-structure');
 const { checkBannedPhrases } = require('../checks/banned-phrases');
 const { checkCliSpecific } = require('../checks/cli-specific');
 const { checkInternalLinkForm } = require('../checks/internal-link-form');
-const { detectDocType, lintFile } = require('../lint-doc');
+const { detectDocType, lintFile } = require('../lint/lint-doc');
 
 function loadFixture(name) {
   return DocModel.fromFile(path.join(__dirname, 'fixtures', name));
