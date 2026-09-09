@@ -25,14 +25,14 @@ command before.
 
 ```bash
 ROOT=$(git rev-parse --show-toplevel)
-if [ -f "$ROOT/scripts/lint-doc.js" ]; then
+if [ -f "$ROOT/scripts/lint/lint-doc.js" ]; then
   STANDARDS="$ROOT"
-elif [ -f "$ROOT/doc-standards/scripts/lint-doc.js" ]; then
+elif [ -f "$ROOT/doc-standards/scripts/lint/lint-doc.js" ]; then
   STANDARDS="$ROOT/doc-standards"
 else
   D=$PWD
   while [ "$D" != "/" ]; do
-    if [ -f "$D/doc-standards/scripts/lint-doc.js" ]; then STANDARDS="$D/doc-standards"; break; fi
+    if [ -f "$D/doc-standards/scripts/lint/lint-doc.js" ]; then STANDARDS="$D/doc-standards"; break; fi
     D=$(dirname "$D")
   done
 fi
@@ -61,7 +61,7 @@ All eight prose types, the template to read and the exact value to pass to `--ty
 Pass the value from the third column verbatim. `lint-doc.js` rejects anything outside that list with
 exit code 2, so a guessed value fails loudly rather than linting against the wrong section order.
 
-A companion script at `$STANDARDS/scripts/lint-doc.js` mechanically checks the subset of these rules that are objectively verifiable (section presence and order, banned phrases, formatting, and similar). Step 2 runs it before you read a single rule by eye.
+A companion script at `$STANDARDS/scripts/lint/lint-doc.js` mechanically checks the subset of these rules that are objectively verifiable (section presence and order, banned phrases, formatting, and similar). Step 2 runs it before you read a single rule by eye.
 
 ---
 
@@ -94,7 +94,7 @@ stays here.
 Run the linter against the target doc, using the type detected in Step 1:
 
 ```bash
-node "$STANDARDS/scripts/lint-doc.js" "$ARGUMENTS" --type={detected-type} --format=text
+node "$STANDARDS/scripts/lint/lint-doc.js" "$ARGUMENTS" --type={detected-type} --format=text
 ```
 
 To review a whole directory rather than one file, use `/audit-docs`. It reports the same findings

@@ -11,14 +11,14 @@ findings on files nobody publishes, which is the same as having no baseline.
 
 ```bash
 ROOT=$(git rev-parse --show-toplevel)
-if [ -f "$ROOT/scripts/lint-doc.js" ]; then
+if [ -f "$ROOT/scripts/lint/lint-doc.js" ]; then
   STANDARDS="$ROOT"
-elif [ -f "$ROOT/doc-standards/scripts/lint-doc.js" ]; then
+elif [ -f "$ROOT/doc-standards/scripts/lint/lint-doc.js" ]; then
   STANDARDS="$ROOT/doc-standards"
 else
   D=$PWD
   while [ "$D" != "/" ]; do
-    if [ -f "$D/doc-standards/scripts/lint-doc.js" ]; then STANDARDS="$D/doc-standards"; break; fi
+    if [ -f "$D/doc-standards/scripts/lint/lint-doc.js" ]; then STANDARDS="$D/doc-standards"; break; fi
     D=$(dirname "$D")
   done
 fi
@@ -44,12 +44,12 @@ Two things depend on where this checkout sits relative to the project.
   When it is not the default layout, nothing is broken. Every script takes an explicit target, and
   the commands in this repository pass one. Just do not rely on `npm run sweep` and its siblings.
 
-- **The editor hook** walks up from the edited file looking for `doc-standards/scripts/lint-doc.js`.
+- **The editor hook** walks up from the edited file looking for `doc-standards/scripts/lint/lint-doc.js`.
   So the project must sit under a parent that contains this checkout, or the hook will never find it
   and edits will go unlinted with no error. Verify:
 
   ```bash
-  D="$CORPUS"; while [ "$D" != "/" ]; do [ -f "$D/doc-standards/scripts/lint-doc.js" ] && { echo "hook will resolve at $D"; break; }; D=$(dirname "$D"); done
+  D="$CORPUS"; while [ "$D" != "/" ]; do [ -f "$D/doc-standards/scripts/lint/lint-doc.js" ] && { echo "hook will resolve at $D"; break; }; D=$(dirname "$D"); done
   ```
 
   Print nothing and the hook cannot reach it. Say so, and name what would have to move.
@@ -96,7 +96,7 @@ in the project.
 ## Step 4: Baseline
 
 ```bash
-node "$STANDARDS/scripts/sweep-docs.js" "$CORPUS" --tiers=1
+node "$STANDARDS/scripts/lint/sweep-docs.js" "$CORPUS" --tiers=1
 ```
 
 Record the number. That is the project's starting debt, and every later run is compared against it.
@@ -104,15 +104,15 @@ Record the number. That is the project's starting debt, and every later run is c
 Then the full picture and the links:
 
 ```bash
-node "$STANDARDS/scripts/sweep-docs.js" "$CORPUS"
-node "$STANDARDS/scripts/check-links.js" "$CORPUS" --layers=internal,labels
+node "$STANDARDS/scripts/lint/sweep-docs.js" "$CORPUS"
+node "$STANDARDS/scripts/lint/check-links.js" "$CORPUS" --layers=internal,labels
 ```
 
 If the corpus holds API reference pages, audit those separately. The sweep misclassifies them:
 
 ```bash
 find "$CORPUS" \( -name usage_guide.md -o -name class_reference.md \) -print
-node "$STANDARDS/scripts/lint-api-ref.js" "<each folder found>" --tiers=1,2
+node "$STANDARDS/scripts/lint/lint-api-ref.js" "<each folder found>" --tiers=1,2
 ```
 
 ## Step 5: Confirm the hooks are live

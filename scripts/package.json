@@ -4,7 +4,7 @@
   "description": "Mechanical rule checker for docs against doc-standards/",
   "private": true,
   "bin": {
-    "lint-doc": "./lint-doc.js"
+    "lint-doc": "./lint/lint-doc.js"
   },
   "scripts": {
     "audit:wordlists": "node tools/audit-wordlists.js",
@@ -20,9 +20,9 @@
     "judge:cohesion": "node judges/judge-tone.js ../../docs --rules=C2-09 --emit-verdicts",
     "judge:refs": "node judges/judge-tone.js ../../docs --rules=C3-25 --emit-verdicts",
     "judge:tone": "node judges/judge-tone.js ../../docs",
-    "links": "node check-links.js ../../docs --layers=internal,labels",
-    "lint": "node lint-doc.js",
-    "lint:api-ref": "node lint-api-ref.js",
+    "links": "node lint/check-links.js ../../docs --layers=internal,labels",
+    "lint": "node lint/lint-doc.js",
+    "lint:api-ref": "node lint/lint-api-ref.js",
     "mirror": "node tools/sync-mirror.js ../../docs/skills/src ../../docs/docs/prompts --index=../../docs/skills/skills-index.md --mirror-only=index.md,skills-index.md",
     "mirror:fix": "node tools/sync-mirror.js ../../docs/skills/src ../../docs/docs/prompts --index=../../docs/skills/skills-index.md --mirror-only=index.md,skills-index.md --apply",
     "probe": "node tools/probe-corpus.js",
@@ -32,8 +32,8 @@
     "review": "node judges/review-candidates.js",
     "review:cohesion": "node judges/review-candidates.js ../../docs",
     "review:refs": "node judges/review-candidates.js ../../docs",
-    "sweep": "node sweep-docs.js ../../docs",
-    "sweep:tier1": "node sweep-docs.js ../../docs --tiers=1",
+    "sweep": "node lint/sweep-docs.js ../../docs",
+    "sweep:tier1": "node lint/sweep-docs.js ../../docs --tiers=1",
     "test": "node --test test/*.test.js"
   }
 }

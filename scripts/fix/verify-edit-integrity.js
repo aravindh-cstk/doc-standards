@@ -49,7 +49,7 @@ const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
 
-const { collectDocs } = require('../sweep-docs');
+const { collectDocs } = require('../lint/sweep-docs');
 const { isTableRow, separatorCount, rowShapeOk, rowShapeProblems } = require('../lib/table-shape');
 
 const BANNED = /[—–;]/g;

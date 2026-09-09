@@ -47,7 +47,7 @@ const https = require('https');
 const http = require('http');
 
 const { collectDocs } = require('./sweep-docs');
-const { slugifyVariants } = require('./lib/slugify');
+const { slugifyVariants } = require('../lib/slugify');
 const {
   fenceMask,
   linksIn,
@@ -56,9 +56,9 @@ const {
   isUnresolvableHost,
   classify,
   splitFragment,
-} = require('./lib/markdown-links');
+} = require('../lib/markdown-links');
 
-const REPO_ROOT = path.join(__dirname, '..', '..');
+const REPO_ROOT = path.join(__dirname, '..', '..', '..');
 const CACHE_PATH = path.join(REPO_ROOT, '.doc-review', 'link-cache.json');
 const CACHE_TTL_MS = 7 * 24 * 60 * 60 * 1000;
 const EXTERNAL_CONCURRENCY = 6;
@@ -389,7 +389,7 @@ async function main() {
     //
     // Required lazily so the checks/ directory does not become a load-time
     // dependency of a script the CMS push also runs.
-    const { collectLinkLabelCandidates } = require('./checks/link-label-fidelity');
+    const { collectLinkLabelCandidates } = require('../checks/link-label-fidelity');
     const corpus = new Set(files.map((f) => path.resolve(f)));
     const findings = [];
     let candidates = 0;

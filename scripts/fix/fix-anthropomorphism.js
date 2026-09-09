@@ -42,7 +42,7 @@ const path = require('path');
 
 const { askClaude } = require('../lib/claude-runner');
 const { DocModel } = require('../lib/doc-model');
-const { collectDocs } = require('../sweep-docs');
+const { collectDocs } = require('../lint/sweep-docs');
 const { maskProse } = require('../lib/prose-mask');
 const { checkAnthropomorphism } = require('../checks/anthropomorphism');
 const { checkEmDashSemicolon } = require('../checks/em-dash-semicolon');

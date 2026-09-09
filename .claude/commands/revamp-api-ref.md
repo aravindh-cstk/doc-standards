@@ -45,14 +45,14 @@ a common and avoidable review mistake.
 
 ```bash
 ROOT=$(git rev-parse --show-toplevel)
-if [ -f "$ROOT/scripts/lint-doc.js" ]; then
+if [ -f "$ROOT/scripts/lint/lint-doc.js" ]; then
   STANDARDS="$ROOT"
-elif [ -f "$ROOT/doc-standards/scripts/lint-doc.js" ]; then
+elif [ -f "$ROOT/doc-standards/scripts/lint/lint-doc.js" ]; then
   STANDARDS="$ROOT/doc-standards"
 else
   D=$PWD
   while [ "$D" != "/" ]; do
-    if [ -f "$D/doc-standards/scripts/lint-doc.js" ]; then STANDARDS="$D/doc-standards"; break; fi
+    if [ -f "$D/doc-standards/scripts/lint/lint-doc.js" ]; then STANDARDS="$D/doc-standards"; break; fi
     D=$(dirname "$D")
   done
 fi
@@ -107,7 +107,7 @@ user named as the page you edit.
 ## Step 3: Lint
 
 ```bash
-node "$STANDARDS/scripts/lint-api-ref.js" "<lint target>" --format=text --tiers=1,2
+node "$STANDARDS/scripts/lint/lint-api-ref.js" "<lint target>" --format=text --tiers=1,2
 ```
 
 Exit codes: 0 clean, 1 at least one tier-1 finding, 2 a usage error such as a target that holds no
@@ -122,7 +122,7 @@ When the target is a folder carved out of a larger doc set, relative links that 
 report as dead. Give the linter the canonical tree so it can resolve them:
 
 ```bash
-node "$STANDARDS/scripts/lint-api-ref.js" "<lint target>" --format=text --tiers=1,2 --baseline="<canonical doc-set root>"
+node "$STANDARDS/scripts/lint/lint-api-ref.js" "<lint target>" --format=text --tiers=1,2 --baseline="<canonical doc-set root>"
 ```
 
 `--baseline` covers relative links in prose and nothing else. It does not reach the two

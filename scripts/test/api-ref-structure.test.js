@@ -12,7 +12,7 @@ const {
   isClassPage,
   isUsageGuidePage,
 } = require('../checks/api-ref-structure');
-const { lintFile, collectFiles } = require('../lint-api-ref');
+const { lintFile, collectFiles } = require('../lint/lint-api-ref');
 
 const BROKEN_ROOT = path.join(__dirname, 'fixtures', 'api-ref-broken');
 const FIXTURES = path.join(BROKEN_ROOT, 'Broken');

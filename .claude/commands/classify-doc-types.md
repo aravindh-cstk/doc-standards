@@ -21,14 +21,14 @@ A declared type beats the heuristic. This command is how a corpus gets declared.
 
 ```bash
 ROOT=$(git rev-parse --show-toplevel)
-if [ -f "$ROOT/scripts/lint-doc.js" ]; then
+if [ -f "$ROOT/scripts/lint/lint-doc.js" ]; then
   STANDARDS="$ROOT"
-elif [ -f "$ROOT/doc-standards/scripts/lint-doc.js" ]; then
+elif [ -f "$ROOT/doc-standards/scripts/lint/lint-doc.js" ]; then
   STANDARDS="$ROOT/doc-standards"
 else
   D=$PWD
   while [ "$D" != "/" ]; do
-    if [ -f "$D/doc-standards/scripts/lint-doc.js" ]; then STANDARDS="$D/doc-standards"; break; fi
+    if [ -f "$D/doc-standards/scripts/lint/lint-doc.js" ]; then STANDARDS="$D/doc-standards"; break; fi
     D=$(dirname "$D")
   done
 fi
@@ -109,7 +109,7 @@ git -C "$ARGUMENTS" status --short | head -20
 Re-baseline and compare against the number from before:
 
 ```bash
-node "$STANDARDS/scripts/sweep-docs.js" "<target>" --tiers=1
+node "$STANDARDS/scripts/lint/sweep-docs.js" "<target>" --tiers=1
 ```
 
 The tier-1 count should fall, often sharply, because the section rules now ask each page for the

@@ -57,7 +57,7 @@ const path = require('path');
 
 const { askClaude } = require('../lib/claude-runner');
 const { DocModel } = require('../lib/doc-model');
-const { collectDocs } = require('../sweep-docs');
+const { collectDocs } = require('../lint/sweep-docs');
 const { maskProse, maskForEmphasis } = require('../lib/prose-mask');
 const { EMOJI_RE } = require('../checks/no-emoji');
 const { AST_RE, UND_RE, HTML_ITALIC_RE } = require('../checks/no-italics');
