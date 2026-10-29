@@ -190,12 +190,15 @@ test('overviewOpenerTopicFirst surfaces a topic that lands only after a result c
   assert.match(hits[0].signal, /result clause/);
 });
 
-test('overviewOpenerTopicFirst leaves a direct opener alone', () => {
-  assert.equal(openerHits('This page covers duplicating a profile, exporting it, and importing it.').length, 0);
+test('overviewOpenerTopicFirst leaves a task-first opener alone', () => {
+  // "This page covers ..." is no longer a direct opener. It narrates the page,
+  // and C3-31 now blocks it at tier 1 (see review-feedback.test.js), so the
+  // examples here open with the reader's task instead.
+  assert.equal(openerHits('Duplicate a profile to copy it within the same organization, or export it to move it.').length, 0);
   assert.equal(openerHits('A profile is a named bundle of Contentstack tools.').length, 0);
   // A trailing coordination continues a list rather than deferring the subject.
   assert.equal(
-    openerHits('This page covers the query parameters on a connector URL, and the order Contentstack resolves them in.').length,
+    openerHits('Configure a profile from the query parameters on its connector URL, and the order Contentstack resolves them in.').length,
     0
   );
 });

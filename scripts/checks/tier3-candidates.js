@@ -23,6 +23,10 @@ const { byId } = require('../lib/rules-registry');
 const { loadPhraseList, entryRegex, stripNonProse } = require('../lib/phrase-list');
 const { shingles, jaccard } = require('../lib/similarity');
 const { sectionParagraphs, cohesionSignal } = require('./paragraph-cohesion');
+const { vendorContext } = require('./third-party-ui');
+const { skimSignal, readableLines } = require('./skimmable-sentence');
+const { normalizeLine, splitSentences } = require('./sentence-concision');
+const { DATA_DIR: OVER_PROMISE_DIR } = require('./over-promise');
 
 const INLINE_CODE_RE = /`[^`]*`/g;
 const CODE_SPAN_RE = /`[^`]*`/g;
@@ -752,7 +756,7 @@ function overviewOpenerTopicFirst(doc) {
       signal,
       evidence: [`Page: ${heading ? heading.text : '(no H1)'}`, opener],
       decide:
-        'Does the reader have to get past a clause about something else before learning what this page covers?',
+        'Does the reader have to get past a description of the page, or a clause about something else, before learning the task this page helps them do?',
     }),
   ];
 }
@@ -1562,6 +1566,120 @@ function paragraphCohesion(doc) {
   return out;
 }
 
+// --- Editorial rules from the MCP Profile Hub review (judges/judge-editorial.js) ---
+
+// A numbered step, or a line that opens on an instruction verb.
+const VENDOR_STEP_RE = /^\s*(?:\d+[.)]\s+|[-*+]\s+)?(?:Open|Choose|Click|Select|Go to|Navigate|Enable|Add|Paste|Turn|Sign in|Log in|Install|Run|Use|Save|Approve)\b/;
+
+/** C4-09: steps for a third-party product that may quote the vendor's own UI. */
+function thirdPartyUi(doc) {
+  const out = [];
+  for (const { line, text } of proseLinesIn(doc, doc.bodyStartLine, doc.totalLines)) {
+    if (!text.trim() || /^\s*#{1,6}\s/.test(text)) continue;
+    const vendors = vendorContext(doc, line);
+    if (!vendors.length) continue;
+    const bold = /\*\*[^*]+\*\*/.test(text.replace(INLINE_CODE_RE, ' '));
+    if (!bold && !VENDOR_STEP_RE.test(text)) continue;
+    out.push(
+      makeCandidate({
+        ruleIds: ['C4-09', 'C5-07'],
+        generator: 'thirdPartyUi',
+        doc,
+        line,
+        signal: `a ${bold ? 'bold label' : 'step'} in instructions for ${vendors.join(', ')}`,
+        evidence: [text.trim()],
+        decide:
+          "Does this line quote a third-party product's own UI (a button, menu, field or plan name) that would stop matching the screen if the vendor renamed it?",
+      })
+    );
+  }
+  return out;
+}
+
+// The capability claims that used to live in checks/unverified-claims.js, a
+// tier-3 check that could never report because lint drops tier 3.
+const CAPABILITY_CLAIM_RE = /\bfull support\b|\bmost effort of any\b|\btakes the most\b|\bfully support(s|ed)?\b/i;
+
+/** C8-10 and C6-08: a claim stated more absolutely than a source may confirm. */
+function overPromise(doc) {
+  const entries = loadPhraseList(OVER_PROMISE_DIR);
+  const out = [];
+  for (const { line, text } of proseLinesIn(doc, doc.bodyStartLine, doc.totalLines)) {
+    const stripped = stripNonProse(text);
+    const hit = entries.find((e) => {
+      try {
+        return entryRegex(e).test(stripped);
+      } catch (err) {
+        return false;
+      }
+    });
+    const claim = CAPABILITY_CLAIM_RE.exec(stripped);
+    if (!hit && !claim) continue;
+    out.push(
+      makeCandidate({
+        ruleIds: hit ? ['C8-10', 'C6-08'] : ['C6-08', 'C8-10'],
+        generator: 'overPromise',
+        doc,
+        line,
+        signal: hit ? `absolute claim "${hit.label || hit.phrase}"` : `capability claim "${claim[0]}"`,
+        evidence: [text.trim()],
+        decide:
+          'Does this sentence promise something no cited source confirms, or state it more absolutely than the source does? Remove an unverifiable claim, and rewrite an inaccurate one.',
+      })
+    );
+  }
+  return out;
+}
+
+// Conversational markers the C3-01 wordlist does not already ban.
+const CASUAL_REGISTER_RE = /\b(?:a bit|pretty (?:much|easy|simple|quick)|really|basically|simply|a lot of|lots of|stuff|kind of|sort of|okay|handy|neat|awesome|don't worry|no worries|feel free|let's|we'll|we're|hassle|tweak|play around|a bunch of|takes? care of|nothing (?:else|more)|all there is|needs? nothing)\b|!(?=\s|$)/i;
+
+/** C3-33: a sentence that reads as conversational even though no wordlist entry matches. */
+function casualRegister(doc) {
+  const out = [];
+  for (const { line, text } of proseLinesIn(doc, doc.bodyStartLine, doc.totalLines)) {
+    if (!text.trim() || /^\s*(?:#{1,6}\s|\||<)/.test(text)) continue;
+    const m = CASUAL_REGISTER_RE.exec(stripNonProse(text));
+    if (!m) continue;
+    out.push(
+      makeCandidate({
+        ruleIds: ['C3-33', 'C3-01'],
+        generator: 'casualRegister',
+        doc,
+        line,
+        signal: `conversational marker "${m[0]}"`,
+        evidence: [text.trim()],
+        decide: 'Does this sentence read as conversational rather than as a neutral technical statement of a fact or a requirement?',
+      })
+    );
+  }
+  return out;
+}
+
+/** C2-16: a long sentence a reader would skim faster as bullets or as shorter sentences. */
+function skimmableSentence(doc) {
+  const out = [];
+  for (const line of readableLines(doc)) {
+    for (const sentence of splitSentences(normalizeLine(doc.lines[line - 1]))) {
+      const signal = skimSignal(sentence);
+      if (!signal) continue;
+      out.push(
+        makeCandidate({
+          ruleIds: ['C2-16', 'C3-07'],
+          generator: 'skimmableSentence',
+          doc,
+          line,
+          signal: signal.reason,
+          evidence: [sentence],
+          decide:
+            'Would a reader skim this faster as bullets under a lead-in, or as two or three shorter sentences? If you choose bullets, does the list keep the information flow?',
+        })
+      );
+    }
+  }
+  return out;
+}
+
 const GENERATORS = [
   headingAccuracy,
   houseVerbTone,
@@ -1591,6 +1709,10 @@ const GENERATORS = [
   unanchoredBlockReference,
   unnamedLeadInReferent,
   paragraphCohesion,
+  thirdPartyUi,
+  overPromise,
+  casualRegister,
+  skimmableSentence,
 ];
 
 function collectTier3Candidates(doc) {

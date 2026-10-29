@@ -26,6 +26,16 @@
       "REFER_RE"
     ]
   },
+  "anchor-heading-level": {
+    "kind": "structural",
+    "module": "checks/anchor-heading-level.js",
+    "rules": [
+      "C5-08"
+    ],
+    "patterns": [
+      "MAX_ANCHOR_LEVEL"
+    ]
+  },
   "anthropomorphism": {
     "kind": "wordlist",
     "module": "checks/anthropomorphism.js",
@@ -176,6 +186,8 @@
       "C3-01",
       "C3-03",
       "C3-15",
+      "C3-31",
+      "C3-32",
       "C8-01",
       "C8-02",
       "C8-03",
@@ -187,6 +199,17 @@
     ],
     "dataFiles": [
       "data/banned-phrases/*.json"
+    ]
+  },
+  "bare-domain": {
+    "kind": "regex",
+    "module": "checks/bare-domain.js",
+    "rules": [
+      "C5-09"
+    ],
+    "patterns": [
+      "DOMAIN_RE",
+      "DOMAIN_TLDS"
     ]
   },
   "bare-links": {
@@ -363,7 +386,11 @@
       "C3-11"
     ],
     "patterns": [
-      "CODE_RE"
+      "HTTP_STATUS_RE",
+      "STATUS_BEFORE_RE",
+      "STATUS_AFTER_RE",
+      "QUANTITY_BEFORE_RE",
+      "UNIT_AFTER_RE"
     ]
   },
   "exhaustive-claim-phrases": {
@@ -417,6 +444,7 @@
     "patterns": [
       "MAX_WORDS",
       "LOWERCASE_IDENTIFIER_RE",
+      "DEPENDENT_OPENER_RE",
       "PLACEHOLDER_RE"
     ]
   },
@@ -528,6 +556,16 @@
     "patterns": [
       "SEQUENCE_SIGNAL_RE",
       "IMPERATIVE_VERBS"
+    ]
+  },
+  "over-promise": {
+    "kind": "wordlist",
+    "module": "checks/over-promise.js",
+    "rules": [
+      "C8-10"
+    ],
+    "dataFiles": [
+      "data/over-promise/*.json"
     ]
   },
   "paragraph-cohesion": {
@@ -691,6 +729,19 @@
       "CAUSAL_RE"
     ]
   },
+  "skimmable-sentence": {
+    "kind": "regex",
+    "module": "checks/skimmable-sentence.js",
+    "rules": [
+      "C2-16"
+    ],
+    "patterns": [
+      "LIST_SIGNAL_WORDS",
+      "HARD_LIMIT_WORDS",
+      "SERIES_RE",
+      "JOINER_RE"
+    ]
+  },
   "table-integrity": {
     "kind": "structural",
     "module": "checks/table-integrity.js",
@@ -714,6 +765,23 @@
       "THRESHOLD"
     ]
   },
+  "third-party-ui": {
+    "kind": "regex",
+    "module": "checks/third-party-ui.js",
+    "rules": [
+      "C4-09",
+      "C5-07"
+    ],
+    "dataFiles": [
+      "data/third-party/vendors.json"
+    ],
+    "patterns": [
+      "MENU_PATH_RES",
+      "PLAN_RE",
+      "BOLD_RE",
+      "HOUSE_BOLD_RE"
+    ]
+  },
   "token-scope-heuristic": {
     "kind": "unimplemented",
     "module": null,
@@ -730,6 +798,19 @@
     "patterns": [
       "ROOT_CAUSE_RE",
       "RESOLUTION_RE"
+    ]
+  },
+  "troubleshooting-hub-pointer": {
+    "kind": "structural",
+    "module": "checks/troubleshooting-hub-pointer.js",
+    "rules": [
+      "C1-07"
+    ],
+    "dataFiles": [
+      "data/troubleshooting-hubs.json"
+    ],
+    "patterns": [
+      "LABEL_RE"
     ]
   },
   "try-catch-heuristic": {

@@ -42,7 +42,12 @@ const { checkCalloutTaxonomy } = require('../checks/callout-taxonomy');
 const { checkConditionalFraming } = require('../checks/conditional-framing');
 const { checkHeadingUniformity } = require('../checks/heading-uniformity');
 const { checkInternalLinkForm } = require('../checks/internal-link-form');
-const { checkUnverifiedClaims } = require('../checks/unverified-claims');
+const { checkThirdPartyUi } = require('../checks/third-party-ui');
+const { checkSkimmableSentence } = require('../checks/skimmable-sentence');
+const { checkOverPromise } = require('../checks/over-promise');
+const { checkAnchorHeadingLevel } = require('../checks/anchor-heading-level');
+const { checkBareDomain } = require('../checks/bare-domain');
+const { checkTroubleshootingHubPointer } = require('../checks/troubleshooting-hub-pointer');
 const { checkCliSpecific } = require('../checks/cli-specific');
 
 const VALID_TYPES = [
@@ -97,7 +102,12 @@ const CHECKS = [
   checkConditionalFraming,
   checkHeadingUniformity,
   checkInternalLinkForm,
-  checkUnverifiedClaims,
+  checkThirdPartyUi,
+  checkSkimmableSentence,
+  checkOverPromise,
+  checkAnchorHeadingLevel,
+  checkBareDomain,
+  checkTroubleshootingHubPointer,
   // Returns nothing unless the doc is a CLI doc, by type or by isCliDoc above,
   // so the CLI rules cannot fire on an SDK page.
   checkCliSpecific,

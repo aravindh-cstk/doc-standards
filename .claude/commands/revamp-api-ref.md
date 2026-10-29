@@ -248,6 +248,37 @@ Judge every candidate into `$REVIEW/verdicts.json`, one entry per `candidateId`,
 node "$STANDARDS/scripts/judges/review-candidates.js" --reconcile --out="$REVIEW"
 ```
 
+### Editorial judge
+
+Run the editorial judge on the same target. It collects the reading questions the MCP Profile Hub
+review raised: an Overview that does not open with the reader's task (C6-05), steps that quote a
+third-party UI (C4-09), over-promises (C8-10, C6-08), conversational sentences (C3-33) and long
+sentences that need bullets or a split (C2-16). Each candidate carries the reviewer's own worked
+examples, so judge against those rather than against your own taste.
+
+```bash
+node "$STANDARDS/scripts/judges/judge-editorial.js" "$ARGUMENTS"
+```
+
+Write a verdict for every candidate in `.doc-review/editorial-verdicts.json`, in the same shape as
+above, then:
+
+```bash
+node "$STANDARDS/scripts/judges/judge-editorial.js" --reconcile --escalate
+```
+
+It exits non-zero while any candidate is unjudged. `--escalate` writes every `UNCLEAR` verdict to
+`.doc-review/NEEDS-YOUR-INPUT.md` with a clickable `file:line` link. `--judge --apply` asks the
+claude CLI instead, one candidate at a time, and is opt-in.
+
+Every question you hand back to the user names the file and line it is about, as a clickable link
+such as `[manage-profiles.md:17](profile-hub/manage-profiles.md#L17)`. A question without one sends
+the user hunting for the sentence before they can answer. Check the hand-back before sending it:
+
+```bash
+node "$STANDARDS/scripts/lint/check-handoff.js" <hand-back.md>
+```
+
 Expect few candidates here. The generators are prose-shaped and several are no-ops on a reference
 fragment. A short list is the expected result, not a sign the run failed.
 

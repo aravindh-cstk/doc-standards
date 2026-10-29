@@ -106,8 +106,31 @@ node "$STANDARDS/scripts/judges/judge-tone.js" "$ARGUMENTS" --rules=C3-25 --emit
 node "$STANDARDS/scripts/judges/judge-reading.js" "$ARGUMENTS"
 ```
 
-`C2-09` is paragraph cohesion and `C3-25` is reference form. `judge-reading.js` scores reading level
-and takes `--judge` and `--report` the same way.
+`C2-09` is paragraph cohesion and `C3-25` is reference form. `judge-reading.js` judges numeric
+consistency (C2-13) and link-label fidelity (C2-14), and takes `--judge` and `--report` the same way.
+
+### Editorial judge
+
+Run the editorial judge on the same target. It collects the reading questions the MCP Profile Hub
+review raised: an Overview that does not open with the reader's task (C6-05), steps that quote a
+third-party UI (C4-09), over-promises (C8-10, C6-08), conversational sentences (C3-33) and long
+sentences that need bullets or a split (C2-16). Each candidate carries the reviewer's own worked
+examples, so judge against those rather than against your own taste.
+
+```bash
+node "$STANDARDS/scripts/judges/judge-editorial.js" "$ARGUMENTS"
+```
+
+Write a verdict for every candidate in `.doc-review/editorial-verdicts.json`, in the same shape as
+above, then:
+
+```bash
+node "$STANDARDS/scripts/judges/judge-editorial.js" --reconcile --escalate
+```
+
+It exits non-zero while any candidate is unjudged. `--escalate` writes every `UNCLEAR` verdict to
+`.doc-review/NEEDS-YOUR-INPUT.md` with a clickable `file:line` link. `--judge --apply` asks the
+claude CLI instead, one candidate at a time, and is opt-in.
 
 ## Step 5: Report
 
@@ -120,5 +143,13 @@ Report:
 - Every `VIOLATION` with its file, line and fix. These are ready to apply, and applying them is a
   revamp command's job rather than this one's.
 - Every `UNCLEAR`, escalated to the user with what would settle it. Do not guess these.
+
+Every question you hand back to the user names the file and line it is about, as a clickable link
+such as `[manage-profiles.md:17](profile-hub/manage-profiles.md#L17)`. A question without one sends
+the user hunting for the sentence before they can answer. Check the hand-back before sending it:
+
+```bash
+node "$STANDARDS/scripts/lint/check-handoff.js" <hand-back.md>
+```
 - Every `EXCEPTION_APPLIES` whose quoted exception you had to search for, since a strained exception
   is usually a violation.

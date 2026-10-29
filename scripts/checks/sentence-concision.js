@@ -119,4 +119,4 @@ function checkSentenceConcision(doc) {
   return findings;
 }
 
-module.exports = { checkSentenceConcision, matchWordyPhrase, WORDY_PHRASES_PATH, MAX_WORDS };
+module.exports = { checkSentenceConcision, matchWordyPhrase, normalizeLine, splitSentences, wordCount, WORDY_PHRASES_PATH, MAX_WORDS };

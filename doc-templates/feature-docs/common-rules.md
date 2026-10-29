@@ -9,9 +9,9 @@ These rules apply to every doc type: conceptual guides, feature docs, how-to gui
 These definitions apply to every doc type. Per-type files specify which sections are required or optional for that type.
 
 **Overview**
-One to three sentences. State what the developer achieves or gains, not what the guide does. Avoid guide-centric phrasing such as "this guide walks you through" or "this guide covers." Do not repeat the page title verbatim. Do not include setup steps, prerequisites, or background history.
+One to three sentences. State what the developer achieves or gains, not what the guide does. Open with the task the reader came to do and its outcome, explain the benefit before the technical detail, and put an example directly after the explanation. Never narrate the page: "this page covers", "this guide walks you through" and "in this guide" are blocked by C3-31. Do not repeat the page title verbatim. Do not include setup steps, prerequisites, or background history.
 
-For migration and upgrade docs, use this structure: state when the guide applies, explain what the change breaks, then state what the reader gets. Pattern: "Use this guide when you upgrade [product] from [version] to [version]. The new version [what changes], breaking [what breaks]. This guide shows [what the reader gains]."
+For migration and upgrade docs, use this structure: state when the guide applies, explain what the change breaks, then state what the reader gets. Pattern: "Use this guide when you upgrade [product] from [version] to [version]. The new version [what changes], breaking [what breaks]. After the upgrade, [what the reader gains]."
 
 **Quick Decision Guide**
 A table that appears before Prerequisites so developers orient themselves before reading requirements. Minimum columns: Approach, Key configuration value, Reason. Recommended addition: Framework examples column mapping each approach to known kickstarters or framework patterns. Use this section whenever the doc covers two or more paths that require different setup.
@@ -149,6 +149,12 @@ The format is shown in a fenced block because it is a specification rather than 
 
 ---
 
+**Rule:** A page whose product has a troubleshooting hub keeps its Troubleshooting section as one pointer that links to the matching hub category, for example an Additional Resource callout. The section holds no entry headings and no Root cause or Resolution labels.
+**Why:** An entry copied onto each page goes stale wherever it was copied. One hub entry, linked from every page that can hit the error, stays current when the message or the fix changes. Keeping the H2 keeps every existing troubleshooting anchor working.
+**Exception:** The hub page itself. Hubs and the pages they cover are listed in scripts/data/troubleshooting-hubs.json, and the CLI hub is enforced by its own rule.
+
+---
+
 ### C2: Scannability
 
 **Rule:** Use tables instead of prose for comparisons, decision matrices, and option sets with two or more dimensions.
@@ -201,7 +207,8 @@ The format is shown in a fenced block because it is a specification rather than 
 
 **Rule:** A heading is a complete phrase. Do not open a heading with a lowercase verb or a conjunction that depends on a subject the heading does not name.
 **Why:** A fragment such as "uses a secure HTTP trigger, which is not supported yet" reads as the tail of a sentence whose subject is missing, so a reader arriving from a search result or a table of contents cannot tell what the section covers.
-**Exception:** A heading may open in lowercase when the first word is itself a lowercase identifier, such as a package name or an error code. Otherwise name the subject, or reproduce the product's message in full under the verbatim-product-output exception above.
+**Fix:** Write the heading as a complete symptom that names its subject, for example "An automation call fails with a secure HTTP trigger error", and quote the partial product message in the body under the heading.
+**Exception:** A heading may open in lowercase when the first word is itself a lowercase identifier, such as a package name, an error code or an API member name (`currentUser`, `getEntry()`). Otherwise name the subject, or reproduce the product's message in full under the verbatim-product-output exception above.
 
 ---
 
@@ -239,16 +246,34 @@ The format is shown in a fenced block because it is a specification rather than 
 
 ---
 
+**Rule:** Make a long sentence skimmable. When it lists separate facts of the same kind, turn them into bullets under a lead-in that names the list, with a bold label on each. When it chains a cause, its consequence and a caveat, split it into two or three sentences joined by connectives such as "As a result" and "However". Bullets keep the information flow, so they never read as isolated fragments.
+**Why:** A 40-word sentence that holds three limits, or a cause with its consequence and caveat, makes the reader parse the whole line to find the one fact they need. Bullets and short sentences let them stop at the fact.
+**Exception:** A long sentence that states one idea, with no series and no chained clauses, can stay as written.
+
+---
+
 ### C3: Language and Tone
 
-**Rule:** No casual language in prose. Remove phrases such as "right away", "on its own", "you'll find", "pretty straightforward", "just".
+**Rule:** No casual language in prose. Remove phrases such as "right away", "on its own", "you'll find", "pretty straightforward", "just", "needs nothing else", "that's it", "you're all set" and "good to go".
 **Why:** Casual language is inconsistent with professional documentation standards and undermines credibility.
 **Exception:** None. Neutral, precise language applies throughout.
 
 ---
 
-**Rule:** Do not narrate the doc or example instead of describing what the reader does. Remove phrases such as "this walks through", "this guide walks you through", "this section covers", "this shows you how". State the action or outcome directly instead.
-**Why:** Narrating the document describes what the doc does rather than what the reader achieves, which is guide-centric phrasing. This rule is stated for the Overview section above, but the same phrasing is just as casual anywhere else in the doc, so it applies document-wide, not only to the Overview.
+**Rule:** Write in a neutral technical register. A sentence that reads as conversational, such as "Contentstack needs nothing else to run it", is rewritten as a concrete statement of the requirement, or removed, even when no wordlist entry matches it.
+**Why:** Wordlists catch the phrases already seen, and casual phrasing keeps arriving in new forms. Only a reader judging each sentence for register catches the next one, which is why judges/judge-editorial.js puts these sentences in front of a judge.
+**Exception:** Quoted product output and quoted user input are reproduced as written.
+
+---
+
+**Rule:** Do not use a retired product term. Write "product role", never "organization role". Every retired term and its replacement is listed in scripts/data/banned-phrases/retired-terms.json.
+**Why:** A retired term sends the reader looking for a screen or a setting that no longer exists. Contentstack replaced organization roles with product roles, per the About Product Roles page (/administration/about-product-roles).
+**Exception:** "Organization-level product role" is the current term and is not affected.
+
+---
+
+**Rule:** Do not narrate the doc or example instead of describing what the reader does. Remove phrases such as "this page covers", "this guide explains", "this walks through", "this guide walks you through", "this section covers", "this shows you how", "in this guide" and "you will learn". State the action or outcome directly instead.
+**Why:** Readers do not care what a page covers. They care whether it solves their problem. Narrating the document describes what the doc does rather than what the reader achieves, which is guide-centric phrasing. This rule is stated for the Overview section above, but the same phrasing is just as casual anywhere else in the doc, so it applies document-wide, not only to the Overview.
 **Exception:** None.
 
 ---
@@ -303,7 +328,7 @@ The format is shown in a fenced block because it is a specification rather than 
 
 **Rule:** Write a numeric error code or HTTP status code as inline code (`429`), never as bare prose (429).
 **Why:** A bare number reads as a quantity, not an identifier. Inline code marks it as a literal value the reader compares against, matching how the same code appears in a request or response body.
-**Exception:** A written-out description of a status class ("a client error", "a server error") is prose and is not affected.
+**Exception:** A written-out description of a status class ("a client error", "a server error") is prose and is not affected. A number that counts something, such as "200 tools" or "a limit of 500 profiles", is a quantity rather than a code and stays as prose.
 
 ---
 
@@ -451,6 +476,12 @@ The format is shown in a fenced block because it is a specification rather than 
 
 ---
 
+**Rule:** Describe a third-party product's UI generically. Do not quote its button labels, field names or plan names. Name the capability instead, for example "add a custom connector in the client's settings".
+**Why:** A vendor renames menus, buttons and plans without notice. A doc that quotes them goes stale the day the vendor ships a redesign, and nothing in the doc set notices.
+**Exception:** A Contentstack screen or tab named after a client, such as the Claude Desktop Manual installation tab, is Contentstack UI and is written in bold as usual.
+
+---
+
 ### C5: Cross-References
 
 **Rule:** Classify every outbound callout as required (inline summary), optional (end of section or Next Steps), or redundant (remove).
@@ -486,6 +517,24 @@ The format is shown in a fenced block because it is a specification rather than 
 **Rule:** Remove cross-references that duplicate links already present in Prerequisites or Next Steps.
 **Why:** A link that appears in three places does not add three times the value. It adds noise and suggests the content is fragmented.
 **Exception:** A mandatory link in Prerequisites may be repeated as a reminder in a subsection if the doc is long and developers are likely to arrive directly at that subsection.
+
+---
+
+**Rule:** In instructions for a third-party product, do not link to the vendor's help pages and do not give the vendor's menu path. Point the reader to the client's own documentation in words.
+**Why:** A vendor help page and a menu path both change without notice. The link breaks or drifts to another topic, and the path stops matching the screen.
+**Exception:** Stable references, such as the protocol specification, a runtime download or a package registry page, may be linked. They are listed in scripts/data/third-party/vendors.json.
+
+---
+
+**Rule:** An anchor link targets an H2 or H3 heading. Link the nearest H2 or H3 section that contains an H4 entry, or raise the entry to H3.
+**Why:** The docs site renders an anchor id only for H2 and H3 headings. A link to an H4 loads the page and stays at the top, while markdown previews and link checkers report it as working.
+**Exception:** An explicit HTML anchor written into the page is reachable at any level.
+
+---
+
+**Rule:** Do not write a bare domain name in prose. Format it as code, or write a deliberate link where the reader needs one.
+**Why:** A converter with auto-linking turns a bare domain such as claude.ai into a live link that nobody chose, which can put a vendor link on a page whose rules keep vendor links out.
+**Exception:** A domain inside a code span, a code block, a link or an email address is not affected.
 
 ---
 
@@ -684,6 +733,12 @@ Each row rewrites a real sentence that broke one of the C8 rules above.
 | "guardrails so its output is correct" | "restrictions: it uses correct SDK method names, keeps management tokens server-side, and confirms before destructive operations" |
 | "The primary entry point for Brand Kit" | "Handles Brand Kit questions: setup, Voice Profiles, Knowledge Vault, on-brand generation and API routing" |
 | "intelligent routing picks the right skill" | "the router matches the request against the trigger table in each `SKILL.md`" |
+
+---
+
+**Rule:** Do not promise what the product does not guarantee. An absolute such as "no setup required", "works with any client", "never fails" or "instantly" stays only when a cited source confirms it. Remove an ambiguous or unverifiable claim. Rewrite a claim that a source shows is inaccurate to the accurate statement.
+**Why:** An over-promise reads as a verified fact, so the reader plans around it and loses trust in the whole page the first time it fails.
+**Exception:** A limit stated as a measured fact, such as a documented maximum or a timeout value, is not an over-promise.
 
 ---
 
