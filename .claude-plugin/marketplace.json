@@ -1,0 +1,12 @@
+{
+  "name": "doc-standards",
+  "owner": { "name": "aravindh-cstk" },
+  "description": "Contentstack documentation standards for Claude Code.",
+  "plugins": [
+    {
+      "name": "doc-standards",
+      "source": "./",
+      "description": "Contentstack documentation rules as slash commands: revamp a page, audit a corpus, judge tier-3 rules, and run the pre-merge gate."
+    }
+  ]
+}

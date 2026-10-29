@@ -1,0 +1,7 @@
+{
+  "name": "doc-standards",
+  "description": "Contentstack documentation rules as slash commands: revamp a page, audit a corpus, judge tier-3 rules, and run the pre-merge gate.",
+  "author": { "name": "aravindh-cstk" },
+  "repository": "https://github.com/aravindh-cstk/doc-standards",
+  "commands": "./.claude/commands"
+}

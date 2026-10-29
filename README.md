@@ -47,7 +47,7 @@ Find your job in this table and go to the section it names.
 Four paths, and knowing which one is running matters when a result surprises you.
 
 1. **The editor hooks.** Every `Write` or `Edit` of a markdown file under a `docs/` path in a consuming repo runs the dash check and then the linter. Tier 1 findings block the edit. This path runs on every documentation edit, without anyone invoking it.
-2. **The ten slash commands.** One per task this repository can perform, from revamping a single page to running the pre-merge gate. They are git-tracked in `.claude/commands/` and symlinked into `~/.claude/commands/` by `scripts/install-commands.sh`, so they work from any repository. `.claude/commands/README.md` is the index.
+2. **The ten slash commands.** One per task this repository can perform, from revamping a single page to running the pre-merge gate. They are git-tracked in `.claude/commands/`, and the repository ships them as a Claude Code plugin, so they work in any project and in Claude Code on the web. `scripts/install-commands.sh` links the same files into Codex and Cursor. `.claude/README.md` is the index.
 3. **The npm scripts.** Run manually from `scripts/` when auditing a corpus, closing a gap or rebuilding generated data.
 4. **Agent context.** An agent working on documentation in another repo loads `doc-templates/feature-docs/common-rules.md` and the matching type file as context.
 
@@ -72,7 +72,7 @@ Every `doc-standards` folder on this machine has been merged into this repositor
 | `scripts/tools/` | Corpus probes, wordlist audits, the mirror sync, the flat-doc merger | Maintaining the toolchain itself |
 | `scripts/fix/` | 10 fixers, deterministic and model-backed | Fixing findings at corpus scale |
 | `scripts/build/` | Two generators that produce committed artifacts | After changing a section-order table or a rule |
-| `scripts/test/` | 35 test files plus fixtures, 631 tests | Every change to any of the above |
+| `scripts/test/` | 39 test files plus fixtures, 681 tests | Every change to any of the above |
 | `MERGE-NOTES.md` | The merge history and the maintenance policy | When merging another fork |
 | `REFERENCE-RULES.md` | Generated rule catalog | Never manually, run `npm run build:readme` |
 | `REFERENCE-CHECKS.md` | Generated check catalog | Never manually, run `npm run build:readme` |
@@ -269,7 +269,7 @@ Grouped by job rather than alphabetically.
 | Rebuild section data | `npm run build:section-order` | Regenerates the two generated JSON tables. |
 | Rebuild the catalogs | `npm run build:readme` | Regenerates the two REFERENCE files. |
 | Everything that gates | `npm run gate` | `test`, then `links`, then `sweep:tier1`. Run before any commit. |
-| Run the tests | `npm test` | 631 tests across 35 files. |
+| Run the tests | `npm test` | 681 tests across 39 files. |
 
 The judges and the mirror sit outside `gate` on purpose. The judges cost money per call and need the `claude` CLI, so they must never run on a keystroke. The mirror rewrites files.
 
@@ -376,7 +376,7 @@ The first three need the `claude` CLI and cost money per call. `judge-editorial.
 
 ### Tests
 
-`npm test` runs `node --test test/*.test.js`. 631 tests across 35 files, all passing, none skipped.
+`npm test` runs `node --test test/*.test.js`. 681 tests across 39 files, all passing, none skipped.
 
 Fixtures work as matched controls: `clean-feature-doc.md` beside `broken-feature-doc.md`, `clean-cli-command-reference.md` beside its broken twin, and `api-ref-good/` beside `api-ref-broken/`. A clean fixture that starts reporting findings is as much a failure as a broken fixture that stops.
 
@@ -459,13 +459,24 @@ Generation only writes candidates and judgment only writes verdicts, one directi
 
 ## Wider setup
 
-Three pieces outside this repository make it work. All are per-machine, in `~/.claude/`.
+Three pieces outside this repository make it work: the slash commands, the editor hooks and the
+global instructions. The hooks and the global instructions are per-machine files in `~/.claude/`.
 
 ### The slash commands
 
-The commands now live in this repository, at `.claude/commands/`, and are the same artifacts the
-symlinks in `~/.claude/commands/` point at. Run `bash scripts/install-commands.sh` once per machine.
-`.claude/commands/README.md` holds the full index and the shared path resolver.
+The commands live in this repository, at `.claude/commands/`. The two files in `.claude-plugin/`
+make the repository its own Claude Code plugin marketplace, so the whole repository, scripts
+included, installs as one plugin. Each route below reads the same ten files:
+
+| Where you work | Install once |
+| --- | --- |
+| Claude Code, any project | `/plugin marketplace add aravindh-cstk/doc-standards`, then `/plugin install doc-standards@doc-standards` at user scope |
+| Claude Code on the web | The setup script in `.claude/README.md`, pasted into the `claude.ai/code` environment |
+| Codex or Cursor | `bash scripts/install-commands.sh --tool=codex` or `--tool=cursor` |
+
+Plugin commands carry the plugin name as a prefix, for example `/doc-standards:revamp-doc`. Inside
+this repository the bare `/revamp-doc` also works. `.claude/README.md` holds the full index, the
+update steps and the shared path resolver.
 
 | Command | Does |
 | --- | --- |
@@ -480,9 +491,13 @@ symlinks in `~/.claude/commands/` point at. Run `bash scripts/install-commands.s
 | `/doc-gate` | The pre-merge check. Runs the gate, then verifies the generated catalogs are current |
 | `/onboard-docs-repo` | Wires the toolchain to a new project, corpus classes first, then a baseline |
 
-`scripts/test/commands.test.js` guards them. It asserts all ten are present, that each carries the
-shared resolver verbatim, that none has reverted to the single-layout form, that none hardcodes a
-consuming project, and that none passes a flag its linter would reject.
+`scripts/test/commands.test.js` guards them. It asserts the following:
+
+- All ten are present, and the commands folder holds nothing else.
+- Each carries the shared resolver verbatim, and none has reverted to the single-layout form.
+- The three commands that edit the toolchain exit with an error when the resolver picks the plugin's copy.
+- The plugin manifests ship the commands folder and the whole repository, with no pinned version.
+- None hardcodes a consuming project, and none passes a flag its linter would reject.
 
 ### The editor hooks
 
@@ -512,10 +527,10 @@ Treat this repository as authoritative. That global file states its own provenan
 ```bash
 git clone https://github.com/aravindh-cstk/doc-standards.git
 cd doc-standards/scripts
-npm test                                  # expect 631 passing
+npm test                                  # expect 681 passing
 ```
 
-Then place `revamp-doc.md` and `doc-gap.md` in `~/.claude/commands/`, place both hook scripts in `~/.claude/hooks/`, and add the `PostToolUse` block to `~/.claude/settings.json`. Confirm the chain works by writing a deliberate em dash into a markdown file under a `docs/` path and checking that the edit is refused.
+Then install the plugin as [the slash commands](#the-slash-commands) describes, place both hook scripts in `~/.claude/hooks/`, and add the `PostToolUse` block to `~/.claude/settings.json`. Confirm the chain works by writing a deliberate em dash into a markdown file under a `docs/` path and checking that the edit is refused.
 
 ## Known gaps
 

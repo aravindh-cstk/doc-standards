@@ -22,7 +22,8 @@ is writing the check, use `/add-doc-rule` instead.
 ## Setup
 
 ```bash
-ROOT=$(git rev-parse --show-toplevel)
+ROOT=$(git rev-parse --show-toplevel 2>/dev/null || pwd)
+STANDARDS=
 if [ -f "$ROOT/scripts/lint/lint-doc.js" ]; then
   STANDARDS="$ROOT"
 elif [ -f "$ROOT/doc-standards/scripts/lint/lint-doc.js" ]; then
@@ -34,9 +35,20 @@ else
     D=$(dirname "$D")
   done
 fi
+if [ -z "$STANDARDS" ] && [ -f "${CLAUDE_PLUGIN_ROOT}/scripts/lint/lint-doc.js" ]; then STANDARDS="${CLAUDE_PLUGIN_ROOT}"; fi
+if [ -z "$STANDARDS" ] && [ -f "$HOME/.doc-standards/scripts/lint/lint-doc.js" ]; then STANDARDS="$HOME/.doc-standards"; fi
 [ -n "$STANDARDS" ] || { echo "doc-standards not found from $PWD"; exit 2; }
 REVIEW="$ROOT/.doc-review"
 SCRIPTS="$STANDARDS/scripts"
+```
+
+This command changes or checks the toolchain itself, so it needs your git clone of doc-standards.
+Each plugin update replaces the plugin's own copy and discards any edit made there. Stop when the
+check below fails:
+
+```bash
+case "$STANDARDS" in */.claude/plugins/*) echo "Run this command from inside your doc-standards clone, not the plugin copy at $STANDARDS."; exit 2 ;; esac
+[ "$(git -C "$STANDARDS" rev-parse --show-toplevel 2>/dev/null)" = "$(cd "$STANDARDS" && pwd -P)" ] || { echo "$STANDARDS is not a git clone of doc-standards. Run this command from inside your clone."; exit 2; }
 ```
 
 The corpus is whichever docs tree the violation was reported against. Take it from the second

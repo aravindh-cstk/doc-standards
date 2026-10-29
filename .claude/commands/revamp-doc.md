@@ -24,7 +24,8 @@ Resolve the toolchain once, then use it everywhere below. Hardcoding a path is w
 command before.
 
 ```bash
-ROOT=$(git rev-parse --show-toplevel)
+ROOT=$(git rev-parse --show-toplevel 2>/dev/null || pwd)
+STANDARDS=
 if [ -f "$ROOT/scripts/lint/lint-doc.js" ]; then
   STANDARDS="$ROOT"
 elif [ -f "$ROOT/doc-standards/scripts/lint/lint-doc.js" ]; then
@@ -36,6 +37,8 @@ else
     D=$(dirname "$D")
   done
 fi
+if [ -z "$STANDARDS" ] && [ -f "${CLAUDE_PLUGIN_ROOT}/scripts/lint/lint-doc.js" ]; then STANDARDS="${CLAUDE_PLUGIN_ROOT}"; fi
+if [ -z "$STANDARDS" ] && [ -f "$HOME/.doc-standards/scripts/lint/lint-doc.js" ]; then STANDARDS="$HOME/.doc-standards"; fi
 [ -n "$STANDARDS" ] || { echo "doc-standards not found from $PWD"; exit 2; }
 REVIEW="$ROOT/.doc-review"
 ```
