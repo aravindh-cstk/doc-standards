@@ -1,0 +1,11 @@
+{
+  "ruleId": "C3-10",
+  "category": "passive voice (progressive)",
+  "phrases": [
+    {
+      "pattern": "\\b(?:is|are|was|were|be)\\s+being\\s+(?:[a-z]+-)?[a-z]{2,}ed\\b",
+      "label": "passive voice (progressive: be + being + participle)",
+      "fix": "name the actor and drop the progressive: \"review what people are doing with a shared profile\""
+    }
+  ]
+}

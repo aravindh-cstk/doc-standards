@@ -3,7 +3,7 @@
   "category": "passive voice (regular participle)",
   "phrases": [
     {
-      "pattern": "\\b(?:is|are|was|were|be|been|being)\\b(?:\\s+(?:not|already|still|also|now|currently|automatically|properly|correctly|typically|usually|generally|often|[a-z]+ly))?\\s+(?!advanced\\b|aged\\b|based\\b|complicated\\b|concerned\\b|dedicated\\b|detailed\\b|fixed\\b|interested\\b|limited\\b|located\\b|married\\b|qualified\\b|related\\b|supposed\\b|unaffected\\b|unauthenticated\\b|unauthorized\\b|undefined\\b|uninitialized\\b|unlocalized\\b|unrelated\\b|unsupported\\b|unchanged\\b)[a-z]{3,}ed\\b(?:\\s+(?:with|by|to|from|in|on|for))?",
+      "pattern": "\\b(?:is|are|was|were|be|been|being)\\b(?:\\s+(?:not|already|still|also|now|currently|automatically|properly|correctly|typically|usually|generally|often|[a-z]+ly))?\\s+(?!advanced\\b|aged\\b|based\\b|complicated\\b|concerned\\b|dedicated\\b|detailed\\b|fixed\\b|interested\\b|limited\\b|located\\b|married\\b|qualified\\b|related\\b|supposed\\b|unaffected\\b|unauthenticated\\b|unauthorized\\b|undefined\\b|uninitialized\\b|unlocalized\\b|unrelated\\b|unsupported\\b|unchanged\\b|unpublished\\b|designed\\b|intended\\b)[a-z]{3,}ed\\b(?:\\s+(?:with|by|to|from|in|on|for))?",
       "label": "passive voice (regular -ed participle)",
       "fix": "name who or what performs the action and make it the subject of the sentence"
     }

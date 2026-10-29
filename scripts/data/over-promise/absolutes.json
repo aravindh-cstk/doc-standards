@@ -1,0 +1,56 @@
+{
+  "ruleId": "C8-10",
+  "category": "over-promise",
+  "phrases": [
+    {
+      "pattern": "\\bno (?:setup|installation|configuration|app|code)(?: is)? (?:needed|required)\\b",
+      "label": "no setup required",
+      "fix": "state the exact prerequisites, or remove the claim if no source confirms it"
+    },
+    {
+      "pattern": "\\b(?:with|requires?|needs?) no (?:setup|installation|configuration|app|code)\\b",
+      "label": "requires no setup",
+      "fix": "state the exact prerequisites, or remove the claim if no source confirms it"
+    },
+    {
+      "pattern": "\\bnothing to (?:install|configure|set up)\\b",
+      "label": "nothing to install",
+      "fix": "state what the reader installs or configures, or remove the claim if no source confirms it"
+    },
+    {
+      "pattern": "\\b(?:works|compatible) with (?:any|every)\\b",
+      "label": "works with any",
+      "fix": "name the supported set, or the requirement a client must meet"
+    },
+    {
+      "pattern": "\\bnever (?:fails|breaks|goes down|loses)\\b",
+      "label": "never fails",
+      "fix": "state the measured behavior and its limits"
+    },
+    {
+      "pattern": "\\balways (?:works|succeeds|available|up to date|in sync)\\b",
+      "label": "always works",
+      "fix": "state the conditions under which it works, and what happens outside them"
+    },
+    {
+      "pattern": "(?<!\\bnot )(?<!\\bno )\\bguarantee[sd]?\\b",
+      "label": "guarantees",
+      "fix": "state the documented behavior, or remove the claim if no source confirms it"
+    },
+    {
+      "pattern": "\\binstantly\\b|\\bin real[- ]time\\b|\\bin seconds\\b",
+      "label": "instantly",
+      "fix": "state the measured timing, or describe the mechanism without a speed claim"
+    },
+    {
+      "pattern": "\\bfully automatic(?:ally)?\\b",
+      "label": "fully automatic",
+      "fix": "state which steps run without the reader and which still need them"
+    },
+    {
+      "pattern": "\\bzero (?:setup|effort)\\b",
+      "label": "zero setup",
+      "fix": "state the exact prerequisites"
+    }
+  ]
+}

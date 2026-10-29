@@ -1,6 +1,7 @@
 'use strict';
 
 const { makeFinding } = require('../lib/report');
+const { shingles, jaccard } = require('../lib/similarity');
 
 const CALLOUT_RE = /^\s*(\*\*)?(ATTENTION|Required|Note|Additional Resource)(\*\*)?\s*:/i;
 const ASYNC_MARKER_RE = /\bawait\b|\.then\s*\(/;
@@ -81,19 +82,8 @@ function checkTryCatch(doc) {
 }
 
 /** Near-duplicate top-level sections via word-shingle Jaccard similarity. */
-function shingles(text, n = 5) {
-  const words = text.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(Boolean);
-  const result = new Set();
-  for (let i = 0; i + n <= words.length; i++) result.add(words.slice(i, i + n).join(' '));
-  return result;
-}
-
-function jaccard(a, b) {
-  if (a.size === 0 || b.size === 0) return 0;
-  let intersection = 0;
-  for (const item of a) if (b.has(item)) intersection++;
-  return intersection / (a.size + b.size - intersection);
-}
+// shingles and jaccard now live in lib/similarity.js, shared with the C7-04
+// table-restatement check so both duplication rules measure similarity alike.
 
 function checkDuplicateSections(doc) {
   const findings = [];

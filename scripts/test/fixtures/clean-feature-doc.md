@@ -1,6 +1,6 @@
 ---
-title: Sample Plugin
-description: A sample feature doc used as a clean fixture.
+seo_title: Sample Plugin
+seo_description: A sample feature doc used as a clean fixture.
 url: /docs/sample-plugin
 ---
 
@@ -32,7 +32,7 @@ csdx plugins:install sample-plugin
 
 ### "Not found" error
 
-**Root Cause(s)**: The alias does not exist.
+**Root Cause**: The alias does not exist.
 
 **Resolution**: Add the alias with `csdx auth:tokens:add`.
 

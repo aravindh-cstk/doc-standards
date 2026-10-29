@@ -3,12 +3,12 @@
   "category": "passive voice (get-passive)",
   "phrases": [
     {
-      "pattern": "\\b(?:get|gets|got|getting)\\b(?:\\s+(?:not|already|still|[a-z]+ly))?\\s+(?!rid\\b|advanced\\b|aged\\b|based\\b|complicated\\b|concerned\\b|dedicated\\b|detailed\\b|fixed\\b|interested\\b|limited\\b|located\\b|married\\b|qualified\\b|related\\b|supposed\\b|unaffected\\b|unauthenticated\\b|unauthorized\\b|undefined\\b|uninitialized\\b|unlocalized\\b|unrelated\\b|unsupported\\b|unchanged\\b)[a-z]{3,}ed\\b(?:\\s+(?:with|by|to|from|in|on|for))?",
+      "pattern": "\\b(?:get|gets|got|getting)\\b(?:\\s+(?:not|already|still|[a-z]+ly))?\\s+(?!rid\\b|advanced\\b|aged\\b|based\\b|complicated\\b|concerned\\b|dedicated\\b|detailed\\b|fixed\\b|interested\\b|limited\\b|located\\b|married\\b|qualified\\b|related\\b|supposed\\b|unaffected\\b|unauthenticated\\b|unauthorized\\b|undefined\\b|uninitialized\\b|unlocalized\\b|unrelated\\b|unsupported\\b|unchanged\\b|unpublished\\b|designed\\b|intended\\b)[a-z]{3,}ed\\b(?:\\s+(?:with|by|to|from|in|on|for))?",
       "label": "passive voice (get-passive, regular participle)",
       "fix": "name who or what performs the action instead of the get-passive construction"
     },
     {
-      "pattern": "\\b(?:get|gets|got|getting)\\b(?:\\s+(?:not|already|still|[a-z]+ly))?\\s+(?<!well\\s)(?<!widely\\s)(?:sent|set|given|done|seen|written|taken|made|held|kept|found|put|shown|known|thrown|broken|chosen|driven|left|built|caught|taught|sold|told|understood|cut|hit|let|shut|split|run|drawn|grown|hidden|frozen|stolen|cast|spread)\\b(?:\\s+(?:with|by|to|from|in|on|for))?",
+      "pattern": "\\b(?:get|gets|got|getting)\\b(?:\\s+(?:not|already|still|[a-z]+ly))?\\s+(?<!well\\s)(?<!widely\\s)(?:sent|set|given|done|seen|written|taken|made|held|kept|found|put|shown|known|bound|thrown|broken|chosen|driven|left|built|caught|taught|sold|told|understood|cut|hit|let|shut|split|run|drawn|grown|hidden|frozen|stolen|cast|spread)\\b(?:\\s+(?:with|by|to|from|in|on|for))?",
       "label": "passive voice (get-passive, irregular participle)",
       "fix": "name who or what performs the action instead of the get-passive construction"
     }

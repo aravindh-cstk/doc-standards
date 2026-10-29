@@ -13,11 +13,13 @@ This section should not exist in a feature doc.
 
 This is seamless and just works right away, powerful stuff.
 
+One caveat: the alias resolves before the lookup runs.
+
+Either way, the two limits worth knowing are listed below.
+
 ## Troubleshooting
 
 ### "Not found" error
-
-**Root Cause**: The alias does not exist.
 
 **Resolution**: Add the alias.
 

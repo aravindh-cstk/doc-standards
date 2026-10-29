@@ -1,0 +1,11 @@
+{
+  "ruleId": "C3-32",
+  "category": "retired-term",
+  "phrases": [
+    {
+      "pattern": "\\borg(?:anization)?\\s+roles?\\b",
+      "label": "organization role",
+      "fix": "product role. Contentstack retired organization roles, and the About Product Roles page at /administration/about-product-roles is the source"
+    }
+  ]
+}

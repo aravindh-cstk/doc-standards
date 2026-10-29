@@ -1,0 +1,869 @@
+{
+  "acronym-first-use": {
+    "kind": "wordlist",
+    "module": "checks/acronym-first-use.js",
+    "rules": [
+      "B1-06",
+      "C3-06",
+      "C8-07"
+    ],
+    "dataFiles": [
+      "data/acronyms.json"
+    ],
+    "patterns": [
+      "ACRONYM_RE"
+    ]
+  },
+  "additional-resource-phrasing": {
+    "kind": "regex",
+    "module": "checks/additional-resource-phrasing.js",
+    "rules": [
+      "C5-05"
+    ],
+    "patterns": [
+      "CALLOUT_RE",
+      "OPENER_RE",
+      "REFER_RE"
+    ]
+  },
+  "anchor-heading-level": {
+    "kind": "structural",
+    "module": "checks/anchor-heading-level.js",
+    "rules": [
+      "C5-08"
+    ],
+    "patterns": [
+      "MAX_ANCHOR_LEVEL"
+    ]
+  },
+  "anthropomorphism": {
+    "kind": "wordlist",
+    "module": "checks/anthropomorphism.js",
+    "rules": [
+      "C3-18"
+    ],
+    "dataFiles": [
+      "data/anthropomorphism/*.json"
+    ],
+    "patterns": [
+      "PROTOCOL_CONTEXT_RE"
+    ]
+  },
+  "api-ref-additional-resource": {
+    "kind": "structural",
+    "module": "checks/api-ref-structure.js",
+    "rules": [
+      "AR-06"
+    ]
+  },
+  "api-ref-before-you-begin": {
+    "kind": "structural",
+    "module": "checks/api-ref-structure.js",
+    "rules": [
+      "UG-09"
+    ]
+  },
+  "api-ref-class-overview-completeness": {
+    "kind": "structural",
+    "module": "checks/api-ref-structure.js",
+    "rules": [
+      "UG-05"
+    ]
+  },
+  "api-ref-class-overview-table": {
+    "kind": "structural",
+    "module": "checks/api-ref-structure.js",
+    "rules": [
+      "UG-04"
+    ]
+  },
+  "api-ref-heading-levels": {
+    "kind": "structural",
+    "module": "checks/api-ref-structure.js",
+    "rules": [
+      "AR-02",
+      "UG-02"
+    ]
+  },
+  "api-ref-index-completeness": {
+    "kind": "structural",
+    "module": "checks/api-ref-structure.js",
+    "rules": [
+      "AR-09"
+    ]
+  },
+  "api-ref-method-index-sole-list": {
+    "kind": "structural",
+    "module": "checks/api-ref-structure.js",
+    "rules": [
+      "AR-08"
+    ]
+  },
+  "api-ref-param-table": {
+    "kind": "structural",
+    "module": "checks/api-ref-structure.js",
+    "rules": [
+      "AR-05"
+    ]
+  },
+  "api-ref-returns-line": {
+    "kind": "structural",
+    "module": "checks/api-ref-structure.js",
+    "rules": [
+      "AR-04"
+    ]
+  },
+  "api-ref-sdk-limitations": {
+    "kind": "structural",
+    "module": "checks/api-ref-structure.js",
+    "rules": [
+      "UG-12"
+    ]
+  },
+  "api-ref-sdk-wide-notes": {
+    "kind": "structural",
+    "module": "checks/api-ref-structure.js",
+    "rules": [
+      "UG-13"
+    ]
+  },
+  "api-ref-section-order": {
+    "kind": "structural",
+    "module": "checks/api-ref-structure.js",
+    "rules": [
+      "AR-03",
+      "UG-03"
+    ]
+  },
+  "api-ref-task-index": {
+    "kind": "structural",
+    "module": "checks/api-ref-structure.js",
+    "rules": [
+      "UG-06"
+    ]
+  },
+  "api-ref-token-type-warning": {
+    "kind": "structural",
+    "module": "checks/api-ref-structure.js",
+    "rules": [
+      "UG-08"
+    ]
+  },
+  "api-ref-trailing-rule": {
+    "kind": "structural",
+    "module": "checks/api-ref-structure.js",
+    "rules": [
+      "AR-07"
+    ]
+  },
+  "api-ref-usage-guide-scope": {
+    "kind": "structural",
+    "module": "checks/api-ref-structure.js",
+    "rules": [
+      "UG-10"
+    ]
+  },
+  "api-ref-usage-patterns": {
+    "kind": "structural",
+    "module": "checks/api-ref-structure.js",
+    "rules": [
+      "UG-11"
+    ]
+  },
+  "api-ref-verified-defaults": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "AR-10"
+    ]
+  },
+  "banned-phrases": {
+    "kind": "wordlist",
+    "module": "checks/banned-phrases.js",
+    "rules": [
+      "B1-10",
+      "B2-09",
+      "C3-01",
+      "C3-03",
+      "C3-15",
+      "C3-31",
+      "C3-32",
+      "C8-01",
+      "C8-02",
+      "C8-03",
+      "C8-04",
+      "C8-05",
+      "C8-06",
+      "C8-08",
+      "CLI-16"
+    ],
+    "dataFiles": [
+      "data/banned-phrases/*.json"
+    ]
+  },
+  "bare-domain": {
+    "kind": "regex",
+    "module": "checks/bare-domain.js",
+    "rules": [
+      "C5-09"
+    ],
+    "patterns": [
+      "DOMAIN_RE",
+      "DOMAIN_TLDS"
+    ]
+  },
+  "bare-links": {
+    "kind": "structural",
+    "module": "checks/next-steps-links.js",
+    "rules": [
+      "B2-08",
+      "C1-06",
+      "RS1-04"
+    ],
+    "patterns": [
+      "BARE_LINK_SECTIONS"
+    ]
+  },
+  "callout-frequency": {
+    "kind": "structural",
+    "module": "checks/heuristic-flags.js",
+    "rules": [
+      "B1-08",
+      "B2-04",
+      "C2-05",
+      "C5-01",
+      "C5-03"
+    ]
+  },
+  "callout-taxonomy": {
+    "kind": "structural",
+    "module": "checks/callout-taxonomy.js",
+    "rules": [
+      "C2-11",
+      "CLI-09"
+    ],
+    "patterns": [
+      "LABEL_COLON_INSIDE_RE",
+      "LABEL_COLON_OUTSIDE_RE",
+      "ALLOWED_LABELS"
+    ]
+  },
+  "cli-auth-step-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "CLI-13"
+    ]
+  },
+  "cli-command-form-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "CLI-11"
+    ]
+  },
+  "cli-error-entry-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "CLI-10"
+    ]
+  },
+  "cli-exit-code-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "CLI-15"
+    ]
+  },
+  "cli-flag-prose-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "CLI-08"
+    ]
+  },
+  "cli-mutation-statement-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "C9-01"
+    ]
+  },
+  "cli-placeholder-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "CLI-14"
+    ]
+  },
+  "cli-plugin-boundary-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "CLI-18"
+    ]
+  },
+  "cli-scope-statement-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "CLI-12"
+    ]
+  },
+  "cli-specific": {
+    "kind": "structural",
+    "module": "checks/cli-specific.js",
+    "rules": [
+      "CLI-01",
+      "CLI-02",
+      "CLI-03",
+      "CLI-04",
+      "CLI-05",
+      "CLI-06",
+      "CLI-07"
+    ]
+  },
+  "cli-version-drift-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "CLI-20"
+    ]
+  },
+  "conditional-framing": {
+    "kind": "regex",
+    "module": "checks/conditional-framing.js",
+    "rules": [
+      "C3-29"
+    ],
+    "patterns": [
+      "IF_YOU_RE"
+    ]
+  },
+  "duplicate-links": {
+    "kind": "structural",
+    "module": "checks/heuristic-flags.js",
+    "rules": [
+      "C5-04"
+    ]
+  },
+  "duplicate-sections": {
+    "kind": "structural",
+    "module": "checks/heuristic-flags.js",
+    "rules": [
+      "B1-09",
+      "B2-06",
+      "C7-01"
+    ]
+  },
+  "em-dash-semicolon": {
+    "kind": "regex",
+    "module": "checks/em-dash-semicolon.js",
+    "rules": [
+      "C3-05"
+    ],
+    "patterns": [
+      "DASH_SEMI_RE",
+      "INLINE_CODE_RE"
+    ]
+  },
+  "embedded-question-phrases": {
+    "kind": "regex",
+    "module": "checks/embedded-question-phrases.js",
+    "rules": [
+      "C3-12"
+    ],
+    "patterns": [
+      "PHRASE_RE",
+      "REWRITES"
+    ]
+  },
+  "error-code-format": {
+    "kind": "regex",
+    "module": "checks/error-code-format.js",
+    "rules": [
+      "C3-11"
+    ],
+    "patterns": [
+      "HTTP_STATUS_RE",
+      "STATUS_BEFORE_RE",
+      "STATUS_AFTER_RE",
+      "QUANTITY_BEFORE_RE",
+      "UNIT_AFTER_RE"
+    ]
+  },
+  "exhaustive-claim-phrases": {
+    "kind": "wordlist",
+    "module": "checks/banned-phrases.js",
+    "rules": [
+      "C3-04"
+    ],
+    "dataFiles": [
+      "data/banned-phrases/*.json"
+    ]
+  },
+  "front-matter": {
+    "kind": "structural",
+    "module": "checks/front-matter.js",
+    "rules": [
+      "FM-01",
+      "FM-02"
+    ],
+    "patterns": [
+      "BASE_REQUIRED_KEYS"
+    ]
+  },
+  "front-matter-api-ref": {
+    "kind": "structural",
+    "module": "checks/api-ref-structure.js",
+    "rules": [
+      "AR-01",
+      "UG-01"
+    ]
+  },
+  "getting-started-specific": {
+    "kind": "structural",
+    "module": "checks/getting-started-specific.js",
+    "rules": [
+      "RS1-01",
+      "RS1-02",
+      "RS2-02",
+      "RS2-04",
+      "RS3-01",
+      "RS3-02"
+    ]
+  },
+  "heading-length": {
+    "kind": "regex",
+    "module": "checks/heading-length.js",
+    "rules": [
+      "C2-07",
+      "C2-08"
+    ],
+    "patterns": [
+      "MAX_WORDS",
+      "LOWERCASE_IDENTIFIER_RE",
+      "DEPENDENT_OPENER_RE",
+      "PLACEHOLDER_RE"
+    ]
+  },
+  "heading-uniformity": {
+    "kind": "structural",
+    "module": "checks/heading-uniformity.js",
+    "rules": [
+      "C6-06"
+    ]
+  },
+  "internal-link-form": {
+    "kind": "regex",
+    "module": "checks/internal-link-form.js",
+    "rules": [
+      "CLI-17"
+    ],
+    "patterns": [
+      "LINK_RE",
+      "BAD_FORMS"
+    ]
+  },
+  "legacy-version-callout-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "C9-03"
+    ]
+  },
+  "link-label-fidelity": {
+    "kind": "candidate",
+    "module": "checks/link-label-fidelity.js",
+    "rules": [
+      "C2-14"
+    ],
+    "patterns": [
+      "OPAQUE_LABELS",
+      "STOP_WORDS"
+    ]
+  },
+  "metaphor-phrases": {
+    "kind": "wordlist",
+    "module": "checks/metaphor-phrases.js",
+    "rules": [
+      "C3-08"
+    ],
+    "dataFiles": [
+      "data/metaphors/*.json"
+    ]
+  },
+  "migration-before-after": {
+    "kind": "structural",
+    "module": "checks/heuristic-flags.js",
+    "rules": [
+      "MIG-03"
+    ]
+  },
+  "migration-specific": {
+    "kind": "structural",
+    "module": "checks/migration-specific.js",
+    "rules": [
+      "MIG-02",
+      "MIG-04",
+      "MIG-06"
+    ]
+  },
+  "no-emoji": {
+    "kind": "regex",
+    "module": "checks/no-emoji.js",
+    "rules": [
+      "C3-27"
+    ],
+    "patterns": [
+      "EMOJI_RE",
+      "ALLOWED",
+      "HINTS"
+    ]
+  },
+  "no-italics": {
+    "kind": "regex",
+    "module": "checks/no-italics.js",
+    "rules": [
+      "C3-28"
+    ],
+    "patterns": [
+      "AST_RE",
+      "UND_RE",
+      "HTML_ITALIC_RE"
+    ]
+  },
+  "numeric-consistency": {
+    "kind": "candidate",
+    "module": "checks/numeric-consistency.js",
+    "rules": [
+      "C2-13"
+    ],
+    "patterns": [
+      "COUNT_RE",
+      "POINTER_RE",
+      "UNIT_NOUNS",
+      "NOT_A_NOUN"
+    ]
+  },
+  "ordered-list-sequence": {
+    "kind": "structural",
+    "module": "checks/ordered-list-sequence.js",
+    "rules": [
+      "C3-14"
+    ],
+    "patterns": [
+      "SEQUENCE_SIGNAL_RE",
+      "IMPERATIVE_VERBS"
+    ]
+  },
+  "over-promise": {
+    "kind": "wordlist",
+    "module": "checks/over-promise.js",
+    "rules": [
+      "C8-10"
+    ],
+    "dataFiles": [
+      "data/over-promise/*.json"
+    ]
+  },
+  "paragraph-cohesion": {
+    "kind": "structural",
+    "module": "checks/paragraph-cohesion.js",
+    "rules": [
+      "C2-09"
+    ]
+  },
+  "passive-voice": {
+    "kind": "wordlist",
+    "module": "checks/passive-voice.js",
+    "rules": [
+      "C3-10"
+    ],
+    "dataFiles": [
+      "data/passive-voice/*.json"
+    ]
+  },
+  "periphrasis-phrases": {
+    "kind": "wordlist",
+    "module": "checks/periphrasis-phrases.js",
+    "rules": [
+      "C3-09"
+    ],
+    "dataFiles": [
+      "data/periphrasis/*.json"
+    ]
+  },
+  "placeholder-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "C4-03"
+    ]
+  },
+  "plugin-manifest-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "PLG-02"
+    ]
+  },
+  "plugin-publish-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "PLG-03"
+    ]
+  },
+  "plugin-scaffold-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "PLG-01"
+    ]
+  },
+  "plugin-test-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "PLG-04"
+    ]
+  },
+  "prerequisites-links": {
+    "kind": "structural",
+    "module": "checks/heuristic-flags.js",
+    "rules": [
+      "C1-04"
+    ]
+  },
+  "present-continuous": {
+    "kind": "regex",
+    "module": "checks/present-continuous.js",
+    "rules": [
+      "C3-19"
+    ],
+    "patterns": [
+      "CONTINUOUS_RE",
+      "PARTICIPIAL_ADJECTIVES"
+    ]
+  },
+  "prose-guard-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "B1-07",
+      "B2-07",
+      "C4-02"
+    ]
+  },
+  "qa-headers": {
+    "kind": "regex",
+    "module": "checks/qa-headers.js",
+    "rules": [
+      "C3-02"
+    ],
+    "patterns": [
+      "QUESTION_RE"
+    ]
+  },
+  "quick-reference-table": {
+    "kind": "structural",
+    "module": "checks/quick-reference-table.js",
+    "rules": [
+      "C2-04"
+    ]
+  },
+  "quick-start-verification": {
+    "kind": "structural",
+    "module": "checks/heuristic-flags.js",
+    "rules": [
+      "RS2-03"
+    ]
+  },
+  "retry-attempt-count-bold": {
+    "kind": "regex",
+    "module": "checks/retry-attempt-count-bold.js",
+    "rules": [
+      "C3-13"
+    ],
+    "patterns": [
+      "COUNT_RE"
+    ]
+  },
+  "section-length-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "C6-03"
+    ]
+  },
+  "section-structure": {
+    "kind": "structural",
+    "module": "checks/section-structure.js",
+    "rules": [
+      "B1-01",
+      "B2-01",
+      "C1-01",
+      "C1-02",
+      "C1-03",
+      "MIG-08",
+      "CLI-19",
+      "PLG-05"
+    ],
+    "dataFiles": [
+      "data/section-order.json"
+    ]
+  },
+  "sentence-concision": {
+    "kind": "regex",
+    "module": "checks/sentence-concision.js",
+    "rules": [
+      "C3-07"
+    ],
+    "dataFiles": [
+      "data/wordy-connectors.json"
+    ],
+    "patterns": [
+      "WORD_LIMIT",
+      "CAUSAL_RE"
+    ]
+  },
+  "skimmable-sentence": {
+    "kind": "regex",
+    "module": "checks/skimmable-sentence.js",
+    "rules": [
+      "C2-16"
+    ],
+    "patterns": [
+      "LIST_SIGNAL_WORDS",
+      "HARD_LIMIT_WORDS",
+      "SERIES_RE",
+      "JOINER_RE"
+    ]
+  },
+  "table-integrity": {
+    "kind": "structural",
+    "module": "checks/table-integrity.js",
+    "rules": [
+      "C2-10"
+    ],
+    "patterns": [
+      "TABLE_ROW_RE",
+      "ALIGNMENT_ROW_RE"
+    ]
+  },
+  "table-restatement": {
+    "kind": "regex",
+    "module": "checks/table-restatement.js",
+    "rules": [
+      "C7-04"
+    ],
+    "patterns": [
+      "CALLOUT_RE",
+      "BOLD_LEADIN_RE",
+      "THRESHOLD"
+    ]
+  },
+  "third-party-ui": {
+    "kind": "regex",
+    "module": "checks/third-party-ui.js",
+    "rules": [
+      "C4-09",
+      "C5-07"
+    ],
+    "dataFiles": [
+      "data/third-party/vendors.json"
+    ],
+    "patterns": [
+      "MENU_PATH_RES",
+      "PLAN_RE",
+      "BOLD_RE",
+      "HOUSE_BOLD_RE"
+    ]
+  },
+  "token-scope-heuristic": {
+    "kind": "unimplemented",
+    "module": null,
+    "rules": [
+      "C9-02"
+    ]
+  },
+  "troubleshooting-format": {
+    "kind": "structural",
+    "module": "checks/troubleshooting-format.js",
+    "rules": [
+      "C1-05"
+    ],
+    "patterns": [
+      "ROOT_CAUSE_RE",
+      "RESOLUTION_RE"
+    ]
+  },
+  "troubleshooting-hub-pointer": {
+    "kind": "structural",
+    "module": "checks/troubleshooting-hub-pointer.js",
+    "rules": [
+      "C1-07"
+    ],
+    "dataFiles": [
+      "data/troubleshooting-hubs.json"
+    ],
+    "patterns": [
+      "LABEL_RE"
+    ]
+  },
+  "try-catch-heuristic": {
+    "kind": "structural",
+    "module": "checks/heuristic-flags.js",
+    "rules": [
+      "C4-05"
+    ]
+  },
+  "type-mapping-row-grouping": {
+    "kind": "structural",
+    "module": "checks/heuristic-flags.js",
+    "rules": [
+      "MIG-05"
+    ]
+  },
+  "typographic-substitutes": {
+    "kind": "regex",
+    "module": "checks/typographic-substitutes.js",
+    "rules": [
+      "C3-30"
+    ],
+    "patterns": [
+      "BANNED",
+      "BANNED_RE",
+      "ALLOWED",
+      "HINTS"
+    ]
+  },
+  "ui-element-bold": {
+    "kind": "regex",
+    "module": "checks/ui-element-bold.js",
+    "rules": [
+      "C4-07"
+    ],
+    "patterns": [
+      "LABEL_RE",
+      "UI_CUE_RE"
+    ]
+  },
+  "vague-reference": {
+    "kind": "wordlist",
+    "module": "checks/vague-reference.js",
+    "rules": [
+      "C3-24"
+    ],
+    "dataFiles": [
+      "data/vague-reference/*.json"
+    ],
+    "patterns": [
+      "LEAD_IN_RE",
+      "TABLE_ROW_RE",
+      "LIST_ITEM_RE"
+    ]
+  }
+}

@@ -4,9 +4,9 @@
 /**
  * Regenerates data/section-order.json and data/section-matrix.json from the
  * doc-standards markdown source files. Re-run this manually whenever the
- * "## Section Order" tables in doc-standards/*.md or section-matrix.md change.
- * lint-doc.js never parses these markdown files at runtime, it only reads
- * the generated JSON.
+ * "## Section Order" tables in doc-templates/feature-docs/*.md, doc-templates/cli-templates/*.md, or
+ * doc-templates/feature-docs/section-matrix.md change. lint-doc.js never parses these markdown
+ * files at runtime, it only reads the generated JSON.
  */
 
 const fs = require('fs');
@@ -17,13 +17,18 @@ const STANDARDS_DIR = path.join(__dirname, '..', '..');
 const DATA_DIR = path.join(__dirname, '..', 'data');
 
 const TYPE_FILES = {
-  'conceptual-guide': 'conceptual-guide.md',
-  'feature-doc': 'feature-doc.md',
-  'how-to-guide': 'how-to-guide.md',
-  'setup-guide': 'setup-guide.md',
-  'kickstarter': 'kickstarter.md',
-  'migration-guide': 'migration-guide.md',
-  'getting-started': 'getting-started.md',
+  'conceptual-guide': 'doc-templates/feature-docs/conceptual-guide.md',
+  'feature-doc': 'doc-templates/feature-docs/feature-doc.md',
+  'how-to-guide': 'doc-templates/feature-docs/how-to-guide.md',
+  'setup-guide': 'doc-templates/feature-docs/setup-guide.md',
+  'kickstarter': 'doc-templates/feature-docs/kickstarter.md',
+  'migration-guide': 'doc-templates/feature-docs/migration-guide.md',
+  'getting-started': 'doc-templates/feature-docs/getting-started.md',
+  'chapter-index': 'doc-templates/feature-docs/chapter-index.md',
+  'cli-command-reference': 'doc-templates/cli-templates/cli-command-reference.md',
+  'cli-task-runbook': 'doc-templates/cli-templates/cli-task-runbook.md',
+  'cli-module-reference': 'doc-templates/cli-templates/cli-module-reference.md',
+  'cli-plugin-guide': 'doc-templates/cli-templates/cli-plugin-guide.md',
 };
 
 function findSectionOrderTable(doc) {
@@ -59,7 +64,7 @@ function buildSectionOrder() {
 }
 
 function buildSectionMatrix() {
-  const filePath = path.join(STANDARDS_DIR, 'section-matrix.md');
+  const filePath = path.join(STANDARDS_DIR, 'doc-templates', 'feature-docs', 'section-matrix.md');
   const source = fs.readFileSync(filePath, 'utf8');
   const doc = parseMarkdown(source);
   const table = doc.tables[0];

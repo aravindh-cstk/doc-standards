@@ -1,0 +1,14 @@
+{
+  "ruleId": "C8-08",
+  "category": "product-defect",
+  "phrases": [
+    { "phrase": "dead weight", "fix": "state what the control does and does not affect, without judging it" },
+    { "phrase": "reads as a broken product", "fix": "drop the aside about how the product reads to a customer, keep the behavior" },
+    { "phrase": "is misleading", "fix": "state the correct behavior and file the message for engineering" },
+    { "phrase": "rather than looking for a toggle", "fix": "state the action and give its destination, for example contact support with a mailto link, without the aside" },
+    { "phrase": "technically right and practically misleading", "fix": "state the behavior the reader will actually meet" },
+    { "phrase": "no counter and no warning", "fix": "state the cap and the point at which it is enforced" },
+    { "phrase": "the wizard lies", "fix": "state what the field does and what the tools require" },
+    { "phrase": "genuinely optional", "fix": "state the condition under which it is optional" }
+  ]
+}

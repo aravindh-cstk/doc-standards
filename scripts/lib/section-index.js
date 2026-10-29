@@ -66,11 +66,38 @@ function compareOrder(docHeadingsTextInOrder, docType) {
   return { missing, unexpected, outOfOrder };
 }
 
-/** Loose match: doc heading text matches section-order.json's section label if one contains the other. */
+/**
+ * Loose match: a doc heading matches a section-order label when one contains
+ * the other, and a label may name more than one acceptable heading.
+ *
+ * A row naming two acceptable headings, written "A or B".
+ *
+ * "Next Steps or See also" is the only one today, and the corpus is why. The
+ * matrix asked for "Next Steps" and 10 pages carry that heading, while 157
+ * carry "See also". Both are link lists with a description per item, and both
+ * do the job the matrix describes: hand the reader somewhere to go next. The
+ * distinction the matrix was drawing, sequential against lateral, is real, and
+ * this corpus already draws it a different way: a chapter index carries a
+ * separate "Continue" for genuine sequence, so "See also" is not standing in
+ * for it.
+ *
+ * Splitting on " or " rather than adding an alias map keeps the acceptable set
+ * visible in the standard a writer reads, instead of in a lookup table only the
+ * linter sees.
+ */
+function alternativesFor(expectedLabel) {
+  return expectedLabel
+    .toLowerCase()
+    .split('(')[0]
+    .split(/\s+or\s+/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+}
+
 function matches(docHeadingLower, expectedLabel) {
-  const expectedLower = expectedLabel.toLowerCase();
-  const expectedCore = expectedLower.split('(')[0].trim();
-  return docHeadingLower === expectedCore || docHeadingLower.includes(expectedCore) || expectedCore.includes(docHeadingLower);
+  return alternativesFor(expectedLabel).some(
+    (core) => docHeadingLower === core || docHeadingLower.includes(core) || core.includes(docHeadingLower)
+  );
 }
 
 function sectionNameFromNormalized(expected, normalizedName) {
@@ -78,4 +105,4 @@ function sectionNameFromNormalized(expected, normalizedName) {
   return found ? found.section : normalizedName;
 }
 
-module.exports = { orderFor, compareOrder, sectionMatrix };
+module.exports = { orderFor, compareOrder, sectionMatrix, matches, alternativesFor };

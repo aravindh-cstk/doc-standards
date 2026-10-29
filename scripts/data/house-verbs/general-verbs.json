@@ -1,0 +1,46 @@
+{
+  "ruleId": "C3-21",
+  "category": "house verb",
+  "phrases": [
+    {
+      "pattern": "\\bhold(s|ing)?\\b(?!\\s+(a|the|this)\\s+(lock|role|session|reference))",
+      "label": "hold",
+      "fix": "say \"contains\" for containment, \"stores\" for persistence, or \"at most N\" for a cap"
+    },
+    {
+      "pattern": "\\bcarr(y|ies|ied|ying)\\b(?!\\s+(a|the|its)\\s+signature)",
+      "label": "carry",
+      "fix": "say \"has\", \"includes\", or name the field that holds the value"
+    },
+    {
+      "pattern": "(?<!\\byou )\\bnames?\\b(?=\\s+(the|a|an|which|what)\\b)",
+      "label": "name (used for specify)",
+      "fix": "say \"specifies\" or \"identifies\""
+    },
+    {
+      "pattern": "(?<!\\byou )\\basks?\\s+(for|you)\\b",
+      "label": "ask for",
+      "fix": "say \"requests\", \"requires\", or \"prompts you for\""
+    },
+    {
+      "pattern": "(?<!\\byou )\\boffers?\\b",
+      "label": "offer",
+      "fix": "say \"supplies\", \"accepts\", or \"presents in the tool schema\""
+    },
+    {
+      "pattern": "\\bhides?\\b",
+      "label": "hide",
+      "fix": "say \"does not display\", which states the outcome rather than implying concealment"
+    },
+    {
+      "pattern": "\\blets? you\\b",
+      "label": "lets you",
+      "fix": "recast with the reader as the subject (\"you can\") or name the mechanism"
+    },
+    {
+      "pattern": "(?<!\\byou )\\bpicks?\\b",
+      "label": "pick (non-reader subject)",
+      "fix": "say \"selects\" for a mechanical selection"
+    }
+  ]
+}

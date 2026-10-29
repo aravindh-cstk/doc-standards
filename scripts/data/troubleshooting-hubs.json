@@ -1,0 +1,10 @@
+{
+  "why": "A product with a troubleshooting hub keeps every error entry there. A page-level copy goes stale in every place it was copied, while one hub entry linked from each page stays current when the error message or the fix changes. The CLI hub is enforced by CLI-19 and is listed here only for reference.",
+  "hubs": [
+    {
+      "product": "Contentstack MCP",
+      "hubUrl": "/contentstack-mcp-troubleshooting/faqs",
+      "scope": ["^/developers/mcp-profile-hub-", "^/developers/contentstack-mcp-server$", "^/developers/mcp-"]
+    }
+  ]
+}

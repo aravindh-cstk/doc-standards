@@ -1,0 +1,16 @@
+{
+  "ruleId": "C3-10",
+  "category": "passive voice (elided auxiliary)",
+  "phrases": [
+    {
+      "pattern": "(?:^|\\|)\\s*(?:\\*\\*)?(?:Hosted|Selected|Carried|Grouped|Scoped|Named|Derived|Exposed|Shared|Captured|Listed|Offered|Capped|Sent|Shown|Built|Added|Returned|Stored)\\s+(?:at|per|through|by|to|from|in|on|across|as|with|after)\\b",
+      "label": "passive voice (elided auxiliary: cell or line opens on a participle + preposition)",
+      "fix": "supply the subject and the actor: \"Contentstack hosts it at ...\", \"You select tools per profile\""
+    },
+    {
+      "pattern": "\\|\\s*(?:\\*\\*)?(?!not\\b)[A-Z][A-Za-z-]*(?:\\s+[a-z-]+){0,2}\\s+(?:not\\s+)?(?:found|granted|denied|authorized|blocked|rejected|refused|required|expired|exceeded|supported|activated)\\b(?=\\s*(?:[|,.]|$|on\\b|for\\b|in\\b|by\\b))",
+      "label": "passive voice (elided auxiliary: table cell is a bare '<noun> [not] <participle>' fragment)",
+      "fix": "name the actor, or keep the client's wording and add a sentence saying who refused - see the AMBIGUOUS grade on these lines"
+    }
+  ]
+}

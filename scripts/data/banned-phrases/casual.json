@@ -2,15 +2,191 @@
   "ruleId": "C3-01",
   "category": "casual",
   "phrases": [
-    { "phrase": "right away", "fix": "state the actual timing or drop the phrase" },
-    { "phrase": "on its own", "fix": "state what actually happens automatically, or drop the phrase" },
-    { "phrase": "you'll find", "fix": "state the fact directly" },
-    { "phrase": "pretty straightforward", "fix": "drop the qualifier and state the steps" },
-    { "phrase": "just", "fix": "drop the minimizer" },
-    { "phrase": "raise the value", "fix": "increase the value" },
-    { "phrase": "by hand", "fix": "manually" },
-    { "phrase": "reach for", "fix": "use" },
-    { "pattern": "\\b(telling|showing|letting|reminding) you\\b", "fix": "drop the second-person participial clause and state the fact directly" },
-    { "pattern": "\\bgives? you\\b", "fix": "restate impersonally, for example \"returns\" or \"produces\"" }
+    {
+      "phrase": "right away",
+      "fix": "state the actual timing or drop the phrase"
+    },
+    {
+      "phrase": "on its own",
+      "fix": "state what actually happens automatically, or drop the phrase"
+    },
+    {
+      "phrase": "you'll find",
+      "fix": "state the fact directly"
+    },
+    {
+      "phrase": "pretty straightforward",
+      "fix": "drop the qualifier and state the steps"
+    },
+    {
+      "fix": "drop the minimizer",
+      "pattern": "(?<!\\bnot )(?<!\\bnever )(?<!n't )(?<!\\bnothing but )\\bjust\\b",
+      "label": "just",
+      "why-pattern": "\"not just X\" means \"not only X\", so dropping the word reverses the sentence. Three lines shipped that way in a live pass: \"see all iterations, not just one\" became \"not one\", and \"the layout itself needs to differ per region (not just the content)\" became \"(not the content)\". The corpus holds 33 \"not just\", 1 \"never just\" and 1 \"doesn't just\", and every one of them is correct English that this rule must leave alone."
+    },
+    {
+      "pattern": "\\brais(e|es|ed|ing) the value\\b",
+      "label": "raise the value",
+      "fix": "increase the value"
+    },
+    {
+      "phrase": "by hand",
+      "fix": "manually"
+    },
+    {
+      "pattern": "\\breach(es|ed|ing)? for\\b",
+      "label": "reach for",
+      "fix": "use"
+    },
+    {
+      "pattern": "\\breach(es|ed|ing)? out\\b",
+      "label": "reach out",
+      "fix": "contact, or name the action, for example \"contact Contentstack support\""
+    },
+    {
+      "pattern": "\\b(the same|similar|different|these|those|two|all) (kinds?|sorts?) of\\b",
+      "label": "kinds of / sorts of",
+      "fix": "name the category, for example \"cover similar tasks\" instead of \"cover the same kinds of work\""
+    },
+    {
+      "pattern": "\\bends? up with\\b",
+      "label": "ends up with",
+      "fix": "state the result directly, for example \"the number of tools they expose\""
+    },
+    {
+      "pattern": "\\bfigure out\\b",
+      "fix": "determine, or name the action the reader takes",
+      "label": "figure out"
+    },
+    {
+      "pattern": "\\bmake sure\\b",
+      "fix": "confirm, or verify",
+      "label": "make sure"
+    },
+    {
+      "pattern": "\\bkeep in mind\\b",
+      "fix": "drop the phrase and state the constraint",
+      "label": "keep in mind"
+    },
+    {
+      "pattern": "\\b(two|three|four|several|some|these|those|a few) things\\b",
+      "label": "N things",
+      "fix": "name the items, for example \"covers naming the profile and choosing its tools\" instead of \"covers two things\""
+    },
+    {
+      "pattern": "\\byou might expect\\b",
+      "fix": "state the limit directly rather than guessing at the reader's expectation",
+      "label": "you might expect"
+    },
+    {
+      "pattern": "\\b(telling|showing|letting|reminding) you\\b",
+      "fix": "drop the second-person participial clause and state the fact directly",
+      "label": "telling/showing/letting/reminding you"
+    },
+    {
+      "pattern": "\\bgives? you\\b",
+      "fix": "restate impersonally, for example \"returns\" or \"produces\"",
+      "label": "gives you"
+    },
+    {
+      "pattern": "\\bany time\\b(?! (of|in) )",
+      "label": "any time",
+      "fix": "drop the filler, or state the actual window"
+    },
+    {
+      "pattern": "\\bat all\\b",
+      "fix": "drop the intensifier",
+      "label": "at all"
+    },
+    {
+      "pattern": "\\bkeeps? working\\b",
+      "fix": "remains functional, or name what keeps running",
+      "label": "keeps working"
+    },
+    {
+      "pattern": "\\bswap in\\b",
+      "fix": "replace",
+      "label": "swap in"
+    },
+    {
+      "pattern": "\\blook (things|it) up\\b",
+      "fix": "name what the reader retrieves",
+      "label": "look things up"
+    },
+    {
+      "pattern": "\\bdo something\\b",
+      "fix": "name the action",
+      "label": "do something"
+    },
+    {
+      "pattern": "\\bfrom time to time\\b",
+      "fix": "state the cadence, or name the event that triggers it",
+      "label": "from time to time"
+    },
+    {
+      "pattern": "\\bmost often\\b",
+      "fix": "name the condition rather than the frequency",
+      "label": "most often"
+    },
+    {
+      "pattern": "\\bsits? on\\b",
+      "fix": "name the relationship, for example \"runs on\" or \"belongs to\"",
+      "label": "sits on"
+    },
+    {
+      "pattern": "\\bpulls? in\\b",
+      "fix": "adds, or requests",
+      "label": "pulls in"
+    },
+    {
+      "pattern": "\\bstands? in for\\b",
+      "fix": "replaces, or substitutes for",
+      "label": "stands in for"
+    },
+    {
+      "pattern": "\\bfor when you\\b",
+      "fix": "state the condition, for example \"when you\"",
+      "label": "for when you"
+    },
+    {
+      "pattern": "\\btry (loading|running|opening) (them|it) again\\b",
+      "label": "try X again",
+      "fix": "state the action directly, for example \"reload the page\""
+    },
+    {
+      "pattern": "\\bneeds? nothing else\\b",
+      "label": "needs nothing else",
+      "fix": "state the concrete requirement, or remove the sentence if there is none to state"
+    },
+    {
+      "pattern": "\\bnothing else to (?:run|install|configure|do|set up)\\b",
+      "label": "nothing else to do",
+      "fix": "state what the reader does, or remove the sentence"
+    },
+    {
+      "pattern": "\\bthat(?:'s| is) (?:it|all)[.!]",
+      "label": "that is it",
+      "fix": "end on the last real step, and drop the sign-off"
+    },
+    {
+      "pattern": "\\byou(?:'re| are) (?:all )?(?:set|done)\\b",
+      "label": "you are all set",
+      "fix": "state the result the reader can verify"
+    },
+    {
+      "pattern": "\\b(?:good|ready) to go\\b",
+      "label": "good to go",
+      "fix": "state the result the reader can verify"
+    },
+    {
+      "pattern": "\\ba breeze\\b",
+      "label": "a breeze",
+      "fix": "drop the qualifier and state the steps"
+    },
+    {
+      "pattern": "\\bhead(?:s|ed|ing)? over to\\b",
+      "label": "head over to",
+      "fix": "open"
+    }
   ]
 }

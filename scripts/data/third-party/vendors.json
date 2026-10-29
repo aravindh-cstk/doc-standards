@@ -1,0 +1,18 @@
+{
+  "why": "Third-party products rename menus, buttons and plans without notice. A doc that quotes them goes stale the day the vendor ships a redesign, and a link to the vendor's help page breaks or drifts the same way. Describe the capability generically and send the reader to the client's own documentation without a link.",
+  "vendors": [
+    { "name": "ChatGPT", "aliases": ["ChatGPT", "OpenAI"], "helpHosts": ["help.openai.com"] },
+    { "name": "Codex", "aliases": ["Codex"], "helpHosts": ["help.openai.com"] },
+    { "name": "Claude", "aliases": ["Claude Desktop", "Claude Code", "Claude", "Anthropic"], "helpHosts": ["support.claude.com", "support.anthropic.com"] },
+    { "name": "Cursor", "aliases": ["Cursor"], "helpHosts": ["docs.cursor.com", "cursor.com/docs", "forum.cursor.com"] },
+    { "name": "VS Code", "aliases": ["VS Code", "Visual Studio Code"], "helpHosts": ["code.visualstudio.com/docs"] },
+    { "name": "GitHub Copilot", "aliases": ["GitHub Copilot", "Copilot"], "helpHosts": ["docs.github.com/en/copilot"] },
+    { "name": "Gemini", "aliases": ["Gemini"], "helpHosts": ["support.google.com/gemini"] },
+    { "name": "Windsurf", "aliases": ["Windsurf"], "helpHosts": ["docs.windsurf.com"] }
+  ],
+  "planNames": ["Free", "Plus", "Pro", "Team", "Teams", "Enterprise", "Business", "Max", "Edu"],
+  "allowedReferences": {
+    "why": "Stable references a doc may link to even beside a vendor name: the protocol specification, runtime downloads and package registries. Kept by decision during the MCP Profile Hub review.",
+    "hosts": ["modelcontextprotocol.io", "nodejs.org", "npmjs.com", "www.npmjs.com", "registry.npmjs.org"]
+  }
+}

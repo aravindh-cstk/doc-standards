@@ -13,10 +13,19 @@ function isInsideFaqSection(heading, allSections) {
   return false;
 }
 
-/** Tier 1: no question-form headings outside a dedicated FAQ section. */
+/**
+ * Tier 1: no question-form headings outside a dedicated FAQ section.
+ *
+ * The H1 is exempt. A conceptual guide's title stating its subject as a
+ * question ("What is X?") names the page, it does not open an FAQ-style body
+ * section, so it does not carry the marketing-copy feel this rule targets.
+ * H2 and deeper stay banned: a section heading phrased as a question inside
+ * the body is the actual FAQ pattern the rule exists to catch.
+ */
 function checkQaHeaders(doc) {
   const findings = [];
   for (const heading of doc.headings) {
+    if (heading.level === 1) continue;
     if (!heading.text.trim().endsWith('?')) continue;
     if (isInsideFaqSection(heading, doc.sections)) continue;
     findings.push(
