@@ -8,16 +8,16 @@ Every entry in `scripts/data/check-sources.json`, which maps a `checkId` to the 
 implements it and the rules it addresses. For the architecture these modules sit in, read the
 Toolchain section of [README.md](README.md). For rule text, read [REFERENCE-RULES.md](REFERENCE-RULES.md).
 
-The map holds **85 entries**, of which 20 have no module behind them.
+The map holds **91 entries**, of which 20 have no module behind them.
 
 ## Counts by kind
 
 | Kind | Entries | What it means |
 | --- | --- | --- |
-| `structural` | 39 | Parses the document model and reports on shape, order or completeness. |
+| `structural` | 41 | Parses the document model and reports on shape, order or completeness. |
 | `unimplemented` | 20 | Registered with no module behind it. The rule is stated and tiered, but nothing enforces it. |
-| `regex` | 16 | Matches a named pattern against prose, outside code fences. |
-| `wordlist` | 8 | Matches entries from a JSON data file, so the rule widens by data rather than by code. |
+| `regex` | 19 | Matches a named pattern against prose, outside code fences. |
+| `wordlist` | 9 | Matches entries from a JSON data file, so the rule widens by data rather than by code. |
 | `candidate` | 2 | Emits a tier-3 candidate for human or judge adjudication rather than a finding. |
 
 A `rules` array is a claim about what a check **addresses**, not what it emits. Several rules
@@ -29,6 +29,7 @@ legitimately share one emitted finding, so the two lists do not have to match on
 | --- | --- | --- | --- | --- | --- |
 | `acronym-first-use` | wordlist | `checks/acronym-first-use.js` | B1-06, C3-06, C8-07 | `data/acronyms.json` | `ACRONYM_RE` |
 | `additional-resource-phrasing` | regex | `checks/additional-resource-phrasing.js` | C5-05 | none | `CALLOUT_RE`, `OPENER_RE`, `REFER_RE` |
+| `anchor-heading-level` | structural | `checks/anchor-heading-level.js` | C5-08 | none | `MAX_ANCHOR_LEVEL` |
 | `anthropomorphism` | wordlist | `checks/anthropomorphism.js` | C3-18 | `data/anthropomorphism/*.json` | `PROTOCOL_CONTEXT_RE` |
 | `api-ref-additional-resource` | structural | `checks/api-ref-structure.js` | AR-06 | none | none |
 | `api-ref-before-you-begin` | structural | `checks/api-ref-structure.js` | UG-09 | none | none |
@@ -47,7 +48,8 @@ legitimately share one emitted finding, so the two lists do not have to match on
 | `api-ref-trailing-rule` | structural | `checks/api-ref-structure.js` | AR-07 | none | none |
 | `api-ref-usage-guide-scope` | structural | `checks/api-ref-structure.js` | UG-10 | none | none |
 | `api-ref-usage-patterns` | structural | `checks/api-ref-structure.js` | UG-11 | none | none |
-| `banned-phrases` | wordlist | `checks/banned-phrases.js` | B1-10, B2-09, C3-01, C3-03, C3-15, C8-01, C8-02, C8-03, C8-04, C8-05, C8-06, C8-08, CLI-16 | `data/banned-phrases/*.json` | none |
+| `banned-phrases` | wordlist | `checks/banned-phrases.js` | B1-10, B2-09, C3-01, C3-03, C3-15, C3-31, C3-32, C8-01, C8-02, C8-03, C8-04, C8-05, C8-06, C8-08, CLI-16 | `data/banned-phrases/*.json` | none |
+| `bare-domain` | regex | `checks/bare-domain.js` | C5-09 | none | `DOMAIN_RE`, `DOMAIN_TLDS` |
 | `bare-links` | structural | `checks/next-steps-links.js` | B2-08, C1-06, RS1-04 | none | `BARE_LINK_SECTIONS` |
 | `callout-frequency` | structural | `checks/heuristic-flags.js` | B1-08, B2-04, C2-05, C5-01, C5-03 | none | none |
 | `callout-taxonomy` | structural | `checks/callout-taxonomy.js` | C2-11, CLI-09 | none | `LABEL_COLON_INSIDE_RE`, `LABEL_COLON_OUTSIDE_RE`, `ALLOWED_LABELS` |
@@ -57,12 +59,12 @@ legitimately share one emitted finding, so the two lists do not have to match on
 | `duplicate-sections` | structural | `checks/heuristic-flags.js` | B1-09, B2-06, C7-01 | none | none |
 | `em-dash-semicolon` | regex | `checks/em-dash-semicolon.js` | C3-05 | none | `DASH_SEMI_RE`, `INLINE_CODE_RE` |
 | `embedded-question-phrases` | regex | `checks/embedded-question-phrases.js` | C3-12 | none | `PHRASE_RE`, `REWRITES` |
-| `error-code-format` | regex | `checks/error-code-format.js` | C3-11 | none | `CODE_RE` |
+| `error-code-format` | regex | `checks/error-code-format.js` | C3-11 | none | `HTTP_STATUS_RE`, `STATUS_BEFORE_RE`, `STATUS_AFTER_RE`, `QUANTITY_BEFORE_RE`, `UNIT_AFTER_RE` |
 | `exhaustive-claim-phrases` | wordlist | `checks/banned-phrases.js` | C3-04 | `data/banned-phrases/*.json` | none |
 | `front-matter` | structural | `checks/front-matter.js` | FM-01, FM-02 | none | `BASE_REQUIRED_KEYS` |
 | `front-matter-api-ref` | structural | `checks/api-ref-structure.js` | AR-01, UG-01 | none | none |
 | `getting-started-specific` | structural | `checks/getting-started-specific.js` | RS1-01, RS1-02, RS2-02, RS2-04, RS3-01, RS3-02 | none | none |
-| `heading-length` | regex | `checks/heading-length.js` | C2-07, C2-08 | none | `MAX_WORDS`, `LOWERCASE_IDENTIFIER_RE`, `PLACEHOLDER_RE` |
+| `heading-length` | regex | `checks/heading-length.js` | C2-07, C2-08 | none | `MAX_WORDS`, `LOWERCASE_IDENTIFIER_RE`, `DEPENDENT_OPENER_RE`, `PLACEHOLDER_RE` |
 | `heading-uniformity` | structural | `checks/heading-uniformity.js` | C6-06 | none | none |
 | `internal-link-form` | regex | `checks/internal-link-form.js` | CLI-17 | none | `LINK_RE`, `BAD_FORMS` |
 | `link-label-fidelity` | candidate | `checks/link-label-fidelity.js` | C2-14 | none | `OPAQUE_LABELS`, `STOP_WORDS` |
@@ -73,6 +75,7 @@ legitimately share one emitted finding, so the two lists do not have to match on
 | `no-italics` | regex | `checks/no-italics.js` | C3-28 | none | `AST_RE`, `UND_RE`, `HTML_ITALIC_RE` |
 | `numeric-consistency` | candidate | `checks/numeric-consistency.js` | C2-13 | none | `COUNT_RE`, `POINTER_RE`, `UNIT_NOUNS`, `NOT_A_NOUN` |
 | `ordered-list-sequence` | structural | `checks/ordered-list-sequence.js` | C3-14 | none | `SEQUENCE_SIGNAL_RE`, `IMPERATIVE_VERBS` |
+| `over-promise` | wordlist | `checks/over-promise.js` | C8-10 | `data/over-promise/*.json` | none |
 | `paragraph-cohesion` | structural | `checks/paragraph-cohesion.js` | C2-09 | none | none |
 | `passive-voice` | wordlist | `checks/passive-voice.js` | C3-10 | `data/passive-voice/*.json` | none |
 | `periphrasis-phrases` | wordlist | `checks/periphrasis-phrases.js` | C3-09 | `data/periphrasis/*.json` | none |
@@ -84,9 +87,12 @@ legitimately share one emitted finding, so the two lists do not have to match on
 | `retry-attempt-count-bold` | regex | `checks/retry-attempt-count-bold.js` | C3-13 | none | `COUNT_RE` |
 | `section-structure` | structural | `checks/section-structure.js` | B1-01, B2-01, C1-01, C1-02, C1-03, MIG-08, CLI-19, PLG-05 | `data/section-order.json` | none |
 | `sentence-concision` | regex | `checks/sentence-concision.js` | C3-07 | `data/wordy-connectors.json` | `WORD_LIMIT`, `CAUSAL_RE` |
+| `skimmable-sentence` | regex | `checks/skimmable-sentence.js` | C2-16 | none | `LIST_SIGNAL_WORDS`, `HARD_LIMIT_WORDS`, `SERIES_RE`, `JOINER_RE` |
 | `table-integrity` | structural | `checks/table-integrity.js` | C2-10 | none | `TABLE_ROW_RE`, `ALIGNMENT_ROW_RE` |
 | `table-restatement` | regex | `checks/table-restatement.js` | C7-04 | none | `CALLOUT_RE`, `BOLD_LEADIN_RE`, `THRESHOLD` |
+| `third-party-ui` | regex | `checks/third-party-ui.js` | C4-09, C5-07 | `data/third-party/vendors.json` | `MENU_PATH_RES`, `PLAN_RE`, `BOLD_RE`, `HOUSE_BOLD_RE` |
 | `troubleshooting-format` | structural | `checks/troubleshooting-format.js` | C1-05 | none | `ROOT_CAUSE_RE`, `RESOLUTION_RE` |
+| `troubleshooting-hub-pointer` | structural | `checks/troubleshooting-hub-pointer.js` | C1-07 | `data/troubleshooting-hubs.json` | `LABEL_RE` |
 | `try-catch-heuristic` | structural | `checks/heuristic-flags.js` | C4-05 | none | none |
 | `type-mapping-row-grouping` | structural | `checks/heuristic-flags.js` | MIG-05 | none | none |
 | `typographic-substitutes` | regex | `checks/typographic-substitutes.js` | C3-30 | none | `BANNED`, `BANNED_RE`, `ALLOWED`, `HINTS` |

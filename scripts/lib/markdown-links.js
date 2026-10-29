@@ -118,6 +118,27 @@ function anchorsIn(file) {
   return set;
 }
 
+/**
+ * The shallowest heading level that produces each anchor in this file.
+ *
+ * The docs site renders an anchor id only for H2 and H3, so check-links.js uses
+ * this to report a link that resolves in markdown but lands nowhere on the site.
+ */
+function anchorLevelsIn(file) {
+  const lines = fs.readFileSync(file, 'utf8').split('\n');
+  const mask = fenceMask(lines);
+  const levels = new Map();
+  lines.forEach((line, i) => {
+    if (mask[i + 1]) return;
+    const m = line.match(HEADING_RE);
+    if (!m) return;
+    for (const v of slugifyVariants(m[2])) {
+      if (!levels.has(v) || levels.get(v) > m[1].length) levels.set(v, m[1].length);
+    }
+  });
+  return levels;
+}
+
 /** The `url:` front-matter value, which is the page's public path. */
 function publicUrlOf(file) {
   const lines = fs.readFileSync(file, 'utf8').split('\n');
@@ -167,6 +188,7 @@ module.exports = {
   fenceMask,
   linksIn,
   anchorsIn,
+  anchorLevelsIn,
   publicUrlOf,
   isUnresolvableHost,
   classify,

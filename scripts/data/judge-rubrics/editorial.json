@@ -1,0 +1,71 @@
+{
+  "promptVersion": "editorial@1",
+  "why": "Worked examples from the MCP Profile Hub review (October 2026). Each one is a real sentence the reviewer rejected, the rewrite they asked for, and their reason. judges/judge-editorial.js puts the examples for a candidate's rule into the candidate, so a judge working through verdicts sees the reviewer's standard rather than a paraphrase of it.",
+  "rules": {
+    "C6-05": {
+      "focus": "The Overview opens with the reader's goal and its outcome, never with what the page covers.",
+      "examples": [
+        {
+          "before": "This page covers what a profile holds, the ready-made profiles Contentstack ships, and the catalogs a profile draws from.",
+          "after": "Configure a profile for each connector connection by adding query parameters to its URL. You can use these parameters to point a shared system profile to a specific stack, branch, or project without opening the app or saving configuration changes.",
+          "why": "The rewrite starts with the reader's goal, explains the benefit before the technical details, keeps the example immediately after the explanation, explains how the URL behaves across requests and users, and introduces precedence naturally without saying what the page covers."
+        }
+      ],
+      "fixKinds": ["rewrite the opening sentence to state the task and outcome", "move the example directly under the explanation"]
+    },
+    "C2-16": {
+      "focus": "Decide between bullets and split sentences. Bullets suit separate facts of the same kind. A chain of cause, consequence and caveat stays prose, split into short sentences joined by connectives. Bullets must keep the information flow: a lead-in that names or counts the list, bold labels for separate facts, and no orphaned fragments.",
+      "examples": [
+        {
+          "before": "The filters apply to the loaded page, not the full history. The view loads 50 executions at a time, the search box and the status and profile filters narrow only what it has already loaded, and Load more disappears while any filter is active.",
+          "after": "The Executions view has the following limitations:\n- **No user attribution:** The client chip identifies the MCP client, not the person making the call. To identify users, check the organization audit log.\n- **Filters only search loaded executions:** The view loads 50 executions at a time. The following limitations apply:\n  - Search, status, and profile filters apply only to loaded records.\n  - **Load more** is unavailable while filters are active.\n  - An empty filtered view does not mean no matching executions exist in the full history.\n\n  To check older executions, clear all filters and click **Load more**.",
+          "why": "Separate limits of the same kind become bullets under a lead-in that names the list, each with a bold label, and the closing instruction keeps the flow so the points do not read as isolated."
+        },
+        {
+          "before": "Contentstack cannot detect Secure HTTP Trigger on an automation the way it can on an agent, so a secured automation still appears in the tool browser and can be added to a profile. The call only fails once the agent runs it.",
+          "after": "Contentstack cannot detect Secure HTTP Trigger on automations as it does on agents. As a result, secured automations remain visible in the tool browser and can be added to a profile. However, the call fails when the agent attempts to execute the automation.",
+          "why": "A cause, its consequence and a caveat form one argument, so the fix is three short sentences joined by connectives, not bullets."
+        }
+      ],
+      "fixKinds": ["bullets with a lead-in", "split into two or three sentences with connectives", "no change"]
+    },
+    "C4-09": {
+      "focus": "Steps for a third-party product describe the capability, never the vendor's button, menu or plan names, and never link the vendor's help pages.",
+      "examples": [
+        {
+          "before": "1. In ChatGPT, open **Settings > Connectors**.\n2. Choose **Add custom connector**, give it a name, and paste the connector URL.",
+          "after": "Add a custom connector in the client's settings, give it a name, and paste the connector URL. The client's own documentation lists the current menu names.",
+          "why": "If the vendor renames Add Custom Connector, the step goes stale and nothing in the doc set notices. A generic description of the capability survives a redesign."
+        }
+      ],
+      "fixKinds": ["describe the capability generically", "remove the vendor link"]
+    },
+    "C8-10": {
+      "focus": "Remove a claim that is ambiguous or that no source confirms. Rewrite a claim that a source shows is inaccurate to the accurate statement. Do not over-promise.",
+      "examples": [
+        {
+          "before": "System profiles need no app, and Contentstack needs nothing else to run them.",
+          "after": "(removed: no source confirmed the claim)",
+          "why": "The only source was the ticket text, so the claim was ambiguous and was removed rather than hedged."
+        }
+      ],
+      "fixKinds": ["remove the claim", "rewrite to the verified statement"]
+    },
+    "C6-08": {
+      "focus": "A capability or quantity claim states the verified fact, or it is removed.",
+      "examples": [],
+      "fixKinds": ["remove the claim", "rewrite to the verified statement"]
+    },
+    "C3-33": {
+      "focus": "Every sentence states a fact or a requirement in a neutral technical register. Conversational phrasing is rewritten or removed, even when no wordlist entry matches it.",
+      "examples": [
+        {
+          "before": "Contentstack needs nothing else to run it.",
+          "after": "(removed, or replaced with the concrete requirement if one exists)",
+          "why": "The sentence is casual and states no requirement the reader can act on."
+        }
+      ],
+      "fixKinds": ["rewrite as a concrete statement", "remove the sentence"]
+    }
+  }
+}

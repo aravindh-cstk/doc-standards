@@ -363,15 +363,16 @@ Read that last row before running any fixer at corpus scale. A `--report` showin
 
 ### Judges
 
-Three scripts call a model because the rule needs a reader.
+Four scripts judge rules that need a reader.
 
 | Script | Rules | Note |
 | --- | --- | --- |
 | `judges/judge-tone.js` | C3-18, C3-21, C2-09, C3-25 | Also has a discovery mode that hunts wording no wordlist covers. |
 | `judges/judge-reading.js` | C2-13, C2-14 | A stated count that disagrees with what it counts, and a link label that misdescribes its destination. |
 | `judges/classify-doc-type.js` | None. It declares types. | Replaces a heuristic that answered `conceptual-guide` for 327 of 355 files. |
+| `judges/judge-editorial.js` | C6-05, C2-16, C4-09, C8-10, C6-08, C3-33 | The reading questions from the MCP Profile Hub review, each with the reviewer's worked examples from `data/judge-rubrics/editorial.json`. Judged without a model by default: `--reconcile` fails on any unjudged candidate, and `--escalate` writes open questions with `file:line` links that `lint/check-handoff.js` verifies. `--judge` is opt-in. |
 
-All three need the `claude` CLI and cost money per call. None is in `gate`, and none may ever run inside a check.
+The first three need the `claude` CLI and cost money per call. `judge-editorial.js` calls it only with `--judge`. None is in `gate`, and none may ever run inside a check.
 
 ### Tests
 

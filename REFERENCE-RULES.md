@@ -8,7 +8,7 @@ Every rule in `scripts/data/rules-registry.json`, grouped by prefix. This is the
 catalog. For what the groups mean and how tiers behave, read the Rule system section of
 [README.md](README.md). For which check enforces a rule, read [REFERENCE-CHECKS.md](REFERENCE-CHECKS.md).
 
-The registry holds **182 rules**: 78 tier 1, 57 tier 2, 47 tier 3.
+The registry holds **192 rules**: 86 tier 1, 58 tier 2, 48 tier 3.
 
 Linting this file reports tier-1 findings, and that is expected. A rule that bans a phrase has to
 print the phrase in order to state itself, so every finding here falls inside quoted registry
@@ -23,14 +23,14 @@ repository, so nothing blocks on it.
 | [UG](#ug-usage-guide-anatomy) | 13 | 9 | 3 | 1 | `doc-templates/api-ref/api-ref-usage-guide-v2.md` |
 | [B1](#b1-the-ordered-audit-checklist) | 11 | 3 | 3 | 5 | `doc-templates/feature-docs/common-rules.md` |
 | [B2](#b2-the-anti-pattern-table) | 9 | 3 | 3 | 3 | `doc-templates/feature-docs/common-rules.md` |
-| [C1](#c1-structure-and-flow) | 6 | 5 | 1 | 0 | `doc-templates/feature-docs/common-rules.md` |
-| [C2](#c2-scannability) | 15 | 5 | 4 | 6 | `doc-templates/feature-docs/common-rules.md` |
-| [C3](#c3-language-and-tone) | 30 | 10 | 12 | 8 | `doc-templates/feature-docs/common-rules.md` |
-| [C4](#c4-code-versus-prose) | 8 | 0 | 4 | 4 | `doc-templates/feature-docs/common-rules.md` |
-| [C5](#c5-cross-references) | 6 | 0 | 4 | 2 | `doc-templates/feature-docs/common-rules.md` |
+| [C1](#c1-structure-and-flow) | 7 | 6 | 1 | 0 | `doc-templates/feature-docs/common-rules.md` |
+| [C2](#c2-scannability) | 16 | 6 | 4 | 6 | `doc-templates/feature-docs/common-rules.md` |
+| [C3](#c3-language-and-tone) | 33 | 13 | 11 | 9 | `doc-templates/feature-docs/common-rules.md` |
+| [C4](#c4-code-versus-prose) | 9 | 0 | 5 | 4 | `doc-templates/feature-docs/common-rules.md` |
+| [C5](#c5-cross-references) | 9 | 3 | 4 | 2 | `doc-templates/feature-docs/common-rules.md` |
 | [C6](#c6-content-accuracy-and-grouping) | 8 | 0 | 2 | 6 | `doc-templates/feature-docs/common-rules.md` |
 | [C7](#c7-duplication) | 6 | 0 | 2 | 4 | `doc-templates/feature-docs/common-rules.md` |
-| [C8](#c8-developer-tone) | 9 | 8 | 0 | 1 | `doc-templates/feature-docs/common-rules.md` |
+| [C8](#c8-developer-tone) | 10 | 8 | 1 | 1 | `doc-templates/feature-docs/common-rules.md` |
 | [C9](#c9-cli-command-documentation) | 4 | 0 | 3 | 1 | `doc-templates/feature-docs/common-rules.md` |
 | [FM](#fm-front-matter) | 2 | 2 | 0 | 0 | `section-order.json`, `parse-markdown.js` |
 | [MIG](#mig-migration-guide-specifics) | 9 | 4 | 2 | 3 | `doc-templates/feature-docs/migration-guide.md` |
@@ -807,6 +807,21 @@ Stated in: `doc-templates/feature-docs/common-rules.md`.
 
 **Exception.** None, no bare links in Next Steps.
 
+### C1-07
+
+| Field | Value |
+| --- | --- |
+| Tier | 1 |
+| Doc types | `all` |
+| Check | `troubleshooting-hub-pointer` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
+
+**Rule.** A page whose product has a troubleshooting hub keeps its Troubleshooting section as a single pointer that links to the matching hub category. It holds no entry headings and no Root cause or Resolution labels.
+
+**Why.** A troubleshooting entry copied onto each page goes stale wherever it was copied. One hub entry linked from every page that can hit the error stays current when the error message or the fix changes, and keeping the H2 keeps every existing troubleshooting anchor working.
+
+**Exception.** The hub page itself. Hubs and the pages they cover are listed in scripts/data/troubleshooting-hubs.json, and the CLI hub is enforced by CLI-19.
+
 ## C2, scannability
 
 Stated in: `doc-templates/feature-docs/common-rules.md`.
@@ -920,12 +935,12 @@ Stated in: `doc-templates/feature-docs/common-rules.md`.
 
 | Field | Value |
 | --- | --- |
-| Tier | 2 |
+| Tier | 1 |
 | Doc types | `all` |
 | Check | `heading-length` |
 | Source | `doc-templates/feature-docs/common-rules.md` |
 
-**Rule.** A heading is a complete phrase. Do not open a heading with a lowercase verb or a conjunction that depends on a subject the heading does not name.
+**Rule.** A heading is a complete phrase that names its subject. Do not open a heading with a lowercase verb or with a conjunction that depends on a subject the heading does not name. Write it as a complete symptom instead, for example "An automation call fails with a secure HTTP trigger error", and quote a partial product message in the body.
 
 **Why.** A fragment reads as the tail of a sentence whose subject is missing, so a reader arriving from a search result or a table of contents cannot tell what the section covers.
 
@@ -1035,6 +1050,21 @@ Stated in: `doc-templates/feature-docs/common-rules.md`.
 **Why.** A paragraph that bundles a condition together with its outcomes forces the reader to reread to map each outcome to its trigger. Nested bullets make each branch and its outcome visible without rereading.
 
 **Exception.** When the label introduces a single fact with no sub-parts or branches, one prose sentence is correct. Do not force a one-fact note into a list.
+
+### C2-16
+
+| Field | Value |
+| --- | --- |
+| Tier | 2 |
+| Doc types | `all` |
+| Check | `skimmable-sentence` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
+
+**Rule.** Make a long sentence skimmable. When it lists separate facts, turn them into bullets under a lead-in that names the list. When it chains a cause and its effects, split it into two or three sentences joined by connectives. Bullets keep the information flow, so they never read as isolated fragments.
+
+**Why.** A 40-word sentence that holds three limits or a cause, a consequence and a caveat forces the reader to parse the whole line to find the one fact they need. Bullets and short sentences let them stop at the fact.
+
+**Exception.** A long sentence that states one idea, with no series and no chained clauses, can stay as written.
 
 ## C3, language and tone
 
@@ -1194,7 +1224,7 @@ Stated in: `doc-templates/feature-docs/common-rules.md`.
 
 | Field | Value |
 | --- | --- |
-| Tier | 2 |
+| Tier | 1 |
 | Doc types | `all` |
 | Check | `error-code-format` |
 | Source | `doc-templates/feature-docs/common-rules.md` |
@@ -1490,6 +1520,51 @@ Stated in: `doc-templates/feature-docs/common-rules.md`.
 
 **Exception.** Code samples, code spans, link targets and HTML attribute values are out of scope, as they are for every prose rule. Box drawing characters are not covered at all: inside a fence they draw a diagram, and the fence is where they belong. The legal marks ©, ® and ™ are permitted, and so is ° in a temperature or an angle, which has no word form that reads better. Dashes belong to C3-05, not here.
 
+### C3-31
+
+| Field | Value |
+| --- | --- |
+| Tier | 1 |
+| Doc types | `all` |
+| Check | `banned-phrases` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
+
+**Rule.** Never narrate the page. Remove phrases such as "this page covers", "this guide walks you through", "in this guide" and "you will learn", and open with the task the reader came to do and its outcome instead.
+
+**Why.** Readers do not care what a page covers. They care whether it solves their problem, so an opening spent describing the page delays the answer and reads as guide-centric filler.
+
+**Exception.** None.
+
+### C3-32
+
+| Field | Value |
+| --- | --- |
+| Tier | 1 |
+| Doc types | `all` |
+| Check | `banned-phrases` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
+
+**Rule.** Do not use a retired product term. Write "product role", never "organization role", and use the current term for every entry in scripts/data/banned-phrases/retired-terms.json.
+
+**Why.** A retired term sends the reader looking for a screen or setting that no longer exists. Contentstack replaced organization roles with product roles, per the About Product Roles page.
+
+**Exception.** "Organization-level product role" is the current term and is not affected.
+
+### C3-33
+
+| Field | Value |
+| --- | --- |
+| Tier | 3 |
+| Doc types | `all` |
+| Check | none, tier 3 is adjudicated |
+| Source | `doc-templates/feature-docs/common-rules.md` |
+
+**Rule.** Write in a neutral technical register. A sentence that reads as conversational, such as "Contentstack needs nothing else to run it", is rewritten as a concrete statement of the requirement or removed, even when no wordlist entry matches it.
+
+**Why.** Wordlists catch known phrases, and casual phrasing keeps arriving in new forms. A reader judging every sentence for register is the only check that does not depend on the phrase having been seen before.
+
+**Exception.** Quoted product output and quoted user input are reproduced as written.
+
 ## C4, code versus prose
 
 Stated in: `doc-templates/feature-docs/common-rules.md`.
@@ -1614,6 +1689,21 @@ Stated in: `doc-templates/feature-docs/common-rules.md`.
 
 **Exception.** A table or list whose own purpose is to document the literal tooltip string keeps bold in that table, because it quotes UI text rather than naming the icon. The exception covers only the table itself. Prose elsewhere on the page still names the icon in quotes, and a table documenting an icon's tooltip is evidence that the prose naming it has no visible label to bold.
 
+### C4-09
+
+| Field | Value |
+| --- | --- |
+| Tier | 2 |
+| Doc types | `all` |
+| Check | `third-party-ui` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
+
+**Rule.** Describe a third-party product's UI generically. Do not quote its button labels, field names or plan names. Name the capability instead, for example "add a custom connector in the client's settings".
+
+**Why.** A vendor renames menus, buttons and plans without notice, and the doc goes stale the day it ships a redesign, with nothing in the doc set to notice.
+
+**Exception.** A Contentstack screen or tab named after a client, such as the Claude Desktop Manual installation tab, is Contentstack UI and is written in bold as usual.
+
 ## C5, cross-references
 
 Stated in: `doc-templates/feature-docs/common-rules.md`.
@@ -1708,6 +1798,51 @@ Stated in: `doc-templates/feature-docs/common-rules.md`.
 
 **Exception.** An instruction is exempt when the destination is genuinely outside Contentstack and unknowable from the docs, for example asking a colleague, a network administrator, or an internal IT team. Naming who to ask is then the whole of the available answer.
 
+### C5-07
+
+| Field | Value |
+| --- | --- |
+| Tier | 1 |
+| Doc types | `all` |
+| Check | `third-party-ui` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
+
+**Rule.** In instructions for a third-party product, do not link to the vendor's help pages and do not give the vendor's menu path. Point the reader to the client's own documentation in words.
+
+**Why.** A vendor help page and a menu path both change without notice. The link breaks or drifts to a different topic, and the path stops matching the screen.
+
+**Exception.** Stable references such as the protocol specification, a runtime download or a package registry page may be linked. They are listed in scripts/data/third-party/vendors.json.
+
+### C5-08
+
+| Field | Value |
+| --- | --- |
+| Tier | 1 |
+| Doc types | `all` |
+| Check | `anchor-heading-level` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
+
+**Rule.** An anchor link targets an H2 or H3 heading. Link the nearest H2 or H3 section that contains an H4 entry, or raise the heading to H3.
+
+**Why.** The docs site renders an anchor id only for H2 and H3 headings. A link to an H4 loads the page and stays at the top, while markdown previews and link checkers report it as working.
+
+**Exception.** An explicit HTML anchor target written into the page is reachable at any level.
+
+### C5-09
+
+| Field | Value |
+| --- | --- |
+| Tier | 1 |
+| Doc types | `all` |
+| Check | `bare-domain` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
+
+**Rule.** Do not write a bare domain name in prose. Format it as code, or write a deliberate link where the reader needs one.
+
+**Why.** A converter with auto-linking turns a bare domain such as claude.ai into a live link that nobody chose, which can put a vendor link on a page whose rules keep vendor links out.
+
+**Exception.** A domain inside a code span, a code block, a link, or an email address is not affected.
+
 ## C6, content accuracy and grouping
 
 Stated in: `doc-templates/feature-docs/common-rules.md`.
@@ -1781,9 +1916,9 @@ Stated in: `doc-templates/feature-docs/common-rules.md`.
 | Check | none, tier 3 is adjudicated |
 | Source | `doc-templates/feature-docs/common-rules.md` |
 
-**Rule.** The first sentence of the Overview states what this page covers, in its own main clause. It does not open with a clause about another page's topic, and it does not leave the topic to a trailing result clause.
+**Rule.** The first sentence of the Overview states the task the reader came to do and its outcome, in its own main clause. It does not open with a clause about another page's topic, it does not describe the page, and it does not leave the task to a trailing result clause.
 
-**Why.** The Overview's first sentence is where a reader decides whether this is the page they want. An opener that leads with a comparison to a different task, or that states background and reaches the topic only after "so", makes the reader work for an answer the sentence was supposed to give.
+**Why.** The Overview's first sentence is where a reader decides whether this page solves their problem. An opener that describes the page, leads with a comparison to a different task, or reaches the task only after "so" makes the reader work for an answer the sentence was supposed to give.
 
 **Exception.** A page whose subject is the product itself may open by naming and defining the product, since that sentence already states the topic.
 
@@ -2064,6 +2199,21 @@ Stated in: `doc-templates/feature-docs/common-rules.md`.
 **Why.** The reader needs the boundary in order to plan. Adverbs such as silently and quietly add no boundary, and phrasing a cap as a failure invites the reader to distrust every other limit on the page.
 
 **Exception.** When the absence of a signal is itself the fact the reader must act on, state it plainly and once. A filtered view that looks empty but is not needs the reader to know that.
+
+### C8-10
+
+| Field | Value |
+| --- | --- |
+| Tier | 2 |
+| Doc types | `all` |
+| Check | `over-promise` |
+| Source | `doc-templates/feature-docs/common-rules.md` |
+
+**Rule.** Do not promise what the product does not guarantee. An absolute such as "no setup required", "works with any client", "never fails" or "instantly" stays only when a cited source confirms it. Remove an ambiguous or unverifiable claim, and rewrite a claim that turns out inaccurate to the accurate statement.
+
+**Why.** An over-promise reads as a verified fact, so the reader plans around it and loses trust in the whole page the first time it fails.
+
+**Exception.** A limit stated as a measured fact, such as a documented maximum or a timeout value, is not an over-promise.
 
 ## C9, CLI command documentation
 

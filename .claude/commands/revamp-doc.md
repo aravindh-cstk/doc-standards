@@ -135,6 +135,29 @@ This exits non-zero while any candidate is unjudged. Do not proceed to Step 4
 until it is clean. Carry `VIOLATION` rows into your edits and escalate `UNCLEAR`
 rows to the user rather than guessing.
 
+### Editorial judge
+
+Run the editorial judge on the same target. It collects the reading questions the MCP Profile Hub
+review raised: an Overview that does not open with the reader's task (C6-05), steps that quote a
+third-party UI (C4-09), over-promises (C8-10, C6-08), conversational sentences (C3-33) and long
+sentences that need bullets or a split (C2-16). Each candidate carries the reviewer's own worked
+examples, so judge against those rather than against your own taste.
+
+```bash
+node "$STANDARDS/scripts/judges/judge-editorial.js" "$ARGUMENTS"
+```
+
+Write a verdict for every candidate in `.doc-review/editorial-verdicts.json`, in the same shape as
+above, then:
+
+```bash
+node "$STANDARDS/scripts/judges/judge-editorial.js" --reconcile --escalate
+```
+
+It exits non-zero while any candidate is unjudged. `--escalate` writes every `UNCLEAR` verdict to
+`.doc-review/NEEDS-YOUR-INPUT.md` with a clickable `file:line` link. `--judge --apply` asks the
+claude CLI instead, one candidate at a time, and is opt-in.
+
 If the script fails to run (for example, Node is unavailable), state that to the user and fall back to a fully manual review using Steps 3 through 7 as originally written.
 
 ---
@@ -238,5 +261,13 @@ If it already has uncommitted changes, say so and ask whether to continue, so a
 revamp does not get mixed into someone else's unfinished edit.
 
 Re-run the linter from Step 2 and repeat until no tier-1 finding remains.
+
+Every question you hand back to the user names the file and line it is about, as a clickable link
+such as `[manage-profiles.md:17](profile-hub/manage-profiles.md#L17)`. A question without one sends
+the user hunting for the sentence before they can answer. Check the hand-back before sending it:
+
+```bash
+node "$STANDARDS/scripts/lint/check-handoff.js" <hand-back.md>
+```
 
 Report a one-paragraph summary: number of Automated Findings from Step 2 applied, number of additional structural findings fixed in Steps 4 and 5, number of style findings fixed in Step 6, and any sections that were added or reordered.

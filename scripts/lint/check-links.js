@@ -52,6 +52,7 @@ const {
   fenceMask,
   linksIn,
   anchorsIn,
+  anchorLevelsIn,
   publicUrlOf,
   isUnresolvableHost,
   classify,
@@ -77,6 +78,13 @@ function checkInternal(files) {
       anchorCache.set(key, fs.existsSync(key) ? anchorsIn(key) : new Set());
     }
     return anchorCache.get(key);
+  };
+
+  const levelCache = new Map();
+  const levelsFor = (f) => {
+    const key = path.resolve(f);
+    if (!levelCache.has(key)) levelCache.set(key, fs.existsSync(key) ? anchorLevelsIn(key) : new Map());
+    return levelCache.get(key);
   };
 
   const findings = [];
@@ -131,6 +139,18 @@ function checkInternal(files) {
           ...link,
           kind: 'dead-anchor',
           message: `no heading in ${path.basename(targetFile)} produces the anchor "#${fragment}"`,
+        });
+        continue;
+      }
+
+      // C5-08: the docs site renders anchor ids for H2 and H3 only, so a link to
+      // an H4 resolves here and lands at the top of the page there.
+      const level = levelsFor(targetFile).get(decodeURIComponent(fragment));
+      if (level && level > 3) {
+        findings.push({
+          ...link,
+          kind: 'deep-anchor',
+          message: `"#${fragment}" is an H${level} heading in ${path.basename(targetFile)}, and the docs site renders anchors only for H2 and H3 (C5-08)`,
         });
       }
     }

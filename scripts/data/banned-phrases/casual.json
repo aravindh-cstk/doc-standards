@@ -152,6 +152,41 @@
       "pattern": "\\btry (loading|running|opening) (them|it) again\\b",
       "label": "try X again",
       "fix": "state the action directly, for example \"reload the page\""
+    },
+    {
+      "pattern": "\\bneeds? nothing else\\b",
+      "label": "needs nothing else",
+      "fix": "state the concrete requirement, or remove the sentence if there is none to state"
+    },
+    {
+      "pattern": "\\bnothing else to (?:run|install|configure|do|set up)\\b",
+      "label": "nothing else to do",
+      "fix": "state what the reader does, or remove the sentence"
+    },
+    {
+      "pattern": "\\bthat(?:'s| is) (?:it|all)[.!]",
+      "label": "that is it",
+      "fix": "end on the last real step, and drop the sign-off"
+    },
+    {
+      "pattern": "\\byou(?:'re| are) (?:all )?(?:set|done)\\b",
+      "label": "you are all set",
+      "fix": "state the result the reader can verify"
+    },
+    {
+      "pattern": "\\b(?:good|ready) to go\\b",
+      "label": "good to go",
+      "fix": "state the result the reader can verify"
+    },
+    {
+      "pattern": "\\ba breeze\\b",
+      "label": "a breeze",
+      "fix": "drop the qualifier and state the steps"
+    },
+    {
+      "pattern": "\\bhead(?:s|ed|ing)? over to\\b",
+      "label": "head over to",
+      "fix": "open"
     }
   ]
 }

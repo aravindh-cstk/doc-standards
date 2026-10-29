@@ -588,6 +588,18 @@
     "checkId": "bare-links"
   },
   {
+    "id": "C1-07",
+    "source": "doc-templates/feature-docs/common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "A page whose product has a troubleshooting hub keeps its Troubleshooting section as a single pointer that links to the matching hub category. It holds no entry headings and no Root cause or Resolution labels.",
+    "why": "A troubleshooting entry copied onto each page goes stale wherever it was copied. One hub entry linked from every page that can hit the error stays current when the error message or the fix changes, and keeping the H2 keeps every existing troubleshooting anchor working.",
+    "exception": "The hub page itself. Hubs and the pages they cover are listed in scripts/data/troubleshooting-hubs.json, and the CLI hub is enforced by CLI-19.",
+    "tier": 1,
+    "checkId": "troubleshooting-hub-pointer"
+  },
+  {
     "id": "C2-01",
     "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
@@ -677,10 +689,10 @@
     "docTypes": [
       "all"
     ],
-    "rule": "A heading is a complete phrase. Do not open a heading with a lowercase verb or a conjunction that depends on a subject the heading does not name.",
+    "rule": "A heading is a complete phrase that names its subject. Do not open a heading with a lowercase verb or with a conjunction that depends on a subject the heading does not name. Write it as a complete symptom instead, for example \"An automation call fails with a secure HTTP trigger error\", and quote a partial product message in the body.",
     "why": "A fragment reads as the tail of a sentence whose subject is missing, so a reader arriving from a search result or a table of contents cannot tell what the section covers.",
     "exception": "A heading may open in lowercase when the first word is itself a lowercase identifier, such as a package name or an error code.",
-    "tier": 2,
+    "tier": 1,
     "checkId": "heading-length"
   },
   {
@@ -766,6 +778,18 @@
     "exception": "When the label introduces a single fact with no sub-parts or branches, one prose sentence is correct. Do not force a one-fact note into a list.",
     "tier": 3,
     "checkId": null
+  },
+  {
+    "id": "C2-16",
+    "source": "doc-templates/feature-docs/common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Make a long sentence skimmable. When it lists separate facts, turn them into bullets under a lead-in that names the list. When it chains a cause and its effects, split it into two or three sentences joined by connectives. Bullets keep the information flow, so they never read as isolated fragments.",
+    "why": "A 40-word sentence that holds three limits or a cause, a consequence and a caveat forces the reader to parse the whole line to find the one fact they need. Bullets and short sentences let them stop at the fact.",
+    "exception": "A long sentence that states one idea, with no series and no chained clauses, can stay as written.",
+    "tier": 2,
+    "checkId": "skimmable-sentence"
   },
   {
     "id": "C3-01",
@@ -896,7 +920,7 @@
     "rule": "Write a numeric error code or HTTP status code as inline code, never as bare prose.",
     "why": "A bare number reads as a quantity, not an identifier. Inline code marks it as a literal value the reader compares against.",
     "exception": "A written-out description of a status class (\"a client error\", \"a server error\") is prose and is not affected.",
-    "tier": 2,
+    "tier": 1,
     "checkId": "error-code-format"
   },
   {
@@ -1128,6 +1152,42 @@
     "checkId": "typographic-substitutes"
   },
   {
+    "id": "C3-31",
+    "source": "doc-templates/feature-docs/common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Never narrate the page. Remove phrases such as \"this page covers\", \"this guide walks you through\", \"in this guide\" and \"you will learn\", and open with the task the reader came to do and its outcome instead.",
+    "why": "Readers do not care what a page covers. They care whether it solves their problem, so an opening spent describing the page delays the answer and reads as guide-centric filler.",
+    "exception": "None.",
+    "tier": 1,
+    "checkId": "banned-phrases"
+  },
+  {
+    "id": "C3-32",
+    "source": "doc-templates/feature-docs/common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Do not use a retired product term. Write \"product role\", never \"organization role\", and use the current term for every entry in scripts/data/banned-phrases/retired-terms.json.",
+    "why": "A retired term sends the reader looking for a screen or setting that no longer exists. Contentstack replaced organization roles with product roles, per the About Product Roles page.",
+    "exception": "\"Organization-level product role\" is the current term and is not affected.",
+    "tier": 1,
+    "checkId": "banned-phrases"
+  },
+  {
+    "id": "C3-33",
+    "source": "doc-templates/feature-docs/common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Write in a neutral technical register. A sentence that reads as conversational, such as \"Contentstack needs nothing else to run it\", is rewritten as a concrete statement of the requirement or removed, even when no wordlist entry matches it.",
+    "why": "Wordlists catch known phrases, and casual phrasing keeps arriving in new forms. A reader judging every sentence for register is the only check that does not depend on the phrase having been seen before.",
+    "exception": "Quoted product output and quoted user input are reproduced as written.",
+    "tier": 3,
+    "checkId": null
+  },
+  {
     "id": "C4-01",
     "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
@@ -1224,6 +1284,18 @@
     "checkId": null
   },
   {
+    "id": "C4-09",
+    "source": "doc-templates/feature-docs/common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Describe a third-party product's UI generically. Do not quote its button labels, field names or plan names. Name the capability instead, for example \"add a custom connector in the client's settings\".",
+    "why": "A vendor renames menus, buttons and plans without notice, and the doc goes stale the day it ships a redesign, with nothing in the doc set to notice.",
+    "exception": "A Contentstack screen or tab named after a client, such as the Claude Desktop Manual installation tab, is Contentstack UI and is written in bold as usual.",
+    "tier": 2,
+    "checkId": "third-party-ui"
+  },
+  {
     "id": "C5-01",
     "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
@@ -1296,6 +1368,42 @@
     "checkId": null
   },
   {
+    "id": "C5-07",
+    "source": "doc-templates/feature-docs/common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "In instructions for a third-party product, do not link to the vendor's help pages and do not give the vendor's menu path. Point the reader to the client's own documentation in words.",
+    "why": "A vendor help page and a menu path both change without notice. The link breaks or drifts to a different topic, and the path stops matching the screen.",
+    "exception": "Stable references such as the protocol specification, a runtime download or a package registry page may be linked. They are listed in scripts/data/third-party/vendors.json.",
+    "tier": 1,
+    "checkId": "third-party-ui"
+  },
+  {
+    "id": "C5-08",
+    "source": "doc-templates/feature-docs/common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "An anchor link targets an H2 or H3 heading. Link the nearest H2 or H3 section that contains an H4 entry, or raise the heading to H3.",
+    "why": "The docs site renders an anchor id only for H2 and H3 headings. A link to an H4 loads the page and stays at the top, while markdown previews and link checkers report it as working.",
+    "exception": "An explicit HTML anchor target written into the page is reachable at any level.",
+    "tier": 1,
+    "checkId": "anchor-heading-level"
+  },
+  {
+    "id": "C5-09",
+    "source": "doc-templates/feature-docs/common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Do not write a bare domain name in prose. Format it as code, or write a deliberate link where the reader needs one.",
+    "why": "A converter with auto-linking turns a bare domain such as claude.ai into a live link that nobody chose, which can put a vendor link on a page whose rules keep vendor links out.",
+    "exception": "A domain inside a code span, a code block, a link, or an email address is not affected.",
+    "tier": 1,
+    "checkId": "bare-domain"
+  },
+  {
     "id": "C6-01",
     "source": "doc-templates/feature-docs/common-rules.md",
     "docTypes": [
@@ -1349,8 +1457,8 @@
     "docTypes": [
       "all"
     ],
-    "rule": "The first sentence of the Overview states what this page covers, in its own main clause. It does not open with a clause about another page's topic, and it does not leave the topic to a trailing result clause.",
-    "why": "The Overview's first sentence is where a reader decides whether this is the page they want. An opener that leads with a comparison to a different task, or that states background and reaches the topic only after \"so\", makes the reader work for an answer the sentence was supposed to give.",
+    "rule": "The first sentence of the Overview states the task the reader came to do and its outcome, in its own main clause. It does not open with a clause about another page's topic, it does not describe the page, and it does not leave the task to a trailing result clause.",
+    "why": "The Overview's first sentence is where a reader decides whether this page solves their problem. An opener that describes the page, leads with a comparison to a different task, or reaches the task only after \"so\" makes the reader work for an answer the sentence was supposed to give.",
     "exception": "A page whose subject is the product itself may open by naming and defining the product, since that sentence already states the topic.",
     "tier": 3,
     "checkId": null
@@ -1569,6 +1677,18 @@
     "why": "The reader needs the boundary in order to plan. Adverbs such as silently and quietly add no boundary, and phrasing a cap as a failure invites the reader to distrust every other limit on the page.",
     "exception": "When the absence of a signal is itself the fact the reader must act on, state it plainly and once. A filtered view that looks empty but is not needs the reader to know that.",
     "tier": 3
+  },
+  {
+    "id": "C8-10",
+    "source": "doc-templates/feature-docs/common-rules.md",
+    "docTypes": [
+      "all"
+    ],
+    "rule": "Do not promise what the product does not guarantee. An absolute such as \"no setup required\", \"works with any client\", \"never fails\" or \"instantly\" stays only when a cited source confirms it. Remove an ambiguous or unverifiable claim, and rewrite a claim that turns out inaccurate to the accurate statement.",
+    "why": "An over-promise reads as a verified fact, so the reader plans around it and loses trust in the whole page the first time it fails.",
+    "exception": "A limit stated as a measured fact, such as a documented maximum or a timeout value, is not an over-promise.",
+    "tier": 2,
+    "checkId": "over-promise"
   },
   {
     "id": "C9-01",

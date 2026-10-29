@@ -1,0 +1,26 @@
+{
+  "ruleId": "C3-31",
+  "category": "page-narration",
+  "phrases": [
+    {
+      "pattern": "\\bthis (?:page|document|doc|guide|article|topic|section|tutorial)\\s+(?:covers|explains|describes|shows|outlines|details|discusses|introduces|teaches)\\b",
+      "label": "this page covers",
+      "fix": "open with the task the reader came to do and its outcome, then the detail"
+    },
+    {
+      "pattern": "\\bthis (?:page|guide|document|section|tutorial)?\\s*walks(?: you)? through\\b|\\bthis shows you how\\b",
+      "label": "this walks you through",
+      "fix": "state the action or outcome directly"
+    },
+    {
+      "pattern": "\\bin this (?:page|document|guide|article|topic|tutorial)\\b",
+      "label": "in this guide",
+      "fix": "drop the reference to the page and state the fact or step itself"
+    },
+    {
+      "pattern": "\\byou(?:'ll| will) learn\\b",
+      "label": "you will learn",
+      "fix": "state what the reader can do once they finish, as a task"
+    }
+  ]
+}
