@@ -470,7 +470,15 @@ function checkMethodIndexSoleList(doc, findings) {
   const methodsHeading = (doc.headings || []).find(
     (h) => h.level === 2 && /^methods$/i.test(h.text.trim())
   );
-  if (methodsHeading) {
+  // A bare `## Methods` heading with a lead-in sentence is allowed (it parents
+  // the method entries the site renders after the class description). Only a
+  // list under it duplicates the index.
+  const nextHeading = (doc.headings || []).find((h) => methodsHeading && h.line > methodsHeading.line);
+  const sectionEnd = nextHeading ? nextHeading.line - 1 : doc.lines.length;
+  const listsMethods = methodsHeading && doc.lines
+    .slice(methodsHeading.line, sectionEnd)
+    .some((l) => /^\s*([-*+]|\d+\.)\s/.test(l) || /\]\([^)]*methods\/[^)]*\.md/.test(l));
+  if (listsMethods) {
     findings.push(makeFinding({
       tier: 1, ruleId: 'AR-08', checkId: 'api-ref-method-index-sole-list',
       message: 'Class page has a trailing "Methods" list in addition to the Method Index. The index is the only list, and the converter derives the CMS methods array from it.',

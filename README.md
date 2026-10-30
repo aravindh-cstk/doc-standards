@@ -272,6 +272,34 @@ Grouped by job rather than alphabetically.
 
 The judges and the mirror sit outside `gate` on purpose. The judges cost money per call and need the `claude` CLI, so they must never run on a keystroke. The mirror rewrites files.
 
+### Promoting a tier-2 rule to a gate
+
+`npm run sweep` (no `--tiers` filter) reports tier 1 and tier 2 together, but `sweep-docs.js` only
+fails the exit code on tier-1 findings, so tier 2 is always advisory today. Of the 57 tier-2 rules,
+16 are `unimplemented` (registered with no check module, so they can never fire) and cannot be
+gated at all. The other 41 split by how mechanical the check is:
+
+- **Formatting and structure** (`AR-06`, `AR-07`, `UG-08`, `UG-10`, `UG-11`, `C1-04`, `C2-07`,
+  `C2-08`, `C3-11`, `C3-13`, `C4-07`, `C5-05`, `CLI-04`, `CLI-06`, `CLI-09`, `MIG-03`, `MIG-05`,
+  `RS2-03`) are deterministic pass/fail, the lowest-risk group to gate. `CLI-09` has a known bug
+  (see Known Issues) and should not be gated until fixed.
+- **Structural inference** (`B1-08`, `B1-09`, `B2-04`, `B2-06`, `C2-05`, `C2-09`, `C3-14`, `C4-05`,
+  `C5-01`, `C5-03`, `C5-04`, `C6-06`, `C7-01`, `C7-04`) infer intent from document shape and carry
+  medium false-positive risk. `C2-09` already has a model-backed judge (`npm run judge:cohesion`),
+  which suggests the mechanical pass alone was not trusted as a sole gate.
+- **Prose style** (`C3-04`, `C3-07`, `C3-08`, `C3-09`, `C3-10`, `C3-12`, `C3-19`, `C3-24`, `C3-29`)
+  are wordlist and regex matches over natural language, the highest false-positive risk. This is
+  the group the tier design exists to keep non-blocking: blocking on every passive-voice candidate
+  would make editing documentation impossible.
+
+Several rule IDs share one check module, so a noisy finding on one likely means the others from
+that module are noisy too: `callout-frequency` backs `B1-08`, `B2-04`, `C2-05`, `C5-01`, `C5-03`,
+and `duplicate-sections` backs `B1-09`, `B2-06`, `C7-01`.
+
+To gate a subset of tier-2 rules without changing the default, add a `--fail-on=warnings` (or
+per-rule) flag to `sweep-docs.js` rather than changing what `errors` counts, so `sweep:tier1` and
+`gate` keep their current meaning for everyone who has not opted in.
+
 ### Architecture
 
 ```

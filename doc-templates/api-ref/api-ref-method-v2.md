@@ -23,6 +23,8 @@
 - Explain what errors would be thrown if there are invalid, null, or empty values for each parameter.
 - Always explain **why** the constraint exists, not just what is thrown. Format: "Throws `X` if `Y` because `Z`." For example: "Throws `InvalidOperationException` if no variant UID is set because `Fetch()` retrieves a single variant and requires a specific identifier."
 - Mention any cases where errors would not be thrown even if the value provided is null, empty, or invalid.
+- **Name the exception, not its message.** State the exception type and the condition that triggers it. Do not quote the SDK's error message text. Readers catch the type, not the string, and the SDK can reword a message in any release without the docs noticing. For example: ✅ "Throws `ArgumentException` if the instance holds no UID, because `Fetch()` reads one item." ❌ "Throws `ArgumentException` with the message "UID is required. Provide a valid UID and try again." if the instance holds no UID."
+- **Do not repeat a check the class page already states.** When a check applies to every method in the class, for example a login or API key check, the class page states it once under **Class-Level Notes** or **Instance State** (see `api-ref-class-v2.md`). Leave it out of the method page and list only the errors this method raises for its own parameters or state. A check repeated on every method page buries the errors that are specific to the method.
 - **Where the error surfaces** *(required for any method in a chainable API)*: A chainable setter or filter almost never raises. It stores a value and returns the instance, so the failure appears later, on the terminal call. Name the terminal call explicitly rather than leaving the reader to assume this method validates its own input. Format: "Errors that do occur come from the `find()` call that follows, not from `limit()`."
 - **The raise-versus-return-an-error distinction** *(required when the SDK returns the raw API response)*: Many SDKs raise only on transport failure and hand back an API rejection as an ordinary return value carrying an `error` key. A reader who wraps the call in `try` and nothing else will silently treat a 422 as success. When this is how the SDK behaves, say so as a nested list under the "where the error surfaces" bullet, in this order:
   - The terminal call raises an exception only for network failures (timeout, DNS error, dropped connection).
@@ -43,6 +45,7 @@ Generic HTTP errors (401, 403, 429, 500) that can occur on any API call are alre
   - The error only occurs under conditions specific to this method (not just "invalid auth" or "rate limit"), **and**
   - A developer seeing only the error code cannot identify the fix without knowing this method's behavior.
   If all likely errors are already covered by the general reference, skip the inline table entirely and use only the link.
+  **One format per page.** Use the table only when you have confirmed the HTTP status for every method-specific API error you list. If any of them lacks a confirmed status, write all of them as Validation bullets instead, in the form "The API rejects the request with `422` if `Y`, because `Z`." Do not leave a one-row table under bullets that describe other API errors. The table then looks like the complete list, and the reader skips the bullets.
 
 ## **Warnings and Important Notes**
 

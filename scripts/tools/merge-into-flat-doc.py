@@ -115,7 +115,9 @@ class Merger:
         for c in config["classes"]:
             prefix = c.get("anchor_prefix", "")
             for m in c["methods"]:
-                self.method_anchor[(c["name"], m)] = f"{prefix}{m}" if prefix else m
+                # Lowercase to match the target files' anchor convention
+                # (#branch-create, not #branch-Create).
+                self.method_anchor[(c["name"], m)] = (f"{prefix}{m}" if prefix else m).lower()
 
     def resolve_link_target(self, target, current_class):
         if target.startswith("http") or target.startswith("/"):

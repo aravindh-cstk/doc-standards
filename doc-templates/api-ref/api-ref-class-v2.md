@@ -48,7 +48,7 @@
   2. Table format: Method Name | Returns | Description
     - The Returns column should use the same noun-phrase style as the method-level Returns section (e.g., "The requested entry variant." not "ContentstackResponse object").
     - For async variants, note the return type as `Task<ContentstackResponse>`.
-  3. The Method Index table is the only list of the class's methods. Do not also add a separate flat bullet list of method links (e.g., a trailing "## Methods" section) elsewhere in the doc, it duplicates the table with no added information.
+  3. The Method Index table is the only list of the class's methods. Do not also add a separate flat bullet list of method links elsewhere in the doc, it duplicates the table with no added information. The `## Methods` heading in item 8 is a section heading, not a list: put only its lead-in sentence under it.
   4. **Group the index when a flat table stops being scannable.** Group it if the class has more than about ten methods, or if method availability depends on instance state. One table of eighteen rows tells the reader nothing about which methods work together, and a reader who has an instance in hand cannot tell which half of the table applies to them.
     - Group by what the reader is trying to do, not by the SDK's internal class hierarchy. Readers arrive with a goal, not a type diagram. When the goal-based grouping happens to match the instance-state split, say so once in a lead-in sentence.
     - Head each group with a **bold sentence, not a heading**. An H3 per group fragments the page outline and pushes the real sections down the table of contents.
@@ -61,3 +61,8 @@
   2. Short introduction before the code snippet under 25 words with the following information included
     - What is this code snippet
     - What does it do
+8. ### **Methods** *(required when the class has methods, omit for classes with none, such as data models)*
+  1. End the class page with a `## Methods` heading, followed by one lead-in sentence. For example: "Each method of the `Branch` class has its own section below, with its parameters, validation rules, behavior, and examples."
+  2. Do not list the methods under it. The method pages follow this heading on the rendered page, and the Method Index already lists them.
+  3. Why: the docs site renders each method after the class description as a nested heading. Without a parent H2, the page outline indents every method under the last class section, usually Class-Level Snippet, so the methods look like part of the snippet.
+  4. Do not claim an order in the lead-in, such as "in alphabetical order". The CMS and the GitHub reference can order the methods differently.
