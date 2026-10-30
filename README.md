@@ -34,6 +34,7 @@ Find your job in this table and go to the section it names.
 | Audit a whole documentation corpus | `/audit-docs` | Workflow 3 |
 | Declare `doc_type:` across a corpus | `/classify-doc-types` | Workflow 7 |
 | Judge the rules no script can check | `/adjudicate-tier3` | Workflow 6 |
+| Apply review comments, fix every other instance, and add a check | `/apply-feedback` | Workflow 4 |
 | Understand why the linter missed something | `/doc-gap` | Workflow 4 |
 | Add a rule, or write a check for one | `/add-doc-rule` | [Rule system](#rule-system), then workflow 5 |
 | Check whether it is safe to merge | `/doc-gate` | [Editing this repo](#editing-this-repo) |
@@ -414,7 +415,7 @@ Read the ranking rather than the file list. The top rule by count is where a sin
 
 ### 4. Close a linter gap
 
-Someone spotted a violation the linter did not catch. Run `/doc-gap`, which drives the whole loop. When the rule is already decided and only the check is missing, run `/add-doc-rule` instead. The shape of it:
+Someone spotted a violation the linter did not catch. Run `/doc-gap`, which drives the whole loop. When the rule is already decided and only the check is missing, run `/add-doc-rule` instead. When the violation arrives as review comments on an open page, run `/apply-feedback`. It fixes the page, has parallel agents find the same mistake across the corpus, fixes what you approve, and adds a check or a judge rule. The shape of the `/doc-gap` loop:
 
 1. Restate the violation as a probe label.
 2. Baseline with `sweep-docs.js`.
@@ -466,7 +467,7 @@ global instructions. The hooks and the global instructions are per-machine files
 
 The commands live in this repository, at `.claude/commands/`. The two files in `.claude-plugin/`
 make the repository its own Claude Code plugin marketplace, so the whole repository, scripts
-included, installs as one plugin. Each route below reads the same ten files:
+included, installs as one plugin. Each route below reads the same eleven files:
 
 | Where you work | Install once |
 | --- | --- |
@@ -486,6 +487,7 @@ update steps and the shared path resolver.
 | `/audit-docs` | Sweeps a corpus and ranks findings by rule. Routes api-ref subtrees to their own linter |
 | `/classify-doc-types` | Declares `doc_type:` across a corpus, generate then judge then reconcile then apply |
 | `/adjudicate-tier3` | Generates tier-3 candidates, judges each one, and reconciles so a partial review cannot read as complete |
+| `/apply-feedback` | Applies review comments to the open page, fixes the approved instances across the corpus, and adds a check or a judge rule |
 | `/doc-gap` | Turns a missed violation into a permanent check with a test. Diagnoses first |
 | `/add-doc-rule` | Codifies a rule already decided, with its registry row, check, fixture and test |
 | `/doc-gate` | The pre-merge check. Runs the gate, then verifies the generated catalogs are current |
@@ -493,9 +495,9 @@ update steps and the shared path resolver.
 
 `scripts/test/commands.test.js` guards them. It asserts the following:
 
-- All ten are present, and the commands folder holds nothing else.
+- All eleven are present, and the commands folder holds nothing else.
 - Each carries the shared resolver verbatim, and none has reverted to the single-layout form.
-- The three commands that edit the toolchain exit with an error when the resolver picks the plugin's copy.
+- The four commands that edit the toolchain exit with an error when the resolver picks the plugin's copy.
 - The plugin manifests ship the commands folder and the whole repository, with no pinned version.
 - None hardcodes a consuming project, and none passes a flag its linter would reject.
 

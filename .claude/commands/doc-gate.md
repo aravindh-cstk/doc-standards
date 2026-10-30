@@ -79,8 +79,8 @@ machine where that folder does not exist, those two stages have nothing to read.
 rather than reporting them as passed, and point them at a real corpus to check them:
 
 ```bash
-cd "$STANDARDS/scripts" && node sweep-docs.js "<docs folder>" --tiers=1
-cd "$STANDARDS/scripts" && node check-links.js "<docs folder>" --layers=internal,labels
+cd "$STANDARDS/scripts" && node lint/sweep-docs.js "<docs folder>" --tiers=1
+cd "$STANDARDS/scripts" && node lint/check-links.js "<docs folder>" --layers=internal,labels
 ```
 
 ## Step 3: Catalog freshness

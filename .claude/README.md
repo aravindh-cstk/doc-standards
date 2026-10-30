@@ -1,6 +1,6 @@
 # Slash commands
 
-Ten commands, one per task this repository can perform. Each is a plain markdown prompt in
+Eleven commands, one per task this repository can perform. Each is a plain markdown prompt in
 `.claude/commands/`. They are git-tracked here so the whole team gets them. The repository also
 ships as a Claude Code plugin, so the same files work in every project, in Claude Code on the web,
 and in two other agents.
@@ -11,7 +11,7 @@ command.
 
 ## Install
 
-Pick the row for the tool you use. Every route reads the same ten files in this repository, so a
+Pick the row for the tool you use. Every route reads the same eleven files in this repository, so a
 pushed change reaches all of them.
 
 | Where you work | Install | Command names |
@@ -90,14 +90,16 @@ overwrites a file it did not create. Re-run it after adding a command.
 | `/audit-docs [path]` | Rank every finding across a whole corpus | No |
 | `/classify-doc-types [path]` | Stamp `doc_type:` across a corpus | Front matter only |
 | `/adjudicate-tier3 [path]` | Judge the rules no script can check | No, writes verdicts |
+| `/apply-feedback "<comments>"` | Apply review comments, fix every other instance, and add a check | Yes, after approval, and edits the toolchain |
 | `/doc-gap "<violation>"` | Turn a missed violation into a permanent check | No, edits the toolchain |
 | `/add-doc-rule "<rule>"` | Add a decided rule plus its check and test | No, edits the toolchain |
 | `/doc-gate` | Pre-merge safety check | No |
 | `/onboard-docs-repo <path>` | Wire the toolchain to a new project | No |
 
-`/doc-gap`, `/add-doc-rule` and `/doc-gate` change or check the toolchain itself, so they stop unless
-they run against a git clone of this repository. The plugin's copy does not qualify, because each
-plugin update replaces it and discards any edit made there. Run those three from inside your clone.
+`/apply-feedback`, `/doc-gap`, `/add-doc-rule` and `/doc-gate` change or check the toolchain itself,
+so they stop unless they run against a git clone of this repository. The plugin's copy does not
+qualify, because each plugin update replaces it and discards any edit made there. Run those four
+from inside your clone, or from a docs project that sits next to it.
 
 ### Which revamp command
 
@@ -123,7 +125,7 @@ Both end with a new check in the registry, and they start from different places.
 ## The shared resolver
 
 Every command opens with the same block. Do not edit one copy. `scripts/test/commands.test.js`
-asserts all ten carry it verbatim, and the test fails on a copy that has drifted.
+asserts all eleven carry it verbatim, and the test fails on a copy that has drifted.
 
 ```bash
 ROOT=$(git rev-parse --show-toplevel 2>/dev/null || pwd)

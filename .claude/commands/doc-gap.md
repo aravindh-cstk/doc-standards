@@ -72,7 +72,7 @@ produces a vague diagnosis.
 ## Step 2: baseline the corpus
 
 ```bash
-node sweep-docs.js "$CORPUS"
+node lint/sweep-docs.js "$CORPUS"
 ```
 
 Read the by-rule rollup. If a rule already fires on the reported line, the
@@ -195,7 +195,7 @@ node tools/probe-corpus.js --next-id=C3   # never hand-count, IDs are not catego
 
 ```bash
 npm test
-node sweep-docs.js "$CORPUS"
+node lint/sweep-docs.js "$CORPUS"
 ```
 
 Then prove the new test bites: revert your fix by hand, confirm the test goes
