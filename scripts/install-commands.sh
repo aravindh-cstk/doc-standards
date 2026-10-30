@@ -182,6 +182,6 @@ fi
 echo "Installed $linked, already current $skipped, backed up $backed_up, into $DEST"
 case "$TOOL" in
   claude) echo "Run /doc-gate or any command from any repository now." ;;
-  cursor) echo "Run /revamp-doc or any command from Cursor's chat in any repository now." ;;
-  codex) echo "Start a new Codex session, then name a skill such as \$revamp-doc." ;;
+  cursor) echo "Run /fix-docs or any command from Cursor's chat in any repository now." ;;
+  codex) echo "Start a new Codex session, then name a skill such as \$fix-docs." ;;
 esac

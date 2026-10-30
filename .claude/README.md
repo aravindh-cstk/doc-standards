@@ -1,6 +1,6 @@
 # Slash commands
 
-Eleven commands, one per task this repository can perform. Each is a plain markdown prompt in
+Seven commands, one per task this repository can perform. Each is a plain markdown prompt in
 `.claude/commands/`. They are git-tracked here so the whole team gets them. The repository also
 ships as a Claude Code plugin, so the same files work in every project, in Claude Code on the web,
 and in two other agents.
@@ -11,14 +11,14 @@ command.
 
 ## Install
 
-Pick the row for the tool you use. Every route reads the same eleven files in this repository, so a
+Pick the row for the tool you use. Every route reads the same seven files in this repository, so a
 pushed change reaches all of them.
 
 | Where you work | Install | Command names |
 | --- | --- | --- |
-| Claude Code on your machine, any project | The plugin, see [Claude Code](#claude-code) | `/doc-standards:revamp-doc` |
-| Claude Code inside this repository | Nothing | `/revamp-doc` |
-| Claude Code on the web | A setup script, see [Claude Code on the web](#claude-code-on-the-web) | `/doc-standards:revamp-doc` |
+| Claude Code on your machine, any project | The plugin, see [Claude Code](#claude-code) | `/doc-standards:fix-docs` |
+| Claude Code inside this repository | Nothing | `/fix-docs` |
+| Claude Code on the web | A setup script, see [Claude Code on the web](#claude-code-on-the-web) | `/doc-standards:fix-docs` |
 | Codex or Cursor | `scripts/install-commands.sh`, see [Other agents](#other-agents) | See that section |
 
 ### Claude Code
@@ -73,9 +73,9 @@ folder on the machine. Run it once per agent:
 
 | Agent | Install | What it creates | Invoke |
 | --- | --- | --- | --- |
-| Codex | `bash scripts/install-commands.sh --tool=codex` | A skill per command in `~/.codex/skills/`, each pointing at the command file here | Name the skill, for example `$revamp-doc` |
-| Cursor | `bash scripts/install-commands.sh --tool=cursor` | A link per command in `~/.cursor/commands/` | `/revamp-doc` |
-| Claude Code without the plugin | `bash scripts/install-commands.sh` | A link per command in `~/.claude/commands/` | `/revamp-doc` |
+| Codex | `bash scripts/install-commands.sh --tool=codex` | A skill per command in `~/.codex/skills/`, each pointing at the command file here | Name the skill, for example `$fix-docs` |
+| Cursor | `bash scripts/install-commands.sh --tool=cursor` | A link per command in `~/.cursor/commands/` | `/fix-docs` |
+| Claude Code without the plugin | `bash scripts/install-commands.sh` | A link per command in `~/.claude/commands/` | `/fix-docs` |
 
 Pass `--dry-run` to see the changes first, and `--uninstall` to remove them. The script never
 overwrites a file it did not create. Re-run it after adding a command.
@@ -84,12 +84,8 @@ overwrites a file it did not create. Re-run it after adding a command.
 
 | Command | Job | Edits docs |
 | --- | --- | --- |
-| `/revamp-doc <path>` | Bring one prose page into compliance | Yes |
-| `/revamp-api-ref <path>` | Bring SDK API reference pages into compliance | Yes |
-| `/revamp-cli-doc <path>` | Bring a CLI page into compliance | Yes |
+| `/fix-docs <file-or-folder>` | Run every check, apply every fix, judge the rest, and finish only when every finding is resolved | Yes |
 | `/audit-docs [path]` | Rank every finding across a whole corpus | No |
-| `/classify-doc-types [path]` | Stamp `doc_type:` across a corpus | Front matter only |
-| `/adjudicate-tier3 [path]` | Judge the rules no script can check | No, writes verdicts |
 | `/apply-feedback "<comments>"` | Apply review comments, fix every other instance, and add a check | Yes, after approval, and edits the toolchain |
 | `/doc-gap "<violation>"` | Turn a missed violation into a permanent check | No, edits the toolchain |
 | `/add-doc-rule "<rule>"` | Add a decided rule plus its check and test | No, edits the toolchain |
@@ -101,17 +97,20 @@ so they stop unless they run against a git clone of this repository. The plugin'
 qualify, because each plugin update replaces it and discards any edit made there. Run those four
 from inside your clone, or from a docs project that sits next to it.
 
-### Which revamp command
+### How `/fix-docs` routes a page
 
-The three revamp commands split by rule family, because each family has its own templates and its
-own linter. Picking the wrong one produces a long list of findings that are all wrong in the same
-way.
+Each rule family has its own templates and its own linter, and the wrong one produces a long list of
+findings that are all wrong in the same way. `/fix-docs` routes every file by itself, so one run can
+cover a folder that mixes families:
 
-| The page is | Command | Linter behind it |
+| The page is | Linter | Playbook |
 | --- | --- | --- |
-| `usage_guide.md`, `class_reference.md` or a file under `methods/` | `/revamp-api-ref` | `scripts/lint/lint-api-ref.js` |
-| A CLI command reference, task runbook, module reference or plugin guide | `/revamp-cli-doc` | `scripts/lint/lint-doc.js` with a `cli-` type |
-| Any of the eight prose types in `doc-templates/feature-docs/` | `/revamp-doc` | `scripts/lint/lint-doc.js` |
+| `usage_guide.md`, `class_reference.md` or a file under `methods/` | `scripts/lint/lint-api-ref.js` | `doc-templates/playbooks/api-ref.md` |
+| A CLI command reference, task runbook, module reference or plugin guide | `scripts/lint/lint-doc.js` with a `cli-` type | `doc-templates/playbooks/cli.md` |
+| Any of the eight prose types in `doc-templates/feature-docs/` | `scripts/lint/lint-doc.js` | `doc-templates/playbooks/prose.md` |
+
+The playbooks live outside `.claude/commands/` on purpose. Claude Code would turn any markdown file in
+that folder into a command.
 
 ### `/doc-gap` against `/add-doc-rule`
 
@@ -125,7 +124,7 @@ Both end with a new check in the registry, and they start from different places.
 ## The shared resolver
 
 Every command opens with the same block. Do not edit one copy. `scripts/test/commands.test.js`
-asserts all eleven carry it verbatim, and the test fails on a copy that has drifted.
+asserts all seven carry it verbatim, and the test fails on a copy that has drifted.
 
 ```bash
 ROOT=$(git rev-parse --show-toplevel 2>/dev/null || pwd)

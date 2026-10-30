@@ -286,7 +286,7 @@ function docTypeFromFrontMatter(doc) {
   return VALID_TYPES.includes(value) ? value : null;
 }
 
-/** Doc-type detection, mirroring ~/.claude/commands/revamp-doc.md Step 1's priority order. */
+/** Doc-type detection, mirroring the priority order in doc-templates/playbooks/prose.md. */
 function detectDocType(doc) {
   const declared = docTypeFromFrontMatter(doc);
   if (declared) return declared;

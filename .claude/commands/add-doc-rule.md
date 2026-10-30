@@ -98,7 +98,7 @@ Tier discipline is the part that matters:
 - **Tier 2** for anything with a judgment component. Its findings must carry a `falsePositiveNote`
   naming what the check knowingly accepts.
 - **Tier 3** for a rule no script can decide. A tier-3 rule must not name a `checkId`, and it is
-  surfaced by `/adjudicate-tier3` instead.
+  surfaced by the judges that `/fix-docs` runs instead.
 
 ## Step 4: Declare the check source
 
@@ -107,8 +107,8 @@ pattern constants it uses. `validateRegistry()` fails the whole suite without it
 exists because a rule once shipped advertising coverage that never existed.
 
 If you are deliberately stating a rule you cannot yet enforce, set `"kind": "unimplemented"` and
-`"module": null`. That is honest, and it puts the rule on the manual checklists the revamp commands
-carry. Sixteen CLI rules are in exactly that state today.
+`"module": null`. That is honest, and `/fix-docs` puts the rule on the checklist of every page
+it applies to. Sixteen CLI rules are in exactly that state today.
 
 ## Step 5: Write the check
 

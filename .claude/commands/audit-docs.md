@@ -4,8 +4,8 @@ Audit a whole documentation corpus and rank every finding by rule, so a fix land
 
 **Usage:** `/audit-docs path/to/docs`
 
-This command changes nothing. It reports. To fix one page, use `/revamp-doc`, `/revamp-cli-doc` or
-`/revamp-api-ref`.
+This command changes nothing. It reports. To fix a page or a folder, use
+`/fix-docs`.
 
 ## Setup
 
@@ -122,10 +122,10 @@ Report, in this order:
    wordlist is cleared by one entry. A rule whose module matches less than its own text says is
    cleared by widening one pattern. Name which kind each is, and hand the promising ones to
    `/doc-gap`.
-3. **Files with the most tier-1 findings**, at most ten, as revamp candidates.
+3. **Files with the most tier-1 findings**, at most ten, as the first targets for `/fix-docs`.
 4. **The API reference results** from Step 2, separately.
 5. **Any rule firing on nearly every file**, called out as suspect. A tier-1 rule firing on a corpus
    believed clean usually means the rule or its tier is wrong, not that the corpus is. Check whether
    the pages have a declared `doc_type:` before believing it, because an undeclared corpus makes the
    heuristic answer `conceptual-guide` for almost everything and the section rules then ask every
-   page for sections it should never have. `/classify-doc-types` fixes that.
+   page for sections it should never have. `/fix-docs` declares the type of every page it touches.

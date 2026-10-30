@@ -84,7 +84,7 @@ Commit that file into the project, not into this repository. It describes the pr
 ## Step 3: Declare the doc types
 
 An undeclared corpus makes the linter guess, and the guess is `conceptual-guide` for most pages.
-Run `/classify-doc-types` against the corpus, or the three steps directly:
+Run the three steps directly. `/fix-docs` also declares the type of any page it touches:
 
 ```bash
 node "$STANDARDS/scripts/judges/classify-doc-type.js" "$CORPUS"
@@ -136,8 +136,8 @@ A hook that is configured but cannot resolve the linter fails silently, which is
 worth catching now rather than in three weeks.
 
 Note the one gap: the hook only ever runs `lint-doc.js`. Editing a `class_reference.md` or a method
-page produces findings for sections that shape never had. Tell the team to use `/revamp-api-ref` for
-those pages and to read hook output on them with suspicion.
+page produces findings for sections that shape never had. Tell the team to use `/fix-docs` for
+those pages, which lints them with `lint-api-ref.js`, and to read hook output on them with suspicion.
 
 ## Step 6: Install the commands
 

@@ -120,5 +120,5 @@ One line per stage, pass or fail, in the order they ran. On any failure, name it
 - The generated file that was stale.
 
 End with the verdict in one sentence: safe to merge, or not, and what has to happen first. Do not
-fix anything. Hand a rule problem to `/add-doc-rule` or `/doc-gap`, and a page problem to the
-matching revamp command.
+fix anything. Hand a rule problem to `/add-doc-rule` or `/doc-gap`, and a page problem to
+`/fix-docs`.

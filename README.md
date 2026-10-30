@@ -30,10 +30,8 @@ Find your job in this table and go to the section it names.
 | You want to | Command | Or read |
 | --- | --- | --- |
 | Write a new documentation page | none, do it by hand | [Pick a doc type](#pick-a-doc-type), then workflow 1 |
-| Fix an existing page against the rules | `/revamp-doc`, `/revamp-api-ref` or `/revamp-cli-doc` | Workflow 2 |
-| Audit a whole documentation corpus | `/audit-docs` | Workflow 3 |
-| Declare `doc_type:` across a corpus | `/classify-doc-types` | Workflow 7 |
-| Judge the rules no script can check | `/adjudicate-tier3` | Workflow 6 |
+| Check and fix a page or a folder against every rule | `/fix-docs` | Workflow 2 |
+| Audit a whole documentation corpus, changing nothing | `/audit-docs` | Workflow 3 |
 | Apply review comments, fix every other instance, and add a check | `/apply-feedback` | Workflow 4 |
 | Understand why the linter missed something | `/doc-gap` | Workflow 4 |
 | Add a rule, or write a check for one | `/add-doc-rule` | [Rule system](#rule-system), then workflow 5 |
@@ -48,7 +46,7 @@ Find your job in this table and go to the section it names.
 Four paths, and knowing which one is running matters when a result surprises you.
 
 1. **The editor hooks.** Every `Write` or `Edit` of a markdown file under a `docs/` path in a consuming repo runs the dash check and then the linter. Tier 1 findings block the edit. This path runs on every documentation edit, without anyone invoking it.
-2. **The ten slash commands.** One per task this repository can perform, from revamping a single page to running the pre-merge gate. They are git-tracked in `.claude/commands/`, and the repository ships them as a Claude Code plugin, so they work in any project and in Claude Code on the web. `scripts/install-commands.sh` links the same files into Codex and Cursor. `.claude/README.md` is the index.
+2. **The seven slash commands.** One per task this repository can perform, from revamping a single page to running the pre-merge gate. They are git-tracked in `.claude/commands/`, and the repository ships them as a Claude Code plugin, so they work in any project and in Claude Code on the web. `scripts/install-commands.sh` links the same files into Codex and Cursor. `.claude/README.md` is the index.
 3. **The npm scripts.** Run manually from `scripts/` when auditing a corpus, closing a gap or rebuilding generated data.
 4. **Agent context.** An agent working on documentation in another repo loads `doc-templates/feature-docs/common-rules.md` and the matching type file as context.
 
@@ -73,7 +71,7 @@ Every `doc-standards` folder on this machine has been merged into this repositor
 | `scripts/tools/` | Corpus probes, wordlist audits, the mirror sync, the flat-doc merger | Maintaining the toolchain itself |
 | `scripts/fix/` | 10 fixers, deterministic and model-backed | Fixing findings at corpus scale |
 | `scripts/build/` | Two generators that produce committed artifacts | After changing a section-order table or a rule |
-| `scripts/test/` | 39 test files plus fixtures, 681 tests | Every change to any of the above |
+| `scripts/test/` | 40 test files plus fixtures, 686 tests | Every change to any of the above |
 | `MERGE-NOTES.md` | The merge history and the maintenance policy | When merging another fork |
 | `REFERENCE-RULES.md` | Generated rule catalog | Never manually, run `npm run build:readme` |
 | `REFERENCE-CHECKS.md` | Generated check catalog | Never manually, run `npm run build:readme` |
@@ -117,7 +115,7 @@ Rule inheritance differs by family, so read the right pair of files.
 
 The API reference family needs its own linter rather than a flag on the shared one. An api-ref method page has no H1 title and no H2 sections, so the shared type detection falls through to `conceptual-guide` and the run fills with findings for a missing Overview and missing Prerequisites that the shape never had.
 
-`doc-templates/feature-docs/section-matrix.md` is the cross-type lookup: one table of 26 sections against 12 doc types, each cell Required, Optional or Not used. Use it to answer "does this type take a Troubleshooting section" without opening four files. It does not cover the three api-ref shapes. `/revamp-api-ref` routes a reader to those, and `doc-templates/api-ref/api-ref-usage-guide-v2.md` and `checks/api-ref-structure.js` also enumerate them. One caveat before relying on the matrix. `data/section-matrix.json` is generated but never read at runtime. `lib/section-index.js` requires it and re-exports it unused, and nothing else in `scripts/` touches it, so the matrix is documentation rather than enforcement.
+`doc-templates/feature-docs/section-matrix.md` is the cross-type lookup: one table of 26 sections against 12 doc types, each cell Required, Optional or Not used. Use it to answer "does this type take a Troubleshooting section" without opening four files. It does not cover the three api-ref shapes. `doc-templates/playbooks/api-ref.md` routes a reader to those, and `doc-templates/api-ref/api-ref-usage-guide-v2.md` and `checks/api-ref-structure.js` also enumerate them. One caveat before relying on the matrix. `data/section-matrix.json` is generated but never read at runtime. `lib/section-index.js` requires it and re-exports it unused, and nothing else in `scripts/` touches it, so the matrix is documentation rather than enforcement.
 
 ### Required sections
 
@@ -270,7 +268,7 @@ Grouped by job rather than alphabetically.
 | Rebuild section data | `npm run build:section-order` | Regenerates the two generated JSON tables. |
 | Rebuild the catalogs | `npm run build:readme` | Regenerates the two REFERENCE files. |
 | Everything that gates | `npm run gate` | `test`, then `links`, then `sweep:tier1`. Run before any commit. |
-| Run the tests | `npm test` | 681 tests across 39 files. |
+| Run the tests | `npm test` | 686 tests across 40 files. |
 
 The judges and the mirror sit outside `gate` on purpose. The judges cost money per call and need the `claude` CLI, so they must never run on a keystroke. The mirror rewrites files.
 
@@ -377,7 +375,7 @@ The first three need the `claude` CLI and cost money per call. `judge-editorial.
 
 ### Tests
 
-`npm test` runs `node --test test/*.test.js`. 681 tests across 39 files, all passing, none skipped.
+`npm test` runs `node --test test/*.test.js`. 686 tests across 40 files, all passing, none skipped.
 
 Fixtures work as matched controls: `clean-feature-doc.md` beside `broken-feature-doc.md`, `clean-cli-command-reference.md` beside its broken twin, and `api-ref-good/` beside `api-ref-broken/`. A clean fixture that starts reporting findings is as much a failure as a broken fixture that stops.
 
@@ -394,13 +392,21 @@ The rule that governs a new test comes from the gap loop: a regression test that
 5. Lint it: `cd scripts && npm run lint -- ../path/to/page.md --type=<type>`.
 6. Fix every tier-1 finding. Read the tier-2 findings and fix what is genuinely wrong.
 
-### 2. Revamp an existing page
+### 2. Fix a page or a folder
 
-Run `/revamp-doc` and let it drive. It detects the type, lints, reads the rule files, runs the B1 and B2 audit, then edits in place. Use `/revamp-api-ref` for an api-ref page and `/revamp-cli-doc` for one of the four CLI types, since each family has its own templates and its own linter.
+Run `/fix-docs <file-or-folder>` and let it drive. It covers all fifteen page shapes, and it picks the linter and the playbook per file, so a folder that mixes prose, CLI and api-ref pages needs one run.
 
-The three revamp commands cover all fifteen page shapes between them, and each one routes a page that belongs to another family rather than linting it as the wrong type. `/revamp-doc` now handles `chapter-index` as well as the seven other prose types.
+`scripts/fix/fix-all.js` does the mechanical part:
 
-Never write a `-revamped.md` sibling. Confirm the file is clean in `git status` first, then edit in place.
+1. Writes `doc_type:` on pages that lack it.
+2. Lints each page with `lint-doc.js` or `lint-api-ref.js`.
+3. Runs every fixer whose rules fired, then repairs the anchors a renamed heading broke.
+4. Asks the judges for a verdict on every tier-3 candidate, within a `--max-calls` budget.
+5. Writes `ledger.json`: every open finding, every verdict, and one checklist per page of the tier-3 rules and the rules no check enforces.
+
+The agent then works the ledger against the playbook for each family in `doc-templates/playbooks/`. It fixes the page, or records a false alarm with a reason in `resolutions.json`. `fix-all.js --reconcile` exits 1 while any item is open. A tier-1 false alarm has to quote the rule's own exception. Questions only the user can answer go to `NEEDS-YOUR-INPUT.md`, each linked to its line.
+
+Edits land in place. Git keeps the previous version, so review the diff and revert what you disagree with.
 
 ### 3. Audit a corpus
 
@@ -441,6 +447,8 @@ Skipping step 4 or 7 leaves the registry claiming coverage the catalog does not 
 
 ### 6. Adjudicate tier 3
 
+`/fix-docs` runs the judges as part of every run. To run them alone:
+
 ```bash
 cd scripts
 npm run review           # generate candidates
@@ -454,7 +462,7 @@ Generation only writes candidates and judgment only writes verdicts, one directi
 
 1. Place this repository so that `../../docs` from `scripts/` resolves to the project's docs folder, or pass a target explicitly.
 2. If the project has non-documentation markdown under `docs/`, write a corpus-class file and point `DOC_STANDARDS_CORPUS_CLASSES` at it. Skipping this is what produces thousands of findings on files nobody publishes.
-3. Run `npm run classify` and then `classify:apply` to declare `doc_type:` across the corpus.
+3. Run `npm run classify` and then `classify:apply` to declare `doc_type:` across the corpus. `/fix-docs` also does this for any page it touches.
 4. Baseline with `npm run sweep:tier1`.
 5. Confirm the editor hooks are installed, per the next section.
 
@@ -467,7 +475,7 @@ global instructions. The hooks and the global instructions are per-machine files
 
 The commands live in this repository, at `.claude/commands/`. The two files in `.claude-plugin/`
 make the repository its own Claude Code plugin marketplace, so the whole repository, scripts
-included, installs as one plugin. Each route below reads the same eleven files:
+included, installs as one plugin. Each route below reads the same seven files:
 
 | Where you work | Install once |
 | --- | --- |
@@ -475,18 +483,14 @@ included, installs as one plugin. Each route below reads the same eleven files:
 | Claude Code on the web | The setup script in `.claude/README.md`, pasted into the `claude.ai/code` environment |
 | Codex or Cursor | `bash scripts/install-commands.sh --tool=codex` or `--tool=cursor` |
 
-Plugin commands carry the plugin name as a prefix, for example `/doc-standards:revamp-doc`. Inside
-this repository the bare `/revamp-doc` also works. `.claude/README.md` holds the full index, the
+Plugin commands carry the plugin name as a prefix, for example `/doc-standards:fix-docs`. Inside
+this repository the bare `/fix-docs` also works. `.claude/README.md` holds the full index, the
 update steps and the shared path resolver.
 
 | Command | Does |
 | --- | --- |
-| `/revamp-doc` | Brings one prose page into compliance. Detects the type, lints, reads the rule files, audits, edits in place |
-| `/revamp-api-ref` | The same for the three api-ref page shapes, using `lint-api-ref.js` and the `api-ref` templates |
-| `/revamp-cli-doc` | The same for the four CLI types, and carries the sixteen unenforced CLI rules as a manual checklist |
+| `/fix-docs` | Runs every check on a page or folder, applies every fixer, judges the rest, and finishes only when every finding is resolved. Replaces the three revamp commands, `/classify-doc-types` and `/adjudicate-tier3` |
 | `/audit-docs` | Sweeps a corpus and ranks findings by rule. Routes api-ref subtrees to their own linter |
-| `/classify-doc-types` | Declares `doc_type:` across a corpus, generate then judge then reconcile then apply |
-| `/adjudicate-tier3` | Generates tier-3 candidates, judges each one, and reconciles so a partial review cannot read as complete |
 | `/apply-feedback` | Applies review comments to the open page, fixes the approved instances across the corpus, and adds a check or a judge rule |
 | `/doc-gap` | Turns a missed violation into a permanent check with a test. Diagnoses first |
 | `/add-doc-rule` | Codifies a rule already decided, with its registry row, check, fixture and test |
@@ -495,7 +499,7 @@ update steps and the shared path resolver.
 
 `scripts/test/commands.test.js` guards them. It asserts the following:
 
-- All eleven are present, and the commands folder holds nothing else.
+- All seven are present, and the commands folder holds nothing else.
 - Each carries the shared resolver verbatim, and none has reverted to the single-layout form.
 - The four commands that edit the toolchain exit with an error when the resolver picks the plugin's copy.
 - The plugin manifests ship the commands folder and the whole repository, with no pinned version.
@@ -529,7 +533,7 @@ Treat this repository as authoritative. That global file states its own provenan
 ```bash
 git clone https://github.com/aravindh-cstk/doc-standards.git
 cd doc-standards/scripts
-npm test                                  # expect 681 passing
+npm test                                  # expect 686 passing
 ```
 
 Then install the plugin as [the slash commands](#the-slash-commands) describes, place both hook scripts in `~/.claude/hooks/`, and add the `PostToolUse` block to `~/.claude/settings.json`. Confirm the chain works by writing a deliberate em dash into a markdown file under a `docs/` path and checking that the edit is refused.
@@ -609,7 +613,7 @@ Having no registry entry is not the same as having no enforcement. Five of these
 | `MOD2`, a Quick Reference must be present | `C1-01`, the same way. Its completeness half is not checked |
 | The chapter-index ban on Quick Start, Role-Based Routing Table and Documentation Map | `C1-01`, through the get-started-only forbidden list |
 
-What genuinely has no enforcement: `CMD1`, the other direction of `CMD2`, `RUN1`, `RUN2`, `RUN3`, `MOD1a`, `MOD1b`, the completeness half of `MOD2`, the Prerequisites and Limitations halves of `MOD3`, `MOD4`, and four of the six chapter-index rules, which `/revamp-doc` now enforces by eye in its Step 5 rather than by script. The cheapest of those is `MOD3`, because `section-structure.js` already has the exact per-type forbidden-list shape it needs, and `compareOrder` already computes an `unexpected` array that nothing reads.
+What genuinely has no enforcement: `CMD1`, the other direction of `CMD2`, `RUN1`, `RUN2`, `RUN3`, `MOD1a`, `MOD1b`, the completeness half of `MOD2`, the Prerequisites and Limitations halves of `MOD3`, `MOD4`, and four of the six chapter-index rules, which `/fix-docs` puts on every chapter index's checklist, from `doc-templates/playbooks/prose.md`, rather than enforcing by script. The cheapest of those is `MOD3`, because `section-structure.js` already has the exact per-type forbidden-list shape it needs, and `compareOrder` already computes an `unexpected` array that nothing reads.
 
 ### Duplicate rules
 
@@ -618,7 +622,7 @@ What genuinely has no enforcement: `CMD1`, the other direction of `CMD2`, `RUN1`
 
 ### Tooling drift
 
-- The editor hook only ever runs `lint-doc.js`. Editing a `class_reference.md` or a method page in a consuming repository produces findings for sections that shape never had, because `detectDocType` reads it as a conceptual guide. Route those pages through `/revamp-api-ref` and read hook output on them with suspicion. The fix is a filename test in `~/.claude/hooks/lint_doc_standards.py`.
+- The editor hook only ever runs `lint-doc.js`. Editing a `class_reference.md` or a method page in a consuming repository produces findings for sections that shape never had, because `detectDocType` reads it as a conceptual guide. Run `/fix-docs` on those pages, which lints them with `lint-api-ref.js`, and read hook output on them with suspicion. The fix is a filename test in `~/.claude/hooks/lint_doc_standards.py`.
 - `lint-api-ref.js` filters by filename only when its target is a directory. Given a single file it lints it whatever the name, treating anything that is not a class page or usage guide as a method page. Pointed at a prose page it reports a full set of confident nonsense rather than refusing.
 - Six `CLI` and `PLG` check names in `data/check-sources.json` do not describe the rule they are attached to. `cli-exit-code-heuristic` is bound to `CLI-15`, which is about re-verifying a derived doc, and `cli-error-entry-heuristic` to `CLI-10`, which is about shell prompts in code fences. All are `unimplemented`, so nothing behaves wrongly today, and a reader picking a name up as a specification would be misled.
 
@@ -634,7 +638,7 @@ The cost is not even across the two. At line 79 the missing filename is incident
 
 ### Leftovers
 
-`doc-types/api-reference/SKILL.md` used to sit here as a routing file that owned no rules. It was named `SKILL.md` and no skill loader read it, because it sat outside any `.claude/skills` tree. Its two useful sections, the test for whether a page belongs to the api-ref family and the reason the `AR-*` rules live in the root registry, now sit in `/revamp-api-ref`, which is where a reader is already looking when they need either one. The folder is gone.
+`doc-types/api-reference/SKILL.md` used to sit here as a routing file that owned no rules. It was named `SKILL.md` and no skill loader read it, because it sat outside any `.claude/skills` tree. Its two useful sections, the test for whether a page belongs to the api-ref family and the reason the `AR-*` rules live in the root registry, now sit in `doc-templates/playbooks/api-ref.md`, which is where a reader is already looking when they need either one. The folder is gone.
 
 ## Editing this repo
 

@@ -6,7 +6,7 @@
 // in a different place depending on the consumer: this checkout as its own git
 // root, a doc-standards/ subfolder of a consuming project, the Claude Code
 // plugin's own copy, or the ~/.doc-standards link that install-commands.sh
-// makes for other agents. The resolver handles all of them. Eleven copies of eight lines drift, so this asserts they
+// makes for other agents. The resolver handles all of them. Seven copies of eight lines drift, so this asserts they
 // have not, and that no command has reverted to the single-layout form that
 // broke both original commands when run from inside this repo.
 
@@ -62,16 +62,12 @@ const BROKEN_FORM = 'STANDARDS="$ROOT/doc-standards"\n';
 
 const EXPECTED = [
   'add-doc-rule',
-  'adjudicate-tier3',
   'apply-feedback',
   'audit-docs',
-  'classify-doc-types',
   'doc-gap',
   'doc-gate',
+  'fix-docs',
   'onboard-docs-repo',
-  'revamp-api-ref',
-  'revamp-cli-doc',
-  'revamp-doc',
 ];
 
 function commandFiles() {
@@ -82,7 +78,7 @@ function commandFiles() {
 
 const read = (f) => fs.readFileSync(path.join(COMMANDS_DIR, f), 'utf8');
 
-test('all eleven commands are present', () => {
+test('all seven commands are present', () => {
   assert.deepEqual(commandFiles().map((f) => path.basename(f, '.md')), EXPECTED);
 });
 
